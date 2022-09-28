@@ -74,13 +74,8 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(InlineResponse400));
-            string exampleJson = null;
-            exampleJson = "\"\"";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<InlineResponse20029>(exampleJson)
-            : default(InlineResponse20029);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return null;
         }
 
         /// <summary>
@@ -133,13 +128,8 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(InlineResponse400));
-            string exampleJson = null;
-            exampleJson = "{\n  \"newsFeedType\" : \"room\",\n  \"ext\" : { },\n  \"newsFeedId\" : \"123e4567-e89b-12d3-a456-134564174222\",\n  \"name\" : [ {\n    \"language\" : \"en-GB\",\n    \"value\" : \"room Bb 4.35 news\"\n  } ],\n  \"description\" : [ {\n    \"language\" : \"en-GB\",\n    \"value\" : \"all information on what happens in room Bb 4.35\"\n  } ],\n  \"consumers\" : [ {\n    \"consumerKey\" : \"x-test-consumer\",\n    \"additional\" : \"custom\",\n    \"attributes\" : \"here\"\n  } ]\n}";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<InlineResponse20030>(exampleJson)
-            : default(InlineResponse20030);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return null;
         }
 
         /// <summary>
@@ -198,13 +188,8 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(InlineResponse400));
-            string exampleJson = null;
-            exampleJson = "\"\"";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<InlineResponse20031>(exampleJson)
-            : default(InlineResponse20031);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return null;
         }
 
         /// <summary>
@@ -258,13 +243,8 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(InlineResponse400));
-            string exampleJson = null;
-            exampleJson = "{\n  \"ext\" : { },\n  \"image\" : \"https://upload.wikimedia.org/wikipedia/commons/4/44/Antu_emblem-unavailable.svg\",\n  \"link\" : \"https://www.universiteitvanharderwijk.nl/cms/ruimtegebrek\",\n  \"newsFeeds\" : [ \"\", \"\" ],\n  \"newsItemId\" : \"123e4567-e89b-12d3-a456-122564174000\",\n  \"validFrom\" : \"2020-09-28T08:30:00Z\",\n  \"content\" : [ {\n    \"language\" : \"en-GB\",\n    \"value\" : \"The room Bb 4.35 will be under maintenance\"\n  } ],\n  \"name\" : [ {\n    \"language\" : \"en-GB\",\n    \"value\" : \"Room Bb 4.35 will be un available from 2020-09-29 until 2020-09-30\"\n  } ],\n  \"validUntil\" : \"2020-09-30T20:00:00Z\",\n  \"consumers\" : [ {\n    \"consumerKey\" : \"x-test-consumer\",\n    \"additional\" : \"custom\",\n    \"attributes\" : \"here\"\n  } ],\n  \"newsItemType\" : \"calamity\",\n  \"lastModified\" : \"2020-09-28T00:00:00Z\",\n  \"authors\" : [ \"admin@universiteitvanharderwijk.nl\" ]\n}";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<InlineResponse20032>(exampleJson)
-            : default(InlineResponse20032);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return null;
         }
     }
 }

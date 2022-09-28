@@ -75,13 +75,8 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(InlineResponse400));
-            string exampleJson = null;
-            exampleJson = "\"\"";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<InlineResponse2005>(exampleJson)
-            : default(InlineResponse2005);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return null;
         }
 
         /// <summary>
@@ -141,13 +136,8 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(InlineResponse400));
-            string exampleJson = null;
-            exampleJson = "\"\"";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<InlineResponse2009>(exampleJson)
-            : default(InlineResponse2009);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return null;
         }
 
         /// <summary>
@@ -208,13 +198,8 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(InlineResponse400));
-            string exampleJson = null;
-            exampleJson = "\"\"";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<InlineResponse2008>(exampleJson)
-            : default(InlineResponse2008);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return null;
         }
 
         /// <summary>
@@ -273,13 +258,8 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(InlineResponse400));
-            string exampleJson = null;
-            exampleJson = "\"\"";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<InlineResponse20012>(exampleJson)
-            : default(InlineResponse20012);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return null;
         }
 
         /// <summary>
@@ -387,13 +367,8 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(InlineResponse400));
-            string exampleJson = null;
-            exampleJson = "\"\"";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<InlineResponse20011>(exampleJson)
-            : default(InlineResponse20011);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return null;
         }
 
         /// <summary>
@@ -456,13 +431,8 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(InlineResponse400));
-            string exampleJson = null;
-            exampleJson = "\"\"";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<InlineResponse20010>(exampleJson)
-            : default(InlineResponse20010);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return null;
         }
 
         /// <summary>

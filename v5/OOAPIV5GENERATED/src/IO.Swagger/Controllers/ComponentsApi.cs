@@ -137,13 +137,8 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(InlineResponse400));
-            string exampleJson = null;
-            exampleJson = "\"\"";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<InlineResponse20020>(exampleJson)
-            : default(InlineResponse20020);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return null;
         }
     }
 }
