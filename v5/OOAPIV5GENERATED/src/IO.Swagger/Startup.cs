@@ -20,6 +20,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml.XPath;
@@ -141,7 +142,14 @@ namespace IO.Swagger
 
             app.UseAuthorization();
 
-            app.UseSwagger();
+            app.UseSwagger(options =>
+            {
+                options.PreSerializeFilters.Add((swagger, httpReq) =>
+                {
+                    var scheme = httpReq.Host.Host.StartsWith("localhost", StringComparison.OrdinalIgnoreCase) ? "http" : "https";
+                    swagger.Servers = new List<OpenApiServer>() { new OpenApiServer() { Url = $"{scheme}://{httpReq.Host}" } };
+                });
+            });
             app.UseSwaggerUI(c =>
             {
                 //TODO: Either use the SwaggerGen generated Swagger contract (generated from C# classes)
