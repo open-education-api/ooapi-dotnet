@@ -39,7 +39,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/academic-sessions/{academicSessionId}")]
+        [Route("/v5.0/academic-sessions/{academicSessionId}")]
         [ValidateModelState]
         [SwaggerOperation("AcademicSessionsAcademicSessionIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(AcademicSession), description: "OK")]
@@ -103,7 +103,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/academic-sessions/{academicSessionId}/offerings")]
+        [Route("/v5.0/academic-sessions/{academicSessionId}/offerings")]
         [ValidateModelState]
         [SwaggerOperation("AcademicSessionsAcademicSessionIdOfferingsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Offering>), description: "OK")]
@@ -163,7 +163,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/academic-sessions")]
+        [Route("/v5.0/academic-sessions")]
         [ValidateModelState]
         [SwaggerOperation("AcademicSessionsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<AcademicSession>), description: "OK")]

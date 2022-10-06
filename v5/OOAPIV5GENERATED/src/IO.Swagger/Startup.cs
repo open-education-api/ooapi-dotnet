@@ -73,13 +73,31 @@ namespace IO.Swagger
             services
                 .AddSwaggerGen(options =>
                 {
+                    options.SwaggerDoc("ooapiv5.0", new OpenApiInfo
+                    {
+                        Title = "OoApi V5.0",
+                        Version = "Open Onderwijs Api V5.0",
+                        Description = "Open Education API (ASP.NET 6)",
+                        Contact = new OpenApiContact()
+                        {
+                            Name = "Swagger Codegen Contributors",
+                            Url = new Uri("https://github.com/swagger-api/swagger-codegen"),
+                            Email = ""
+                        }//, TermsOfService = new Uri("")
+                    });
+                    options.CustomSchemaIds(type => type.FullName);
+
+
                     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                     options.EnableAnnotations();
                     //??options.DocumentFilter<HideInDocsFilter>();
                     var comments = new XPathDocument(xmlPath);
                     options.SchemaFilter<XmlCommentsSchemaFilter>(comments);
-                    options.SwaggerDoc("ooapiv5", new OpenApiInfo { Title = "OoApi V5", Version = "Open Onderwijs Api V5" });
+                    //options.SwaggerDoc("ooapiv5.0", new OpenApiInfo { 
+                    //    Title = "OoApi V5.0", 
+                    //    Version = "Open Onderwijs Api V5.0" 
+                    //});
                     options.IncludeXmlComments(xmlPath);
                 });
 
@@ -127,7 +145,7 @@ namespace IO.Swagger
             app.UseSwaggerUI(c =>
             {
                 //TODO: Either use the SwaggerGen generated Swagger contract (generated from C# classes)
-                c.SwaggerEndpoint("/swagger/ooapiv5/swagger.json", "Open Onderwijs Api V5");
+                c.SwaggerEndpoint("/swagger/ooapiv5.0/swagger.json", "Open Onderwijs Api V5.0");
 
                 //TODO: Or alternatively use the original Swagger contract that's included in the static files
                 // c.SwaggerEndpoint("/swagger-original.json", "Open Education API Original");

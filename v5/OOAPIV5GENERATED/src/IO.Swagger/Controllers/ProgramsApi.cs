@@ -48,7 +48,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/programs")]
+        [Route("/v5.0/programs")]
         [ValidateModelState]
         [SwaggerOperation("ProgramsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Program>), description: "OK")]
@@ -106,7 +106,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/programs/{programId}/courses")]
+        [Route("/v5.0/programs/{programId}/courses")]
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdCoursesGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Course>), description: "OK")]
@@ -162,7 +162,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/programs/{programId}")]
+        [Route("/v5.0/programs/{programId}")]
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Program), description: "OK")]
@@ -226,7 +226,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/programs/{programId}/offerings")]
+        [Route("/v5.0/programs/{programId}/offerings")]
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdOfferingsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<ProgramOffering>), description: "OK")]
@@ -290,7 +290,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/programs/{programId}/programs")]
+        [Route("/v5.0/programs/{programId}/programs")]
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdProgramsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Program>), description: "OK")]

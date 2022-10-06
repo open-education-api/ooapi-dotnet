@@ -39,7 +39,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/components/{componentId}")]
+        [Route("/v5.0/components/{componentId}")]
         [ValidateModelState]
         [SwaggerOperation("ComponentsComponentIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Component), description: "OK")]
@@ -101,7 +101,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/components/{componentId}/offerings")]
+        [Route("/v5.0/components/{componentId}/offerings")]
         [ValidateModelState]
         [SwaggerOperation("ComponentsComponentIdOfferingsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<ComponentOffering>), description: "OK")]

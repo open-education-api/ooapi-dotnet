@@ -39,7 +39,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/associations/{associationId}")]
+        [Route("/v5.0/associations/{associationId}")]
         [ValidateModelState]
         [SwaggerOperation("AssociationsAssociationIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Association), description: "OK")]
@@ -88,7 +88,7 @@ namespace IO.Swagger.Controllers
         ///// <response code="200">OK</response>
         ///// <response code="400">Bad request</response>
         //[HttpPatch]
-        //[Route("/v5/associations/{associationId}")]
+        //[Route("/v5.0/associations/{associationId}")]
         //[ValidateModelState]
         //[SwaggerOperation("AssociationsAssociationIdPatch")]
         //[SwaggerResponse(statusCode: 200, type: typeof(Association), description: "OK")]
@@ -117,7 +117,7 @@ namespace IO.Swagger.Controllers
         ///// <response code="201">CREATED</response>
         ///// <response code="400">Bad request</response>
         //[HttpPost]
-        //[Route("/v5/associations/external/me")]
+        //[Route("/v5.0/associations/external/me")]
         //[ValidateModelState]
         //[SwaggerOperation("AssociationsExternalMePost")]
         //[SwaggerResponse(statusCode: 201, type: typeof(InlineResponse20024), description: "CREATED")]

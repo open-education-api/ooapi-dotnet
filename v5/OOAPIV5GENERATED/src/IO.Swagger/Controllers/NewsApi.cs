@@ -42,7 +42,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/news-feeds")]
+        [Route("/v5.0/news-feeds")]
         [ValidateModelState]
         [SwaggerOperation("NewsFeedsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<NewsFeed>), description: "OK")]
@@ -92,7 +92,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/news-feeds/{newsFeedId}")]
+        [Route("/v5.0/news-feeds/{newsFeedId}")]
         [ValidateModelState]
         [SwaggerOperation("NewsFeedsNewsFeedIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(NewsFeed), description: "OK")]
@@ -152,7 +152,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/news-feeds/{newsFeedId}/news-items")]
+        [Route("/v5.0/news-feeds/{newsFeedId}/news-items")]
         [ValidateModelState]
         [SwaggerOperation("NewsFeedsNewsFeedIdNewsItemsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<NewsItem>), description: "OK")]
@@ -207,7 +207,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/news-items/{newsItemId}")]
+        [Route("/v5.0/news-items/{newsItemId}")]
         [ValidateModelState]
         [SwaggerOperation("NewsItemsNewsItemIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(NewsItem), description: "OK")]

@@ -33,7 +33,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/")]
+        [Route("/v5.0/")]
         [ValidateModelState]
         [SwaggerOperation("RootGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Service), description: "OK")]

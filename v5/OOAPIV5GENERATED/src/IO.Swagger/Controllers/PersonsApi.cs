@@ -45,7 +45,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/persons")]
+        [Route("/v5.0/persons")]
         [ValidateModelState]
         [SwaggerOperation("PersonsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Person>), description: "OK")]
@@ -94,7 +94,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/persons/me")]
+        [Route("/v5.0/persons/me")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("PersonsMeGet")]
@@ -157,7 +157,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/persons/{personId}/associations")]
+        [Route("/v5.0/persons/{personId}/associations")]
         [ValidateModelState]
         [SwaggerOperation("PersonsPersonIdAssociationsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Association>), description: "OK")]
@@ -211,7 +211,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/persons/{personId}")]
+        [Route("/v5.0/persons/{personId}")]
         [ValidateModelState]
         [SwaggerOperation("PersonsPersonIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Person), description: "OK")]
@@ -270,7 +270,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/persons/{personId}/groups")]
+        [Route("/v5.0/persons/{personId}/groups")]
         [ValidateModelState]
         [SwaggerOperation("PersonsPersonIdGroupsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Group>), description: "OK")]
@@ -313,7 +313,7 @@ namespace IO.Swagger.Controllers
         ///// <response code="201">CREATED</response>
         ///// <response code="400">Bad request</response>
         //[HttpPost]
-        //[Route("/v5/persons")]
+        //[Route("/v5.0/persons")]
         //[ValidateModelState]
         //[SwaggerOperation("PersonsPost")]
         //[SwaggerResponse(statusCode: 201, type: typeof(List<Person>), description: "CREATED")]

@@ -46,7 +46,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/offerings/{offeringId}/associations")]
+        [Route("/v5.0/offerings/{offeringId}/associations")]
         [ValidateModelState]
         [SwaggerOperation("OfferingsOfferingIdAssociationsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Association>), description: "OK")]
@@ -101,7 +101,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/offerings/{offeringId}")]
+        [Route("/v5.0/offerings/{offeringId}")]
         [ValidateModelState]
         [SwaggerOperation("OfferingsOfferingIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Offering), description: "OK")]
@@ -160,7 +160,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/offerings/{offeringId}/groups")]
+        [Route("/v5.0/offerings/{offeringId}/groups")]
         [ValidateModelState]
         [SwaggerOperation("OfferingsOfferingIdGroupsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Group>), description: "OK")]

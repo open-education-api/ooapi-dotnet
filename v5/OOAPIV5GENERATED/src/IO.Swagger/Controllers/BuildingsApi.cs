@@ -38,7 +38,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/buildings/{buildingId}")]
+        [Route("/v5.0/buildings/{buildingId}")]
         [ValidateModelState]
         [SwaggerOperation("BuildingsBuildingIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Building), description: "OK")]
@@ -97,7 +97,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/buildings/{buildingId}/rooms")]
+        [Route("/v5.0/buildings/{buildingId}/rooms")]
         [ValidateModelState]
         [SwaggerOperation("BuildingsBuildingIdRoomsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Room>), description: "OK")]
@@ -155,7 +155,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/buildings")]
+        [Route("/v5.0/buildings")]
         [ValidateModelState]
         [SwaggerOperation("BuildingsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Building>), description: "OK")]

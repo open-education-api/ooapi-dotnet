@@ -43,7 +43,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/organizations")]
+        [Route("/v5.0/organizations")]
         [ValidateModelState]
         [SwaggerOperation("OrganizationsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Organization>), description: "OK")]
@@ -100,7 +100,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/organizations/{organizationId}/components")]
+        [Route("/v5.0/organizations/{organizationId}/components")]
         [ValidateModelState]
         [SwaggerOperation("OrganizationsOrganizationIdComponentsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Component>), description: "OK")]
@@ -162,7 +162,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/organizations/{organizationId}/courses")]
+        [Route("/v5.0/organizations/{organizationId}/courses")]
         [ValidateModelState]
         [SwaggerOperation("OrganizationsOrganizationIdCoursesGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Course>), description: "OK")]
@@ -222,7 +222,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/organizations/{organizationId}/education-specifications")]
+        [Route("/v5.0/organizations/{organizationId}/education-specifications")]
         [ValidateModelState]
         [SwaggerOperation("OrganizationsOrganizationIdEducationSpecificationsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<EducationSpecification>), description: "OK")]
@@ -277,7 +277,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/organizations/{organizationId}")]
+        [Route("/v5.0/organizations/{organizationId}")]
         [ValidateModelState]
         [SwaggerOperation("OrganizationsOrganizationIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Organization), description: "OK")]
@@ -335,7 +335,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/organizations/{organizationId}/groups")]
+        [Route("/v5.0/organizations/{organizationId}/groups")]
         [ValidateModelState]
         [SwaggerOperation("OrganizationsOrganizationIdGroupsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Group>), description: "OK")]
@@ -395,7 +395,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/organizations/{organizationId}/offerings")]
+        [Route("/v5.0/organizations/{organizationId}/offerings")]
         [ValidateModelState]
         [SwaggerOperation("OrganizationsOrganizationIdOfferingsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Offering>), description: "OK")]
@@ -460,7 +460,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/organizations/{organizationId}/programs")]
+        [Route("/v5.0/organizations/{organizationId}/programs")]
         [ValidateModelState]
         [SwaggerOperation("OrganizationsOrganizationIdProgramsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Program>), description: "OK")]

@@ -46,7 +46,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/education-specifications/{educationSpecificationId}/courses")]
+        [Route("/v5.0/education-specifications/{educationSpecificationId}/courses")]
         [ValidateModelState]
         [SwaggerOperation("EducationSpecificationsEducationSpecificationIdCoursesGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Course>), description: "OK")]
@@ -106,7 +106,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/education-specifications/{educationSpecificationId}/education-specifications")]
+        [Route("/v5.0/education-specifications/{educationSpecificationId}/education-specifications")]
         [ValidateModelState]
         [SwaggerOperation("EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<EducationSpecification>), description: "OK")]
@@ -162,7 +162,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/education-specifications/{educationSpecificationId}")]
+        [Route("/v5.0/education-specifications/{educationSpecificationId}")]
         [ValidateModelState]
         [SwaggerOperation("EducationSpecificationsEducationSpecificationIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecification), description: "OK")]
@@ -228,7 +228,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/education-specifications/{educationSpecificationId}/programs")]
+        [Route("/v5.0/education-specifications/{educationSpecificationId}/programs")]
         [ValidateModelState]
         [SwaggerOperation("EducationSpecificationsEducationSpecificationIdProgramsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Program>), description: "OK")]
@@ -288,7 +288,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/education-specifications")]
+        [Route("/v5.0/education-specifications")]
         [ValidateModelState]
         [SwaggerOperation("EducationSpecificationsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<EducationSpecification>), description: "OK")]

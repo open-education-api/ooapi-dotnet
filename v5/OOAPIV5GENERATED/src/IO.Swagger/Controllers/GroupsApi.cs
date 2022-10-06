@@ -43,7 +43,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/groups")]
+        [Route("/v5.0/groups")]
         [ValidateModelState]
         [SwaggerOperation("GroupsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Group>), description: "OK")]
@@ -93,7 +93,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/groups/{groupId}")]
+        [Route("/v5.0/groups/{groupId}")]
         [ValidateModelState]
         [SwaggerOperation("GroupsGroupIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Group), description: "OK")]
@@ -151,7 +151,7 @@ namespace IO.Swagger.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("/v5/groups/{groupId}/persons")]
+        [Route("/v5.0/groups/{groupId}/persons")]
         [ValidateModelState]
         [SwaggerOperation("GroupsGroupIdPersonsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Person>), description: "OK")]
