@@ -103,78 +103,10 @@ namespace IO.Swagger.Models
         /// The state of this association
         /// </summary>
         /// <value>The state of this association</value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum StateEnum
-        {
-            /// <summary>
-            /// Enum PendingEnum for pending
-            /// </summary>
-            [EnumMember(Value = "pending")]
-            PendingEnum = 0,
-            /// <summary>
-            /// Enum CanceledEnum for canceled
-            /// </summary>
-            [EnumMember(Value = "canceled")]
-            CanceledEnum = 1,
-            /// <summary>
-            /// Enum DeniedEnum for denied
-            /// </summary>
-            [EnumMember(Value = "denied")]
-            DeniedEnum = 2,
-            /// <summary>
-            /// Enum AssociatedEnum for associated
-            /// </summary>
-            [EnumMember(Value = "associated")]
-            AssociatedEnum = 3,
-            /// <summary>
-            /// Enum QueuedEnum for queued
-            /// </summary>
-            [EnumMember(Value = "queued")]
-            QueuedEnum = 4
-        }
-
-        /// <summary>
-        /// The state of this association
-        /// </summary>
-        /// <value>The state of this association</value>
         [Required]
 
         [DataMember(Name = "state")]
-        public StateEnum? State { get; set; }
-
-        /// <summary>
-        /// The state of this association for the institution performing the request.
-        /// </summary>
-        /// <value>The state of this association for the institution performing the request.</value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum RemoteStateEnum
-        {
-            /// <summary>
-            /// Enum PendingEnum for pending
-            /// </summary>
-            [EnumMember(Value = "pending")]
-            PendingEnum = 0,
-            /// <summary>
-            /// Enum CanceledEnum for canceled
-            /// </summary>
-            [EnumMember(Value = "canceled")]
-            CanceledEnum = 1,
-            /// <summary>
-            /// Enum DeniedEnum for denied
-            /// </summary>
-            [EnumMember(Value = "denied")]
-            DeniedEnum = 2,
-            /// <summary>
-            /// Enum AssociatedEnum for associated
-            /// </summary>
-            [EnumMember(Value = "associated")]
-            AssociatedEnum = 3,
-            /// <summary>
-            /// Enum QueuedEnum for queued
-            /// </summary>
-            [EnumMember(Value = "queued")]
-            QueuedEnum = 4
-        }
+        public AssociationState State { get; set; }
 
         /// <summary>
         /// The state of this association for the institution performing the request.
@@ -182,7 +114,7 @@ namespace IO.Swagger.Models
         /// <value>The state of this association for the institution performing the request.</value>
 
         [DataMember(Name = "remoteState")]
-        public RemoteStateEnum? RemoteState { get; set; }
+        public RemoteAssociationState? RemoteState { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.

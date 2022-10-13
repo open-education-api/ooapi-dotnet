@@ -80,7 +80,7 @@ namespace IO.Swagger.Models
         /// <value>The parent Academicsession of this session (e.g. fall semester 20xx where the current session is a week 40). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)</value>
 
         [DataMember(Name = "parent")]
-        public OneOfAcademicSessionParent Parent { get; set; }
+        public Guid Parent { get; set; }
 
         /// <summary>
         /// The list of Academicsession children of this Session (e.g. all academic sessions in fall semester 20xx). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)
@@ -88,7 +88,7 @@ namespace IO.Swagger.Models
         /// <value>The list of Academicsession children of this Session (e.g. all academic sessions in fall semester 20xx). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)</value>
 
         [DataMember(Name = "children")]
-        public List<OneOfAcademicSessionChildrenItems> Children { get; set; }
+        public List<Guid> Children { get; set; }
 
         /// <summary>
         /// The top level year of this session (e.g. 20xx where the current session is a week 40 of a semester). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)
@@ -96,7 +96,7 @@ namespace IO.Swagger.Models
         /// <value>The top level year of this session (e.g. 20xx where the current session is a week 40 of a semester). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)</value>
 
         [DataMember(Name = "year")]
-        public OneOfAcademicSessionYear Year { get; set; }
+        public Guid Year { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.

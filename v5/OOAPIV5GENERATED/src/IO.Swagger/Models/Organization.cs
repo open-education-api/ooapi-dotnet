@@ -160,7 +160,7 @@ namespace IO.Swagger.Models
         /// <value>The organizational unit which is the parent of this organization. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [DataMember(Name = "parent")]
-        public OneOfOrganizationParent Parent { get; set; }
+        public Guid Parent { get; set; }
 
         /// <summary>
         /// All the organizational units for which this organization is the parent. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -168,7 +168,7 @@ namespace IO.Swagger.Models
         /// <value>All the organizational units for which this organization is the parent. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [DataMember(Name = "children")]
-        public List<OneOfOrganizationChildrenItems> Children { get; set; }
+        public List<Guid> Children { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.

@@ -70,7 +70,7 @@ namespace IO.Swagger.Models
         /// </summary>
 
         [DataMember(Name = "academicSession")]
-        public OfferingPropertiesAcademicSession AcademicSession { get; set; }
+        public Guid AcademicSession { get; set; }
 
         /// <summary>
         /// The name of this offering

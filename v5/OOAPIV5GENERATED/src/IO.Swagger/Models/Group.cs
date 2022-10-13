@@ -136,7 +136,7 @@ namespace IO.Swagger.Models
         /// <value>The organization that manages this group. [&#x60;expandable&#x60;](.#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [DataMember(Name = "organization")]
-        public OneOfGroupOrganization Organization { get; set; }
+        public Guid Organization { get; set; }
 
         /// <summary>
         /// Object for additional non-standard attributes

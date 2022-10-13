@@ -136,7 +136,7 @@ namespace IO.Swagger.Models
         /// <value>The building in which the room is located. [&#x60;expandable&#x60;](#tag/building_model) By default only the &#x60;buildingId&#x60; (a string) is returned. If the client requested an expansion of &#x60;building&#x60; the full building object should be returned. </value>
 
         [DataMember(Name = "building")]
-        public OneOfRoomBuilding Building { get; set; }
+        public Guid Building { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.

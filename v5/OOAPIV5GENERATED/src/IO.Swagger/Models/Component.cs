@@ -221,7 +221,7 @@ namespace IO.Swagger.Models
         /// <value>The course of which this component is a part. [&#x60;expandable&#x60;](#tag/course_model) By default only the &#x60;courseId&#x60; (a string) is returned. If the client requested an expansion of &#x60;course&#x60; the full course object should be returned. </value>
 
         [DataMember(Name = "course")]
-        public OneOfComponentCourse Course { get; set; }
+        public Guid Course { get; set; }
 
         /// <summary>
         /// The organization which provides this component. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -229,7 +229,7 @@ namespace IO.Swagger.Models
         /// <value>The organization which provides this component. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [DataMember(Name = "organization")]
-        public OneOfComponentOrganization Organization { get; set; }
+        public Guid Organization { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
