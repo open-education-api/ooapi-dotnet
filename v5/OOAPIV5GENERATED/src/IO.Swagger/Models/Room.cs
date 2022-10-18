@@ -67,7 +67,7 @@ namespace IO.Swagger.Models
         [Required]
 
         [DataMember(Name = "name")]
-        public List<AddressAdditional> Name { get; set; }
+        public List<LanguageValueItem> Name { get; set; }
 
         /// <summary>
         /// The description of this room. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.
@@ -75,7 +75,7 @@ namespace IO.Swagger.Models
         /// <value>The description of this room. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.</value>
 
         [DataMember(Name = "description")]
-        public List<AddressAdditional> Description { get; set; }
+        public List<LanguageValueItem> Description { get; set; }
 
         /// <summary>
         /// The total number of seats located in the room

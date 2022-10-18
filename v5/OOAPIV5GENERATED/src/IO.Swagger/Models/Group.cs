@@ -59,7 +59,7 @@ namespace IO.Swagger.Models
         [Required]
 
         [DataMember(Name = "name")]
-        public List<AddressAdditional> Name { get; set; }
+        public List<LanguageValueItem> Name { get; set; }
 
         /// <summary>
         /// The description of this group
@@ -67,7 +67,7 @@ namespace IO.Swagger.Models
         /// <value>The description of this group</value>
 
         [DataMember(Name = "description")]
-        public List<AddressAdditional> Description { get; set; }
+        public List<LanguageValueItem> Description { get; set; }
 
         /// <summary>
         /// The day on which this group starts being active, RFC3339 (full-date)

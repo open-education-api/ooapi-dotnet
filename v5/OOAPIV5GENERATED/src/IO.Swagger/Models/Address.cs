@@ -56,7 +56,7 @@ namespace IO.Swagger.Models
         /// <value>Further details like building name, suite, apartment number, etc.</value>
 
         [DataMember(Name = "additional")]
-        public List<AddressAdditional> Additional { get; set; }
+        public List<LanguageValueItem> Additional { get; set; }
 
         /// <summary>
         /// Postal code

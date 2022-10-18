@@ -57,7 +57,7 @@ namespace IO.Swagger.Models
         [Required]
 
         [DataMember(Name = "name")]
-        public List<AddressAdditional> Name { get; set; }
+        public List<LanguageValueItem> Name { get; set; }
 
         /// <summary>
         /// The abbreviation or internal code used to identify this offering
@@ -75,7 +75,7 @@ namespace IO.Swagger.Models
         [Required]
 
         [DataMember(Name = "description")]
-        public List<AddressAdditional> Description { get; set; }
+        public List<LanguageValueItem> Description { get; set; }
 
         /// <summary>
         /// The (primary) teaching language in which this offering is given, should be a three-letter language code as specified by ISO 639-2.
@@ -129,9 +129,9 @@ namespace IO.Swagger.Models
         public decimal? MinNumberStudents { get; set; }
 
         /// <summary>
-        /// resultExpected, previously knwon as isLineItem is used so the specific instance of the object is identified as being an element that CAN contain ‚Äúgrade‚Äù information. Offerings do not always have to result in a grade or an other type of result.  If there is a result expected from a programOffering/courseOffering/componentOffering the is resultExpected field should parse true 
+        /// resultExpected, previously knwon as isLineItem is used so the specific instance of the object is identified as being an element that CAN contain ìgradeî information. Offerings do not always have to result in a grade or an other type of result.  If there is a result expected from a programOffering/courseOffering/componentOffering the is resultExpected field should parse true 
         /// </summary>
-        /// <value>resultExpected, previously knwon as isLineItem is used so the specific instance of the object is identified as being an element that CAN contain ‚Äúgrade‚Äù information. Offerings do not always have to result in a grade or an other type of result.  If there is a result expected from a programOffering/courseOffering/componentOffering the is resultExpected field should parse true </value>
+        /// <value>resultExpected, previously knwon as isLineItem is used so the specific instance of the object is identified as being an element that CAN contain ìgradeî information. Offerings do not always have to result in a grade or an other type of result.  If there is a result expected from a programOffering/courseOffering/componentOffering the is resultExpected field should parse true </value>
         [Required]
 
         [DataMember(Name = "resultExpected")]

@@ -19,7 +19,7 @@ namespace IO.Swagger.Models
     /// A String with an associated language code.
     /// </summary>
     [DataContract]
-    public partial class AddressAdditional : IEquatable<AddressAdditional>
+    public partial class LanguageValueItem : IEquatable<LanguageValueItem>
     {
         /// <summary>
         /// The language used in the described entity. A string formatted according to RFC3066.
@@ -69,7 +69,7 @@ namespace IO.Swagger.Models
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((AddressAdditional)obj);
+            return obj.GetType() == GetType() && Equals((LanguageValueItem)obj);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace IO.Swagger.Models
         /// </summary>
         /// <param name="other">Instance of AddressAdditional to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(AddressAdditional other)
+        public bool Equals(LanguageValueItem other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -116,12 +116,12 @@ namespace IO.Swagger.Models
         #region Operators
 #pragma warning disable 1591
 
-        public static bool operator ==(AddressAdditional left, AddressAdditional right)
+        public static bool operator ==(LanguageValueItem left, LanguageValueItem right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(AddressAdditional left, AddressAdditional right)
+        public static bool operator !=(LanguageValueItem left, LanguageValueItem right)
         {
             return !Equals(left, right);
         }

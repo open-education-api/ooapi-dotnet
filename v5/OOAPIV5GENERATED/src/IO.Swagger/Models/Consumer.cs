@@ -9,6 +9,7 @@
  */
 using Newtonsoft.Json;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -17,9 +18,32 @@ namespace IO.Swagger.Models
     /// <summary>
     /// Object for communicating data to a specific consumer (destination). This object has no relationship with the &#x60;consumer&#x60; query parameter.
     /// </summary>
-    [DataContract]
+    [DataContract(Name = "Consumer")]
     public partial class Consumer : IEquatable<Consumer>
     {
+
+
+        /// <summary>
+        /// Gets or Sets ConsumerKey
+        /// </summary>
+        [Required]
+
+        [DataMember(Name = "consumerKey")]
+        public string ConsumerKey { get; set; }
+
+        /// <summary>
+        /// Gets or Sets additional
+        /// </summary>
+        [DataMember(Name = "additional")]
+        public string Additional { get; set; }
+
+        /// <summary>
+        /// Gets or Sets attributes
+        /// </summary>
+        [DataMember(Name = "attributes")]
+        public string Attributes { get; set; }
+
+
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>

@@ -58,7 +58,7 @@ namespace IO.Swagger.Models
         [Required]
 
         [DataMember(Name = "name")]
-        public List<AddressAdditional> Name { get; set; }
+        public List<LanguageValueItem> Name { get; set; }
 
         /// <summary>
         /// The abbreviation of this component
@@ -92,7 +92,7 @@ namespace IO.Swagger.Models
         /// <value>The description of this component.</value>
 
         [DataMember(Name = "description")]
-        public List<AddressAdditional> Description { get; set; }
+        public List<LanguageValueItem> Description { get; set; }
 
         /// <summary>
         /// The (primary) teaching language in which this component is given, should be a three-letter language code as specified by ISO 639-2.
@@ -118,7 +118,7 @@ namespace IO.Swagger.Models
         /// <value>The extra information that is provided for enrollment</value>
 
         [DataMember(Name = "enrollment")]
-        public List<AddressAdditional> Enrollment { get; set; }
+        public List<LanguageValueItem> Enrollment { get; set; }
 
         /// <summary>
         /// An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)
@@ -134,7 +134,7 @@ namespace IO.Swagger.Models
         /// <value>A description of the way exams for this course are taken (ECTS-assessment method and criteria).</value>
 
         [DataMember(Name = "assessment")]
-        public List<AddressAdditional> Assessment { get; set; }
+        public List<LanguageValueItem> Assessment { get; set; }
 
         /// <summary>
         /// Addresses for this component

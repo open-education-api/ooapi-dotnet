@@ -33,7 +33,7 @@ namespace IO.Swagger.Models
         [Required]
 
         [DataMember(Name="message")]
-        public List<AddressAdditional> Message { get; set; }
+        public List<LanguageValueItem> Message { get; set; }
 
         /// <summary>
         /// URL where additional information can be found e.g. by use of deeplink

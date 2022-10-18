@@ -58,7 +58,7 @@ namespace IO.Swagger.Models
         [Required]
 
         [DataMember(Name = "name")]
-        public List<AddressAdditional> Name { get; set; }
+        public List<LanguageValueItem> Name { get; set; }
 
         /// <summary>
         /// Short name of the organization
@@ -76,7 +76,7 @@ namespace IO.Swagger.Models
         /// <value>Any general description of the organization should clearly mention the type of higher education organization, especially in the case of a binary system. In Dutch; universiteit (university) or hogeschool (university of applied sciences).</value>
 
         [DataMember(Name = "description")]
-        public List<AddressAdditional> Description { get; set; }
+        public List<LanguageValueItem> Description { get; set; }
 
         /// <summary>
         /// Addresses of this organization

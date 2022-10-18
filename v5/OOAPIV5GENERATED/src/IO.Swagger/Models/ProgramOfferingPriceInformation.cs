@@ -73,7 +73,7 @@ namespace IO.Swagger.Models
         /// <value>An array of optional pre-formatted strings in different locales. Clients can choose to use this string instead of rendering their own based on the current locale of the user.</value>
 
         [DataMember(Name="displayAmount")]
-        public List<AddressAdditional> DisplayAmount { get; set; }
+        public List<LanguageValueItem> DisplayAmount { get; set; }
 
         /// <summary>
         /// Object for additional non-standard attributes

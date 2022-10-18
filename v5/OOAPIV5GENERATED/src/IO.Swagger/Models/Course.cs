@@ -39,7 +39,7 @@ namespace IO.Swagger.Models
         [Required]
 
         [DataMember(Name = "name")]
-        public List<AddressAdditional> Name { get; set; }
+        public List<LanguageValueItem> Name { get; set; }
 
         /// <summary>
         /// The abbreviation or internal code used to identify this course (ECTS-code)
@@ -90,7 +90,7 @@ namespace IO.Swagger.Models
         [Required]
 
         [DataMember(Name = "description")]
-        public List<AddressAdditional> Description { get; set; }
+        public List<LanguageValueItem> Description { get; set; }
 
         /// <summary>
         /// The (primary) teaching language in which this course is given, should be a three-letter language code as specified by ISO 639-2.
@@ -125,7 +125,7 @@ namespace IO.Swagger.Models
         /// <value>This information may be given at an institutional level and/or at the level of individual programmes. Make sure that it is clear whether the information applies to fee-paying students (national and/or international) or to exchange students.</value>
 
         [DataMember(Name = "admissionRequirements")]
-        public List<AddressAdditional> AdmissionRequirements { get; set; }
+        public List<LanguageValueItem> AdmissionRequirements { get; set; }
 
         /// <summary>
         /// Normally, students will receive a diploma when they have completed the (official) study program and have obtained the required number of credits. If there are any other specific requirements that students need to have fulfilled, mention them here.
@@ -133,7 +133,7 @@ namespace IO.Swagger.Models
         /// <value>Normally, students will receive a diploma when they have completed the (official) study program and have obtained the required number of credits. If there are any other specific requirements that students need to have fulfilled, mention them here.</value>
 
         [DataMember(Name = "qualificationRequirements")]
-        public List<AddressAdditional> QualificationRequirements { get; set; }
+        public List<LanguageValueItem> QualificationRequirements { get; set; }
 
         /// <summary>
         /// The level of this course (ECTS-year of study if applicable) - secondary vocational education: mbo - secondary vocational education 1: mbo 1, corresponds to levelOfQualification 1 - secondary vocational education 2: mbo 2, corresponds to levelOfQualification 2 - secondary vocational education 3: mbo 3, corresponds to levelOfQualification 3 - secondary vocational education 4: mbo 4, corresponds to levelOfQualification 4 - associate degree: associate degree, corresponds to levelOfQualification 5 - bachelor: bachelor, corresponds to levelOfQualification 6 - master: master, corresponds to levelOfQualification 7 - doctoral: doctoraal, corresponds to levelOfQualification 8 - undefined: onbepaald - undivided: ongedeeld - nt2-1: NT2 niveau 1 - nt2-2: NT2 niveau 2 
@@ -150,7 +150,7 @@ namespace IO.Swagger.Models
         /// <value>The extra information that is provided for enrollment</value>
 
         [DataMember(Name = "enrollment")]
-        public List<AddressAdditional> Enrollment { get; set; }
+        public List<LanguageValueItem> Enrollment { get; set; }
 
         /// <summary>
         /// An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)
@@ -166,7 +166,7 @@ namespace IO.Swagger.Models
         /// <value>A description of the way exams for this course are taken (ECTS-assessment method and criteria).</value>
 
         [DataMember(Name = "assessment")]
-        public List<AddressAdditional> Assessment { get; set; }
+        public List<LanguageValueItem> Assessment { get; set; }
 
         /// <summary>
         /// URL of the course&#x27;s website

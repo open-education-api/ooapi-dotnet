@@ -50,7 +50,7 @@ namespace IO.Swagger.Models
         [Required]
 
         [DataMember(Name = "name")]
-        public List<AddressAdditional> Name { get; set; }
+        public List<LanguageValueItem> Name { get; set; }
 
         /// <summary>
         /// The authors of the article with this news item
@@ -84,7 +84,7 @@ namespace IO.Swagger.Models
         /// <value>The content of this news item.</value>
 
         [DataMember(Name = "content")]
-        public List<AddressAdditional> Content { get; set; }
+        public List<LanguageValueItem> Content { get; set; }
 
         /// <summary>
         /// The newsFeeds where this item can be found. [&#x60;expandable&#x60;](#tag/news_feed_model)
