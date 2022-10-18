@@ -82,39 +82,7 @@ namespace IO.Swagger.Models
         [DataMember(Name = "description")]
         public List<AddressAdditional> Description { get; set; }
 
-        /// <summary>
-        /// The type of formal document obtained after completion of this education   - diploma: DIPLOMA   - certificate: CERTIFICAAT   - no official document: GEEN OFFICIEEL DOCUMENT   - testimonial: GETUIGSCHRIFT   - school advice: SCHOOLADVIES 
-        /// </summary>
-        /// <value>The type of formal document obtained after completion of this education   - diploma: DIPLOMA   - certificate: CERTIFICAAT   - no official document: GEEN OFFICIEEL DOCUMENT   - testimonial: GETUIGSCHRIFT   - school advice: SCHOOLADVIES </value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum FormalDocumentEnum
-        {
-            /// <summary>
-            /// Enum DiplomaEnum for diploma
-            /// </summary>
-            [EnumMember(Value = "diploma")]
-            DiplomaEnum = 0,
-            /// <summary>
-            /// Enum CertificateEnum for certificate
-            /// </summary>
-            [EnumMember(Value = "certificate")]
-            CertificateEnum = 1,
-            /// <summary>
-            /// Enum NoOfficialDocumentEnum for no official document
-            /// </summary>
-            [EnumMember(Value = "no official document")]
-            NoOfficialDocumentEnum = 2,
-            /// <summary>
-            /// Enum TestimonialEnum for testimonial
-            /// </summary>
-            [EnumMember(Value = "testimonial")]
-            TestimonialEnum = 3,
-            /// <summary>
-            /// Enum SchoolAdviceEnum for school advice
-            /// </summary>
-            [EnumMember(Value = "school advice")]
-            SchoolAdviceEnum = 4
-        }
+
 
         /// <summary>
         /// The type of formal document obtained after completion of this education   - diploma: DIPLOMA   - certificate: CERTIFICAAT   - no official document: GEEN OFFICIEEL DOCUMENT   - testimonial: GETUIGSCHRIFT   - school advice: SCHOOLADVIES 
@@ -131,29 +99,6 @@ namespace IO.Swagger.Models
         [DataMember(Name = "level")]
         public LevelEnum? Level { get; set; }
 
-        /// <summary>
-        /// The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs 
-        /// </summary>
-        /// <value>The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs </value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum SectorEnum
-        {
-            /// <summary>
-            /// Enum SecondaryVocationalEducationEnum for secondary vocational education
-            /// </summary>
-            [EnumMember(Value = "secondary vocational education")]
-            SecondaryVocationalEducationEnum = 0,
-            /// <summary>
-            /// Enum HigherProfessionalEducationEnum for higher professional education
-            /// </summary>
-            [EnumMember(Value = "higher professional education")]
-            HigherProfessionalEducationEnum = 1,
-            /// <summary>
-            /// Enum UniversityEducationEnum for university education
-            /// </summary>
-            [EnumMember(Value = "university education")]
-            UniversityEducationEnum = 2
-        }
 
         /// <summary>
         /// The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs 
@@ -163,59 +108,7 @@ namespace IO.Swagger.Models
         [DataMember(Name = "sector")]
         public SectorEnum? Sector { get; set; }
 
-        /// <summary>
-        /// Level of qualification according to the Dutch National Qualification Framework and the European Qualifications Framework, see [this overview](https://nlqf.nl/images/downloads/English2018/Schematic_overview_NLQF_2020.pdf) for more information.
-        /// </summary>
-        /// <value>Level of qualification according to the Dutch National Qualification Framework and the European Qualifications Framework, see [this overview](https://nlqf.nl/images/downloads/English2018/Schematic_overview_NLQF_2020.pdf) for more information.</value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum LevelOfQualificationEnum
-        {
-            /// <summary>
-            /// Enum NUMBER_1 for 1
-            /// </summary>
-            [EnumMember(Value = "1")]
-            NUMBER_1 = 0,
-            /// <summary>
-            /// Enum NUMBER_2 for 2
-            /// </summary>
-            [EnumMember(Value = "2")]
-            NUMBER_2 = 1,
-            /// <summary>
-            /// Enum NUMBER_3 for 3
-            /// </summary>
-            [EnumMember(Value = "3")]
-            NUMBER_3 = 2,
-            /// <summary>
-            /// Enum NUMBER_4 for 4
-            /// </summary>
-            [EnumMember(Value = "4")]
-            NUMBER_4 = 3,
-            /// <summary>
-            /// Enum _4Enum for 4+
-            /// </summary>
-            [EnumMember(Value = "4+")]
-            _4Enum = 4,
-            /// <summary>
-            /// Enum NUMBER_5 for 5
-            /// </summary>
-            [EnumMember(Value = "5")]
-            NUMBER_5 = 5,
-            /// <summary>
-            /// Enum NUMBER_6 for 6
-            /// </summary>
-            [EnumMember(Value = "6")]
-            NUMBER_6 = 6,
-            /// <summary>
-            /// Enum NUMBER_7 for 7
-            /// </summary>
-            [EnumMember(Value = "7")]
-            NUMBER_7 = 7,
-            /// <summary>
-            /// Enum NUMBER_8 for 8
-            /// </summary>
-            [EnumMember(Value = "8")]
-            NUMBER_8 = 8
-        }
+
 
         /// <summary>
         /// Level of qualification according to the Dutch National Qualification Framework and the European Qualifications Framework, see [this overview](https://nlqf.nl/images/downloads/English2018/Schematic_overview_NLQF_2020.pdf) for more information.

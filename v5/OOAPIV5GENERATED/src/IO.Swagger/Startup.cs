@@ -78,11 +78,11 @@ namespace IO.Swagger
                     {
                         Title = "OoApi V5.0",
                         Version = "Open Onderwijs Api V5.0",
-                        Description = "Open Education API (ASP.NET 6)",
+                        Description = "Open Education API",
                         Contact = new OpenApiContact()
                         {
-                            Name = "Swagger Codegen Contributors",
-                            Url = new Uri("https://github.com/swagger-api/swagger-codegen"),
+                            Name = "Open Education API",
+                            Url = new Uri("https://open-education-api.github.io/specification/v5/docs.html"),
                             Email = ""
                         }//, TermsOfService = new Uri("")
                     });
@@ -92,39 +92,10 @@ namespace IO.Swagger
                     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                     options.EnableAnnotations();
-                    //??options.DocumentFilter<HideInDocsFilter>();
                     var comments = new XPathDocument(xmlPath);
                     options.SchemaFilter<XmlCommentsSchemaFilter>(comments);
-                    //options.SwaggerDoc("ooapiv5.0", new OpenApiInfo { 
-                    //    Title = "OoApi V5.0", 
-                    //    Version = "Open Onderwijs Api V5.0" 
-                    //});
                     options.IncludeXmlComments(xmlPath);
                 });
-
-            //.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("5.0.0", new OpenApiInfo
-            //    {
-            //        Version = "5.0.0",
-            //        Title = "Open Education API",
-            //        Description = "Open Education API (ASP.NET 6)",
-            //        Contact = new OpenApiContact()
-            //        {
-            //            Name = "Swagger Codegen Contributors",
-            //            Url = new Uri("https://github.com/swagger-api/swagger-codegen"),
-            //            Email = ""
-            //        }//, TermsOfService = new Uri("")
-            //    });
-            //    c.CustomSchemaIds(type => type.FullName);
-            //    c.IncludeXmlComments($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{_hostingEnv.ApplicationName}.xml");
-            //    // Sets the basePath property in the Swagger document generated
-            //    c.DocumentFilter<BasePathFilter>("/v5");
-
-            //    // Include DataAnnotation attributes on Controller Action parameters as Swagger validation rules (e.g required, pattern, ..)
-            //    // Use [ValidateModelState] on Actions to actually validate it in C# as well!
-            //    c.OperationFilter<GeneratePathParamsValidationFilter>();
-            //});
         }
 
         /// <summary>
@@ -152,11 +123,7 @@ namespace IO.Swagger
             });
             app.UseSwaggerUI(c =>
             {
-                //TODO: Either use the SwaggerGen generated Swagger contract (generated from C# classes)
                 c.SwaggerEndpoint("/swagger/ooapiv5.0/swagger.json", "Open Onderwijs Api V5.0");
-
-                //TODO: Or alternatively use the original Swagger contract that's included in the static files
-                // c.SwaggerEndpoint("/swagger-original.json", "Open Education API Original");
             });
 
             //TODO: Use Https Redirection

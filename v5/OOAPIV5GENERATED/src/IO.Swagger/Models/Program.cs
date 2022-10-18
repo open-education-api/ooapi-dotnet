@@ -32,39 +32,7 @@ namespace IO.Swagger.Models
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
 
-        /// <summary>
-        /// The type of this program - program: opleiding - minor: minor - honours: honours - specialization: specialisatie - track: track 
-        /// </summary>
-        /// <value>The type of this program - program: opleiding - minor: minor - honours: honours - specialization: specialisatie - track: track </value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum ProgramTypeEnum
-        {
-            /// <summary>
-            /// Enum ProgramEnum for program
-            /// </summary>
-            [EnumMember(Value = "program")]
-            ProgramEnum = 0,
-            /// <summary>
-            /// Enum MinorEnum for minor
-            /// </summary>
-            [EnumMember(Value = "minor")]
-            MinorEnum = 1,
-            /// <summary>
-            /// Enum HonoursEnum for honours
-            /// </summary>
-            [EnumMember(Value = "honours")]
-            HonoursEnum = 2,
-            /// <summary>
-            /// Enum SpecializationEnum for specialization
-            /// </summary>
-            [EnumMember(Value = "specialization")]
-            SpecializationEnum = 3,
-            /// <summary>
-            /// Enum TrackEnum for track
-            /// </summary>
-            [EnumMember(Value = "track")]
-            TrackEnum = 4
-        }
+
 
         /// <summary>
         /// The type of this program - program: opleiding - minor: minor - honours: honours - specialization: specialisatie - track: track 
@@ -120,59 +88,7 @@ namespace IO.Swagger.Models
         [DataMember(Name = "studyLoad")]
         public ProgramResultStudyLoad StudyLoad { get; set; }
 
-        /// <summary>
-        /// Type of qualificaton that can be obtained on finishing the program
-        /// </summary>
-        /// <value>Type of qualificaton that can be obtained on finishing the program</value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum QualificationAwardedEnum
-        {
-            /// <summary>
-            /// Enum ADEnum for AD
-            /// </summary>
-            [EnumMember(Value = "AD")]
-            ADEnum = 0,
-            /// <summary>
-            /// Enum BAEnum for BA
-            /// </summary>
-            [EnumMember(Value = "BA")]
-            BAEnum = 1,
-            /// <summary>
-            /// Enum BScEnum for BSc
-            /// </summary>
-            [EnumMember(Value = "BSc")]
-            BScEnum = 2,
-            /// <summary>
-            /// Enum LLBEnum for LLB
-            /// </summary>
-            [EnumMember(Value = "LLB")]
-            LLBEnum = 3,
-            /// <summary>
-            /// Enum MAEnum for MA
-            /// </summary>
-            [EnumMember(Value = "MA")]
-            MAEnum = 4,
-            /// <summary>
-            /// Enum MScEnum for MSc
-            /// </summary>
-            [EnumMember(Value = "MSc")]
-            MScEnum = 5,
-            /// <summary>
-            /// Enum LLMEnum for LLM
-            /// </summary>
-            [EnumMember(Value = "LLM")]
-            LLMEnum = 6,
-            /// <summary>
-            /// Enum PhdEnum for Phd
-            /// </summary>
-            [EnumMember(Value = "Phd")]
-            PhdEnum = 7,
-            /// <summary>
-            /// Enum NoneEnum for None
-            /// </summary>
-            [EnumMember(Value = "None")]
-            NoneEnum = 8
-        }
+
 
         /// <summary>
         /// Type of qualificaton that can be obtained on finishing the program
@@ -182,34 +98,6 @@ namespace IO.Swagger.Models
         [DataMember(Name = "qualificationAwarded")]
         public QualificationAwardedEnum? QualificationAwarded { get; set; }
 
-        /// <summary>
-        /// Indicates whether the education is full-time, part-time, dual or self-paced.   - full-time: fulltime   - part-time: parttime   - dual training: duaal   - self-paced: eigen tempo 
-        /// </summary>
-        /// <value>Indicates whether the education is full-time, part-time, dual or self-paced.   - full-time: fulltime   - part-time: parttime   - dual training: duaal   - self-paced: eigen tempo </value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum ModeOfStudyEnum
-        {
-            /// <summary>
-            /// Enum FullTimeEnum for full-time
-            /// </summary>
-            [EnumMember(Value = "full-time")]
-            FullTimeEnum = 0,
-            /// <summary>
-            /// Enum PartTimeEnum for part-time
-            /// </summary>
-            [EnumMember(Value = "part-time")]
-            PartTimeEnum = 1,
-            /// <summary>
-            /// Enum DualTrainingEnum for dual training
-            /// </summary>
-            [EnumMember(Value = "dual training")]
-            DualTrainingEnum = 2,
-            /// <summary>
-            /// Enum SelfPacedEnum for self-paced
-            /// </summary>
-            [EnumMember(Value = "self-paced")]
-            SelfPacedEnum = 3
-        }
 
         /// <summary>
         /// Indicates whether the education is full-time, part-time, dual or self-paced.   - full-time: fulltime   - part-time: parttime   - dual training: duaal   - self-paced: eigen tempo 
@@ -245,59 +133,6 @@ namespace IO.Swagger.Models
         [DataMember(Name = "firstStartDate")]
         public DateTime? FirstStartDate { get; set; }
 
-        /// <summary>
-        /// Level of qualification according to the Dutch National Qualification Framework and the European Qualifications Framework, see [this overview](https://nlqf.nl/images/downloads/English2018/Schematic_overview_NLQF_2020.pdf) for more information.
-        /// </summary>
-        /// <value>Level of qualification according to the Dutch National Qualification Framework and the European Qualifications Framework, see [this overview](https://nlqf.nl/images/downloads/English2018/Schematic_overview_NLQF_2020.pdf) for more information.</value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum LevelOfQualificationEnum
-        {
-            /// <summary>
-            /// Enum NUMBER_1 for 1
-            /// </summary>
-            [EnumMember(Value = "1")]
-            NUMBER_1 = 0,
-            /// <summary>
-            /// Enum NUMBER_2 for 2
-            /// </summary>
-            [EnumMember(Value = "2")]
-            NUMBER_2 = 1,
-            /// <summary>
-            /// Enum NUMBER_3 for 3
-            /// </summary>
-            [EnumMember(Value = "3")]
-            NUMBER_3 = 2,
-            /// <summary>
-            /// Enum NUMBER_4 for 4
-            /// </summary>
-            [EnumMember(Value = "4")]
-            NUMBER_4 = 3,
-            /// <summary>
-            /// Enum _4Enum for 4+
-            /// </summary>
-            [EnumMember(Value = "4+")]
-            _4Enum = 4,
-            /// <summary>
-            /// Enum NUMBER_5 for 5
-            /// </summary>
-            [EnumMember(Value = "5")]
-            NUMBER_5 = 5,
-            /// <summary>
-            /// Enum NUMBER_6 for 6
-            /// </summary>
-            [EnumMember(Value = "6")]
-            NUMBER_6 = 6,
-            /// <summary>
-            /// Enum NUMBER_7 for 7
-            /// </summary>
-            [EnumMember(Value = "7")]
-            NUMBER_7 = 7,
-            /// <summary>
-            /// Enum NUMBER_8 for 8
-            /// </summary>
-            [EnumMember(Value = "8")]
-            NUMBER_8 = 8
-        }
 
         /// <summary>
         /// Level of qualification according to the Dutch National Qualification Framework and the European Qualifications Framework, see [this overview](https://nlqf.nl/images/downloads/English2018/Schematic_overview_NLQF_2020.pdf) for more information.
@@ -307,79 +142,7 @@ namespace IO.Swagger.Models
         [DataMember(Name = "levelOfQualification")]
         public LevelOfQualificationEnum? LevelOfQualification { get; set; }
 
-        /// <summary>
-        /// The level of this course (ECTS-year of study if applicable) - secondary vocational education: mbo - secondary vocational education 1: mbo 1, corresponds to levelOfQualification 1 - secondary vocational education 2: mbo 2, corresponds to levelOfQualification 2 - secondary vocational education 3: mbo 3, corresponds to levelOfQualification 3 - secondary vocational education 4: mbo 4, corresponds to levelOfQualification 4 - associate degree: associate degree, corresponds to levelOfQualification 5 - bachelor: bachelor, corresponds to levelOfQualification 6 - master: master, corresponds to levelOfQualification 7 - doctoral: doctoraal, corresponds to levelOfQualification 8 - undefined: onbepaald - undivided: ongedeeld - nt2-1: NT2 niveau 1 - nt2-2: NT2 niveau 2 
-        /// </summary>
-        /// <value>The level of this course (ECTS-year of study if applicable) - secondary vocational education: mbo - secondary vocational education 1: mbo 1, corresponds to levelOfQualification 1 - secondary vocational education 2: mbo 2, corresponds to levelOfQualification 2 - secondary vocational education 3: mbo 3, corresponds to levelOfQualification 3 - secondary vocational education 4: mbo 4, corresponds to levelOfQualification 4 - associate degree: associate degree, corresponds to levelOfQualification 5 - bachelor: bachelor, corresponds to levelOfQualification 6 - master: master, corresponds to levelOfQualification 7 - doctoral: doctoraal, corresponds to levelOfQualification 8 - undefined: onbepaald - undivided: ongedeeld - nt2-1: NT2 niveau 1 - nt2-2: NT2 niveau 2 </value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum LevelEnum
-        {
-            /// <summary>
-            /// Enum SecondaryVocationalEducationEnum for secondary vocational education
-            /// </summary>
-            [EnumMember(Value = "secondary vocational education")]
-            SecondaryVocationalEducationEnum = 0,
-            /// <summary>
-            /// Enum SecondaryVocationalEducation1Enum for secondary vocational education 1
-            /// </summary>
-            [EnumMember(Value = "secondary vocational education 1")]
-            SecondaryVocationalEducation1Enum = 1,
-            /// <summary>
-            /// Enum SecondaryVocationalEducation2Enum for secondary vocational education 2
-            /// </summary>
-            [EnumMember(Value = "secondary vocational education 2")]
-            SecondaryVocationalEducation2Enum = 2,
-            /// <summary>
-            /// Enum SecondaryVocationalEducation3Enum for secondary vocational education 3
-            /// </summary>
-            [EnumMember(Value = "secondary vocational education 3")]
-            SecondaryVocationalEducation3Enum = 3,
-            /// <summary>
-            /// Enum SecondaryVocationalEducation4Enum for secondary vocational education 4
-            /// </summary>
-            [EnumMember(Value = "secondary vocational education 4")]
-            SecondaryVocationalEducation4Enum = 4,
-            /// <summary>
-            /// Enum AssociateDegreeEnum for associate degree
-            /// </summary>
-            [EnumMember(Value = "associate degree")]
-            AssociateDegreeEnum = 5,
-            /// <summary>
-            /// Enum BachelorEnum for bachelor
-            /// </summary>
-            [EnumMember(Value = "bachelor")]
-            BachelorEnum = 6,
-            /// <summary>
-            /// Enum MasterEnum for master
-            /// </summary>
-            [EnumMember(Value = "master")]
-            MasterEnum = 7,
-            /// <summary>
-            /// Enum DoctoralEnum for doctoral
-            /// </summary>
-            [EnumMember(Value = "doctoral")]
-            DoctoralEnum = 8,
-            /// <summary>
-            /// Enum UndefinedEnum for undefined
-            /// </summary>
-            [EnumMember(Value = "undefined")]
-            UndefinedEnum = 9,
-            /// <summary>
-            /// Enum UndividedEnum for undivided
-            /// </summary>
-            [EnumMember(Value = "undivided")]
-            UndividedEnum = 10,
-            /// <summary>
-            /// Enum Nt21Enum for nt2-1
-            /// </summary>
-            [EnumMember(Value = "nt2-1")]
-            Nt21Enum = 11,
-            /// <summary>
-            /// Enum Nt22Enum for nt2-2
-            /// </summary>
-            [EnumMember(Value = "nt2-2")]
-            Nt22Enum = 12
-        }
+
 
         /// <summary>
         /// The level of this course (ECTS-year of study if applicable) - secondary vocational education: mbo - secondary vocational education 1: mbo 1, corresponds to levelOfQualification 1 - secondary vocational education 2: mbo 2, corresponds to levelOfQualification 2 - secondary vocational education 3: mbo 3, corresponds to levelOfQualification 3 - secondary vocational education 4: mbo 4, corresponds to levelOfQualification 4 - associate degree: associate degree, corresponds to levelOfQualification 5 - bachelor: bachelor, corresponds to levelOfQualification 6 - master: master, corresponds to levelOfQualification 7 - doctoral: doctoraal, corresponds to levelOfQualification 8 - undefined: onbepaald - undivided: ongedeeld - nt2-1: NT2 niveau 1 - nt2-2: NT2 niveau 2 
@@ -389,29 +152,7 @@ namespace IO.Swagger.Models
         [DataMember(Name = "level")]
         public LevelEnum? Level { get; set; }
 
-        /// <summary>
-        /// The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs 
-        /// </summary>
-        /// <value>The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs </value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum SectorEnum
-        {
-            /// <summary>
-            /// Enum SecondaryVocationalEducationEnum for secondary vocational education
-            /// </summary>
-            [EnumMember(Value = "secondary vocational education")]
-            SecondaryVocationalEducationEnum = 0,
-            /// <summary>
-            /// Enum HigherProfessionalEducationEnum for higher professional education
-            /// </summary>
-            [EnumMember(Value = "higher professional education")]
-            HigherProfessionalEducationEnum = 1,
-            /// <summary>
-            /// Enum UniversityEducationEnum for university education
-            /// </summary>
-            [EnumMember(Value = "university education")]
-            UniversityEducationEnum = 2
-        }
+
 
         /// <summary>
         /// The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs 

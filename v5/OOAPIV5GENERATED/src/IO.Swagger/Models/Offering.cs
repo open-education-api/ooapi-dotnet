@@ -32,29 +32,7 @@ namespace IO.Swagger.Models
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
 
-        /// <summary>
-        /// The type of this offering
-        /// </summary>
-        /// <value>The type of this offering</value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum OfferingTypeEnum
-        {
-            /// <summary>
-            /// Enum ProgramEnum for program
-            /// </summary>
-            [EnumMember(Value = "program")]
-            ProgramEnum = 0,
-            /// <summary>
-            /// Enum CourseEnum for course
-            /// </summary>
-            [EnumMember(Value = "course")]
-            CourseEnum = 1,
-            /// <summary>
-            /// Enum ComponentEnum for component
-            /// </summary>
-            [EnumMember(Value = "component")]
-            ComponentEnum = 2
-        }
+
 
         /// <summary>
         /// The type of this offering
@@ -159,39 +137,7 @@ namespace IO.Swagger.Models
         [DataMember(Name = "resultExpected")]
         public bool? ResultExpected { get; set; }
 
-        /// <summary>
-        /// The result value type for this offering
-        /// </summary>
-        /// <value>The result value type for this offering</value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum ResultValueTypeEnum
-        {
-            /// <summary>
-            /// Enum PassOrFailEnum for pass-or-fail
-            /// </summary>
-            [EnumMember(Value = "pass-or-fail")]
-            PassOrFailEnum = 0,
-            /// <summary>
-            /// Enum USLetterEnum for US letter
-            /// </summary>
-            [EnumMember(Value = "US letter")]
-            USLetterEnum = 1,
-            /// <summary>
-            /// Enum UKLetterEnum for UK letter
-            /// </summary>
-            [EnumMember(Value = "UK letter")]
-            UKLetterEnum = 2,
-            /// <summary>
-            /// Enum _0100Enum for 0-100
-            /// </summary>
-            [EnumMember(Value = "0-100")]
-            _0100Enum = 3,
-            /// <summary>
-            /// Enum _110Enum for 1-10
-            /// </summary>
-            [EnumMember(Value = "1-10")]
-            _110Enum = 4
-        }
+
 
         /// <summary>
         /// The result value type for this offering
