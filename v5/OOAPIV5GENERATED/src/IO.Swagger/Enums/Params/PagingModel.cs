@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace IO.Swagger.Enums.Params
 {
@@ -9,6 +10,7 @@ namespace IO.Swagger.Enums.Params
         /// The number of items per page <br/>
         /// Default: 10
         /// </summary>
+        [DefaultValue(PageSizeEnum.Ten)]
         public PageSizeEnum pageSize { get; set; }
 
         /// <summary>

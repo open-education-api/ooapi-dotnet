@@ -3,12 +3,6 @@
     public class FilterModel
     {
         /// <summary>
-        /// The primaryCode of the requested item. This is often the source identifier as defined by the institution.
-        /// </summary>
-        public string primaryCode { get; set; }
-
-
-        /// <summary>
         /// Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
         /// </summary>
         public string consumer { get; set; }
