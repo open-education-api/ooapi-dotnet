@@ -9,6 +9,7 @@
  */
 using IO.Swagger.Attributes;
 using IO.Swagger.Models;
+using IO.Swagger.Models.Params;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
@@ -29,28 +30,23 @@ namespace IO.Swagger.Controllers
         /// </summary>
         /// <remarks>Get an ordered list of all courses given through this EducationSpecification.</remarks>
         /// <param name="educationSpecificationId">Education Specification ID</param>
-        /// <param name="pageSize">The number of items per page</param>
-        /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-        /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-        /// <param name="q">Filter by items having a name, abbreviation or description containing the given search term (exact partial match, case insensitive)</param>
+        /// <param name="filterParams"></param>
+        /// <param name="pagingParams"></param>
         /// <param name="teachingLanguage">Filter by teachingLanguage, which is a string describing the main teaching language, should be a three-letter language code as specified by ISO 639-2.</param>
         /// <param name="level">Filter by level</param>
         /// <param name="modeOfDelivery">Filter by modeOfDelivery</param>
-        /// <param name="sort">Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
+        /// <param name="sort">
+        ///Default: ["courseId"]<br/>
+        ///Items Enum: "courseId" "name" "-courseId" "-name"<br/>
+        ///Example: sort=courseId,-name<br/>
+        /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("education-specifications/{educationSpecificationId}/courses")]
         [ValidateModelState]
         [SwaggerOperation("EducationSpecificationsEducationSpecificationIdCoursesGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<Course>), description: "OK")]
-        public virtual IActionResult EducationSpecificationsEducationSpecificationIdCoursesGet([FromRoute][Required] Guid? educationSpecificationId, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string teachingLanguage, [FromQuery] string level, [FromQuery] List<string> modeOfDelivery, [FromQuery] List<string> sort)
+        [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
+        public virtual IActionResult EducationSpecificationsEducationSpecificationIdCoursesGet([FromRoute][Required] Guid? educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string level, [FromQuery] List<string> modeOfDelivery, [FromQuery] string sort)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse2008));
@@ -84,26 +80,21 @@ namespace IO.Swagger.Controllers
         /// </summary>
         /// <remarks>Get an ordered list of all education-specifications given through this educationspecification.</remarks>
         /// <param name="educationSpecificationId">Education Specification ID</param>
-        /// <param name="pageSize">The number of items per page</param>
-        /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-        /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-        /// <param name="q">Filter by items having a name, abbreviation or description containing the given search term (exact partial match, case insensitive)</param>
+        /// <param name="filterParams"></param>
+        /// <param name="pagingParams"></param>
         /// <param name="teachingLanguage">Filter by teachingLanguage, which is a string describing the main teaching language, should be a three-letter language code as specified by ISO 639-2.</param>
-        /// <param name="sort">Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
+        /// <param name="sort">
+        ///Default: ["educationSpecificationId"]<br/>
+        ///Items Enum: "educationSpecificationId" "name" "educationSpecificationType" "-educationSpecificationId" "-name" "-educationSpecificationType"<br/>
+        ///Example: sort=educationSpecificationId,-name<br/>
+        /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("education-specifications/{educationSpecificationId}/education-specifications")]
         [ValidateModelState]
         [SwaggerOperation("EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<EducationSpecification>), description: "OK")]
-        public virtual IActionResult EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet([FromRoute][Required] Guid? educationSpecificationId, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string teachingLanguage, [FromQuery] List<string> sort)
+        [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
+        public virtual IActionResult EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet([FromRoute][Required] Guid? educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string sort)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse2008));
@@ -140,13 +131,6 @@ namespace IO.Swagger.Controllers
         /// <param name="returnTimelineOverrides">Controls whether the attribute &#x60;timelineOverrides&#x60; is returned or not. The default is &#x60;false&#x60;, so this has to explicitly set to &#x60;true&#x60; if a client needs the timeline overrides. See [GET /education-specifications/{educationSpecificationId}](#tag/education-specifications/paths/~1education-specifications~1{educationSpecificationId}/get) for an example.</param>
         /// <param name="expand">Optional properties to include, separated by a comma</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("education-specifications/{educationSpecificationId}")]
         [ValidateModelState]
@@ -186,10 +170,8 @@ namespace IO.Swagger.Controllers
         /// </summary>
         /// <remarks>Get an ordered list of all programs for a given education specification, ordered by name.</remarks>
         /// <param name="educationSpecificationId">Education Specification ID</param>
-        /// <param name="pageSize">The number of items per page</param>
-        /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-        /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-        /// <param name="q">Filter by items having a name, abbreviation or description containing the given search term (exact partial match, case insensitive)</param>
+        /// <param name="filterParams"></param>
+        /// <param name="pagingParams"></param>
         /// <param name="teachingLanguage">Filter by teachingLanguage, which is a string describing the main teaching language, should be a three-letter language code as specified by ISO 639-2.</param>
         /// <param name="programType">Filter by program type</param>
         /// <param name="qualificationAwarded">Filter by qualificationAwarded</param>
@@ -197,21 +179,18 @@ namespace IO.Swagger.Controllers
         /// <param name="sector">Filter by sector</param>
         /// <param name="fieldsOfStudy">Filter by fieldsOfStudy</param>
         /// <param name="crohoCreboCode">Filter by croho-creboCode</param>
-        /// <param name="sort">Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
+        /// <param name="sort">
+        ///Default: ["name"]<br/>
+        ///Items Enum: "programId" "name" "-programId" "-name"<br/>
+        ///Example: sort=programId,-name<br/>
+        /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("education-specifications/{educationSpecificationId}/programs")]
         [ValidateModelState]
         [SwaggerOperation("EducationSpecificationsEducationSpecificationIdProgramsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<Program>), description: "OK")]
-        public virtual IActionResult EducationSpecificationsEducationSpecificationIdProgramsGet([FromRoute][Required] Guid? educationSpecificationId, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string teachingLanguage, [FromQuery] string programType, [FromQuery] string qualificationAwarded, [FromQuery] string levelOfQualification, [FromQuery] string sector, [FromQuery] string fieldsOfStudy, [FromQuery] string crohoCreboCode, [FromQuery] List<string> sort)
+        [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
+        public virtual IActionResult EducationSpecificationsEducationSpecificationIdProgramsGet([FromRoute][Required] Guid? educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string programType, [FromQuery] string qualificationAwarded, [FromQuery] string levelOfQualification, [FromQuery] string sector, [FromQuery] string fieldsOfStudy, [FromQuery] string crohoCreboCode, [FromQuery] string sort)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse2007));
@@ -244,27 +223,22 @@ namespace IO.Swagger.Controllers
         /// GET /education-specifications
         /// </summary>
         /// <remarks>Get a list of all education specifications, ordered by name (ascending).</remarks>
-        /// <param name="pageSize">The number of items per page</param>
-        /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-        /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-        /// <param name="q">Filter by items having a name, abbreviation or description containing the given search term (exact partial match, case insensitive)</param>
+        /// <param name="filterParams"></param>
+        /// <param name="pagingParams"></param>
         /// <param name="educationSpecificationType">Filter by type of education specification</param>
         /// <param name="primaryCode">Filter by primary code of education specification</param>
-        /// <param name="sort">Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
+        /// <param name="sort">
+        ///Default: [["name"]]<br/>
+        ///Items Enum: "educationSpecificationType" "name" "primaryCode" "-educationSpecificationType" "-name" "-primaryCode"<br/>
+        ///Example: sort=educationSpecificationType,-primaryCode<br/>
+        /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("education-specifications")]
         [ValidateModelState]
         [SwaggerOperation("EducationSpecificationsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<EducationSpecification>), description: "OK")]
-        public virtual IActionResult EducationSpecificationsGet([FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string educationSpecificationType, [FromQuery] string primaryCode, [FromQuery] List<string> sort)
+        [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
+        public virtual IActionResult EducationSpecificationsGet([FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string educationSpecificationType, [FromQuery] string primaryCode, [FromQuery] string sort)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse20012));

@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using IO.Swagger.Enums.Params;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace IO.Swagger.Enums.Params
+namespace IO.Swagger.Models.Params
 {
-    public class PagingModel
+    public class PagingParams
     {
 
         /// <summary>
@@ -14,8 +15,10 @@ namespace IO.Swagger.Enums.Params
         public PageSizeEnum pageSize { get; set; }
 
         /// <summary>
-        /// The page number to get. Page numbers start at 1.
+        /// The page number to get. Page numbers start at 1. <br/>
+        /// Example: pageNumber=1
         /// </summary>
+        /// <param name="pageNumber" example="IETS"></param>
         [MinLength(1)]
         public int pageNumber { get; set; } = 1;
 

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
@@ -8,15 +9,16 @@ namespace IO.Swagger.Models
     /// 
     /// </summary>
     [DataContract]
-    public partial class CourseResult : Result
+    public class NewsItems : Pagination
     {
         /// <summary>
-        /// Gets or Sets StudyLoad
+        /// Array of objects (NewsItem) 
         /// </summary>
+        /// <value>Array of objects (NewsItem) </value>
         [Required]
 
-        [DataMember(Name = "studyLoad")]
-        public ProgramResultStudyLoad StudyLoad { get; set; }
+        [DataMember(Name = "items")]
+        public List<NewsItem> Items { get; set; }
 
 
     }

@@ -81,11 +81,15 @@ namespace IO.Swagger
                         }//, TermsOfService = new Uri("")
                     });
                     options.CustomSchemaIds(type => type.FullName);
+                    options.UseOneOfForPolymorphism();
 
+                    options.SelectDiscriminatorNameUsing((baseType) => "TypeName");
+                    options.SelectDiscriminatorValueUsing((subType) => subType.Name);
 
                     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                    options.EnableAnnotations();
+                    options.EnableAnnotations(enableAnnotationsForInheritance: true, enableAnnotationsForPolymorphism: true);
+
                     var comments = new XPathDocument(xmlPath);
                     options.SchemaFilter<XmlCommentsSchemaFilter>(comments);
                     options.IncludeXmlComments(xmlPath);

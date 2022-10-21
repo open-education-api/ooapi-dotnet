@@ -25,13 +25,6 @@ namespace IO.Swagger.Controllers
         /// </summary>
         /// <remarks>Get metadata for the service.</remarks>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [ValidateModelState]
         [SwaggerOperation("RootGet")]

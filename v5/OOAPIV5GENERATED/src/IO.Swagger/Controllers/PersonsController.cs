@@ -9,6 +9,7 @@
  */
 using IO.Swagger.Attributes;
 using IO.Swagger.Models;
+using IO.Swagger.Models.Params;
 using IO.Swagger.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,26 +31,22 @@ namespace IO.Swagger.Controllers
         /// GET /persons
         /// </summary>
         /// <remarks>Get an ordered list of all persons.</remarks>
-        /// <param name="primaryCode">The primaryCode of the requested item. This is often the source identifier as defined by the institution.</param>
-        /// <param name="pageSize">The number of items per page</param>
-        /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-        /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-        /// <param name="q">Filter by persons having a givenName, surNamePrefix, surname, displayName, initials, mail or secondaryMail containing the given search term (exact partial match, case insensitive)</param>
+        /// <param name="primaryCodeParam"></param>
+        /// <param name="filterParams"></param>
+        /// <param name="pagingParams"></param>
         /// <param name="affiliations">Filter by affiliations</param>
-        /// <param name="sort">Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
+        /// <param name="sort">
+        ///Default: ["personId"]<br/>
+        ///Items Enum: "personId" "givenName" "surName" "displayName" "-personId" "-givenName" "-surName" "-displayName"<br/>
+        ///Example: sort=surName,-personId<br/>
+        /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("persons")]
         [ValidateModelState]
         [SwaggerOperation("PersonsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<Person>), description: "OK")]
-        public virtual IActionResult PersonsGet([FromQuery] string primaryCode, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] List<string> affiliations, [FromQuery] List<string> sort)
+        [SwaggerResponse(statusCode: 200, type: typeof(Persons), description: "OK")]
+        public virtual IActionResult PersonsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string> affiliations, [FromQuery] string sort)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse2001));
@@ -80,13 +77,6 @@ namespace IO.Swagger.Controllers
         /// </summary>
         /// <remarks>Returns the person object for the currently authenticated user.</remarks>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("persons/me")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -127,28 +117,24 @@ namespace IO.Swagger.Controllers
         /// </summary>
         /// <remarks>Get a list of all associations for an individual person.</remarks>
         /// <param name="personId">Person ID</param>
-        /// <param name="pageSize">The number of items per page</param>
-        /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-        /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
+        /// <param name="filterParams"></param>
+        /// <param name="pagingParams"></param>
         /// <param name="associationType">Filter by association type</param>
         /// <param name="role">Filter by role</param>
         /// <param name="state">Filter by state</param>
         /// <param name="resultState">Filter by result state</param>
-        /// <param name="sort">Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
+        /// <param name="sort">
+        ///Default: ["associationId"]<br/>
+        ///Items Enum: "associationId" "-associationId"<br/>
+        ///Example: sort=associationId<br/>
+        /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("persons/{personId}/associations")]
         [ValidateModelState]
         [SwaggerOperation("PersonsPersonIdAssociationsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<Association>), description: "OK")]
-        public virtual IActionResult PersonsPersonIdAssociationsGet([FromRoute][Required] Guid? personId, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string associationType, [FromQuery] string role, [FromQuery] string state, [FromQuery] string resultState, [FromQuery] List<string> sort)
+        [SwaggerResponse(statusCode: 200, type: typeof(Associations), description: "OK")]
+        public virtual IActionResult PersonsPersonIdAssociationsGet([FromRoute][Required] Guid? personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string associationType, [FromQuery] string role, [FromQuery] string state, [FromQuery] string resultState, [FromQuery] string sort)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse2003));
@@ -183,13 +169,6 @@ namespace IO.Swagger.Controllers
         /// <remarks>Get a single person.</remarks>
         /// <param name="personId">User ID</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("persons/{personId}")]
         [ValidateModelState]
@@ -229,25 +208,21 @@ namespace IO.Swagger.Controllers
         /// </summary>
         /// <remarks>Get an ordered list of all groups for a given person, ordered by name.</remarks>
         /// <param name="personId">Person ID</param>
-        /// <param name="pageSize">The number of items per page</param>
-        /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-        /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-        /// <param name="q">Filter by items having a name, abbreviation or description containing the given search term (exact partial match, case insensitive)</param>
+        /// <param name="filterParams"></param>
+        /// <param name="pagingParams"></param>
         /// <param name="groupType">Filter by group type</param>
-        /// <param name="sort">Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
+        /// <param name="sort">
+        ///Default: ["name"]<br/>
+        ///Items Enum: "groupId" "name" "startDate" "-groupId" "-name" "-startDate"<br/>
+        ///Example: sort=name,-groupId<br/>
+        /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("persons/{personId}/groups")]
         [ValidateModelState]
         [SwaggerOperation("PersonsPersonIdGroupsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<Group>), description: "OK")]
-        public virtual IActionResult PersonsPersonIdGroupsGet([FromRoute][Required] Guid? personId, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string groupType, [FromQuery] List<string> sort)
+        [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
+        public virtual IActionResult PersonsPersonIdGroupsGet([FromRoute][Required] Guid? personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string groupType, [FromQuery] string sort)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse2004));

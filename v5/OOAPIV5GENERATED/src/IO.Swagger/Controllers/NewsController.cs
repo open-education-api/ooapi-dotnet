@@ -9,6 +9,7 @@
  */
 using IO.Swagger.Attributes;
 using IO.Swagger.Models;
+using IO.Swagger.Models.Params;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
@@ -28,25 +29,19 @@ namespace IO.Swagger.Controllers
         /// GET /news-feeds
         /// </summary>
         /// <remarks>Get a list of all news feeds, ordered by title.</remarks>
-        /// <param name="pageSize">The number of items per page</param>
-        /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-        /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-        /// <param name="q">Filter by items having a name, abbreviation or description containing the given search term (exact partial match, case insensitive)</param>
         /// <param name="newsFeedType">Filter by news type</param>
-        /// <param name="sort">Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
+        /// <param name="sort">
+        ///Default: ["name"]<br/>
+        ///Items Enum: "newsFeedId" "name" "-newsFeedId" "-name"<br/>
+        ///Example: sort=name,-newsFeedId<br/>
+        /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("news-feeds")]
         [ValidateModelState]
         [SwaggerOperation("NewsFeedsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<NewsFeed>), description: "OK")]
-        public virtual IActionResult NewsFeedsGet([FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string newsFeedType, [FromQuery] List<string> sort)
+        [SwaggerResponse(statusCode: 200, type: typeof(NewsFeeds), description: "OK")]
+        public virtual IActionResult NewsFeedsGet([FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string newsFeedType, [FromQuery] string sort)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse20029));
@@ -78,13 +73,6 @@ namespace IO.Swagger.Controllers
         /// <remarks>Get a single news feed.</remarks>
         /// <param name="newsFeedId">News feed ID</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("news-feeds/{newsFeedId}")]
         [ValidateModelState]
@@ -124,26 +112,21 @@ namespace IO.Swagger.Controllers
         /// </summary>
         /// <remarks>Get an ordered list of all news items.</remarks>
         /// <param name="newsFeedId">News feed ID</param>
-        /// <param name="pageSize">The number of items per page</param>
-        /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-        /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-        /// <param name="q">Filter by items having a name, abbreviation or description containing the given search term (exact partial match, case insensitive)</param>
+        /// <param name="filterParams"></param>
+        /// <param name="pagingParams"></param>
         /// <param name="author">Filter by author</param>
-        /// <param name="sort">Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
+        /// <param name="sort">
+        ///Default: ["newsItemId"]<br/>
+        ///Items Enum: "newsItemId" "name" "validFrom" "validUntil" "lastModified" "-newsItemId" "-name" "-validFrom" "-validUntil" "-lastModified"<br/>
+        ///Example: sort=validFrom,-name<br/>
+        /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("news-feeds/{newsFeedId}/news-items")]
         [ValidateModelState]
         [SwaggerOperation("NewsFeedsNewsFeedIdNewsItemsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<NewsItem>), description: "OK")]
-        public virtual IActionResult NewsFeedsNewsFeedIdNewsItemsGet([FromRoute][Required] Guid? newsFeedId, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string author, [FromQuery] List<string> sort)
+        [SwaggerResponse(statusCode: 200, type: typeof(NewsItems), description: "OK")]
+        public virtual IActionResult NewsFeedsNewsFeedIdNewsItemsGet([FromRoute][Required] Guid? newsFeedId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string author, [FromQuery] string sort)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse20031));
@@ -179,13 +162,6 @@ namespace IO.Swagger.Controllers
         /// <param name="newsItemId">News item ID</param>
         /// <param name="expand">Optional properties to include, separated by a comma</param>
         /// <response code="200">OK</response>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method not allowed</response>
-        /// <response code="429">Too many requests</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("news-items/{newsItemId}")]
         [ValidateModelState]

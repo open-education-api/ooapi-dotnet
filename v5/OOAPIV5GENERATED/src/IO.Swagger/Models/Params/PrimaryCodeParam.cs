@@ -1,6 +1,6 @@
-﻿namespace IO.Swagger.Enums.Params
+﻿namespace IO.Swagger.Models.Params
 {
-    public class PrimaryCodeModel
+    public class PrimaryCodeParam
     {
         /// <summary>
         /// The primaryCode of the requested item. This is often the source identifier as defined by the institution.
