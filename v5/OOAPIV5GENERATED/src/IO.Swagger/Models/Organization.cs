@@ -19,15 +19,15 @@ namespace IO.Swagger.Models
         /// Unique id of this organization
         /// </summary>
         /// <value>Unique id of this organization</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "organizationId")]
-        public Guid? OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -37,7 +37,7 @@ namespace IO.Swagger.Models
         /// The type of this organization. Each OOAPI endpoint should have a single organization with type &#x60;root&#x60;, describing the root organization. - root: the root of this organization, representing the Educational Institution itself - institute: instituut - department: departement - faculty: faculteit - branch: vestiging - academy: academie - school: school 
         /// </summary>
         /// <value>The type of this organization. Each OOAPI endpoint should have a single organization with type &#x60;root&#x60;, describing the root organization. - root: the root of this organization, representing the Educational Institution itself - institute: instituut - department: departement - faculty: faculteit - branch: vestiging - academy: academie - school: school </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "organizationType")]
         public OrganizationTypeEnum? OrganizationType { get; set; }
@@ -46,7 +46,7 @@ namespace IO.Swagger.Models
         /// The name of the organization
         /// </summary>
         /// <value>The name of the organization</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageValueItem> Name { get; set; }
@@ -55,7 +55,7 @@ namespace IO.Swagger.Models
         /// Short name of the organization
         /// </summary>
         /// <value>Short name of the organization</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(256)]
         [DataMember(Name = "shortName")]

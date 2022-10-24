@@ -18,7 +18,7 @@ namespace IO.Swagger.Models
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -27,7 +27,7 @@ namespace IO.Swagger.Models
         /// The first name of this person
         /// </summary>
         /// <value>The first name of this person</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(256)]
         [DataMember(Name = "givenName")]
@@ -45,7 +45,7 @@ namespace IO.Swagger.Models
         /// The family name of this person
         /// </summary>
         /// <value>The family name of this person</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(256)]
         [DataMember(Name = "surname")]
@@ -55,7 +55,7 @@ namespace IO.Swagger.Models
         /// The name of this person which will be displayed
         /// </summary>
         /// <value>The name of this person which will be displayed</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(256)]
         [DataMember(Name = "displayName")]
@@ -73,7 +73,7 @@ namespace IO.Swagger.Models
         /// Whether this person has an active enrollment.
         /// </summary>
         /// <value>Whether this person has an active enrollment.</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "activeEnrollment")]
         public bool? ActiveEnrollment { get; set; }
@@ -124,7 +124,7 @@ namespace IO.Swagger.Models
         /// The affiliations of this person, the relations a person has with the organization providing this endpoint - student: student - employee: medewerker - guest: gast 
         /// </summary>
         /// <value>The affiliations of this person, the relations a person has with the organization providing this endpoint - student: student - employee: medewerker - guest: gast </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "affiliations")]
         public List<AffiliationsEnum> Affiliations { get; set; }
@@ -133,7 +133,7 @@ namespace IO.Swagger.Models
         /// The primary e-mailaddress of this person
         /// </summary>
         /// <value>The primary e-mailaddress of this person</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "mail")]
         public string Mail { get; set; }

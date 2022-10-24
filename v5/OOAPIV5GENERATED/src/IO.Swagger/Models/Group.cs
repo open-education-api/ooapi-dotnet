@@ -2,7 +2,6 @@ using IO.Swagger.Enums;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -19,15 +18,15 @@ namespace IO.Swagger.Models
         /// Unique id for this group
         /// </summary>
         /// <value>Unique id for this group</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "groupId")]
-        public Guid? GroupId { get; set; }
+        public Guid GroupId { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -38,7 +37,7 @@ namespace IO.Swagger.Models
         /// The type of this group - learning group: A collection of participants carrying out common learning activities - class: A collection of participants carrying out jointly scheduled educational activities - team: A collection of members of a team, either students, employees or mixed. 
         /// </summary>
         /// <value>The type of this group - learning group: A collection of participants carrying out common learning activities - class: A collection of participants carrying out jointly scheduled educational activities - team: A collection of members of a team, either students, employees or mixed. </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "groupType")]
         public GroupTypeEnum? GroupType { get; set; }
@@ -47,7 +46,7 @@ namespace IO.Swagger.Models
         /// The name of this group
         /// </summary>
         /// <value>The name of this group</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageValueItem> Name { get; set; }

@@ -18,7 +18,7 @@ namespace IO.Swagger.Models
         /// The moment on which this offering starts, RFC3339 (date-time)
         /// </summary>
         /// <value>The moment on which this offering starts, RFC3339 (date-time)</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "startDateTime")]
         public DateTime? StartDateTime { get; set; }
@@ -27,7 +27,7 @@ namespace IO.Swagger.Models
         /// The moment on which this offering ends, RFC3339 (date-time)
         /// </summary>
         /// <value>The moment on which this offering ends, RFC3339 (date-time)</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "endDateTime")]
         public DateTime? EndDateTime { get; set; }

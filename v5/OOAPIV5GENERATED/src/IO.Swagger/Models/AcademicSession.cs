@@ -17,7 +17,7 @@ namespace IO.Swagger.Models
         /// <value>Unique id for this academic session</value>
         [JsonRequired]
         [JsonProperty("academicSessionId")]
-        public Guid? AcademicSessionId { get; set; }
+        public Guid AcademicSessionId { get; set; }
 
         /// <summary>
         /// The type of this Academic Session This is an *extensible enumeration*. <br/>

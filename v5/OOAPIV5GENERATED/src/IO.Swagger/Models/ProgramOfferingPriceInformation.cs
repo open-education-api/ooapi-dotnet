@@ -18,7 +18,7 @@ namespace IO.Swagger.Models
         /// The type of the cost. This is an *extensible enumeration*.  The following values have been defined in the specification:   - &#x60;STAP eligible&#x60;: the costs that a student can get STAP subsidy for   - &#x60;total costs&#x60;: the total costs that a student is to pay to follow this offering  Implementations are allowed to add additional values to those above, as long as they do not overlap in definition to existing values. 
         /// </summary>
         /// <value>The type of the cost. This is an *extensible enumeration*.  The following values have been defined in the specification:   - &#x60;STAP eligible&#x60;: the costs that a student can get STAP subsidy for   - &#x60;total costs&#x60;: the total costs that a student is to pay to follow this offering  Implementations are allowed to add additional values to those above, as long as they do not overlap in definition to existing values. </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "costType")]
         public string CostType { get; set; }

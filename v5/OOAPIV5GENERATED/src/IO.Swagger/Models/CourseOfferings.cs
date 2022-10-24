@@ -15,7 +15,7 @@ namespace IO.Swagger.Models
         /// Array of objects (CourseOffering) 
         /// </summary>
         /// <value>Array of objects (CourseOffering) </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "items")]
         public List<CourseOffering> Items { get; set; }

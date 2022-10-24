@@ -15,7 +15,7 @@ namespace IO.Swagger.Models
         /// The number of items per page
         /// </summary>
         /// <value>The number of items per page</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "pageSize")]
         public int? PageSize { get; set; }
@@ -24,7 +24,7 @@ namespace IO.Swagger.Models
         /// The current page number
         /// </summary>
         /// <value>The current page number</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "pageNumber")]
         public int? PageNumber { get; set; }
@@ -33,7 +33,7 @@ namespace IO.Swagger.Models
         /// Whether there is a previous page
         /// </summary>
         /// <value>Whether there is a previous page</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "hasPreviousPage")]
         public bool? HasPreviousPage { get; set; }
@@ -42,7 +42,7 @@ namespace IO.Swagger.Models
         /// Whether there is a previous page
         /// </summary>
         /// <value>Whether there is a previous page</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "hasNextPage")]
         public bool? HasNextPage { get; set; }

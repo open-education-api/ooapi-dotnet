@@ -19,15 +19,15 @@ namespace IO.Swagger.Models
         /// Unique id for this room
         /// </summary>
         /// <value>Unique id for this room</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "roomId")]
-        public Guid? RoomId { get; set; }
+        public Guid RoomId { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -37,7 +37,7 @@ namespace IO.Swagger.Models
         /// The type of this room - general purpose: algemeen - lecture room: collegezaal - computer room: computerruimte - laboratory: laboratorium - office: kantoor - workspace: werkruimte - exam location: tentamenruimte - study room: studieruimte - examination room: onderzoekskamer - conference room: vergaderkamer 
         /// </summary>
         /// <value>The type of this room - general purpose: algemeen - lecture room: collegezaal - computer room: computerruimte - laboratory: laboratorium - office: kantoor - workspace: werkruimte - exam location: tentamenruimte - study room: studieruimte - examination room: onderzoekskamer - conference room: vergaderkamer </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "roomType")]
         public RoomTypeEnum? RoomType { get; set; }
@@ -55,7 +55,7 @@ namespace IO.Swagger.Models
         /// The name of this room
         /// </summary>
         /// <value>The name of this room</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageValueItem> Name { get; set; }

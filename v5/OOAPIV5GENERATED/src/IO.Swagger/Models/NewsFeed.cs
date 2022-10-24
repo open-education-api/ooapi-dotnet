@@ -2,7 +2,6 @@ using IO.Swagger.Enums;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -19,10 +18,10 @@ namespace IO.Swagger.Models
         /// Unique id for this news feed
         /// </summary>
         /// <value>Unique id for this news feed</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "newsFeedId")]
-        public Guid? NewsFeedId { get; set; }
+        public Guid NewsFeedId { get; set; }
 
 
 
@@ -30,7 +29,7 @@ namespace IO.Swagger.Models
         /// The type of the object this news feed relates to
         /// </summary>
         /// <value>The type of the object this news feed relates to</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "newsFeedType")]
         public NewsFeedTypeEnum? NewsFeedType { get; set; }
@@ -39,7 +38,7 @@ namespace IO.Swagger.Models
         /// The name for this news feed
         /// </summary>
         /// <value>The name for this news feed</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageValueItem> Name { get; set; }
@@ -48,7 +47,7 @@ namespace IO.Swagger.Models
         /// The description of this news feed.
         /// </summary>
         /// <value>The description of this news feed.</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "description")]
         public List<LanguageValueItem> Description { get; set; }

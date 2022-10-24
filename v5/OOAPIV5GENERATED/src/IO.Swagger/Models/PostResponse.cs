@@ -18,7 +18,7 @@ namespace IO.Swagger.Models
         /// information displayed to user
         /// </summary>
         /// <value>information displayed to user</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "message")]
         public List<LanguageValueItem> Message { get; set; }

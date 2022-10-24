@@ -19,15 +19,15 @@ namespace IO.Swagger.Models
         /// Unique id of this component
         /// </summary>
         /// <value>Unique id of this component</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "componentId")]
-        public Guid? ComponentId { get; set; }
+        public Guid ComponentId { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -37,7 +37,7 @@ namespace IO.Swagger.Models
         /// The component type - test: tentamen - lecture: college - practical: practicum - tutorial: werkcollege - consultation: consultatie - project: project - workshop: workshop - excursion: excursie - independent study: zelfstudie - external: extern - skills training: vaardighedentraining 
         /// </summary>
         /// <value>The component type - test: tentamen - lecture: college - practical: practicum - tutorial: werkcollege - consultation: consultatie - project: project - workshop: workshop - excursion: excursie - independent study: zelfstudie - external: extern - skills training: vaardighedentraining </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "componentType")]
         public ComponentTypeEnum? ComponentType { get; set; }
@@ -46,7 +46,7 @@ namespace IO.Swagger.Models
         /// The name of this component
         /// </summary>
         /// <value>The name of this component</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageValueItem> Name { get; set; }
@@ -55,7 +55,7 @@ namespace IO.Swagger.Models
         /// The abbreviation of this component
         /// </summary>
         /// <value>The abbreviation of this component</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(256)]
         [DataMember(Name = "abbreviation")]
@@ -89,7 +89,7 @@ namespace IO.Swagger.Models
         /// The (primary) teaching language in which this component is given, should be a three-letter language code as specified by ISO 639-2.
         /// </summary>
         /// <value>The (primary) teaching language in which this component is given, should be a three-letter language code as specified by ISO 639-2.</value>
-        [Required]
+        [JsonRequired]
         [RegularExpression("/^[a-z]{3}$/")]
         [StringLength(3, MinimumLength = 3)]
         [DataMember(Name = "teachingLanguage")]

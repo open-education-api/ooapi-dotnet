@@ -15,7 +15,7 @@ namespace IO.Swagger.Models
         /// Array of objects (Room) 
         /// </summary>
         /// <value>Array of objects (Room) </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "items")]
         public List<Room> Items { get; set; }

@@ -16,7 +16,7 @@ namespace IO.Swagger.Models
         /// The day on which this timelineOverride starts (inclusive), RFC3339 (date)
         /// </summary>
         /// <value>The day on which this timelineOverride starts (inclusive), RFC3339 (date)</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "validFrom")]
         public DateTime? ValidFrom { get; set; }
@@ -32,7 +32,7 @@ namespace IO.Swagger.Models
         /// <summary>
         /// Gets or Sets EducationSpecification
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "educationSpecification")]
         public EducationSpecification EducationSpecification { get; set; }

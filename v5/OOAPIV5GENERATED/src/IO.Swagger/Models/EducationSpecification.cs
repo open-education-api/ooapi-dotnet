@@ -18,7 +18,7 @@ namespace IO.Swagger.Models
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -42,7 +42,7 @@ namespace IO.Swagger.Models
         /// The type of education specification   - program: HOOPLEIDING   - privateProgram: PARTICULIEREOPLEIDING   - programCluster: HOONDERWIJSEENHEDENCLUSTER   - course: HOONDERWIJSEENHEID 
         /// </summary>
         /// <value>The type of education specification   - program: HOOPLEIDING   - privateProgram: PARTICULIEREOPLEIDING   - programCluster: HOONDERWIJSEENHEDENCLUSTER   - course: HOONDERWIJSEENHEID </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "educationSpecificationType")]
         public EducationSpecificationTypeEnum? EducationSpecificationType { get; set; }
@@ -51,7 +51,7 @@ namespace IO.Swagger.Models
         /// The name of this education specification
         /// </summary>
         /// <value>The name of this education specification</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageValueItem> Name { get; set; }

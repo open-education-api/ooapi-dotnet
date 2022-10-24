@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace IO.Swagger.Models
@@ -15,7 +14,7 @@ namespace IO.Swagger.Models
         /// Array of objects (Association) 
         /// </summary>
         /// <value>Array of objects (Association) </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "items")]
         public List<Association> Items { get; set; }
