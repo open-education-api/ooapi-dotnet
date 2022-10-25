@@ -1,6 +1,5 @@
-using ooapi.v5.Enums;
 using Newtonsoft.Json;
-using System;
+using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
@@ -10,11 +9,7 @@ namespace ooapi.v5.Models
     /// A result as part of an association
     /// </summary>
     [DataContract]
-    //[SwaggerDiscriminator("resultType")]
-    //[SwaggerSubType(typeof(ProgramResult), DiscriminatorValue = "programResult")]
-    //[SwaggerSubType(typeof(CourseResult), DiscriminatorValue = "courseResult")]
-    //[SwaggerSubType(typeof(ComponentResult), DiscriminatorValue = "componentResult")]
-    public partial class Result
+    public partial class Result : ModelBase
     {
 
         /// <summary>
@@ -59,28 +54,6 @@ namespace ooapi.v5.Models
 
         [DataMember(Name = "resultDate")]
         public DateTime ResultDate { get; set; }
-
-        /// <summary>
-        /// Object for additional non-standard attributes
-        /// </summary>
-        /// <value>Object for additional non-standard attributes</value>
-
-        [DataMember(Name = "ext")]
-        public Object Ext { get; set; }
-
-
-        //protected ResultTypeEnum resultType { get; set; }
-        //public string ResultType { get; set; }
-
-
-        //// igv ComponentResult
-        //[DataMember(Name = "weight")]
-        //[MaxLength(100)]
-        //public int? Weight { get; set; }
-
-        //// igv ProgramResult and CourseResult
-        //[DataMember(Name = "studyLoad")]
-        //public StudyLoadDescriptor? StudyLoad { get; set; }
 
 
     }

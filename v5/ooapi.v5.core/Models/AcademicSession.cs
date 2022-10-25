@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using ooapi.v5.Helpers;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ooapi.v5.Models
 {
@@ -7,7 +8,7 @@ namespace ooapi.v5.Models
     /// A named period of time that can be used to communicate the various schedules and time periods an institution recognizes and uses to organize their education. AcademicSessions can be nested. Offerings MAY be be linked to a specific AcademicSession to indicate that the specified Offering takes place during the AcademicSession, however this is not mandatory. 
     /// </summary>
 
-    public partial class AcademicSession
+    public partial class AcademicSession : ModelBase
     {
         /// <summary>
         /// Unique id for this academic session
@@ -45,7 +46,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty("name")]
-        public List<LanguageValueItem> Name { get; set; }
+        public List<LanguageTypedString> Name { get; set; }
 
         /// <summary>
         /// The day on which this academic session starts, RFC3339 (full-date)
@@ -71,7 +72,7 @@ namespace ooapi.v5.Models
         /// <value>The parent Academicsession of this session (e.g. fall semester 20xx where the current session is a week 40). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)</value>
 
         [JsonProperty("parent")]
-        public Guid Parent { get; set; }
+        public OneOfAcadamicSession Parent { get; set; }
 
         /// <summary>
         /// The list of Academicsession children of this Session (e.g. all academic sessions in fall semester 20xx). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)
@@ -79,7 +80,8 @@ namespace ooapi.v5.Models
         /// <value>The list of Academicsession children of this Session (e.g. all academic sessions in fall semester 20xx). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)</value>
 
         [JsonProperty("children")]
-        public List<Guid> Children { get; set; }
+        [NotMapped]
+        public List<OneOfAcadamicSession> Children { get; set; }
 
         /// <summary>
         /// The top level year of this session (e.g. 20xx where the current session is a week 40 of a semester). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)
@@ -105,13 +107,7 @@ namespace ooapi.v5.Models
         [JsonProperty("consumers")]
         public List<Consumer> Consumers { get; set; }
 
-        /// <summary>
-        /// Object for additional non-standard attributes
-        /// </summary>
-        /// <value>Object for additional non-standard attributes</value>
 
-        [JsonProperty("ext")]
-        public Object Ext { get; set; }
 
 
     }

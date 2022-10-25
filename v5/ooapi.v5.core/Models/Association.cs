@@ -13,7 +13,7 @@ namespace ooapi.v5.Models
     //[SwaggerSubType(typeof(ProgramResult), DiscriminatorValue = "programResult")]
     //[SwaggerSubType(typeof(CourseResult), DiscriminatorValue = "courseResult")]
     //[SwaggerSubType(typeof(ComponentResult), DiscriminatorValue = "componentResult")]
-    public partial class Association
+    public partial class Association : ModelBase
     {
 
         /// <summary>
@@ -68,14 +68,6 @@ namespace ooapi.v5.Models
 
         [DataMember(Name = "consumers")]
         public List<Consumer> Consumers { get; set; }
-
-        /// <summary>
-        /// Object for additional non-standard attributes
-        /// </summary>
-        /// <value>Object for additional non-standard attributes</value>
-
-        [DataMember(Name = "ext")]
-        public Object Ext { get; set; }
 
         /// <summary>
         /// A result as part of an association

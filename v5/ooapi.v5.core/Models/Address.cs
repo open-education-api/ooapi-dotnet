@@ -9,8 +9,18 @@ namespace ooapi.v5.Models
     /// The full street address
     /// </summary>
     [DataContract]
-    public partial class Address
+    public partial class Address : ModelBase
     {
+
+        /// <summary>
+        /// Unique id of this address
+        /// </summary>
+        /// <value>Unique id of this address</value>
+        [Required]
+
+        [DataMember(Name = "addressId")]
+        public Guid? AddressId { get; set; }
+
 
         /// <summary>
         /// Address type - postal: post - visit: bezoek - deliveries: bezorg - billing: factuur - teaching: the address where education takes place 
@@ -43,7 +53,7 @@ namespace ooapi.v5.Models
         /// <value>Further details like building name, suite, apartment number, etc.</value>
 
         [DataMember(Name = "additional")]
-        public List<LanguageValueItem> Additional { get; set; }
+        public List<LanguageTypedString> Additional { get; set; }
 
         /// <summary>
         /// Postal code
@@ -76,13 +86,6 @@ namespace ooapi.v5.Models
         [DataMember(Name = "geolocation")]
         public Geolocation Geolocation { get; set; }
 
-        /// <summary>
-        /// Object for additional non-standard attributes
-        /// </summary>
-        /// <value>Object for additional non-standard attributes</value>
-
-        [DataMember(Name = "ext")]
-        public Object Ext { get; set; }
 
 
     }

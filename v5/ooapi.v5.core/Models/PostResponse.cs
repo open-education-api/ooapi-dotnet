@@ -21,7 +21,7 @@ namespace ooapi.v5.Models
         [Required]
 
         [DataMember(Name = "message")]
-        public List<LanguageValueItem> Message { get; set; }
+        public List<LanguageTypedString> Message { get; set; }
 
         /// <summary>
         /// URL where additional information can be found e.g. by use of deeplink

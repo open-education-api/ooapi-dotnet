@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using ooapi.v5.core.Repositories;
 using ooapi.v5.Security;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
@@ -34,6 +36,10 @@ namespace ooapi.v5
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<CoreDBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ooapiDB"))
+            );
+
             // Add framework services.
             services
                 .AddMvc(options =>

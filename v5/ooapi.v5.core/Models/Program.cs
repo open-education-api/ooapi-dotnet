@@ -1,8 +1,7 @@
-using ooapi.v5.Enums;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -11,8 +10,16 @@ namespace ooapi.v5.Models
     /// 
     /// </summary>
     [DataContract]
-    public partial class Program
+    public partial class Program : ModelBase
     {
+        /// <summary>
+        /// Unique id of this program
+        /// </summary>
+        /// <value>Unique id of this program</value>
+        [JsonRequired]
+        [JsonProperty("programId")]
+        public Guid ProgramId { get; set; }
+
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
@@ -39,7 +46,7 @@ namespace ooapi.v5.Models
         [Required]
 
         [DataMember(Name = "name")]
-        public List<LanguageValueItem> Name { get; set; }
+        public List<LanguageTypedString> Name { get; set; }
 
         /// <summary>
         /// The abbreviation of this program
@@ -58,7 +65,7 @@ namespace ooapi.v5.Models
         [Required]
 
         [DataMember(Name = "description")]
-        public List<LanguageValueItem> Description { get; set; }
+        public List<LanguageTypedString> Description { get; set; }
 
         /// <summary>
         /// The (primary) teaching language in which this program is given, should be a three-letter language code as specified by ISO 639-2.
@@ -98,13 +105,63 @@ namespace ooapi.v5.Models
 
 
 
+        [JsonIgnore]
+        public string ModeOfDelivery { get; set; }
+
+
         /// <summary>
         /// The mode of delivery of the component (ECTS-mode of delivery) - distance-learning: afstandsleren - on campus: op de campus - online: online - hybrid: hybride - situated: op locatie 
         /// </summary>
         /// <value>The mode of delivery of the component (ECTS-mode of delivery) - distance-learning: afstandsleren - on campus: op de campus - online: online - hybrid: hybride - situated: op locatie </value>
 
         [DataMember(Name = "modeOfDelivery")]
-        public List<ModeOfDeliveryEnum> ModeOfDelivery { get; set; }
+        [NotMapped]
+        public List<ModeOfDeliveryEnum> ModeOfDel
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(ModeOfDelivery))
+                {
+                    List<ModeOfDeliveryEnum> list = new List<ModeOfDeliveryEnum>();
+                    var affiliations = ModeOfDelivery.Split(',');
+                    foreach (var affiliation in affiliations)
+                    {
+                        switch (affiliation)
+                        {
+                            case "distance-learning":
+                                {
+                                    list.Add(ModeOfDeliveryEnum.DistanceLearningEnum);
+                                    break;
+                                }
+                            case "on campus":
+                                {
+                                    list.Add(ModeOfDeliveryEnum.OnCampusEnum);
+                                    break;
+                                }
+                            case "online":
+                                {
+                                    list.Add(ModeOfDeliveryEnum.OnlineEnum);
+                                    break;
+                                }
+                            case "hybrid":
+                                {
+                                    list.Add(ModeOfDeliveryEnum.HybridEnum);
+                                    break;
+                                }
+                            case "situated":
+                                {
+                                    list.Add(ModeOfDeliveryEnum.SituatedEnum);
+                                    break;
+                                }
+                            default:
+                                break;
+                        }
+                    }
+                    return list;
+                }
+                return new List<ModeOfDeliveryEnum>();
+            }
+        }
 
         /// <summary>
         /// The duration of this program. The duration format is from the ISO 8601 ABNF as given in Appendix A of RFC 3339.
@@ -166,15 +223,19 @@ namespace ooapi.v5.Models
         /// <value>The extra information that is provided for enrollment</value>
 
         [DataMember(Name = "enrollment")]
-        public List<LanguageValueItem> Enrollment { get; set; }
+        public List<LanguageTypedString> Enrollment { get; set; }
 
-        /// <summary>
-        /// An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)
-        /// </summary>
-        /// <value>An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)</value>
+        //[JsonIgnore]
+        //public List<Resource> Resources { get; set; }
 
-        [DataMember(Name = "resources")]
-        public List<string> Resources { get; set; }
+        ///// <summary>
+        ///// An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)
+        ///// </summary>
+        ///// <value>An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)</value>
+
+        //[DataMember(Name = "resources")]
+        //[NotMapped]
+        //public List<string> resources { get; set; }
 
         /// <summary>
         /// List of learning outcomes at program level. It is advisable to limit the number of learning outcomes to approximately 20. It is also advisable to make sure that the program learning outcomes in the course catalogue correspond with those on the Diploma Supplement.
@@ -182,7 +243,8 @@ namespace ooapi.v5.Models
         /// <value>List of learning outcomes at program level. It is advisable to limit the number of learning outcomes to approximately 20. It is also advisable to make sure that the program learning outcomes in the course catalogue correspond with those on the Diploma Supplement.</value>
 
         [DataMember(Name = "learningOutcomes")]
-        public List<List<Object>> LearningOutcomes { get; set; }
+        [NotMapped]
+        public List<List<LanguageTypedString>> LearningOutcomes { get; set; }
 
         /// <summary>
         /// A description of the way exams for this course are taken (ECTS-assessment method and criteria).
@@ -190,7 +252,7 @@ namespace ooapi.v5.Models
         /// <value>A description of the way exams for this course are taken (ECTS-assessment method and criteria).</value>
 
         [DataMember(Name = "assessment")]
-        public List<LanguageValueItem> Assessment { get; set; }
+        public List<LanguageTypedString> Assessment { get; set; }
 
         /// <summary>
         /// This information may be given at an institutional level and/or at the level of individual programmes. Make sure that it is clear whether the information applies to fee-paying students (national and/or international) or to exchange students.
@@ -198,7 +260,7 @@ namespace ooapi.v5.Models
         /// <value>This information may be given at an institutional level and/or at the level of individual programmes. Make sure that it is clear whether the information applies to fee-paying students (national and/or international) or to exchange students.</value>
 
         [DataMember(Name = "admissionRequirements")]
-        public List<LanguageValueItem> AdmissionRequirements { get; set; }
+        public List<LanguageTypedString> AdmissionRequirements { get; set; }
 
         /// <summary>
         /// Normally, students will receive a diploma when they have completed the (official) study program and have obtained the required number of credits. If there are any other specific requirements that students need to have fulfilled, mention them here.
@@ -206,7 +268,7 @@ namespace ooapi.v5.Models
         /// <value>Normally, students will receive a diploma when they have completed the (official) study program and have obtained the required number of credits. If there are any other specific requirements that students need to have fulfilled, mention them here.</value>
 
         [DataMember(Name = "qualificationRequirements")]
-        public List<LanguageValueItem> QualificationRequirements { get; set; }
+        public List<LanguageTypedString> QualificationRequirements { get; set; }
 
         /// <summary>
         /// URL of the program&#x27;s website
@@ -223,7 +285,7 @@ namespace ooapi.v5.Models
         /// <value>The educationSpecification of which this program is a more concrete implementation. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
 
         [DataMember(Name = "educationSpecification")]
-        public Object EducationSpecification { get; set; }
+        public OneOfEducationSpecification EducationSpecification { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
@@ -247,7 +309,7 @@ namespace ooapi.v5.Models
         /// <value>Parent program of which the current program is a child. This object is [&#x60;expandable&#x60;](#tag/program_model)</value>
 
         [DataMember(Name = "parent")]
-        public Object Parent { get; set; }
+        public OneOfProgram Parent { get; set; }
 
         /// <summary>
         /// Programs which are a part of this program (e.g specializations). This object is [&#x60;expandable&#x60;](#tag/program_model)
@@ -255,7 +317,7 @@ namespace ooapi.v5.Models
         /// <value>Programs which are a part of this program (e.g specializations). This object is [&#x60;expandable&#x60;](#tag/program_model)</value>
 
         [DataMember(Name = "children")]
-        public List<Object> Children { get; set; }
+        public List<OneOfProgram> Children { get; set; }
 
         /// <summary>
         /// The person(s) responsible for this program. This object is [&#x60;expandable&#x60;](#tag/person_model)
@@ -263,7 +325,7 @@ namespace ooapi.v5.Models
         /// <value>The person(s) responsible for this program. This object is [&#x60;expandable&#x60;](#tag/person_model)</value>
 
         [DataMember(Name = "coordinators")]
-        public List<Object> Coordinators { get; set; }
+        public List<OneOfPerson> Coordinators { get; set; }
 
         /// <summary>
         /// The organization providing this program. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -271,7 +333,7 @@ namespace ooapi.v5.Models
         /// <value>The organization providing this program. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [DataMember(Name = "organization")]
-        public Object Organization { get; set; }
+        public OneOfOrganization Organization { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
@@ -281,13 +343,6 @@ namespace ooapi.v5.Models
         [DataMember(Name = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
-        /// <summary>
-        /// Object for additional non-standard attributes
-        /// </summary>
-        /// <value>Object for additional non-standard attributes</value>
-
-        [DataMember(Name = "ext")]
-        public Object Ext { get; set; }
 
         /// <summary>
         /// The first day this program is valid (inclusive).

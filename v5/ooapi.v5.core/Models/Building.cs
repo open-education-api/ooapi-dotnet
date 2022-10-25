@@ -8,7 +8,7 @@ namespace ooapi.v5.Models
     /// An object describing a building and the properties of a building.
     /// </summary>
     [DataContract]
-    public partial class Building
+    public partial class Building : ModelBase
     {
         /// <summary>
         /// Unique id of this building
@@ -43,7 +43,7 @@ namespace ooapi.v5.Models
         [Required]
 
         [DataMember(Name = "name")]
-        public List<LanguageValueItem> Name { get; set; }
+        public List<LanguageTypedString> Name { get; set; }
 
         /// <summary>
         /// The description of this building.
@@ -51,7 +51,7 @@ namespace ooapi.v5.Models
         /// <value>The description of this building.</value>
 
         [DataMember(Name = "description")]
-        public List<LanguageValueItem> Description { get; set; }
+        public List<LanguageTypedString> Description { get; set; }
 
         /// <summary>
         /// Gets or Sets Address
@@ -77,13 +77,6 @@ namespace ooapi.v5.Models
         [DataMember(Name = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
-        /// <summary>
-        /// Object for additional non-standard attributes
-        /// </summary>
-        /// <value>Object for additional non-standard attributes</value>
-
-        [DataMember(Name = "ext")]
-        public Object Ext { get; set; }
 
 
     }

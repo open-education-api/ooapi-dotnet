@@ -8,8 +8,18 @@ namespace ooapi.v5.Models
     /// Geolocation of the entrance of this address (WGS84 coordinate reference system)
     /// </summary>
     [DataContract]
-    public partial class Geolocation
+    public class Geolocation
     {
+
+        /// <summary>
+        /// Unique id of this geolocation
+        /// </summary>
+        /// <value>Unique id of this geolocation</value>
+        [JsonIgnore]
+        [JsonProperty("geolocationId")]
+        public Guid GeolocationId { get; set; }
+
+
         /// <summary>
         /// Gets or Sets Latitude
         /// </summary>

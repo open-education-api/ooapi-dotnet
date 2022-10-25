@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
@@ -9,7 +8,7 @@ namespace ooapi.v5.Models
     /// 
     /// </summary>
     [DataContract]
-    public partial class Pagination
+    public partial class Pagination : ModelBase
     {
         /// <summary>
         /// The number of items per page
@@ -55,14 +54,6 @@ namespace ooapi.v5.Models
         [DataMember(Name = "totalPages")]
         public int? TotalPages { get; set; }
 
-
-        /// <summary>
-        /// Object for additional non-standard attributes
-        /// </summary>
-        /// <value>Object for additional non-standard attributes</value>
-
-        [DataMember(Name = "ext")]
-        public Object Ext { get; set; }
 
     }
 }
