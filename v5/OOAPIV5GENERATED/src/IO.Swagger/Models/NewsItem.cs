@@ -83,7 +83,7 @@ namespace IO.Swagger.Models
         /// <value>The newsFeeds where this item can be found. [&#x60;expandable&#x60;](#tag/news_feed_model)</value>
 
         [DataMember(Name = "newsFeeds")]
-        public List<Guid> NewsFeeds { get; set; }
+        public List<OneOfNewsFeed> NewsFeeds { get; set; }
 
         /// <summary>
         /// The moment from which this news item is valid, RFC3339 (date-time)

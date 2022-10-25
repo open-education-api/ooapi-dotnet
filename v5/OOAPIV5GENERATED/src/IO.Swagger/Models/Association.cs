@@ -10,10 +10,6 @@ namespace IO.Swagger.Models
     /// 
     /// </summary>
     [DataContract]
-    //[SwaggerDiscriminator("resultType")]
-    //[SwaggerSubType(typeof(ProgramResult), DiscriminatorValue = "programResult")]
-    //[SwaggerSubType(typeof(CourseResult), DiscriminatorValue = "courseResult")]
-    //[SwaggerSubType(typeof(ComponentResult), DiscriminatorValue = "componentResult")]
     public partial class Association
     {
 

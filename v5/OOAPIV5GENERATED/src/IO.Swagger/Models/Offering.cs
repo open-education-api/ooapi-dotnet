@@ -39,7 +39,7 @@ namespace IO.Swagger.Models
         /// </summary>
 
         [DataMember(Name = "academicSession")]
-        public Guid AcademicSession { get; set; }
+        public OneOfAcademicSession AcademicSession { get; set; }
 
         /// <summary>
         /// The name of this offering

@@ -223,7 +223,7 @@ namespace IO.Swagger.Models
         /// <value>The educationSpecification of which this program is a more concrete implementation. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
 
         [DataMember(Name = "educationSpecification")]
-        public Object EducationSpecification { get; set; }
+        public OneOfEducationSpecification EducationSpecification { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
@@ -247,7 +247,7 @@ namespace IO.Swagger.Models
         /// <value>Parent program of which the current program is a child. This object is [&#x60;expandable&#x60;](#tag/program_model)</value>
 
         [DataMember(Name = "parent")]
-        public Object Parent { get; set; }
+        public OneOfProgram Parent { get; set; }
 
         /// <summary>
         /// Programs which are a part of this program (e.g specializations). This object is [&#x60;expandable&#x60;](#tag/program_model)
@@ -255,7 +255,7 @@ namespace IO.Swagger.Models
         /// <value>Programs which are a part of this program (e.g specializations). This object is [&#x60;expandable&#x60;](#tag/program_model)</value>
 
         [DataMember(Name = "children")]
-        public List<Object> Children { get; set; }
+        public List<OneOfProgram> Children { get; set; }
 
         /// <summary>
         /// The person(s) responsible for this program. This object is [&#x60;expandable&#x60;](#tag/person_model)
@@ -263,7 +263,7 @@ namespace IO.Swagger.Models
         /// <value>The person(s) responsible for this program. This object is [&#x60;expandable&#x60;](#tag/person_model)</value>
 
         [DataMember(Name = "coordinators")]
-        public List<Object> Coordinators { get; set; }
+        public List<OneOfPerson> Coordinators { get; set; }
 
         /// <summary>
         /// The organization providing this program. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -271,7 +271,7 @@ namespace IO.Swagger.Models
         /// <value>The organization providing this program. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [DataMember(Name = "organization")]
-        public Object Organization { get; set; }
+        public OneOfOrganization Organization { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.

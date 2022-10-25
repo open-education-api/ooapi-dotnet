@@ -214,7 +214,7 @@ namespace IO.Swagger.Models
         /// <value>The program of which this course is a part of. This object is [&#x60;expandable&#x60;](#tag/program_model)</value>
 
         [DataMember(Name = "programs")]
-        public List<Object> Programs { get; set; }
+        public List<OneOfProgram> Programs { get; set; }
 
         /// <summary>
         /// The person(s) responsible for this course. This object is [&#x60;expandable&#x60;](#tag/person_model)
@@ -222,7 +222,7 @@ namespace IO.Swagger.Models
         /// <value>The person(s) responsible for this course. This object is [&#x60;expandable&#x60;](#tag/person_model)</value>
 
         [DataMember(Name = "coordinators")]
-        public List<Object> Coordinators { get; set; }
+        public List<OneOfPerson> Coordinators { get; set; }
 
         /// <summary>
         /// The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -230,7 +230,7 @@ namespace IO.Swagger.Models
         /// <value>The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [DataMember(Name = "organization")]
-        public Object Organization { get; set; }
+        public OneOfOrganization Organization { get; set; }
 
         /// <summary>
         /// The first day this course is valid (inclusive).
