@@ -2,7 +2,6 @@ using IO.Swagger.Enums;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace IO.Swagger.Models
@@ -11,10 +10,6 @@ namespace IO.Swagger.Models
     /// 
     /// </summary>
     [DataContract]
-    //[SwaggerDiscriminator("resultType")]
-    //[SwaggerSubType(typeof(ProgramResult), DiscriminatorValue = "programResult")]
-    //[SwaggerSubType(typeof(CourseResult), DiscriminatorValue = "courseResult")]
-    //[SwaggerSubType(typeof(ComponentResult), DiscriminatorValue = "componentResult")]
     public partial class Association
     {
 
@@ -30,7 +25,7 @@ namespace IO.Swagger.Models
         /// The type of this association
         /// </summary>
         /// <value>The type of this association</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "associationType")]
         public AssociationTypeEnum AssociationType { get; set; }
@@ -41,7 +36,7 @@ namespace IO.Swagger.Models
         /// The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coördinator   - guest: gast 
         /// </summary>
         /// <value>The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coördinator   - guest: gast </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "role")]
         public RoleEnum Role { get; set; }
@@ -50,7 +45,7 @@ namespace IO.Swagger.Models
         /// The state of this association
         /// </summary>
         /// <value>The state of this association</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "state")]
         public AssociationStateEnum State { get; set; }

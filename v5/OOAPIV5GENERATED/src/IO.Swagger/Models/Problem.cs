@@ -16,7 +16,7 @@ namespace IO.Swagger.Models
         /// The HTTP status code
         /// </summary>
         /// <value>The HTTP status code</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "status")]
         public string Status { get; set; }
@@ -25,7 +25,7 @@ namespace IO.Swagger.Models
         /// A short, human-readable summary of the problem type
         /// </summary>
         /// <value>A short, human-readable summary of the problem type</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "title")]
         public string Title { get; set; }

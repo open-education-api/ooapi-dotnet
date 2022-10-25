@@ -18,7 +18,7 @@ namespace IO.Swagger.Models
         /// Contact e-mail address of the service owner
         /// </summary>
         /// <value>Contact e-mail address of the service owner</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(256)]
         [DataMember(Name = "contactEmail")]
@@ -28,7 +28,7 @@ namespace IO.Swagger.Models
         /// URL of the API specification (YAML or JSON, compliant with [Open API Specification v3](https://github.com/OAI/OpenAPI-Specification/))
         /// </summary>
         /// <value>URL of the API specification (YAML or JSON, compliant with [Open API Specification v3](https://github.com/OAI/OpenAPI-Specification/))</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(2048)]
         [DataMember(Name = "specification")]
@@ -38,7 +38,7 @@ namespace IO.Swagger.Models
         /// URL of the API documentation, including general terms and privacy statement
         /// </summary>
         /// <value>URL of the API documentation, including general terms and privacy statement</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(2048)]
         [DataMember(Name = "documentation")]

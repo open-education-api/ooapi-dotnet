@@ -18,7 +18,7 @@ namespace IO.Swagger.Models
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -27,7 +27,7 @@ namespace IO.Swagger.Models
         /// The name of this course (ECTS-title)
         /// </summary>
         /// <value>The name of this course (ECTS-title)</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageValueItem> Name { get; set; }
@@ -36,7 +36,7 @@ namespace IO.Swagger.Models
         /// The abbreviation or internal code used to identify this course (ECTS-code)
         /// </summary>
         /// <value>The abbreviation or internal code used to identify this course (ECTS-code)</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(256)]
         [DataMember(Name = "abbreviation")]
@@ -78,7 +78,7 @@ namespace IO.Swagger.Models
         /// The description of this course (ECTS-description).
         /// </summary>
         /// <value>The description of this course (ECTS-description).</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "description")]
         public List<LanguageValueItem> Description { get; set; }
@@ -87,7 +87,7 @@ namespace IO.Swagger.Models
         /// The (primary) teaching language in which this course is given, should be a three-letter language code as specified by ISO 639-2.
         /// </summary>
         /// <value>The (primary) teaching language in which this course is given, should be a three-letter language code as specified by ISO 639-2.</value>
-        [Required]
+        [JsonRequired]
         [RegularExpression("/^[a-z]{3}$/")]
         [StringLength(3, MinimumLength = 3)]
         [DataMember(Name = "teachingLanguage")]
@@ -130,7 +130,7 @@ namespace IO.Swagger.Models
         /// The level of this course (ECTS-year of study if applicable) - secondary vocational education: mbo - secondary vocational education 1: mbo 1, corresponds to levelOfQualification 1 - secondary vocational education 2: mbo 2, corresponds to levelOfQualification 2 - secondary vocational education 3: mbo 3, corresponds to levelOfQualification 3 - secondary vocational education 4: mbo 4, corresponds to levelOfQualification 4 - associate degree: associate degree, corresponds to levelOfQualification 5 - bachelor: bachelor, corresponds to levelOfQualification 6 - master: master, corresponds to levelOfQualification 7 - doctoral: doctoraal, corresponds to levelOfQualification 8 - undefined: onbepaald - undivided: ongedeeld - nt2-1: NT2 niveau 1 - nt2-2: NT2 niveau 2 
         /// </summary>
         /// <value>The level of this course (ECTS-year of study if applicable) - secondary vocational education: mbo - secondary vocational education 1: mbo 1, corresponds to levelOfQualification 1 - secondary vocational education 2: mbo 2, corresponds to levelOfQualification 2 - secondary vocational education 3: mbo 3, corresponds to levelOfQualification 3 - secondary vocational education 4: mbo 4, corresponds to levelOfQualification 4 - associate degree: associate degree, corresponds to levelOfQualification 5 - bachelor: bachelor, corresponds to levelOfQualification 6 - master: master, corresponds to levelOfQualification 7 - doctoral: doctoraal, corresponds to levelOfQualification 8 - undefined: onbepaald - undivided: ongedeeld - nt2-1: NT2 niveau 1 - nt2-2: NT2 niveau 2 </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "level")]
         public LevelEnum? Level { get; set; }
@@ -214,7 +214,7 @@ namespace IO.Swagger.Models
         /// <value>The program of which this course is a part of. This object is [&#x60;expandable&#x60;](#tag/program_model)</value>
 
         [DataMember(Name = "programs")]
-        public List<Object> Programs { get; set; }
+        public List<OneOfProgram> Programs { get; set; }
 
         /// <summary>
         /// The person(s) responsible for this course. This object is [&#x60;expandable&#x60;](#tag/person_model)
@@ -222,7 +222,7 @@ namespace IO.Swagger.Models
         /// <value>The person(s) responsible for this course. This object is [&#x60;expandable&#x60;](#tag/person_model)</value>
 
         [DataMember(Name = "coordinators")]
-        public List<Object> Coordinators { get; set; }
+        public List<OneOfPerson> Coordinators { get; set; }
 
         /// <summary>
         /// The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -230,7 +230,7 @@ namespace IO.Swagger.Models
         /// <value>The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [DataMember(Name = "organization")]
-        public Object Organization { get; set; }
+        public OneOfOrganization Organization { get; set; }
 
         /// <summary>
         /// The first day this course is valid (inclusive).

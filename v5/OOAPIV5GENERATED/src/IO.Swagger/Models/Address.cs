@@ -18,7 +18,7 @@ namespace IO.Swagger.Models
         /// Address type - postal: post - visit: bezoek - deliveries: bezorg - billing: factuur - teaching: the address where education takes place 
         /// </summary>
         /// <value>Address type - postal: post - visit: bezoek - deliveries: bezorg - billing: factuur - teaching: the address where education takes place </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "addressType")]
         public AddressTypeEnum? AddressType { get; set; }

@@ -19,15 +19,15 @@ namespace IO.Swagger.Models
         /// Unique id of this component
         /// </summary>
         /// <value>Unique id of this component</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "componentId")]
-        public Guid? ComponentId { get; set; }
+        public Guid ComponentId { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -37,7 +37,7 @@ namespace IO.Swagger.Models
         /// The component type - test: tentamen - lecture: college - practical: practicum - tutorial: werkcollege - consultation: consultatie - project: project - workshop: workshop - excursion: excursie - independent study: zelfstudie - external: extern - skills training: vaardighedentraining 
         /// </summary>
         /// <value>The component type - test: tentamen - lecture: college - practical: practicum - tutorial: werkcollege - consultation: consultatie - project: project - workshop: workshop - excursion: excursie - independent study: zelfstudie - external: extern - skills training: vaardighedentraining </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "componentType")]
         public ComponentTypeEnum? ComponentType { get; set; }
@@ -46,7 +46,7 @@ namespace IO.Swagger.Models
         /// The name of this component
         /// </summary>
         /// <value>The name of this component</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageValueItem> Name { get; set; }
@@ -55,7 +55,7 @@ namespace IO.Swagger.Models
         /// The abbreviation of this component
         /// </summary>
         /// <value>The abbreviation of this component</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(256)]
         [DataMember(Name = "abbreviation")]
@@ -89,7 +89,7 @@ namespace IO.Swagger.Models
         /// The (primary) teaching language in which this component is given, should be a three-letter language code as specified by ISO 639-2.
         /// </summary>
         /// <value>The (primary) teaching language in which this component is given, should be a three-letter language code as specified by ISO 639-2.</value>
-        [Required]
+        [JsonRequired]
         [RegularExpression("/^[a-z]{3}$/")]
         [StringLength(3, MinimumLength = 3)]
         [DataMember(Name = "teachingLanguage")]
@@ -149,7 +149,7 @@ namespace IO.Swagger.Models
         /// <value>The course of which this component is a part. [&#x60;expandable&#x60;](#tag/course_model) By default only the &#x60;courseId&#x60; (a string) is returned. If the client requested an expansion of &#x60;course&#x60; the full course object should be returned. </value>
 
         [DataMember(Name = "course")]
-        public Guid Course { get; set; }
+        public OneOfCourse Course { get; set; }
 
         /// <summary>
         /// The organization which provides this component. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -157,7 +157,7 @@ namespace IO.Swagger.Models
         /// <value>The organization which provides this component. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [DataMember(Name = "organization")]
-        public Guid Organization { get; set; }
+        public OneOfOrganization Organization { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.

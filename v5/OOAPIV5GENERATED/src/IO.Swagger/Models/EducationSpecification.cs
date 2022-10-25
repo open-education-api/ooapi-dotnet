@@ -18,7 +18,7 @@ namespace IO.Swagger.Models
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -42,7 +42,7 @@ namespace IO.Swagger.Models
         /// The type of education specification   - program: HOOPLEIDING   - privateProgram: PARTICULIEREOPLEIDING   - programCluster: HOONDERWIJSEENHEDENCLUSTER   - course: HOONDERWIJSEENHEID 
         /// </summary>
         /// <value>The type of education specification   - program: HOOPLEIDING   - privateProgram: PARTICULIEREOPLEIDING   - programCluster: HOONDERWIJSEENHEDENCLUSTER   - course: HOONDERWIJSEENHEID </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "educationSpecificationType")]
         public EducationSpecificationTypeEnum? EducationSpecificationType { get; set; }
@@ -51,7 +51,7 @@ namespace IO.Swagger.Models
         /// The name of this education specification
         /// </summary>
         /// <value>The name of this education specification</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageValueItem> Name { get; set; }
@@ -148,7 +148,7 @@ namespace IO.Swagger.Models
         /// <value>The educationSpecification that is the parent of this educationSpecification if it exists. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
 
         [DataMember(Name = "parent")]
-        public Object Parent { get; set; }
+        public OneOfEducationSpecification Parent { get; set; }
 
         /// <summary>
         /// The EducationSpecifications that have this EducationSpecification as their parent. [&#x60;expandable&#x60;](#tag/education_specification_model)
@@ -156,7 +156,7 @@ namespace IO.Swagger.Models
         /// <value>The EducationSpecifications that have this EducationSpecification as their parent. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
 
         [DataMember(Name = "children")]
-        public List<Object> Children { get; set; }
+        public List<OneOfEducationSpecification> Children { get; set; }
 
         /// <summary>
         /// The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -164,7 +164,7 @@ namespace IO.Swagger.Models
         /// <value>The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [DataMember(Name = "organization")]
-        public Object Organization { get; set; }
+        public OneOfOrganization Organization { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.

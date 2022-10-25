@@ -17,7 +17,7 @@
 //        /// The state of this result
 //        /// </summary>
 //        /// <value>The state of this result</value>
-//        [Required]
+//        [JsonRequired]
 
 //        [DataMember(Name = "state")]
 //        public ResultStateEnum State { get; set; }
@@ -51,7 +51,7 @@
 //        /// The date this result has been published, RFC3339 (full-date)
 //        /// </summary>
 //        /// <value>The date this result has been published, RFC3339 (full-date)</value>
-//        [Required]
+//        [JsonRequired]
 
 //        [DataMember(Name = "resultDate")]
 //        public DateTime ResultDate { get; set; }

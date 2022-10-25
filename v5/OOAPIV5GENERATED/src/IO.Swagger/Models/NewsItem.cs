@@ -19,10 +19,10 @@ namespace IO.Swagger.Models
         /// Unique id for this news item
         /// </summary>
         /// <value>Unique id for this news item</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "newsItemId")]
-        public Guid? NewsItemId { get; set; }
+        public Guid NewsItemId { get; set; }
 
 
 
@@ -38,7 +38,7 @@ namespace IO.Swagger.Models
         /// The name for this news item
         /// </summary>
         /// <value>The name for this news item</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageValueItem> Name { get; set; }
@@ -83,7 +83,7 @@ namespace IO.Swagger.Models
         /// <value>The newsFeeds where this item can be found. [&#x60;expandable&#x60;](#tag/news_feed_model)</value>
 
         [DataMember(Name = "newsFeeds")]
-        public List<Guid> NewsFeeds { get; set; }
+        public List<OneOfNewsFeed> NewsFeeds { get; set; }
 
         /// <summary>
         /// The moment from which this news item is valid, RFC3339 (date-time)

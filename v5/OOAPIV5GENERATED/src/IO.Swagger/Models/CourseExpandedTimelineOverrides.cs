@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -16,7 +15,7 @@ namespace IO.Swagger.Models
         /// The day on which this timelineOverride starts (inclusive), RFC3339 (date)
         /// </summary>
         /// <value>The day on which this timelineOverride starts (inclusive), RFC3339 (date)</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "validFrom")]
         public DateTime? ValidFrom { get; set; }
@@ -32,7 +31,7 @@ namespace IO.Swagger.Models
         /// <summary>
         /// Gets or Sets Course
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "course")]
         public Course Course { get; set; }

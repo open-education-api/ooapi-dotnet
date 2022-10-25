@@ -17,7 +17,7 @@ namespace IO.Swagger.Models
         /// <value>Unique id for this academic session</value>
         [JsonRequired]
         [JsonProperty("academicSessionId")]
-        public Guid? AcademicSessionId { get; set; }
+        public Guid AcademicSessionId { get; set; }
 
         /// <summary>
         /// The type of this Academic Session This is an *extensible enumeration*. <br/>
@@ -73,7 +73,7 @@ namespace IO.Swagger.Models
         /// <value>The parent Academicsession of this session (e.g. fall semester 20xx where the current session is a week 40). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)</value>
 
         [JsonProperty("parent")]
-        public Guid Parent { get; set; }
+        public OneOfAcademicSession Parent { get; set; }
 
         /// <summary>
         /// The list of Academicsession children of this Session (e.g. all academic sessions in fall semester 20xx). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)
@@ -81,7 +81,7 @@ namespace IO.Swagger.Models
         /// <value>The list of Academicsession children of this Session (e.g. all academic sessions in fall semester 20xx). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)</value>
 
         [JsonProperty("children")]
-        public List<Guid> Children { get; set; }
+        public List<OneOfAcademicSession> Children { get; set; }
 
         /// <summary>
         /// The top level year of this session (e.g. 20xx where the current session is a week 40 of a semester). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)
@@ -89,7 +89,7 @@ namespace IO.Swagger.Models
         /// <value>The top level year of this session (e.g. 20xx where the current session is a week 40 of a semester). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)</value>
 
         [JsonProperty("year")]
-        public Guid Year { get; set; }
+        public OneOfAcademicSession Year { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.

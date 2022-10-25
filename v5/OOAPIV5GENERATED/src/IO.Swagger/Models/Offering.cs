@@ -18,7 +18,7 @@ namespace IO.Swagger.Models
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -29,7 +29,7 @@ namespace IO.Swagger.Models
         /// The type of this offering
         /// </summary>
         /// <value>The type of this offering</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "offeringType")]
         public OfferingTypeEnum? OfferingType { get; set; }
@@ -39,13 +39,13 @@ namespace IO.Swagger.Models
         /// </summary>
 
         [DataMember(Name = "academicSession")]
-        public Guid AcademicSession { get; set; }
+        public OneOfAcademicSession AcademicSession { get; set; }
 
         /// <summary>
         /// The name of this offering
         /// </summary>
         /// <value>The name of this offering</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageValueItem> Name { get; set; }
@@ -63,7 +63,7 @@ namespace IO.Swagger.Models
         /// The description of this offering.
         /// </summary>
         /// <value>The description of this offering.</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "description")]
         public List<LanguageValueItem> Description { get; set; }
@@ -72,7 +72,7 @@ namespace IO.Swagger.Models
         /// The (primary) teaching language in which this offering is given, should be a three-letter language code as specified by ISO 639-2.
         /// </summary>
         /// <value>The (primary) teaching language in which this offering is given, should be a three-letter language code as specified by ISO 639-2.</value>
-        [Required]
+        [JsonRequired]
         [RegularExpression("/^[a-z]{3}$/")]
         [StringLength(3, MinimumLength = 3)]
         [DataMember(Name = "teachingLanguage")]
@@ -123,7 +123,7 @@ namespace IO.Swagger.Models
         /// resultExpected, previously knwon as isLineItem is used so the specific instance of the object is identified as being an element that CAN contain “grade” information. Offerings do not always have to result in a grade or an other type of result.  If there is a result expected from a programOffering/courseOffering/componentOffering the is resultExpected field should parse true 
         /// </summary>
         /// <value>resultExpected, previously knwon as isLineItem is used so the specific instance of the object is identified as being an element that CAN contain “grade” information. Offerings do not always have to result in a grade or an other type of result.  If there is a result expected from a programOffering/courseOffering/componentOffering the is resultExpected field should parse true </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "resultExpected")]
         public bool? ResultExpected { get; set; }

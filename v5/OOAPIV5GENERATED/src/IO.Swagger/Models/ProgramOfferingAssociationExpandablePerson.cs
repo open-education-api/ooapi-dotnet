@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -16,10 +15,10 @@ namespace IO.Swagger.Models
         /// Unique id of this person
         /// </summary>
         /// <value>Unique id of this person</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "personId")]
-        public Guid? PersonId { get; set; }
+        public Guid PersonId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
