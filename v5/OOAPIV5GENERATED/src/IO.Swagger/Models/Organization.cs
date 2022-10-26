@@ -11,7 +11,7 @@ namespace IO.Swagger.Models
     /// A description of a group of people working together to achieve a goal
     /// </summary>
     [DataContract]
-    public partial class Organization : IEquatable<Organization>
+    public partial class Organization
     {
         /// <summary>
         /// Unique id of this organization

@@ -11,7 +11,7 @@ namespace IO.Swagger.Models
     /// An area within a building where education can take place
     /// </summary>
     [DataContract]
-    public partial class Room : IEquatable<Room>
+    public partial class Room
     {
         /// <summary>
         /// Unique id for this room

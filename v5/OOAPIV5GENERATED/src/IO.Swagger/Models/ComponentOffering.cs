@@ -10,7 +10,7 @@ namespace IO.Swagger.Models
     /// 
     /// </summary>
     [DataContract]
-    public partial class ComponentOffering : IEquatable<ComponentOffering>
+    public partial class ComponentOffering
     {
         /// <summary>
         /// The moment on which this offering starts, RFC3339 (date-time)
