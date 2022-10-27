@@ -15,7 +15,7 @@ namespace ooapi.v5.Models
         /// <value>The HTTP status code</value>
         [JsonRequired]
 
-        [DataMember(Name = "status")]
+        [JsonProperty(PropertyName = "status")]
         public string Status { get; set; }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace ooapi.v5.Models
         /// <value>A short, human-readable summary of the problem type</value>
         [JsonRequired]
 
-        [DataMember(Name = "title")]
+        [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>A human-readable explanation specific to this occurrence of the problem</value>
 
-        [DataMember(Name = "detail")]
+        [JsonProperty(PropertyName = "detail")]
         public string Detail { get; set; }
     }
 

@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -26,13 +25,13 @@ namespace ooapi.v5.Models
         /// </summary>
         [JsonRequired]
 
-        [DataMember(Name = "consumerKey")]
+        [JsonProperty(PropertyName = "consumerKey")]
         public string ConsumerKey { get; set; }
 
         /// <summary>
         /// Gets or Sets additional
         /// </summary>
-        [DataMember(Name = "propertyName")]
+        [JsonProperty(PropertyName = "propertyName")]
         public string PropertyName { get; set; }
 
 

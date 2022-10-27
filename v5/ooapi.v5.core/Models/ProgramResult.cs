@@ -15,7 +15,7 @@ namespace ooapi.v5.Models
         /// </summary>
         [JsonRequired]
 
-        [DataMember(Name = "studyLoad")]
+        [JsonProperty(PropertyName = "studyLoad")]
         public ProgramResultStudyLoad StudyLoad { get; set; }
 
 

@@ -18,7 +18,7 @@ namespace ooapi.v5.Models
         /// <value>The state of this result</value>
         [JsonRequired]
 
-        [DataMember(Name = "state")]
+        [JsonProperty(PropertyName = "state")]
         public ResultStateEnum State { get; set; }
 
 
@@ -27,7 +27,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The state of this result</value>
 
-        [DataMember(Name = "pass")]
+        [JsonProperty(PropertyName = "pass")]
         public PassEnum? Pass { get; set; }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The comment on this result</value>
 
-        [DataMember(Name = "comment")]
+        [JsonProperty(PropertyName = "comment")]
         public string Comment { get; set; }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The score of this program/course/component association (based on resultValueType in offering)</value>
 
-        [DataMember(Name = "score")]
+        [JsonProperty(PropertyName = "score")]
         public string Score { get; set; }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace ooapi.v5.Models
         /// <value>The date this result has been published, RFC3339 (full-date)</value>
         [JsonRequired]
 
-        [DataMember(Name = "resultDate")]
+        [JsonProperty(PropertyName = "resultDate")]
         public DateTime ResultDate { get; set; }
 
 

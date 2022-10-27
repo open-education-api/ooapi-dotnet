@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
@@ -18,7 +17,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [Range(0, 100)]
-        [DataMember(Name = "weight")]
+        [JsonProperty(PropertyName = "weight")]
         public int? Weight { get; set; }
 
     }

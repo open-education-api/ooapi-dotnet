@@ -15,7 +15,7 @@ namespace ooapi.v5.Models
         /// <value>Unique id of this person</value>
         [JsonRequired]
 
-        [DataMember(Name = "personId")]
+        [JsonProperty(PropertyName = "personId")]
         public Guid PersonId { get; set; }
 
 

@@ -28,7 +28,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The type of this association</value>
         [JsonRequired]
-        [DataMember(Name = "associationType")]
+        [JsonProperty(PropertyName = "associationType")]
         public AssociationTypeEnum AssociationType { get; set; }
 
 
@@ -38,7 +38,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coördinator   - guest: gast </value>
         [JsonRequired]
-        [DataMember(Name = "role")]
+        [JsonProperty(PropertyName = "role")]
         public RoleEnum Role { get; set; }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The state of this association</value>
         [JsonRequired]
-        [DataMember(Name = "state")]
+        [JsonProperty(PropertyName = "state")]
         public AssociationStateEnum State { get; set; }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The state of this association for the institution performing the request.</value>
 
-        [DataMember(Name = "remoteState")]
+        [JsonProperty(PropertyName = "remoteState")]
         public RemoteStateEnum? RemoteState { get; set; }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [DataMember(Name = "consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>A result as part of an association</value>
 
-        [DataMember(Name = "result")]
+        [JsonProperty(PropertyName = "result")]
         public OneOfResult? Result { get; set; }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Identifier (string) or Person (object)</value>
 
-        [DataMember(Name = "person")]
+        [JsonProperty(PropertyName = "person")]
         public OneOfPerson? Person { get; set; }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Identifier (string) or Offering (object) or Offering (object) or Offering (object)</value>
 
-        [DataMember(Name = "offering")]
+        [JsonProperty(PropertyName = "offering")]
         public OneOfOffering? Offering { get; set; }
 
 

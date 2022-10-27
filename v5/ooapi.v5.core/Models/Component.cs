@@ -18,7 +18,7 @@ namespace ooapi.v5.Models
         /// <value>Unique id of this component</value>
         [JsonRequired]
 
-        [DataMember(Name = "componentId")]
+        [JsonProperty(PropertyName = "componentId")]
         public Guid? ComponentId { get; set; }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace ooapi.v5.Models
         /// </summary>
         [JsonRequired]
 
-        [DataMember(Name = "primaryCode")]
+        [JsonProperty(PropertyName = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
 
 
@@ -36,7 +36,7 @@ namespace ooapi.v5.Models
         /// <value>The component type - test: tentamen - lecture: college - practical: practicum - tutorial: werkcollege - consultation: consultatie - project: project - workshop: workshop - excursion: excursie - independent study: zelfstudie - external: extern - skills training: vaardighedentraining </value>
         [JsonRequired]
 
-        [DataMember(Name = "componentType")]
+        [JsonProperty(PropertyName = "componentType")]
         public ComponentTypeEnum? ComponentType { get; set; }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace ooapi.v5.Models
         /// <value>The name of this component</value>
         [JsonRequired]
 
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public List<LanguageTypedString> Name { get; set; }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [MaxLength(256)]
-        [DataMember(Name = "abbreviation")]
+        [JsonProperty(PropertyName = "abbreviation")]
         public string Abbreviation { get; set; }
 
 
@@ -69,7 +69,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The mode of delivery of the component (ECTS-mode of delivery) - distance-learning: afstandsleren - on campus: op de campus - online: online - hybrid: hybride - situated: op locatie </value>
 
-        [DataMember(Name = "modeOfDelivery")]
+        [JsonProperty(PropertyName = "modeOfDelivery")]
         [NotMapped]
         public List<ModeOfDeliveryEnum> ModeOfDel
         {
@@ -123,7 +123,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The duration of this component. The duration format is from the ISO 8601 ABNF as given in Appendix A of RFC 3339.</value>
         [RegularExpression("/^(-?)P(?=\\d|T\\d)(?:(\\d+)Y)?(?:(\\d+)M)?(?:(\\d+)([DW]))?(?:T(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+(?:\\.\\d+)?)S)?)?$/")]
-        [DataMember(Name = "duration")]
+        [JsonProperty(PropertyName = "duration")]
         public string Duration { get; set; }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The description of this component.</value>
 
-        [DataMember(Name = "description")]
+        [JsonProperty(PropertyName = "description")]
         public List<LanguageTypedString> Description { get; set; }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [RegularExpression("/^[a-z]{3}$/")]
         [StringLength(3, MinimumLength = 3)]
-        [DataMember(Name = "teachingLanguage")]
+        [JsonProperty(PropertyName = "teachingLanguage")]
         public string TeachingLanguage { get; set; }
 
 
@@ -151,7 +151,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Statements that describe the knowledge or skills students should acquire by the end of a particular course (ECTS-learningoutcome).</value>
 
-        [DataMember(Name = "learningOutcomes")]
+        [JsonProperty(PropertyName = "learningOutcomes")]
         [NotMapped]
         public List<List<LanguageTypedString>> LearningOutcomes { get; set; }
 
@@ -160,7 +160,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The extra information that is provided for enrollment</value>
 
-        [DataMember(Name = "enrollment")]
+        [JsonProperty(PropertyName = "enrollment")]
         public List<LanguageTypedString> Enrollment { get; set; }
 
         ////[JsonIgnore]
@@ -171,7 +171,7 @@ namespace ooapi.v5.Models
         /////// </summary>
         /////// <value>An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)</value>
 
-        ////[DataMember(Name = "resources")]
+        ////[JsonProperty(PropertyName = "resources")]
         ////[NotMapped]
         ////public List<Resource> resources { get; set; }
 
@@ -180,7 +180,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>A description of the way exams for this course are taken (ECTS-assessment method and criteria).</value>
 
-        [DataMember(Name = "assessment")]
+        [JsonProperty(PropertyName = "assessment")]
         public List<LanguageTypedString> Assessment { get; set; }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Addresses for this component</value>
 
-        [DataMember(Name = "addresses")]
+        [JsonProperty(PropertyName = "addresses")]
         public List<Address> Addresses { get; set; }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
-        [DataMember(Name = "otherCodes")]
+        [JsonProperty(PropertyName = "otherCodes")]
         public List<OtherCodes> OtherCodes { get; set; }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The course of which this component is a part. [&#x60;expandable&#x60;](#tag/course_model) By default only the &#x60;courseId&#x60; (a string) is returned. If the client requested an expansion of &#x60;course&#x60; the full course object should be returned. </value>
 
-        [DataMember(Name = "course")]
+        [JsonProperty(PropertyName = "course")]
         public OneOfCourse Course { get; set; }
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The organization which provides this component. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
-        [DataMember(Name = "organization")]
+        [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
 
 
@@ -221,7 +221,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [DataMember(Name = "consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
 

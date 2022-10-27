@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -15,7 +16,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>If this is a program wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodEnd&#x60;.</value>
 
-        [DataMember(Name = "flexibleEntryPeriodStart")]
+        [JsonProperty(PropertyName = "flexibleEntryPeriodStart")]
         public DateTime? FlexibleEntryPeriodStart { get; set; }
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>If this is a program wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodStart&#x60;.</value>
 
-        [DataMember(Name = "flexibleEntryPeriodEnd")]
+        [JsonProperty(PropertyName = "flexibleEntryPeriodEnd")]
         public DateTime? FlexibleEntryPeriodEnd { get; set; }
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Addresses for this offering</value>
 
-        [DataMember(Name = "addresses")]
+        [JsonProperty(PropertyName = "addresses")]
         public List<Address> Addresses { get; set; }
 
         /// <summary>
@@ -39,7 +40,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Price information for this offering.</value>
 
-        [DataMember(Name = "priceInformation")]
+        [JsonProperty(PropertyName = "priceInformation")]
         public List<Cost> PriceInformation { get; set; }
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The Program that is offered in this programoffering. [&#x60;expandable&#x60;](#tag/program_model) By default only the &#x60;programId&#x60; (a string) is returned. If the client requested an expansion of &#x60;program&#x60; the full program object should be returned. </value>
 
-        [DataMember(Name = "program")]
+        [JsonProperty(PropertyName = "program")]
         public OneOfProgram Program { get; set; }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The organization that manages this programeoffering. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
-        [DataMember(Name = "organization")]
+        [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
 
 

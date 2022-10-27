@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -17,7 +16,7 @@ namespace ooapi.v5.Models
         /// <value>Unique id for this news feed</value>
         [JsonRequired]
 
-        [DataMember(Name = "newsFeedId")]
+        [JsonProperty(PropertyName = "newsFeedId")]
         public Guid NewsFeedId { get; set; }
 
 
@@ -28,7 +27,7 @@ namespace ooapi.v5.Models
         /// <value>The type of the object this news feed relates to</value>
         [JsonRequired]
 
-        [DataMember(Name = "newsFeedType")]
+        [JsonProperty(PropertyName = "newsFeedType")]
         public NewsFeedTypeEnum? NewsFeedType { get; set; }
 
         /// <summary>
@@ -37,7 +36,7 @@ namespace ooapi.v5.Models
         /// <value>The name for this news feed</value>
         [JsonRequired]
 
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public List<LanguageTypedString> Name { get; set; }
 
         /// <summary>
@@ -46,7 +45,7 @@ namespace ooapi.v5.Models
         /// <value>The description of this news feed.</value>
         [JsonRequired]
 
-        [DataMember(Name = "description")]
+        [JsonProperty(PropertyName = "description")]
         public List<LanguageTypedString> Description { get; set; }
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [DataMember(Name = "consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
 

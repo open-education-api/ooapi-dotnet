@@ -17,7 +17,7 @@ namespace ooapi.v5.Models
         /// <value>Unique id for this news item</value>
         [JsonRequired]
 
-        [DataMember(Name = "newsItemId")]
+        [JsonProperty(PropertyName = "newsItemId")]
         public Guid NewsItemId { get; set; }
 
 
@@ -27,7 +27,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The type of this news item - calamity: calamiteit - general: algemeen - schedule-change: roosterwijziging - announcement: aankondiging </value>
 
-        [DataMember(Name = "newsItemType")]
+        [JsonProperty(PropertyName = "newsItemType")]
         public NewsItemTypeEnum? NewsItemType { get; set; }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace ooapi.v5.Models
         /// <value>The name for this news item</value>
         [JsonRequired]
 
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public List<LanguageTypedString> Name { get; set; }
 
 
@@ -50,7 +50,7 @@ namespace ooapi.v5.Models
         /////// </summary>
         /////// <value>The authors of the article with this news item</value>
 
-        ////[DataMember(Name = "authors")]
+        ////[JsonProperty(PropertyName = "authors")]
         ////[NotMapped]
         ////public List<string> authors { get; set; }
 
@@ -61,7 +61,7 @@ namespace ooapi.v5.Models
         /// <value>The url containing the address of the image belonging to this news item</value>
 
         [MaxLength(2048)]
-        [DataMember(Name = "image")]
+        [JsonProperty(PropertyName = "image")]
         public string Image { get; set; }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace ooapi.v5.Models
         /// <value>The url containing the address of the article belonging to this news item</value>
 
         [MaxLength(2048)]
-        [DataMember(Name = "link")]
+        [JsonProperty(PropertyName = "link")]
         public string Link { get; set; }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The content of this news item.</value>
 
-        [DataMember(Name = "content")]
+        [JsonProperty(PropertyName = "content")]
         public List<LanguageTypedString> Content { get; set; }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The newsFeeds where this item can be found. [&#x60;expandable&#x60;](#tag/news_feed_model)</value>
 
-        [DataMember(Name = "newsFeeds")]
+        [JsonProperty(PropertyName = "newsFeeds")]
         public List<OneOfNewsFeed> NewsFeeds { get; set; }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The moment from which this news item is valid, RFC3339 (date-time)</value>
 
-        [DataMember(Name = "validFrom")]
+        [JsonProperty(PropertyName = "validFrom")]
         public DateTime? ValidFrom { get; set; }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The moment until which this news item is valid, RFC3339 (date-time)</value>
 
-        [DataMember(Name = "validUntil")]
+        [JsonProperty(PropertyName = "validUntil")]
         public DateTime? ValidUntil { get; set; }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The moment on which this news item was updated, RFC3339 (date-time)</value>
 
-        [DataMember(Name = "lastModified")]
+        [JsonProperty(PropertyName = "lastModified")]
         public DateTime? LastModified { get; set; }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [DataMember(Name = "consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
 

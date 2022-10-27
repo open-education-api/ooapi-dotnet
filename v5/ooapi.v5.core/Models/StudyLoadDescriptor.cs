@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using ooapi.v5.Enums;
 using System.Runtime.Serialization;
 
@@ -15,7 +16,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The unit in which the studyload is specfied - contacttime: CONTACTUUR amount of time spent in classes - ects: ECTS_PUNT European Credit Transfer System - sbu: SBU studentloadhours - sp: STUDIEPUNT studentpoints - hour: UUR hours </value>
 
-        [DataMember(Name = "studyLoadUnit")]
+        [JsonProperty(PropertyName = "studyLoadUnit")]
         public StudyLoadUnitEnum? StudyLoadUnit { get; set; }
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The amount of load depicted in numbers</value>
 
-        [DataMember(Name = "value")]
+        [JsonProperty(PropertyName = "value")]
         public decimal? Value { get; set; }
     }
 
