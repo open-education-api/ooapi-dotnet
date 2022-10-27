@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -16,7 +15,7 @@ namespace ooapi.v5.Models
         /// Unique id of this address
         /// </summary>
         /// <value>Unique id of this address</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "addressId")]
         public Guid? AddressId { get; set; }
@@ -26,8 +25,7 @@ namespace ooapi.v5.Models
         /// Address type - postal: post - visit: bezoek - deliveries: bezorg - billing: factuur - teaching: the address where education takes place 
         /// </summary>
         /// <value>Address type - postal: post - visit: bezoek - deliveries: bezorg - billing: factuur - teaching: the address where education takes place </value>
-        [Required]
-
+        [JsonRequired]
         [DataMember(Name = "addressType")]
         public AddressTypeEnum? AddressType { get; set; }
 

@@ -25,7 +25,7 @@ namespace ooapi.v5.Models
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -49,7 +49,7 @@ namespace ooapi.v5.Models
         /// The type of education specification   - program: HOOPLEIDING   - privateProgram: PARTICULIEREOPLEIDING   - programCluster: HOONDERWIJSEENHEDENCLUSTER   - course: HOONDERWIJSEENHEID 
         /// </summary>
         /// <value>The type of education specification   - program: HOOPLEIDING   - privateProgram: PARTICULIEREOPLEIDING   - programCluster: HOONDERWIJSEENHEDENCLUSTER   - course: HOONDERWIJSEENHEID </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "educationSpecificationType")]
         public EducationSpecificationTypeEnum? EducationSpecificationType { get; set; }
@@ -58,7 +58,7 @@ namespace ooapi.v5.Models
         /// The name of this education specification
         /// </summary>
         /// <value>The name of this education specification</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageTypedString> Name { get; set; }

@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 [SwaggerDiscriminator("resultType")]
 [SwaggerSubType(typeof(Guid), DiscriminatorValue = "identifier")]
-[SwaggerSubType(typeof(AcademicSession), DiscriminatorValue = "acadamicSessiong")]
+[SwaggerSubType(typeof(AcademicSession), DiscriminatorValue = "academicSession")]
 [NotMapped]
-public abstract class OneOfAcadamicSession { }
+public abstract class OneOfAcademicSession { }
 
 

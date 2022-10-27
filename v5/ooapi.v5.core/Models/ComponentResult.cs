@@ -15,7 +15,7 @@ namespace ooapi.v5.Models
         /// The weight to 100 as total for this offering in the course
         /// </summary>
         /// <value>The weight to 100 as total for this offering in the course</value>
-        [Required]
+        [JsonRequired]
 
         [Range(0, 100)]
         [DataMember(Name = "weight")]

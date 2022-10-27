@@ -24,7 +24,7 @@ namespace ooapi.v5.Models
         /// The key of the consumer (destination) for which this information is intended. <br/>
         /// See the <![CDATA[<a href="https://open-education-api.github.io/specification/#/consumers" >consumer registry</a>]]> for more information.
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "consumerKey")]
         public string ConsumerKey { get; set; }

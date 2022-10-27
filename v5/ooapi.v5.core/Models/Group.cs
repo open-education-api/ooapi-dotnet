@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
@@ -16,15 +15,15 @@ namespace ooapi.v5.Models
         /// Unique id for this group
         /// </summary>
         /// <value>Unique id for this group</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "groupId")]
-        public Guid? GroupId { get; set; }
+        public Guid GroupId { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -35,7 +34,7 @@ namespace ooapi.v5.Models
         /// The type of this group - learning group: A collection of participants carrying out common learning activities - class: A collection of participants carrying out jointly scheduled educational activities - team: A collection of members of a team, either students, employees or mixed. 
         /// </summary>
         /// <value>The type of this group - learning group: A collection of participants carrying out common learning activities - class: A collection of participants carrying out jointly scheduled educational activities - team: A collection of members of a team, either students, employees or mixed. </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "groupType")]
         public GroupTypeEnum? GroupType { get; set; }
@@ -44,18 +43,18 @@ namespace ooapi.v5.Models
         /// The name of this group
         /// </summary>
         /// <value>The name of this group</value>
-        [Required]
+        [JsonRequired]
 
-        //[DataMember(Name = "name")]
-        //public List<LanguageValueItem> Name { get; set; }
+        [DataMember(Name = "name")]
+        public List<LanguageTypedString> Name { get; set; }
 
-        ///// <summary>
-        ///// The description of this group
-        ///// </summary>
-        ///// <value>The description of this group</value>
+        /// <summary>
+        /// The description of this group
+        /// </summary>
+        /// <value>The description of this group</value>
 
-        //[DataMember(Name = "description")]
-        //public List<LanguageValueItem> Description { get; set; }
+        [DataMember(Name = "description")]
+        public List<LanguageTypedString> Description { get; set; }
 
         /// <summary>
         /// The day on which this group starts being active, RFC3339 (full-date)
@@ -104,41 +103,9 @@ namespace ooapi.v5.Models
         /// <value>The organization that manages this group. [&#x60;expandable&#x60;](.#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [DataMember(Name = "organization")]
-        public Guid Organization { get; set; }
-
-        /// <summary>
-        /// Object for additional non-standard attributes
-        /// </summary>
-        /// <value>Object for additional non-standard attributes</value>
-
-        //[DataMember(Name = "ext")]
-        //public JObject? Ext { get; set; }
+        public OneOfOrganization Organization { get; set; }
 
 
-        //[JsonIgnore]
-        //public string Extend { get; set; }
 
-        //[JsonProperty(PropertyName = "ext")]
-        //[NotMapped]
-        //public Object? Ext
-        //{
-        //    get
-        //    {
-        //        if (string.IsNullOrEmpty(Extend))
-        //            return "{}";
-        //        try
-        //        {
-        //            return JsonConvert.DeserializeObject<JObject>(Extend);
-        //        }
-        //        catch (Exception)
-        //        {
-        //            return "{}";
-        //        }
-        //    }
-        //    set
-        //    {
-        //        Extend = value.ToString();
-        //    }
-        //}
     }
 }

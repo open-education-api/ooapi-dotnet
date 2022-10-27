@@ -15,7 +15,7 @@ namespace ooapi.v5.Models
         /// Array of objects (ComponentOffering) 
         /// </summary>
         /// <value>Array of objects (ComponentOffering) </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "items")]
         public List<ComponentOffering> Items { get; set; }

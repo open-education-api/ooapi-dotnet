@@ -15,7 +15,7 @@ namespace ooapi.v5.Models
         /// Unique id for this news feed
         /// </summary>
         /// <value>Unique id for this news feed</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "newsFeedId")]
         public Guid NewsFeedId { get; set; }
@@ -26,7 +26,7 @@ namespace ooapi.v5.Models
         /// The type of the object this news feed relates to
         /// </summary>
         /// <value>The type of the object this news feed relates to</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "newsFeedType")]
         public NewsFeedTypeEnum? NewsFeedType { get; set; }
@@ -35,7 +35,7 @@ namespace ooapi.v5.Models
         /// The name for this news feed
         /// </summary>
         /// <value>The name for this news feed</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageTypedString> Name { get; set; }
@@ -44,7 +44,7 @@ namespace ooapi.v5.Models
         /// The description of this news feed.
         /// </summary>
         /// <value>The description of this news feed.</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "description")]
         public List<LanguageTypedString> Description { get; set; }

@@ -1,6 +1,4 @@
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -15,7 +13,7 @@ namespace ooapi.v5.Models
         /// Array of objects (Building) 
         /// </summary>
         /// <value>Array of objects (Building) </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "items")]
         public List<Building> Items { get; set; }

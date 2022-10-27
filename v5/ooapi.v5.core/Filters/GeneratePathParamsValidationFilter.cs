@@ -28,7 +28,7 @@ namespace ooapi.v5.Filters
 
                 if (attributes != null && attributes.Count() > 0 && swaggerParam != null)
                 {
-                    // Required - [Required]
+                    // Required - [JsonRequired]
                     var requiredAttr = attributes.FirstOrDefault(p => p.AttributeType == typeof(RequiredAttribute));
                     if (requiredAttr != null)
                     {

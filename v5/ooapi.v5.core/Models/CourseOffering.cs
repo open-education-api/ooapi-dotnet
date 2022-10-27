@@ -28,7 +28,7 @@ namespace ooapi.v5.Models
         /// <value>The programoffering where this courseoffering is related to. [&#x60;expandable&#x60;](#tag/program_offering_model) By default only the &#x60;programOfferingId&#x60; (a string) is returned. If the client requested an expansion of &#x60;programOffering&#x60; the full programOffering object should be returned. </value>
 
         [DataMember(Name = "programOffering")]
-        public OneOfProgramOffering ProgramOffering { get; set; }
+        public OneOfOffering ProgramOffering { get; set; }
 
 
 

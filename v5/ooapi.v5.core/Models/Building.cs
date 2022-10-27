@@ -14,15 +14,15 @@ namespace ooapi.v5.Models
         /// Unique id of this building
         /// </summary>
         /// <value>Unique id of this building</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "buildingId")]
-        public Guid? BuildingId { get; set; }
+        public Guid BuildingId { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -40,7 +40,7 @@ namespace ooapi.v5.Models
         /// The name of this building
         /// </summary>
         /// <value>The name of this building</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageTypedString> Name { get; set; }
@@ -56,7 +56,7 @@ namespace ooapi.v5.Models
         /// <summary>
         /// Gets or Sets Address
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "address")]
         public Address Address { get; set; }

@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -28,8 +27,7 @@ namespace ooapi.v5.Models
         /// The type of this association
         /// </summary>
         /// <value>The type of this association</value>
-        [Required]
-
+        [JsonRequired]
         [DataMember(Name = "associationType")]
         public AssociationTypeEnum AssociationType { get; set; }
 
@@ -39,8 +37,7 @@ namespace ooapi.v5.Models
         /// The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coördinator   - guest: gast 
         /// </summary>
         /// <value>The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coördinator   - guest: gast </value>
-        [Required]
-
+        [JsonRequired]
         [DataMember(Name = "role")]
         public RoleEnum Role { get; set; }
 
@@ -48,8 +45,7 @@ namespace ooapi.v5.Models
         /// The state of this association
         /// </summary>
         /// <value>The state of this association</value>
-        [Required]
-
+        [JsonRequired]
         [DataMember(Name = "state")]
         public AssociationStateEnum State { get; set; }
 

@@ -13,7 +13,7 @@ namespace ooapi.v5.Models
         /// <summary>
         /// Gets or Sets StudyLoad
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "studyLoad")]
         public ProgramResultStudyLoad StudyLoad { get; set; }

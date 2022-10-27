@@ -26,7 +26,7 @@ namespace ooapi.v5.Models
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -35,7 +35,7 @@ namespace ooapi.v5.Models
         /// The first name of this person
         /// </summary>
         /// <value>The first name of this person</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(256)]
         [DataMember(Name = "givenName")]
@@ -53,7 +53,7 @@ namespace ooapi.v5.Models
         /// The family name of this person
         /// </summary>
         /// <value>The family name of this person</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(256)]
         [DataMember(Name = "surname")]
@@ -63,7 +63,7 @@ namespace ooapi.v5.Models
         /// The name of this person which will be displayed
         /// </summary>
         /// <value>The name of this person which will be displayed</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(256)]
         [DataMember(Name = "displayName")]
@@ -81,7 +81,7 @@ namespace ooapi.v5.Models
         /// Whether this person has an active enrollment.
         /// </summary>
         /// <value>Whether this person has an active enrollment.</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "activeEnrollment")]
         public bool? ActiveEnrollment { get; set; }
@@ -134,7 +134,7 @@ namespace ooapi.v5.Models
         /// The affiliations of this person, the relations a person has with the organization providing this endpoint - student: student - employee: medewerker - guest: gast 
         /// </summary>
         /// <value>The affiliations of this person, the relations a person has with the organization providing this endpoint - student: student - employee: medewerker - guest: gast </value>
-        [Required]
+        [JsonRequired]
         [DataMember(Name = "affiliations")]
         [NotMapped]
         public List<AffiliationsEnum> Affs
@@ -211,7 +211,7 @@ namespace ooapi.v5.Models
         /// The primary e-mailaddress of this person
         /// </summary>
         /// <value>The primary e-mailaddress of this person</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "mail")]
         public string Mail { get; set; }

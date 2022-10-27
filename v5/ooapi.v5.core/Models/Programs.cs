@@ -15,7 +15,7 @@ namespace ooapi.v5.Models
         /// Array of objects (Program) 
         /// </summary>
         /// <value>Array of objects (Program) </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "items")]
         public List<Program> Items { get; set; }

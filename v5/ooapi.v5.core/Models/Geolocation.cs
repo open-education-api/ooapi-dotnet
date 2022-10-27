@@ -23,7 +23,7 @@ namespace ooapi.v5.Models
         /// <summary>
         /// Gets or Sets Latitude
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "latitude")]
         public double? Latitude { get; set; }
@@ -31,7 +31,7 @@ namespace ooapi.v5.Models
         /// <summary>
         /// Gets or Sets Longitude
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "longitude")]
         public double? Longitude { get; set; }

@@ -23,7 +23,7 @@ namespace ooapi.v5.Models
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -34,7 +34,7 @@ namespace ooapi.v5.Models
         /// The type of this program - program: opleiding - minor: minor - honours: honours - specialization: specialisatie - track: track 
         /// </summary>
         /// <value>The type of this program - program: opleiding - minor: minor - honours: honours - specialization: specialisatie - track: track </value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "programType")]
         public ProgramTypeEnum? ProgramType { get; set; }
@@ -43,7 +43,7 @@ namespace ooapi.v5.Models
         /// The name of this program
         /// </summary>
         /// <value>The name of this program</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageTypedString> Name { get; set; }
@@ -52,7 +52,7 @@ namespace ooapi.v5.Models
         /// The abbreviation of this program
         /// </summary>
         /// <value>The abbreviation of this program</value>
-        [Required]
+        [JsonRequired]
 
         [MaxLength(256)]
         [DataMember(Name = "abbreviation")]
@@ -62,7 +62,7 @@ namespace ooapi.v5.Models
         /// The description of this program
         /// </summary>
         /// <value>The description of this program</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "description")]
         public List<LanguageTypedString> Description { get; set; }
@@ -71,7 +71,7 @@ namespace ooapi.v5.Models
         /// The (primary) teaching language in which this program is given, should be a three-letter language code as specified by ISO 639-2.
         /// </summary>
         /// <value>The (primary) teaching language in which this program is given, should be a three-letter language code as specified by ISO 639-2.</value>
-        [Required]
+        [JsonRequired]
         [RegularExpression("/^[a-z]{3}$/")]
         [StringLength(3, MinimumLength = 3)]
         [DataMember(Name = "teachingLanguage")]

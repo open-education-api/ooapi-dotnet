@@ -23,7 +23,7 @@ namespace ooapi.v5.Models
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
@@ -32,7 +32,7 @@ namespace ooapi.v5.Models
         /// The type of this offering
         /// </summary>
         /// <value>The type of this offering</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "offeringType")]
         public OfferingTypeEnum? OfferingType { get; set; }
@@ -43,14 +43,14 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The academicsession during which this offering takes place. [&#x60;expandable&#x60;](#tag/academic_session_model) By default only the &#x60;academicSessionId&#x60; (a string) is returned. If the client requested an expansion of &#x60;academicSession&#x60; the full academicsession object should be returned. </value>
         [DataMember(Name = "academicSession")]
-        public OneOfAcadamicSession? AcademicSession { get; set; }
+        public OneOfAcademicSession? AcademicSession { get; set; }
 
 
         /// <summary>
         /// The name of this offering
         /// </summary>
         /// <value>The name of this offering</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "name")]
         public List<LanguageTypedString> Name { get; set; }
@@ -68,7 +68,7 @@ namespace ooapi.v5.Models
         /// The description of this offering.
         /// </summary>
         /// <value>The description of this offering.</value>
-        [Required]
+        [JsonRequired]
 
         [DataMember(Name = "description")]
         public List<LanguageTypedString> Description { get; set; }
@@ -77,7 +77,7 @@ namespace ooapi.v5.Models
         /// The (primary) teaching language in which this offering is given, should be a three-letter language code as specified by ISO 639-2.
         /// </summary>
         /// <value>The (primary) teaching language in which this offering is given, should be a three-letter language code as specified by ISO 639-2.</value>
-        [Required]
+        [JsonRequired]
         [RegularExpression("/^[a-z]{3}$/")]
         [StringLength(3, MinimumLength = 3)]
         [DataMember(Name = "teachingLanguage")]
@@ -179,7 +179,7 @@ namespace ooapi.v5.Models
         /// resultExpected, previously knwon as isLineItem is used so the specific instance of the object is identified as being an element that CAN contain “grade” information. Offerings do not always have to result in a grade or an other type of result.  If there is a result expected from a programOffering/courseOffering/componentOffering the is resultExpected field should parse true 
         /// </summary>
         /// <value>resultExpected, previously knwon as isLineItem is used so the specific instance of the object is identified as being an element that CAN contain “grade” information. Offerings do not always have to result in a grade or an other type of result.  If there is a result expected from a programOffering/courseOffering/componentOffering the is resultExpected field should parse true </value>
-        [Required]
+        [JsonRequired]
         [DataMember(Name = "resultExpected")]
         public bool? ResultExpected { get; set; }
 
@@ -222,7 +222,7 @@ namespace ooapi.v5.Models
         /// The moment on which this offering starts, RFC3339 (full-date)
         /// </summary>
         /// <value>The moment on which this offering starts, RFC3339 (full-date)</value>
-        [Required]
+        [JsonRequired]
         [DataMember(Name = "startDate")]
         public DateTime? StartDate { get; set; }
 
@@ -230,7 +230,7 @@ namespace ooapi.v5.Models
         /// The moment on which this offering ends, RFC3339 (full-date)
         /// </summary>
         /// <value>The moment on which this offering ends, RFC3339 (full-date)</value>
-        [Required]
+        [JsonRequired]
         [DataMember(Name = "endDate")]
         public DateTime? EndDate { get; set; }
 
