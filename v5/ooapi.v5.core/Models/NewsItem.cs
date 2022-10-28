@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -39,7 +40,17 @@ namespace ooapi.v5.Models
         [DataMember(Name = "name")]
         public List<LanguageTypedString> Name { get; set; }
 
+        [JsonIgnore]
+        public List<Author> Authors { get; set; }
 
+        /// <summary>
+        /// The authors of the article with this news item
+        /// </summary>
+        /// <value>The authors of the article with this news item</value>
+
+        [DataMember(Name = "authors")]
+        [NotMapped]
+        public List<string>? authors { get; set; }
 
 
         ////[JsonIgnore]

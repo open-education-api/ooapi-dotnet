@@ -199,17 +199,17 @@ namespace ooapi.v5.Models
         [DataMember(Name = "enrollment")]
         public List<LanguageTypedString> Enrollment { get; set; }
 
-        //[JsonIgnore]
-        //public List<Resource> Resources { get; set; }
+        [JsonIgnore]
+        public List<Resource> Resources { get; set; }
 
-        ///// <summary>
-        ///// An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)
-        ///// </summary>
-        ///// <value>An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)</value>
+        /// <summary>
+        /// An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)
+        /// </summary>
+        /// <value>An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)</value>
 
-        //[DataMember(Name = "resources")]
-        //[NotMapped]
-        //public List<string> resources { get; set; }
+        [DataMember(Name = "resources")]
+        [NotMapped]
+        public List<string> resources { get; set; }
 
 
         /// <summary>

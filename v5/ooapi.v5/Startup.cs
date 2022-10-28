@@ -1,11 +1,20 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.Security;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Reflection;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Xml.XPath;
 
 namespace ooapi.v5
@@ -83,13 +92,18 @@ namespace ooapi.v5
                     options.SelectDiscriminatorNameUsing((baseType) => "TypeName");
                     options.SelectDiscriminatorValueUsing((subType) => subType.Name);
 
-                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                    options.EnableAnnotations(enableAnnotationsForInheritance: true, enableAnnotationsForPolymorphism: true);
+                    List<string> xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml", SearchOption.TopDirectoryOnly).ToList();
+                    xmlFiles.ForEach(xmlFile =>
+                        {
+                            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                            options.EnableAnnotations(enableAnnotationsForInheritance: true, enableAnnotationsForPolymorphism: true);
 
-                    var comments = new XPathDocument(xmlPath);
-                    options.SchemaFilter<XmlCommentsSchemaFilter>(comments);
-                    options.IncludeXmlComments(xmlPath);
+                            var comments = new XPathDocument(xmlPath);
+                            options.SchemaFilter<XmlCommentsSchemaFilter>(comments);
+                            options.IncludeXmlComments(xmlPath);
+                        }
+                    );
+
                 });
             services.AddSwaggerGenNewtonsoftSupport();
 

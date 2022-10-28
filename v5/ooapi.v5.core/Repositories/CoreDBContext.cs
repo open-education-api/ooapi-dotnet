@@ -67,8 +67,8 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<LanguageTypedString>().HasKey(c => c.LanguageTypedStringId);
         modelBuilder.Entity<List<LanguageTypedString>>().HasNoKey();
 
-        modelBuilder.Entity<Author>().HasNoKey();
-        modelBuilder.Entity<Resource>().HasNoKey();
+        modelBuilder.Entity<Author>().HasKey(c => c.AuthorId);
+        modelBuilder.Entity<Resource>().HasKey(c => c.ResourceId);
 
         modelBuilder.Entity<List<string>>().HasNoKey();
     }
