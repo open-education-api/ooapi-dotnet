@@ -28,7 +28,7 @@ namespace ooapi.v5.Models
         /// </summary>
         [JsonRequired]
 
-        [DataMember(Name = "primaryCode")]
+        [JsonProperty(PropertyName = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [MaxLength(256)]
-        [DataMember(Name = "givenName")]
+        [JsonProperty(PropertyName = "givenName")]
         public string GivenName { get; set; }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The prefix of the family name of this person</value>
 
-        [DataMember(Name = "surnamePrefix")]
+        [JsonProperty(PropertyName = "surnamePrefix")]
         public string SurnamePrefix { get; set; }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [MaxLength(256)]
-        [DataMember(Name = "surname")]
+        [JsonProperty(PropertyName = "surname")]
         public string Surname { get; set; }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [MaxLength(256)]
-        [DataMember(Name = "displayName")]
+        [JsonProperty(PropertyName = "displayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The initials of this person</value>
 
-        [DataMember(Name = "initials")]
+        [JsonProperty(PropertyName = "initials")]
         public string Initials { get; set; }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace ooapi.v5.Models
         /// <value>Whether this person has an active enrollment.</value>
         [JsonRequired]
 
-        [DataMember(Name = "activeEnrollment")]
+        [JsonProperty(PropertyName = "activeEnrollment")]
         public bool? ActiveEnrollment { get; set; }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The date of birth of this person, RFC3339 (full-date)</value>
 
-        [DataMember(Name = "dateOfBirth")]
+        [JsonProperty(PropertyName = "dateOfBirth")]
         public DateTime? DateOfBirth { get; set; }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The city of birth of this person</value>
 
-        [DataMember(Name = "cityOfBirth")]
+        [JsonProperty(PropertyName = "cityOfBirth")]
         public string CityOfBirth { get; set; }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The country of birth of this person the country code according to [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)</value>
 
-        [DataMember(Name = "countryOfBirth")]
+        [JsonProperty(PropertyName = "countryOfBirth")]
         public string CountryOfBirth { get; set; }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The nationality of this person the nationality according to https://gist.github.com/zspine/2365808</value>
 
-        [DataMember(Name = "nationality")]
+        [JsonProperty(PropertyName = "nationality")]
         public string Nationality { get; set; }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The date of nationality of this person, RFC3339 (full-date)</value>
 
-        [DataMember(Name = "dateOfNationality")]
+        [JsonProperty(PropertyName = "dateOfNationality")]
         public DateTime? DateOfNationality { get; set; }
 
         [JsonIgnore]
@@ -135,7 +135,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The affiliations of this person, the relations a person has with the organization providing this endpoint - student: student - employee: medewerker - guest: gast </value>
         [JsonRequired]
-        [DataMember(Name = "affiliations")]
+        [JsonProperty(PropertyName = "affiliations")]
         [NotMapped]
         public List<AffiliationsEnum> Affs
         {
@@ -213,7 +213,7 @@ namespace ooapi.v5.Models
         /// <value>The primary e-mailaddress of this person</value>
         [JsonRequired]
 
-        [DataMember(Name = "mail")]
+        [JsonProperty(PropertyName = "mail")]
         public string Mail { get; set; }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The secondary e-mailaddress of this person</value>
 
-        [DataMember(Name = "secondaryMail")]
+        [JsonProperty(PropertyName = "secondaryMail")]
         public string SecondaryMail { get; set; }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace ooapi.v5.Models
         /// <value>The telephone number of this person</value>
 
         [MaxLength(256)]
-        [DataMember(Name = "telephoneNumber")]
+        [JsonProperty(PropertyName = "telephoneNumber")]
         public string TelephoneNumber { get; set; }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace ooapi.v5.Models
         /// <value>The mobile number of this person</value>
 
         [MaxLength(256)]
-        [DataMember(Name = "mobileNumber")]
+        [JsonProperty(PropertyName = "mobileNumber")]
         public string MobileNumber { get; set; }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace ooapi.v5.Models
         /// <value>The url of the informal picture of this person</value>
 
         [MaxLength(2048)]
-        [DataMember(Name = "photoSocial")]
+        [JsonProperty(PropertyName = "photoSocial")]
         public string PhotoSocial { get; set; }
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace ooapi.v5.Models
         /// <value>The url of the official picture of this person</value>
 
         [MaxLength(2048)]
-        [DataMember(Name = "photoOfficial")]
+        [JsonProperty(PropertyName = "photoOfficial")]
         public string PhotoOfficial { get; set; }
 
 
@@ -267,7 +267,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The gender of this person</value>
 
-        [DataMember(Name = "gender")]
+        [JsonProperty(PropertyName = "gender")]
         public GenderEnum? Gender { get; set; }
 
         /// <summary>
@@ -275,7 +275,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>A title prefix to be used for this person</value>
 
-        [DataMember(Name = "titlePrefix")]
+        [JsonProperty(PropertyName = "titlePrefix")]
         public string TitlePrefix { get; set; }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>A title suffix to be used for this person</value>
 
-        [DataMember(Name = "titleSuffix")]
+        [JsonProperty(PropertyName = "titleSuffix")]
         public string TitleSuffix { get; set; }
 
         /// <summary>
@@ -291,14 +291,14 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name of the office where this person is located</value>
 
-        [DataMember(Name = "office")]
+        [JsonProperty(PropertyName = "office")]
         public string Office { get; set; }
 
         /// <summary>
         /// Gets or Sets Address
         /// </summary>
 
-        [DataMember(Name = "address")]
+        [JsonProperty(PropertyName = "address")]
         public Address Address { get; set; }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace ooapi.v5.Models
         /// <value>Full name of In Case of Emergency contact</value>
 
         [MaxLength(256)]
-        [DataMember(Name = "ICEName")]
+        [JsonProperty(PropertyName = "ICEName")]
         public string ICEName { get; set; }
 
         /// <summary>
@@ -316,7 +316,7 @@ namespace ooapi.v5.Models
         /// <value>Phone number of In Case of Emergency contact</value>
 
         [MaxLength(256)]
-        [DataMember(Name = "ICEPhoneNumber")]
+        [JsonProperty(PropertyName = "ICEPhoneNumber")]
         public string ICEPhoneNumber { get; set; }
 
 
@@ -326,7 +326,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Type of relation between person and In Case of Emergency contact</value>
 
-        [DataMember(Name = "ICERelation")]
+        [JsonProperty(PropertyName = "ICERelation")]
         public ICERelationEnum? ICERelation { get; set; }
 
 
@@ -338,7 +338,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The language(s) of choice for this person, RFC3066</value>
 
-        [DataMember(Name = "languageOfChoice")]
+        [JsonProperty(PropertyName = "languageOfChoice")]
         [NotMapped]
         public List<string> languageOfChoice { get; set; }
 
@@ -347,7 +347,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
-        [DataMember(Name = "otherCodes")]
+        [JsonProperty(PropertyName = "otherCodes")]
         public List<OtherCodes> OtherCodes { get; set; }
 
         /// <summary>
@@ -355,7 +355,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [DataMember(Name = "consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
 

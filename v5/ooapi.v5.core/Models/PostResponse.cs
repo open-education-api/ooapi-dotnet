@@ -15,7 +15,7 @@ namespace ooapi.v5.Models
         /// <value>information displayed to user</value>
         [JsonRequired]
 
-        [DataMember(Name = "message")]
+        [JsonProperty(PropertyName = "message")]
         public List<LanguageTypedString> Message { get; set; }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>URL where additional information can be found e.g. by use of deeplink</value>
 
-        [DataMember(Name = "redirect")]
+        [JsonProperty(PropertyName = "redirect")]
         public string Redirect { get; set; }
 
 

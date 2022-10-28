@@ -17,7 +17,7 @@ namespace ooapi.v5.Models
         /// <value>Unique id for this group</value>
         [JsonRequired]
 
-        [DataMember(Name = "groupId")]
+        [JsonProperty(PropertyName = "groupId")]
         public Guid GroupId { get; set; }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace ooapi.v5.Models
         /// </summary>
         [JsonRequired]
 
-        [DataMember(Name = "primaryCode")]
+        [JsonProperty(PropertyName = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
 
 
@@ -36,7 +36,7 @@ namespace ooapi.v5.Models
         /// <value>The type of this group - learning group: A collection of participants carrying out common learning activities - class: A collection of participants carrying out jointly scheduled educational activities - team: A collection of members of a team, either students, employees or mixed. </value>
         [JsonRequired]
 
-        [DataMember(Name = "groupType")]
+        [JsonProperty(PropertyName = "groupType")]
         public GroupTypeEnum? GroupType { get; set; }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace ooapi.v5.Models
         /// <value>The name of this group</value>
         [JsonRequired]
 
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public List<LanguageTypedString> Name { get; set; }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The description of this group</value>
 
-        [DataMember(Name = "description")]
+        [JsonProperty(PropertyName = "description")]
         public List<LanguageTypedString> Description { get; set; }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The day on which this group starts being active, RFC3339 (full-date)</value>
 
-        [DataMember(Name = "startDate")]
+        [JsonProperty(PropertyName = "startDate")]
         public DateTime? StartDate { get; set; }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The day on which this group ends being active, RFC3339 (full-date)</value>
 
-        [DataMember(Name = "endDate")]
+        [JsonProperty(PropertyName = "endDate")]
         public DateTime? EndDate { get; set; }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace ooapi.v5.Models
         /// <value>The number of persons that are member of this group</value>
 
         [NotMapped]
-        [DataMember(Name = "personCount")]
+        [JsonProperty(PropertyName = "personCount")]
         public decimal? PersonCount { get; set; }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
-        [DataMember(Name = "otherCodes")]
+        [JsonProperty(PropertyName = "otherCodes")]
         public List<OtherCodes> OtherCodes { get; set; }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [DataMember(Name = "consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The organization that manages this group. [&#x60;expandable&#x60;](.#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
-        [DataMember(Name = "organization")]
+        [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
 
 

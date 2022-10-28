@@ -25,7 +25,7 @@ namespace ooapi.v5.Models
         /// </summary>
         [JsonRequired]
 
-        [DataMember(Name = "primaryCode")]
+        [JsonProperty(PropertyName = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace ooapi.v5.Models
         /// <value>The type of this offering</value>
         [JsonRequired]
 
-        [DataMember(Name = "offeringType")]
+        [JsonProperty(PropertyName = "offeringType")]
         public OfferingTypeEnum? OfferingType { get; set; }
 
 
@@ -42,7 +42,7 @@ namespace ooapi.v5.Models
         /// The academicsession during which this ffering takes place. [&#x60;expandable&#x60;](#tag/academic_session_model) By default only the &#x60;academicSessionId&#x60; (a string) is returned. If the client requested an expansion of &#x60;academicSession&#x60; the full academicsession object should be returned. 
         /// </summary>
         /// <value>The academicsession during which this offering takes place. [&#x60;expandable&#x60;](#tag/academic_session_model) By default only the &#x60;academicSessionId&#x60; (a string) is returned. If the client requested an expansion of &#x60;academicSession&#x60; the full academicsession object should be returned. </value>
-        [DataMember(Name = "academicSession")]
+        [JsonProperty(PropertyName = "academicSession")]
         public OneOfAcademicSession? AcademicSession { get; set; }
 
 
@@ -52,7 +52,7 @@ namespace ooapi.v5.Models
         /// <value>The name of this offering</value>
         [JsonRequired]
 
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public List<LanguageTypedString> Name { get; set; }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace ooapi.v5.Models
         /// <value>The abbreviation or internal code used to identify this offering</value>
 
         [MaxLength(256)]
-        [DataMember(Name = "abbreviation")]
+        [JsonProperty(PropertyName = "abbreviation")]
         public string Abbreviation { get; set; }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace ooapi.v5.Models
         /// <value>The description of this offering.</value>
         [JsonRequired]
 
-        [DataMember(Name = "description")]
+        [JsonProperty(PropertyName = "description")]
         public List<LanguageTypedString> Description { get; set; }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [RegularExpression("/^[a-z]{3}$/")]
         [StringLength(3, MinimumLength = 3)]
-        [DataMember(Name = "teachingLanguage")]
+        [JsonProperty(PropertyName = "teachingLanguage")]
         public string TeachingLanguage { get; set; }
 
 
@@ -93,7 +93,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The mode of delivery of the component (ECTS-mode of delivery) - distance-learning: afstandsleren - on campus: op de campus - online: online - hybrid: hybride - situated: op locatie </value>
 
-        [DataMember(Name = "modeOfDelivery")]
+        [JsonProperty(PropertyName = "modeOfDelivery")]
         [NotMapped]
         public List<ModeOfDeliveryEnum> ModeOfDel
         {
@@ -147,7 +147,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The maximum number of students allowed to enroll for this offering</value>
 
-        [DataMember(Name = "maxNumberStudents")]
+        [JsonProperty(PropertyName = "maxNumberStudents")]
         public decimal? MaxNumberStudents { get; set; }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The number of students that have already enrolled for this offering</value>
 
-        [DataMember(Name = "enrolledNumberStudents")]
+        [JsonProperty(PropertyName = "enrolledNumberStudents")]
         public decimal? EnrolledNumberStudents { get; set; }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The number of students that have a pending enrollment request for this offering</value>
 
-        [DataMember(Name = "pendingNumberStudents")]
+        [JsonProperty(PropertyName = "pendingNumberStudents")]
         public decimal? PendingNumberStudents { get; set; }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The minimum number of students needed for this offering to proceed</value>
 
-        [DataMember(Name = "minNumberStudents")]
+        [JsonProperty(PropertyName = "minNumberStudents")]
         public decimal? MinNumberStudents { get; set; }
 
 
@@ -180,7 +180,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>resultExpected, previously knwon as isLineItem is used so the specific instance of the object is identified as being an element that CAN contain “grade” information. Offerings do not always have to result in a grade or an other type of result.  If there is a result expected from a programOffering/courseOffering/componentOffering the is resultExpected field should parse true </value>
         [JsonRequired]
-        [DataMember(Name = "resultExpected")]
+        [JsonProperty(PropertyName = "resultExpected")]
         public bool? ResultExpected { get; set; }
 
 
@@ -189,7 +189,7 @@ namespace ooapi.v5.Models
         /// The result value type for this offering
         /// </summary>
         /// <value>The result value type for this offering</value>
-        [DataMember(Name = "resultValueType")]
+        [JsonProperty(PropertyName = "resultValueType")]
         public ResultValueTypeEnum? ResultValueType { get; set; }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace ooapi.v5.Models
         /// <value>URL of this offering&#x27;s webpage.</value>
 
         [MaxLength(2048)]
-        [DataMember(Name = "link")]
+        [JsonProperty(PropertyName = "link")]
         public string Link { get; set; }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
-        [DataMember(Name = "otherCodes")]
+        [JsonProperty(PropertyName = "otherCodes")]
         public List<OtherCodes> OtherCodes { get; set; }
 
         /// <summary>
@@ -214,7 +214,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [DataMember(Name = "consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
 
@@ -223,7 +223,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The moment on which this offering starts, RFC3339 (full-date)</value>
         [JsonRequired]
-        [DataMember(Name = "startDate")]
+        [JsonProperty(PropertyName = "startDate")]
         public DateTime? StartDate { get; set; }
 
         /// <summary>
@@ -231,21 +231,21 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The moment on which this offering ends, RFC3339 (full-date)</value>
         [JsonRequired]
-        [DataMember(Name = "endDate")]
+        [JsonProperty(PropertyName = "endDate")]
         public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// The first day on which a student can enroll for this course.
         /// </summary>
         /// <value>The first day on which a student can enroll for this course.</value>
-        [DataMember(Name = "enrollStartDate")]
+        [JsonProperty(PropertyName = "enrollStartDate")]
         public DateTime? EnrollStartDate { get; set; }
 
         /// <summary>
         /// The last day on which a student can enroll for this course.
         /// </summary>
         /// <value>The last day on which a student can enroll for this course.</value>
-        [DataMember(Name = "enrollEndDate")]
+        [JsonProperty(PropertyName = "enrollEndDate")]
         public DateTime? EnrollEndDate { get; set; }
 
         /// <summary>
@@ -253,7 +253,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The organization that manages this courseoffering. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
-        [DataMember(Name = "organization")]
+        [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
 
     }

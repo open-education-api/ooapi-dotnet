@@ -18,7 +18,7 @@ namespace ooapi.v5.Models
         /// <value>Unique id of this organization</value>
         [JsonRequired]
 
-        [DataMember(Name = "organizationId")]
+        [JsonProperty(PropertyName = "organizationId")]
         public Guid OrganizationId { get; set; }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace ooapi.v5.Models
         /// </summary>
         [JsonRequired]
 
-        [DataMember(Name = "primaryCode")]
+        [JsonProperty(PropertyName = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
 
 
@@ -36,7 +36,7 @@ namespace ooapi.v5.Models
         /// <value>The type of this organization. Each OOAPI endpoint should have a single organization with type &#x60;root&#x60;, describing the root organization. - root: the root of this organization, representing the Educational Institution itself - institute: instituut - department: departement - faculty: faculteit - branch: vestiging - academy: academie - school: school </value>
         [JsonRequired]
 
-        [DataMember(Name = "organizationType")]
+        [JsonProperty(PropertyName = "organizationType")]
         public OrganizationTypeEnum? OrganizationType { get; set; }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace ooapi.v5.Models
         /// <value>The name of the organization</value>
         [JsonRequired]
 
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public List<LanguageTypedString> Name { get; set; }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [MaxLength(256)]
-        [DataMember(Name = "shortName")]
+        [JsonProperty(PropertyName = "shortName")]
         public string ShortName { get; set; }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Any general description of the organization should clearly mention the type of higher education organization, especially in the case of a binary system. In Dutch; universiteit (university) or hogeschool (university of applied sciences).</value>
 
-        [DataMember(Name = "description")]
+        [JsonProperty(PropertyName = "description")]
         public List<LanguageTypedString> Description { get; set; }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Addresses of this organization</value>
 
-        [DataMember(Name = "addresses")]
+        [JsonProperty(PropertyName = "addresses")]
         public List<Address> Addresses { get; set; }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace ooapi.v5.Models
         /// <value>URL of the organization&#x27;s website</value>
 
         [MaxLength(2048)]
-        [DataMember(Name = "link")]
+        [JsonProperty(PropertyName = "link")]
         public string Link { get; set; }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace ooapi.v5.Models
         /// <value>Logo of this organization</value>
 
         [MaxLength(2048)]
-        [DataMember(Name = "logo")]
+        [JsonProperty(PropertyName = "logo")]
         public string Logo { get; set; }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
-        [DataMember(Name = "otherCodes")]
+        [JsonProperty(PropertyName = "otherCodes")]
         public List<OtherCodes> OtherCodes { get; set; }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The organizational unit which is the parent of this organization. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
-        [DataMember(Name = "parent")]
+        [JsonProperty(PropertyName = "parent")]
         public OneOfOrganization Parent { get; set; }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>All the organizational units for which this organization is the parent. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
-        [DataMember(Name = "children")]
+        [JsonProperty(PropertyName = "children")]
         [NotMapped]
         public List<OneOfOrganization> Children { get; set; }
 
@@ -122,7 +122,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [DataMember(Name = "consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
 

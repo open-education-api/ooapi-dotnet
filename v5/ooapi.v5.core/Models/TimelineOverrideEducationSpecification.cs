@@ -15,7 +15,7 @@ namespace ooapi.v5.Models
         /// <value>The day on which this timelineOverride starts (inclusive), RFC3339 (date)</value>
         [JsonRequired]
 
-        [DataMember(Name = "validFrom")]
+        [JsonProperty(PropertyName = "validFrom")]
         public DateTime? ValidFrom { get; set; }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The day on which this timelineOverride ends (exclusive), RFC3339 (date)</value>
 
-        [DataMember(Name = "validTo")]
+        [JsonProperty(PropertyName = "validTo")]
         public DateTime? ValidTo { get; set; }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace ooapi.v5.Models
         /// </summary>
         [JsonRequired]
 
-        [DataMember(Name = "educationSpecification")]
+        [JsonProperty(PropertyName = "educationSpecification")]
         public EducationSpecification EducationSpecification { get; set; }
     }
 

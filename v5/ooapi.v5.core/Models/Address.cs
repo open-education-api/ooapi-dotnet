@@ -17,7 +17,7 @@ namespace ooapi.v5.Models
         /// <value>Unique id of this address</value>
         [JsonRequired]
 
-        [DataMember(Name = "addressId")]
+        [JsonProperty(PropertyName = "addressId")]
         public Guid? AddressId { get; set; }
 
 
@@ -26,7 +26,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Address type - postal: post - visit: bezoek - deliveries: bezorg - billing: factuur - teaching: the address where education takes place </value>
         [JsonRequired]
-        [DataMember(Name = "addressType")]
+        [JsonProperty(PropertyName = "addressType")]
         public AddressTypeEnum? AddressType { get; set; }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The street name</value>
 
-        [DataMember(Name = "street")]
+        [JsonProperty(PropertyName = "street")]
         public string Street { get; set; }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The street number</value>
 
-        [DataMember(Name = "streetNumber")]
+        [JsonProperty(PropertyName = "streetNumber")]
         public string StreetNumber { get; set; }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Further details like building name, suite, apartment number, etc.</value>
 
-        [DataMember(Name = "additional")]
+        [JsonProperty(PropertyName = "additional")]
         public List<LanguageTypedString> Additional { get; set; }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Postal code</value>
 
-        [DataMember(Name = "postalCode")]
+        [JsonProperty(PropertyName = "postalCode")]
         public string PostalCode { get; set; }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>name of the city / locality</value>
 
-        [DataMember(Name = "city")]
+        [JsonProperty(PropertyName = "city")]
         public string City { get; set; }
 
         /// <summary>
@@ -74,14 +74,14 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>the country code according to [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)</value>
 
-        [DataMember(Name = "countryCode")]
+        [JsonProperty(PropertyName = "countryCode")]
         public string CountryCode { get; set; }
 
         /// <summary>
         /// Gets or Sets Geolocation
         /// </summary>
 
-        [DataMember(Name = "geolocation")]
+        [JsonProperty(PropertyName = "geolocation")]
         public Geolocation Geolocation { get; set; }
 
 

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -13,7 +14,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Timeline overrides allow an implementation to provide versions of entities that will be valid in the future or have been in the past.</value>
 
-        [DataMember(Name = "timelineOverrides")]
+        [JsonProperty(PropertyName = "timelineOverrides")]
         public List<ProgramExpandedTimelineOverrides> TimelineOverrides { get; set; }
     }
 

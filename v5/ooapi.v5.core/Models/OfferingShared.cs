@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -16,7 +17,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>If this is a course wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodEnd&#x60;.</value>
 
-        [DataMember(Name = "flexibleEntryPeriodStart")]
+        [JsonProperty(PropertyName = "flexibleEntryPeriodStart")]
         public DateTime? FlexibleEntryPeriodStart { get; set; }
 
         /// <summary>
@@ -24,7 +25,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>If this is a course wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodStart&#x60;.</value>
 
-        [DataMember(Name = "flexibleEntryPeriodEnd")]
+        [JsonProperty(PropertyName = "flexibleEntryPeriodEnd")]
         public DateTime? FlexibleEntryPeriodEnd { get; set; }
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Addresses for this offering</value>
 
-        [DataMember(Name = "addresses")]
+        [JsonProperty(PropertyName = "addresses")]
         public List<Address> Addresses { get; set; }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Price information for this offering.</value>
 
-        [DataMember(Name = "priceInformation")]
+        [JsonProperty(PropertyName = "priceInformation")]
         public List<Cost> PriceInformation { get; set; }
 
 

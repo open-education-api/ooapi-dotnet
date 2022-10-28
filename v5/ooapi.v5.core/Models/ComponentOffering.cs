@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
@@ -11,7 +12,7 @@ namespace ooapi.v5.Models
     {
 
         [Range(0, 100)]
-        [DataMember(Name = "resultWeight")]
+        [JsonProperty(PropertyName = "resultWeight")]
         public int? ResultWeight { get; set; }
 
         /// <summary>
@@ -19,7 +20,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Addresses for this offering</value>
 
-        [DataMember(Name = "addresses")]
+        [JsonProperty(PropertyName = "addresses")]
         public List<Address> Addresses { get; set; }
 
         /// <summary>
@@ -27,14 +28,14 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Price information for this offering.</value>
 
-        [DataMember(Name = "priceInformation")]
+        [JsonProperty(PropertyName = "priceInformation")]
         public List<Cost> PriceInformation { get; set; }
 
         /////// <summary>
         /////// Gets or Sets Room
         /////// </summary>
 
-        ////[DataMember(Name = "room")]
+        ////[JsonProperty(PropertyName = "room")]
         ////public Room Room { get; set; }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The component that is offered in this componentoffering. [&#x60;expandable&#x60;](#tag/component_model) By default only the &#x60;componentId&#x60; (a string) is returned. If the client requested an expansion of &#x60;component&#x60; the full component object should be returned. </value>
 
-        [DataMember(Name = "component")]
+        [JsonProperty(PropertyName = "component")]
         public OneOfComponent Component { get; set; }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The courseoffering where this componentoffering is related to. [&#x60;expandable&#x60;](#tag/course_offering_model) By default only the &#x60;courseOfferingId&#x60; (a string) is returned. If the client requested an expansion of &#x60;courseOffering&#x60; the full courseOffering object should be returned. </value>
 
-        [DataMember(Name = "courseOffering")]
+        [JsonProperty(PropertyName = "courseOffering")]
         public OneOfCourseOffering CourseOffering { get; set; }
 
 

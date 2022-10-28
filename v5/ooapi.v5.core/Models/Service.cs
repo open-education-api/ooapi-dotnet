@@ -17,7 +17,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [MaxLength(256)]
-        [DataMember(Name = "contactEmail")]
+        [JsonProperty(PropertyName = "contactEmail")]
         public string ContactEmail { get; set; }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [MaxLength(2048)]
-        [DataMember(Name = "specification")]
+        [JsonProperty(PropertyName = "specification")]
         public string Specification { get; set; }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [MaxLength(2048)]
-        [DataMember(Name = "documentation")]
+        [JsonProperty(PropertyName = "documentation")]
         public string Documentation { get; set; }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [DataMember(Name = "consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
 

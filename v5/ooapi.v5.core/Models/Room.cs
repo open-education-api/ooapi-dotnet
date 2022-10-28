@@ -17,7 +17,7 @@ namespace ooapi.v5.Models
         /// <value>Unique id for this room</value>
         [JsonRequired]
 
-        [DataMember(Name = "roomId")]
+        [JsonProperty(PropertyName = "roomId")]
         public Guid RoomId { get; set; }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace ooapi.v5.Models
         /// </summary>
         [JsonRequired]
 
-        [DataMember(Name = "primaryCode")]
+        [JsonProperty(PropertyName = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
 
 
@@ -35,7 +35,7 @@ namespace ooapi.v5.Models
         /// <value>The type of this room - general purpose: algemeen - lecture room: collegezaal - computer room: computerruimte - laboratory: laboratorium - office: kantoor - workspace: werkruimte - exam location: tentamenruimte - study room: studieruimte - examination room: onderzoekskamer - conference room: vergaderkamer </value>
         [JsonRequired]
 
-        [DataMember(Name = "roomType")]
+        [JsonProperty(PropertyName = "roomType")]
         public RoomTypeEnum? RoomType { get; set; }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace ooapi.v5.Models
         /// <value>The abbreviation of the name of this room</value>
 
         [MaxLength(256)]
-        [DataMember(Name = "abbreviation")]
+        [JsonProperty(PropertyName = "abbreviation")]
         public string Abbreviation { get; set; }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace ooapi.v5.Models
         /// <value>The name of this room</value>
         [JsonRequired]
 
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public List<LanguageTypedString> Name { get; set; }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The description of this room. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.</value>
 
-        [DataMember(Name = "description")]
+        [JsonProperty(PropertyName = "description")]
         public List<LanguageTypedString> Description { get; set; }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The total number of seats located in the room</value>
 
-        [DataMember(Name = "totalSeats")]
+        [JsonProperty(PropertyName = "totalSeats")]
         public int? TotalSeats { get; set; }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The total number of available (&#x3D;non-reserved) seats in the room</value>
 
-        [DataMember(Name = "availableSeats")]
+        [JsonProperty(PropertyName = "availableSeats")]
         public int? AvailableSeats { get; set; }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The floor on which this room is located</value>
 
-        [DataMember(Name = "floor")]
+        [JsonProperty(PropertyName = "floor")]
         public string Floor { get; set; }
 
         /// <summary>
@@ -93,14 +93,14 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The wing in which this room is located</value>
 
-        [DataMember(Name = "wing")]
+        [JsonProperty(PropertyName = "wing")]
         public string Wing { get; set; }
 
         /// <summary>
         /// Gets or Sets Geolocation
         /// </summary>
 
-        [DataMember(Name = "geolocation")]
+        [JsonProperty(PropertyName = "geolocation")]
         public RoomGeolocation Geolocation { get; set; }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
-        [DataMember(Name = "otherCodes")]
+        [JsonProperty(PropertyName = "otherCodes")]
         public List<OtherCodes> OtherCodes { get; set; }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The building in which the room is located. [&#x60;expandable&#x60;](#tag/building_model) By default only the &#x60;buildingId&#x60; (a string) is returned. If the client requested an expansion of &#x60;building&#x60; the full building object should be returned. </value>
 
-        [DataMember(Name = "building")]
+        [JsonProperty(PropertyName = "building")]
         public OneOfBuilding Building { get; set; }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [DataMember(Name = "consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
 

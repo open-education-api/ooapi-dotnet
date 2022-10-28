@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -16,7 +15,7 @@ namespace ooapi.v5.Models
         /// <value>The number of items per page</value>
         [JsonRequired]
 
-        [DataMember(Name = "pageSize")]
+        [JsonProperty(PropertyName = "pageSize")]
         public int? PageSize { get; set; }
 
         /// <summary>
@@ -25,7 +24,7 @@ namespace ooapi.v5.Models
         /// <value>The current page number</value>
         [JsonRequired]
 
-        [DataMember(Name = "pageNumber")]
+        [JsonProperty(PropertyName = "pageNumber")]
         public int? PageNumber { get; set; }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace ooapi.v5.Models
         /// <value>Whether there is a previous page</value>
         [JsonRequired]
 
-        [DataMember(Name = "hasPreviousPage")]
+        [JsonProperty(PropertyName = "hasPreviousPage")]
         public bool? HasPreviousPage { get; set; }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace ooapi.v5.Models
         /// <value>Whether there is a previous page</value>
         [JsonRequired]
 
-        [DataMember(Name = "hasNextPage")]
+        [JsonProperty(PropertyName = "hasNextPage")]
         public bool? HasNextPage { get; set; }
 
         /// <summary>
@@ -51,9 +50,11 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Total number of pages</value>
 
-        [DataMember(Name = "totalPages")]
+        [JsonProperty(PropertyName = "totalPages")]
         public int? TotalPages { get; set; }
 
-
+        //[JsonRequired]
+        //[JsonProperty(PropertyName = "myitems", NullValueHandling = NullValueHandling.Ignore)]
+        //public List<T>? MyItems { get; set; }
     }
 }

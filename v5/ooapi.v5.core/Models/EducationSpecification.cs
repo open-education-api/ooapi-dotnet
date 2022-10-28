@@ -27,7 +27,7 @@ namespace ooapi.v5.Models
         /// </summary>
         [JsonRequired]
 
-        [DataMember(Name = "primaryCode")]
+        [JsonProperty(PropertyName = "primaryCode")]
         public PrimaryCode PrimaryCode { get; set; }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
-        [DataMember(Name = "otherCodes")]
+        [JsonProperty(PropertyName = "otherCodes")]
         public List<OtherCodes> OtherCodes { get; set; }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace ooapi.v5.Models
         /// <value>The type of education specification   - program: HOOPLEIDING   - privateProgram: PARTICULIEREOPLEIDING   - programCluster: HOONDERWIJSEENHEDENCLUSTER   - course: HOONDERWIJSEENHEID </value>
         [JsonRequired]
 
-        [DataMember(Name = "educationSpecificationType")]
+        [JsonProperty(PropertyName = "educationSpecificationType")]
         public EducationSpecificationTypeEnum? EducationSpecificationType { get; set; }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace ooapi.v5.Models
         /// <value>The name of this education specification</value>
         [JsonRequired]
 
-        [DataMember(Name = "name")]
+        [JsonProperty(PropertyName = "name")]
         public List<LanguageTypedString> Name { get; set; }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace ooapi.v5.Models
         /// <value>The abbreviation of this program</value>
 
         [MaxLength(256)]
-        [DataMember(Name = "abbreviation")]
+        [JsonProperty(PropertyName = "abbreviation")]
         public string Abbreviation { get; set; }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The description of this program. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.</value>
 
-        [DataMember(Name = "description")]
+        [JsonProperty(PropertyName = "description")]
         public List<LanguageTypedString> Description { get; set; }
 
 
@@ -87,14 +87,14 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The type of formal document obtained after completion of this education   - diploma: DIPLOMA   - certificate: CERTIFICAAT   - no official document: GEEN OFFICIEEL DOCUMENT   - testimonial: GETUIGSCHRIFT   - school advice: SCHOOLADVIES </value>
 
-        [DataMember(Name = "formalDocument")]
+        [JsonProperty(PropertyName = "formalDocument")]
         public FormalDocumentEnum? FormalDocument { get; set; }
 
         /// <summary>
         /// The level of this course (ECTS-year of study if applicable) - secondary vocational education: mbo - secondary vocational education 1: mbo 1, corresponds to levelOfQualification 1 - secondary vocational education 2: mbo 2, corresponds to levelOfQualification 2 - secondary vocational education 3: mbo 3, corresponds to levelOfQualification 3 - secondary vocational education 4: mbo 4, corresponds to levelOfQualification 4 - associate degree: associate degree, corresponds to levelOfQualification 5 - bachelor: bachelor, corresponds to levelOfQualification 6 - master: master, corresponds to levelOfQualification 7 - doctoral: doctoraal, corresponds to levelOfQualification 8 - undefined: onbepaald - undivided: ongedeeld - nt2-1: NT2 niveau 1 - nt2-2: NT2 niveau 2 
         /// </summary>
         /// <value>The level of this course (ECTS-year of study if applicable) - secondary vocational education: mbo - secondary vocational education 1: mbo 1, corresponds to levelOfQualification 1 - secondary vocational education 2: mbo 2, corresponds to levelOfQualification 2 - secondary vocational education 3: mbo 3, corresponds to levelOfQualification 3 - secondary vocational education 4: mbo 4, corresponds to levelOfQualification 4 - associate degree: associate degree, corresponds to levelOfQualification 5 - bachelor: bachelor, corresponds to levelOfQualification 6 - master: master, corresponds to levelOfQualification 7 - doctoral: doctoraal, corresponds to levelOfQualification 8 - undefined: onbepaald - undivided: ongedeeld - nt2-1: NT2 niveau 1 - nt2-2: NT2 niveau 2 </value>
-        [DataMember(Name = "level")]
+        [JsonProperty(PropertyName = "level")]
         public LevelEnum? Level { get; set; }
 
 
@@ -103,7 +103,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs </value>
 
-        [DataMember(Name = "sector")]
+        [JsonProperty(PropertyName = "sector")]
         public SectorEnum? Sector { get; set; }
 
 
@@ -113,7 +113,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Level of qualification according to the Dutch National Qualification Framework and the European Qualifications Framework, see [this overview](https://nlqf.nl/images/downloads/English2018/Schematic_overview_NLQF_2020.pdf) for more information.</value>
 
-        [DataMember(Name = "levelOfQualification")]
+        [JsonProperty(PropertyName = "levelOfQualification")]
         public LevelOfQualificationEnum? LevelOfQualification { get; set; }
 
         /// <summary>
@@ -122,14 +122,14 @@ namespace ooapi.v5.Models
         /// <value>Field(s) of study (e.g. ISCED-F) (http://uis.unesco.org/sites/default/files/documents/isced-fields-of-education-and-training-2013-en.pdf.</value>
 
         [MaxLength(4)]
-        [DataMember(Name = "fieldsOfStudy")]
+        [JsonProperty(PropertyName = "fieldsOfStudy")]
         public string FieldsOfStudy { get; set; }
 
         /// <summary>
         /// Gets or Sets StudyLoad
         /// </summary>
 
-        [DataMember(Name = "studyLoad")]
+        [JsonProperty(PropertyName = "studyLoad")]
         public ProgramResultStudyLoad StudyLoad { get; set; }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Statements that describe the knowledge or skills students should acquire by the end of a particular course or program (ECTS-learningoutcome).</value>
 
-        [DataMember(Name = "learningOutcomes")]
+        [JsonProperty(PropertyName = "learningOutcomes")]
         [NotMapped]
         public List<List<LanguageTypedString>> LearningOutcomes { get; set; }
 
@@ -147,7 +147,7 @@ namespace ooapi.v5.Models
         /// <value>URL of the program&#x27;s website</value>
 
         [MaxLength(2048)]
-        [DataMember(Name = "link")]
+        [JsonProperty(PropertyName = "link")]
         public string Link { get; set; }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The educationSpecification that is the parent of this educationSpecification if it exists. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
 
-        [DataMember(Name = "parent")]
+        [JsonProperty(PropertyName = "parent")]
         public OneOfEducationSpecification Parent { get; set; }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The EducationSpecifications that have this EducationSpecification as their parent. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
 
-        [DataMember(Name = "children")]
+        [JsonProperty(PropertyName = "children")]
         public List<OneOfEducationSpecification> Children { get; set; }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
-        [DataMember(Name = "organization")]
+        [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [DataMember(Name = "consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
 
@@ -188,7 +188,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The first day this EducationSpecification is valid (inclusive).</value>
 
-        [DataMember(Name = "validFrom")]
+        [JsonProperty(PropertyName = "validFrom")]
         public DateTime? ValidFrom { get; set; }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The day this EducationSpecification ceases to be valid (e.g. exclusive).</value>
 
-        [DataMember(Name = "validTo")]
+        [JsonProperty(PropertyName = "validTo")]
         public DateTime? ValidTo { get; set; }
 
 

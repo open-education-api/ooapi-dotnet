@@ -14,7 +14,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Array of objects (Association) </value>
         [JsonRequired]
-        [DataMember(Name = "items")]
+        [JsonProperty(PropertyName = "items")]
         public List<Association> Items { get; set; }
 
 

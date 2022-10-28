@@ -19,7 +19,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The language used in the described entity. A string formatted according to RFC3066.</value>
         [RegularExpression("/^[a-z]{2,4}(-[A-Z][a-z]{3})?(-([A-Z]{2}|[0-9]{3}))?$/")]
-        [DataMember(Name = "language")]
+        [JsonProperty(PropertyName = "language")]
         public string Language { get; set; }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>String to describe the entity.</value>
 
-        [DataMember(Name = "value")]
+        [JsonProperty(PropertyName = "value")]
         public string Value { get; set; }
 
 

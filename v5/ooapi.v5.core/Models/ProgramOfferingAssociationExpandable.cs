@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -12,14 +13,14 @@ namespace ooapi.v5.Models
         /// Gets or Sets Result
         /// </summary>
 
-        [DataMember(Name = "result")]
+        [JsonProperty(PropertyName = "result")]
         public Object Result { get; set; }
 
         /// <summary>
         /// Gets or Sets Person
         /// </summary>
 
-        [DataMember(Name = "person")]
+        [JsonProperty(PropertyName = "person")]
         public ProgramOfferingAssociationExpandablePerson Person { get; set; }
     }
 
