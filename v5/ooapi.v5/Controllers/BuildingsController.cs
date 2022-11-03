@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using Swashbuckle.AspNetCore.Annotations;
@@ -16,6 +18,8 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class BuildingsController : BaseController
 {
+    private readonly BuildingsRepository buildingsRepository;
+
     /// <summary>
     /// GET /buildings/{buildingId}
     /// </summary>
@@ -29,6 +33,16 @@ public class BuildingsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Building), description: "OK")]
     public virtual IActionResult BuildingsBuildingIdGet([FromRoute][Required] Guid buildingId)
     {
+        //var service = new BuildingsService(DBContext, userRequestContext);
+        //var result = service.Get(buildingId);
+
+        //if (result.PaginationMetadata.CurrentPageSize.Equals(0))
+        //{
+        //    return NotFound(new ServiceErrorResult<Building>(404, "Not found.", result));
+        //}
+
+        return null;  //Ok(result);
+
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20026));
 
@@ -123,6 +137,14 @@ public class BuildingsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Buildings), description: "OK")]
     public virtual IActionResult BuildingsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string sort)
     {
+        DataRequestParameters parameters = new DataRequestParameters();
+        parameters.PageNumber = pagingParams.pageNumber;
+        parameters.SetPageSize(pagingParams.pageSize);
+        parameters.Sort = sort;
+        parameters.SearchTerm = filterParams.q;
+        //var service = new BuildingsService(buildingsRepository);
+        //var result = service.GetAll(parameters);
+        return null; // Ok(result);
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20025));
 
@@ -143,7 +165,5 @@ public class BuildingsController : BaseController
 
         //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(500, default(InlineResponse400));
-
-        return null;
     }
 }

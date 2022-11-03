@@ -26,6 +26,7 @@ public class CoreDBContext : DbContext
 
 
 
+    public DbSet<Building> Buildings { get; set; }
     public DbSet<Group> Groups { get; set; }
 
 

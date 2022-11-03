@@ -7,7 +7,7 @@ namespace ooapi.v5.Models
     /// 
     /// </summary>
     [DataContract]
-    public class NewsFeeds : Pagination
+    public class NewsFeeds : Pagination<NewsFeed>
     {
         /// <summary>
         /// Array of objects (NewsFeed) 
@@ -16,8 +16,16 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "items")]
-        public List<NewsFeed> Items { get; set; }
-
-
+        public List<NewsFeed> Items
+        {
+            get
+            {
+                return PaginationItems;
+            }
+            set
+            {
+                PaginationItems = value;
+            }
+        }
     }
 }

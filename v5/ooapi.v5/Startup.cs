@@ -109,7 +109,7 @@ namespace ooapi.v5
 
             services.ConfigureSwaggerGen(options =>
             {
-                options.CustomSchemaIds(x => x.Name);
+                options.CustomSchemaIds(x => x.FullName);
             });
         }
 

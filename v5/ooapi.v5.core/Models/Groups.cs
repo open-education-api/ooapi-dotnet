@@ -7,7 +7,7 @@ namespace ooapi.v5.Models
     /// 
     /// </summary>
     [DataContract]
-    public class Groups : Pagination
+    public class Groups : Pagination<Group>
     {
         /// <summary>
         /// Array of objects (Group) 
@@ -16,8 +16,17 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "items")]
-        public List<Group> Items { get; set; }
-
+        public List<Group> Items
+        {
+            get
+            {
+                return PaginationItems;
+            }
+            set
+            {
+                PaginationItems = value;
+            }
+        }
 
     }
 }

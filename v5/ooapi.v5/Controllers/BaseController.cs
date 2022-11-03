@@ -18,5 +18,6 @@ using Swashbuckle.AspNetCore.Annotations;
 [Route("v5.0")]
 public class BaseController : ControllerBase
 {
+    //public UserRequestContext UserRequestContext { get; internal set; } = new UserRequestContext();
 
 }

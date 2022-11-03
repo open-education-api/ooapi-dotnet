@@ -1,12 +1,12 @@
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 
-namespace ooapi.v5.Models
-{
+//namespace ooapi.v5.Models
+//{
 
-    [DataContract]
-    public class StringItems
-    {
+//    [DataContract]
+//    public class StringItems
+//    {
 
-        public List<string> Items { get; set; }
-    }
-}
+//        public List<string> Items { get; set; }
+//    }
+//}

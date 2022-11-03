@@ -89,7 +89,7 @@ namespace ooapi.v5.Models
         /// <value>The top level year of this session (e.g. 20xx where the current session is a week 40 of a semester). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)</value>
 
         [JsonProperty("year")]
-        public Guid Year { get; set; }
+        public OneOfAcademicSession Year { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.

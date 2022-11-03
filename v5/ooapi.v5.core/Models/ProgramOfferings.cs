@@ -1,6 +1,4 @@
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -9,7 +7,7 @@ namespace ooapi.v5.Models
     /// 
     /// </summary>
     [DataContract]
-    public class ProgramOfferings : Pagination
+    public class ProgramOfferings : Pagination<ProgramOffering>
     {
         /// <summary>
         /// Array of objects (ProgramOffering) 
@@ -18,8 +16,16 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "items")]
-        public List<ProgramOffering> Items { get; set; }
-
-
+        public List<ProgramOffering> Items
+        {
+            get
+            {
+                return PaginationItems;
+            }
+            set
+            {
+                PaginationItems = value;
+            }
+        }
     }
 }

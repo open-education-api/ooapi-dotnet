@@ -7,7 +7,7 @@ namespace ooapi.v5.Models
     /// 
     /// </summary>
     [DataContract]
-    public class CourseOfferings : Pagination
+    public class CourseOfferings : Pagination<CourseOffering>
     {
         /// <summary>
         /// Array of objects (CourseOffering) 
@@ -16,8 +16,16 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "items")]
-        public List<CourseOffering> Items { get; set; }
-
-
+        public List<CourseOffering> Items
+        {
+            get
+            {
+                return PaginationItems;
+            }
+            set
+            {
+                PaginationItems = value;
+            }
+        }
     }
 }

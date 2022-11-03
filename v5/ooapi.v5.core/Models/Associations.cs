@@ -7,7 +7,7 @@ namespace ooapi.v5.Models
     /// 
     /// </summary>
     [DataContract]
-    public class Associations : Pagination
+    public class Associations : Pagination<Association>
     {
         /// <summary>
         /// Array of objects (Association) 
@@ -15,8 +15,17 @@ namespace ooapi.v5.Models
         /// <value>Array of objects (Association) </value>
         [JsonRequired]
         [JsonProperty(PropertyName = "items")]
-        public List<Association> Items { get; set; }
-
+        public List<Association> Items
+        {
+            get
+            {
+                return PaginationItems;
+            }
+            set
+            {
+                PaginationItems = value;
+            }
+        }
 
     }
 }
