@@ -5,16 +5,16 @@ using ooapi.v5.core.Utility;
 namespace ooapi.v5.Models
 {
     /// <summary>
-    /// 
+    /// pagination
     /// </summary>
-    public class Pagination<T> : ModelBase
+    public class MyPagination<T> : ModelBase
     {
-        public Pagination()
+        public MyPagination()
         {
 
         }
 
-        public Pagination(IQueryable<T> collection, DataRequestParameters dataRequestParameters = null)
+        public MyPagination(IQueryable<T> collection, DataRequestParameters dataRequestParameters = null)
         {
             if (dataRequestParameters != null)
             {
@@ -38,7 +38,7 @@ namespace ooapi.v5.Models
         private void SetItems(List<T> list)
         {
             _currentPageSize = list.Count();
-            PaginationItems = list;
+            Items = list;
         }
 
         /// <summary>
@@ -89,7 +89,20 @@ namespace ooapi.v5.Models
 
         private int _currentPageSize { get; set; } = 0;
 
-        protected List<T>? PaginationItems { get; set; }
+        /// <summary>
+        /// This method fetches data and returns a list of <typeparamref name="T"/>.
+        /// </summary>
+        /// <remarks>
+        /// This example shows how to specify the <see cref="List{T}"/>
+        /// type as a cref attribute.
+        /// In generic classes and methods, you'll often want to reference the
+        /// generic type, or the type parameter.
+        /// The parameter and return value are both of an arbitrary type,
+        /// <typeparamref name="T"/>
+        /// </remarks>
+        [JsonRequired]
+        [JsonProperty(PropertyName = "items", NullValueHandling = NullValueHandling.Ignore)]
+        public List<T>? Items { get; set; }
 
         private void SetPaginationMetadata(int totalItems, int? pageSize, int pageNumber)
         {

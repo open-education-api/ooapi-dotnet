@@ -181,7 +181,7 @@ public class CoursesController : BaseController
     [Route("courses")]
     [ValidateModelState]
     [SwaggerOperation("CoursesGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(MyPagination<Course>), description: "OK")]
     public virtual IActionResult CoursesGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] LevelEnum level, [FromQuery] ModeOfDeliveryEnum modeOfDelivery, [FromQuery] string sort)
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

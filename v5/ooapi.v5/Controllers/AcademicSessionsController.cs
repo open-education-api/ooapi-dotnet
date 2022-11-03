@@ -37,7 +37,7 @@ public class AcademicSessionsController : BaseController
     [Route("academic-sessions")]
     [ValidateModelState]
     [SwaggerOperation("AcademicSessionsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(AcademicSessions), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(MyPagination<AcademicSession>), description: "OK")]
     public virtual IActionResult AcademicSessionsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string academicSessionType, [FromQuery] Guid? parent, [FromQuery] Guid? year, [FromQuery] string sort)
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
