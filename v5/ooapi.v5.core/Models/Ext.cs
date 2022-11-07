@@ -12,12 +12,13 @@ namespace ooapi.v5.Models
         [JsonIgnore]
         public string Extension { get; set; }
 
+
         [JsonProperty(PropertyName = "ext")]
         [NotMapped]
         /// <summary>
         /// Object for additional non-standard attributes
         /// </summary>
-        public JObject? Ext
+        public dynamic? Ext
         {
             get
             {
@@ -25,7 +26,7 @@ namespace ooapi.v5.Models
                     return null;
                 try
                 {
-                    return JsonConvert.DeserializeObject<JObject>(Extension);
+                    return (dynamic)JsonConvert.DeserializeObject<JObject>(Extension);
                 }
                 catch (Exception)
                 {
@@ -40,3 +41,4 @@ namespace ooapi.v5.Models
 
     }
 }
+
