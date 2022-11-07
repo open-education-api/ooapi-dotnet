@@ -46,7 +46,24 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "name")]
-        public List<LanguageTypedString> Name { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> name
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+            }
+            set
+            {
+                Name = JsonConvert.SerializeObject(value);
+            }
+        }
+
+
+        [JsonIgnore]
+        public string Name { get; set; }
+
+
 
         /// <summary>
         /// The abbreviation of this component
@@ -130,9 +147,23 @@ namespace ooapi.v5.Models
         /// The description of this component.
         /// </summary>
         /// <value>The description of this component.</value>
-
         [JsonProperty(PropertyName = "description")]
-        public List<LanguageTypedString> Description { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> description
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+            }
+            set
+            {
+                Description = JsonConvert.SerializeObject(value);
+            }
+        }
+
+
+        [JsonIgnore]
+        public string Description { get; set; }
 
         /// <summary>
         /// The (primary) teaching language in which this component is given, should be a three-letter language code as specified by ISO 639-2.
@@ -161,7 +192,23 @@ namespace ooapi.v5.Models
         /// <value>The extra information that is provided for enrollment</value>
 
         [JsonProperty(PropertyName = "enrollment")]
-        public List<LanguageTypedString> Enrollment { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> enrollment
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Enrollment);
+            }
+            set
+            {
+                Enrollment = JsonConvert.SerializeObject(value);
+            }
+        }
+
+
+        [JsonIgnore]
+        public String Enrollment { get; set; }
+
 
         ////[JsonIgnore]
         ////public List<string> Resources { get; set; }
@@ -181,7 +228,21 @@ namespace ooapi.v5.Models
         /// <value>A description of the way exams for this course are taken (ECTS-assessment method and criteria).</value>
 
         [JsonProperty(PropertyName = "assessment")]
-        public List<LanguageTypedString> Assessment { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> assessment
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Assessment);
+            }
+            set
+            {
+                Assessment = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public String Assessment { get; set; }
 
         /// <summary>
         /// Addresses for this component

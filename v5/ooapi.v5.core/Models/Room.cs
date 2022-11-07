@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -52,17 +53,45 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name of this room</value>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "name")]
-        public List<LanguageTypedString> Name { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> name
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+            }
+            set
+            {
+                Name = JsonConvert.SerializeObject(value);
+            }
+        }
+
+
+        [JsonIgnore]
+        public string Name { get; set; }
+
 
         /// <summary>
         /// The description of this room. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.
         /// </summary>
         /// <value>The description of this room. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.</value>
-
         [JsonProperty(PropertyName = "description")]
-        public List<LanguageTypedString> Description { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> description
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+            }
+            set
+            {
+                Description = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public string Description { get; set; }
 
         /// <summary>
         /// The total number of seats located in the room

@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -43,7 +44,21 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "name")]
-        public List<LanguageTypedString> Name { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> name
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+            }
+            set
+            {
+                Name = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public string Name { get; set; }
 
         /// <summary>
         /// The description of this building.
@@ -51,7 +66,22 @@ namespace ooapi.v5.Models
         /// <value>The description of this building.</value>
 
         [JsonProperty(PropertyName = "description")]
-        public List<LanguageTypedString> Description { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> description
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+            }
+            set
+            {
+                Description = JsonConvert.SerializeObject(value);
+            }
+        }
+
+
+        [JsonIgnore]
+        public string Description { get; set; }
 
         /// <summary>
         /// Gets or Sets Address

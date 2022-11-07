@@ -44,9 +44,25 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name of the organization</value>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "name")]
-        public List<LanguageTypedString> Name { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> name
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+            }
+            set
+            {
+                Name = JsonConvert.SerializeObject(value);
+            }
+        }
+
+
+        [JsonIgnore]
+        public string Name { get; set; }
+
+
 
         /// <summary>
         /// Short name of the organization
@@ -62,9 +78,22 @@ namespace ooapi.v5.Models
         /// Any general description of the organization should clearly mention the type of higher education organization, especially in the case of a binary system. In Dutch; universiteit (university) or hogeschool (university of applied sciences).
         /// </summary>
         /// <value>Any general description of the organization should clearly mention the type of higher education organization, especially in the case of a binary system. In Dutch; universiteit (university) or hogeschool (university of applied sciences).</value>
-
         [JsonProperty(PropertyName = "description")]
-        public List<LanguageTypedString> Description { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> description
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+            }
+            set
+            {
+                Description = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public string Description { get; set; }
 
         /// <summary>
         /// Addresses of this organization

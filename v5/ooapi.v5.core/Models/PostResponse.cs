@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -16,7 +17,22 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "message")]
-        public List<LanguageTypedString> Message { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> message
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Message);
+            }
+            set
+            {
+                Message = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public string Message { get; set; }
+
 
         /// <summary>
         /// URL where additional information can be found e.g. by use of deeplink

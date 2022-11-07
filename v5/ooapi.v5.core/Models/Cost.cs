@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -68,7 +69,22 @@ namespace ooapi.v5.Models
         /// <value>An array of optional pre-formatted strings in different locales. Clients can choose to use this string instead of rendering their own based on the current locale of the user.</value>
 
         [JsonProperty(PropertyName = "displayAmount")]
-        public List<LanguageTypedString> DisplayAmount { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> displayAmount
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(DisplayAmount);
+            }
+            set
+            {
+                DisplayAmount = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public String DisplayAmount { get; set; }
+
 
 
     }

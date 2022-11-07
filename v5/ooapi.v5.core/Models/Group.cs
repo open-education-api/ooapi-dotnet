@@ -44,17 +44,46 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name of this group</value>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "name")]
-        public List<LanguageTypedString> Name { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> name
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+            }
+            set
+            {
+                Name = JsonConvert.SerializeObject(value);
+            }
+        }
+
+
+        [JsonIgnore]
+        public string Name { get; set; }
+
+
 
         /// <summary>
         /// The description of this group
         /// </summary>
         /// <value>The description of this group</value>
-
         [JsonProperty(PropertyName = "description")]
-        public List<LanguageTypedString> Description { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> description
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+            }
+            set
+            {
+                Description = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public string Description { get; set; }
 
         /// <summary>
         /// The day on which this group starts being active, RFC3339 (full-date)

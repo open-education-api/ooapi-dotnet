@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -35,18 +36,47 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name for this news feed</value>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "name")]
-        public List<LanguageTypedString> Name { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> name
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+            }
+            set
+            {
+                Name = JsonConvert.SerializeObject(value);
+            }
+        }
+
+
+        [JsonIgnore]
+        public string Name { get; set; }
+
+
 
         /// <summary>
         /// The description of this news feed.
         /// </summary>
         /// <value>The description of this news feed.</value>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "description")]
-        public List<LanguageTypedString> Description { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> description
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+            }
+            set
+            {
+                Description = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public string Description { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.

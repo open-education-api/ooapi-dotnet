@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -8,16 +8,19 @@ namespace ooapi.v5.Models
     /// 
     /// </summary>
     [DataContract]
-    public partial class ProgramResult : Result
+    public class ProgramResult : Result
     {
         /// <summary>
         /// Gets or Sets StudyLoad
         /// </summary>
-        [JsonRequired]
 
         [JsonProperty(PropertyName = "studyLoad")]
-        public ProgramResultStudyLoad StudyLoad { get; set; }
+        [NotMapped]
+        public StudyLoadDescriptor StudyLoad { get; set; }
 
+
+        [JsonIgnore]
+        public Guid StudyLoadDescriptorId { get; set; }
 
     }
 }

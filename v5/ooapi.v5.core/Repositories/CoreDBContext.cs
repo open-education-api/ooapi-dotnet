@@ -26,10 +26,34 @@ public class CoreDBContext : DbContext
 
 
 
+    public DbSet<AcademicSession> AcademicSessions { get; set; }
+    public DbSet<Association> Associations { get; set; }
     public DbSet<Building> Buildings { get; set; }
+    public DbSet<Component> Components { get; set; }
+    public DbSet<ComponentOffering> ComponentOfferings { get; set; }
+
+    public DbSet<Course> Courses { get; set; }
+    public DbSet<CourseOffering> CourseOfferings { get; set; }
+    public DbSet<NewsFeed> NewsFeeds { get; set; }
+    public DbSet<NewsItem> NewsItems { get; set; }
+    public DbSet<Organization> Organizations { get; set; }
+    public DbSet<Person> Persons { get; set; }
+    public DbSet<Program> Programs { get; set; }
+    public DbSet<ProgramOffering> ProgramOfferings { get; set; }
+    public DbSet<Room> Rooms { get; set; }
+
+    public DbSet<Address> Addresses { get; set; }
+    public DbSet<Consumer> Consumers { get; set; }
+    public DbSet<Cost> Costs { get; set; }
+    public DbSet<Geolocation> Geolocations { get; set; }
+    public DbSet<LanguageOfChoice> LanguageOfChoices { get; set; }
+    public DbSet<OtherCodes> OtherCodes { get; set; }
+    public DbSet<PrimaryCode> PrimaryCodes { get; set; }
+    public DbSet<StudyLoadDescriptor> StudyLoadDescriptors { get; set; }
     public DbSet<Group> Groups { get; set; }
+    public DbSet<RoomGeolocation> RoomGeolocations { get; set; }
 
-
+    public DbSet<Resource> Resources { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -53,7 +77,7 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<ProgramOffering>().HasKey(c => c.OfferingId);
         modelBuilder.Entity<Room>().HasKey(c => c.RoomId);
 
-        modelBuilder.Entity<Offering>().HasKey(c => c.OfferingId);
+        //??modelBuilder.Entity<Offering>().HasKey(c => c.OfferingId);
         modelBuilder.Entity<Address>().HasKey(c => c.AddressId);
         modelBuilder.Entity<Consumer>().HasKey(c => c.ConsumerId);
         modelBuilder.Entity<Cost>().HasKey(c => c.CostId);
@@ -61,17 +85,17 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<LanguageOfChoice>().HasKey(c => c.LanguageOfChoiceId);
         modelBuilder.Entity<OtherCodes>().HasKey(c => c.OtherCodesId);
         modelBuilder.Entity<PrimaryCode>().HasKey(c => c.PrimaryCodeId);
-        modelBuilder.Entity<ProgramResultStudyLoad>().HasKey(c => c.ProgramResultStudyLoadId);
+        modelBuilder.Entity<StudyLoadDescriptor>().HasKey(c => c.StudyLoadDescriptorId);
         modelBuilder.Entity<RoomGeolocation>().HasKey(c => c.RoomGeolocationId);
 
-
-        modelBuilder.Entity<LanguageTypedString>().HasKey(c => c.LanguageTypedStringId);
-        modelBuilder.Entity<List<LanguageTypedString>>().HasNoKey();
-
-        modelBuilder.Entity<Author>().HasKey(c => c.AuthorId);
         modelBuilder.Entity<Resource>().HasKey(c => c.ResourceId);
 
-        modelBuilder.Entity<List<string>>().HasNoKey();
+        //modelBuilder.Entity<LanguageTypedString>().HasKey(c => c.LanguageTypedStringId);
+        //modelBuilder.Entity<List<LanguageTypedString>>().HasNoKey();
+
+        //modelBuilder.Entity<Author>().HasKey(c => c.AuthorId);
+
+        //modelBuilder.Entity<List<string>>().HasNoKey();
     }
 
 }

@@ -10,6 +10,8 @@ namespace ooapi.v5.Models
     [DataContract]
     public partial class StudyLoadDescriptor
     {
+        [JsonIgnore]
+        public Guid StudyLoadDescriptorId { get; set; }
 
         /// <summary>
         /// The unit in which the studyload is specfied - contacttime: CONTACTUUR amount of time spent in classes - ects: ECTS_PUNT European Credit Transfer System - sbu: SBU studentloadhours - sp: STUDIEPUNT studentpoints - hour: UUR hours 

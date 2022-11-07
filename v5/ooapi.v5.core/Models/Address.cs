@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -49,9 +50,23 @@ namespace ooapi.v5.Models
         /// Further details like building name, suite, apartment number, etc.
         /// </summary>
         /// <value>Further details like building name, suite, apartment number, etc.</value>
-
         [JsonProperty(PropertyName = "additional")]
-        public List<LanguageTypedString> Additional { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> addition
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Additional);
+            }
+            set
+            {
+                Additional = JsonConvert.SerializeObject(value);
+            }
+        }
+
+
+        [JsonIgnore]
+        public String Additional { get; set; }
 
         /// <summary>
         /// Postal code

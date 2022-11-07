@@ -35,7 +35,24 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "name")]
-        public List<LanguageTypedString> Name { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> name
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+            }
+            set
+            {
+                Name = JsonConvert.SerializeObject(value);
+            }
+        }
+
+
+        [JsonIgnore]
+        public string Name { get; set; }
+
+
 
         /// <summary>
         /// The abbreviation or internal code used to identify this course (ECTS-code)
@@ -52,8 +69,11 @@ namespace ooapi.v5.Models
         /// </summary>
 
         [JsonProperty(PropertyName = "studyLoad")]
-        public ProgramResultStudyLoad StudyLoad { get; set; }
+        [NotMapped]
+        public StudyLoadDescriptor? StudyLoad { get; set; }
 
+        [JsonIgnore]
+        public Guid? StudyLoadDescriptorId { get; set; }
 
         [JsonIgnore]
         public string ModeOfDelivery { get; set; }
@@ -134,9 +154,22 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The description of this course (ECTS-description).</value>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "description")]
-        public List<LanguageTypedString> Description { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> description
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+            }
+            set
+            {
+                Description = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public string Description { get; set; }
 
         /// <summary>
         /// The (primary) teaching language in which this course is given, should be a three-letter language code as specified by ISO 639-2.
@@ -164,7 +197,10 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "learningOutcomes")]
         [NotMapped]
-        public List<List<LanguageTypedString>> LearningOutcomes { get; set; }
+        public List<LearningOutcomes>? learningOutcomes { get; set; }
+
+        [JsonIgnore]
+        public string LearningOutcomes { get; set; }
 
         /// <summary>
         /// This information may be given at an institutional level and/or at the level of individual programmes. Make sure that it is clear whether the information applies to fee-paying students (national and/or international) or to exchange students.
@@ -172,7 +208,22 @@ namespace ooapi.v5.Models
         /// <value>This information may be given at an institutional level and/or at the level of individual programmes. Make sure that it is clear whether the information applies to fee-paying students (national and/or international) or to exchange students.</value>
 
         [JsonProperty(PropertyName = "admissionRequirements")]
-        public List<LanguageTypedString> AdmissionRequirements { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString>? admissionRequirements
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(AdmissionRequirements);
+            }
+            set
+            {
+                AdmissionRequirements = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public string AdmissionRequirements { get; set; }
+
 
         /// <summary>
         /// Normally, students will receive a diploma when they have completed the (official) study program and have obtained the required number of credits. If there are any other specific requirements that students need to have fulfilled, mention them here.
@@ -180,7 +231,11 @@ namespace ooapi.v5.Models
         /// <value>Normally, students will receive a diploma when they have completed the (official) study program and have obtained the required number of credits. If there are any other specific requirements that students need to have fulfilled, mention them here.</value>
 
         [JsonProperty(PropertyName = "qualificationRequirements")]
-        public List<LanguageTypedString> QualificationRequirements { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> qualificationRequirements { get; set; }
+
+        [JsonIgnore]
+        public string QualificationRequirements { get; set; }
 
         /// <summary>
         /// The level of this course (ECTS-year of study if applicable) - secondary vocational education: mbo - secondary vocational education 1: mbo 1, corresponds to levelOfQualification 1 - secondary vocational education 2: mbo 2, corresponds to levelOfQualification 2 - secondary vocational education 3: mbo 3, corresponds to levelOfQualification 3 - secondary vocational education 4: mbo 4, corresponds to levelOfQualification 4 - associate degree: associate degree, corresponds to levelOfQualification 5 - bachelor: bachelor, corresponds to levelOfQualification 6 - master: master, corresponds to levelOfQualification 7 - doctoral: doctoraal, corresponds to levelOfQualification 8 - undefined: onbepaald - undivided: ongedeeld - nt2-1: NT2 niveau 1 - nt2-2: NT2 niveau 2 
@@ -197,7 +252,21 @@ namespace ooapi.v5.Models
         /// <value>The extra information that is provided for enrollment</value>
 
         [JsonProperty(PropertyName = "enrollment")]
-        public List<LanguageTypedString> Enrollment { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> enrollment
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Enrollment);
+            }
+            set
+            {
+                Enrollment = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public String Enrollment { get; set; }
 
         [JsonIgnore]
         public List<Resource> Resources { get; set; }
@@ -216,9 +285,23 @@ namespace ooapi.v5.Models
         /// A description of the way exams for this course are taken (ECTS-assessment method and criteria).
         /// </summary>
         /// <value>A description of the way exams for this course are taken (ECTS-assessment method and criteria).</value>
-
         [JsonProperty(PropertyName = "assessment")]
-        public List<LanguageTypedString> Assessment { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> assessment
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Assessment);
+            }
+            set
+            {
+                Assessment = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public String Assessment { get; set; }
+
 
         /// <summary>
         /// URL of the course&#x27;s website

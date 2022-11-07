@@ -59,9 +59,25 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name of this education specification</value>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "name")]
-        public List<LanguageTypedString> Name { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> name
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+            }
+            set
+            {
+                Name = JsonConvert.SerializeObject(value);
+            }
+        }
+
+
+        [JsonIgnore]
+        public string Name { get; set; }
+
+
 
         /// <summary>
         /// The abbreviation of this program
@@ -76,9 +92,22 @@ namespace ooapi.v5.Models
         /// The description of this program. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.
         /// </summary>
         /// <value>The description of this program. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.</value>
-
         [JsonProperty(PropertyName = "description")]
-        public List<LanguageTypedString> Description { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> description
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+            }
+            set
+            {
+                Description = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public string Description { get; set; }
 
 
 
@@ -130,7 +159,7 @@ namespace ooapi.v5.Models
         /// </summary>
 
         [JsonProperty(PropertyName = "studyLoad")]
-        public ProgramResultStudyLoad StudyLoad { get; set; }
+        public StudyLoadDescriptor StudyLoad { get; set; }
 
         /// <summary>
         /// Statements that describe the knowledge or skills students should acquire by the end of a particular course or program (ECTS-learningoutcome).

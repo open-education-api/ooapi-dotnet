@@ -86,7 +86,6 @@ namespace ooapi.v5
                             Email = ""
                         }//, TermsOfService = new Uri("")
                     });
-                    options.CustomSchemaIds(type => type.FullName);
                     options.UseOneOfForPolymorphism();
 
                     options.SelectDiscriminatorNameUsing((baseType) => "TypeName");
@@ -109,7 +108,7 @@ namespace ooapi.v5
 
             services.ConfigureSwaggerGen(options =>
             {
-                options.CustomSchemaIds(x => x.FullName);
+                options.CustomSchemaIds(x => x.Name);
             });
         }
 

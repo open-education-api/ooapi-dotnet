@@ -36,12 +36,28 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name for this news item</value>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "name")]
-        public List<LanguageTypedString> Name { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> name
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+            }
+            set
+            {
+                Name = JsonConvert.SerializeObject(value);
+            }
+        }
+
 
         [JsonIgnore]
-        public List<Author> Authors { get; set; }
+        public string Name { get; set; }
+
+
+
+        [JsonIgnore]
+        public string Authors { get; set; }
 
         /// <summary>
         /// The authors of the article with this news item
@@ -90,7 +106,22 @@ namespace ooapi.v5.Models
         /// <value>The content of this news item.</value>
 
         [JsonProperty(PropertyName = "content")]
-        public List<LanguageTypedString> Content { get; set; }
+        [NotMapped]
+        public List<LanguageTypedString> content
+        {
+            get
+            {
+                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Content);
+            }
+            set
+            {
+                Content = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public string Content { get; set; }
+
 
         /// <summary>
         /// The newsFeeds where this item can be found. [&#x60;expandable&#x60;](#tag/news_feed_model)
