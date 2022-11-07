@@ -46,7 +46,8 @@ namespace ooapi.v5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CoreDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ooapiDB"))
+                options.UseSqlServer(Configuration.GetConnectionString("ooapiDB"),
+                x => x.MigrationsHistoryTable("__EFMigrationsHistory", "ooapiv5"))
             );
 
             // Add framework services.
