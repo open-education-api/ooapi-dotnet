@@ -26,7 +26,7 @@ namespace ooapi.v5.Models
                     return null;
                 try
                 {
-                    return (dynamic)JsonConvert.DeserializeObject<JObject>(Extension);
+                    return JsonConvert.DeserializeObject<JObject>(Extension);
                 }
                 catch (Exception)
                 {

@@ -93,8 +93,9 @@ namespace ooapi.v5.Models
         public string CountryCode { get; set; }
 
         /// <summary>
-        /// Gets or Sets Geolocation
+        /// Geolocation of the entrance of this address (WGS84 coordinate reference system)
         /// </summary>
+        /// <value>Geolocation of the entrance of this address (WGS84 coordinate reference system)</value>
 
         [JsonProperty(PropertyName = "geolocation")]
         public Geolocation Geolocation { get; set; }

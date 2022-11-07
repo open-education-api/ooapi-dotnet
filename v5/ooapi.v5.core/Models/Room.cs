@@ -126,11 +126,12 @@ namespace ooapi.v5.Models
         public string Wing { get; set; }
 
         /// <summary>
-        /// Gets or Sets Geolocation
+        /// Geolocation of the entrance of this room (WGS84 coordinate reference system)
         /// </summary>
+        /// <value>Geolocation of the entrance of this room (WGS84 coordinate reference system)</value>
 
         [JsonProperty(PropertyName = "geolocation")]
-        public RoomGeolocation Geolocation { get; set; }
+        public Geolocation Geolocation { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.

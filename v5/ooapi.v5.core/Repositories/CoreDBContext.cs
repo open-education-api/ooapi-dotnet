@@ -51,9 +51,6 @@ public class CoreDBContext : DbContext
     public DbSet<PrimaryCode> PrimaryCodes { get; set; }
     public DbSet<StudyLoadDescriptor> StudyLoadDescriptors { get; set; }
     public DbSet<Group> Groups { get; set; }
-    public DbSet<RoomGeolocation> RoomGeolocations { get; set; }
-
-    public DbSet<Resource> Resources { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -86,9 +83,8 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<OtherCodes>().HasKey(c => c.OtherCodesId);
         modelBuilder.Entity<PrimaryCode>().HasKey(c => c.PrimaryCodeId);
         modelBuilder.Entity<StudyLoadDescriptor>().HasKey(c => c.StudyLoadDescriptorId);
-        modelBuilder.Entity<RoomGeolocation>().HasKey(c => c.RoomGeolocationId);
 
-        modelBuilder.Entity<Resource>().HasKey(c => c.ResourceId);
+        //modelBuilder.Entity<Resource>().HasKey(c => c.ResourceId);
 
         //modelBuilder.Entity<LanguageTypedString>().HasKey(c => c.LanguageTypedStringId);
         //modelBuilder.Entity<List<LanguageTypedString>>().HasNoKey();

@@ -269,7 +269,7 @@ namespace ooapi.v5.Models
         public String Enrollment { get; set; }
 
         [JsonIgnore]
-        public List<Resource> Resources { get; set; }
+        public string Resources { get; set; }
 
         /// <summary>
         /// An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)
