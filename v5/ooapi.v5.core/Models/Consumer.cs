@@ -19,6 +19,10 @@ namespace ooapi.v5.Models
         public Guid ConsumerId { get; set; }
 
 
+        [JsonIgnore]
+        public Guid RefId { get; set; }
+
+
         /// <summary>
         /// The key of the consumer (destination) for which this information is intended. <br/>
         /// See the <![CDATA[<a href="https://open-education-api.github.io/specification/#/consumers" >consumer registry</a>]]> for more information.

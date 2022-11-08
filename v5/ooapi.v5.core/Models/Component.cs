@@ -27,11 +27,11 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty(PropertyName = "primaryCode")]
         [NotMapped]
-        public PrimaryCode primaryCode
+        public IdentifierEntry primaryCode
         {
             get
             {
-                return new PrimaryCode() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
             }
             set
             {
@@ -272,7 +272,7 @@ namespace ooapi.v5.Models
         public List<Address>? Addresses { get; set; }
 
         [JsonIgnore]
-        public List<ComponentAddress>?  ComponentsAddresses { get; set; }
+        public List<ComponentAddress>? ComponentsAddresses { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.

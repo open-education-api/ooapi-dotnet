@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -28,11 +27,11 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty(PropertyName = "primaryCode")]
         [NotMapped]
-        public PrimaryCode primaryCode
+        public IdentifierEntry primaryCode
         {
             get
             {
-                return new PrimaryCode() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
             }
             set
             {
