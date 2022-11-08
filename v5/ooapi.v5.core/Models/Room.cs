@@ -25,9 +25,27 @@ namespace ooapi.v5.Models
         /// Gets or Sets PrimaryCode
         /// </summary>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "primaryCode")]
-        public PrimaryCode PrimaryCode { get; set; }
+        [NotMapped]
+        public PrimaryCode primaryCode
+        {
+            get
+            {
+                return new PrimaryCode() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
+        }
+
+
+        [JsonIgnore]
+        public string PrimaryCodeType { get; set; }
+
+        [JsonIgnore]
+        public string PrimaryCode { get; set; }
 
 
         /// <summary>
@@ -131,7 +149,38 @@ namespace ooapi.v5.Models
         /// <value>Geolocation of the entrance of this room (WGS84 coordinate reference system)</value>
 
         [JsonProperty(PropertyName = "geolocation")]
-        public Geolocation Geolocation { get; set; }
+        [NotMapped]
+        public Geolocation? Geolocation
+        {
+            get
+            {
+                if (Latitude != null && Longitude != null)
+                {
+                    return new Geolocation() { Latitude = (decimal)Latitude, Longitude = (decimal)Longitude };
+                }
+                return null;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    Latitude = value.Latitude;
+                    Longitude = value.Longitude;
+                }
+            }
+        }
+
+
+        [JsonIgnore]
+        [Column(TypeName = "decimal(8, 6)")]
+        public decimal? Latitude { get; set; }
+
+
+        [JsonIgnore]
+        [Column(TypeName = "decimal(8, 6)")]
+        public decimal? Longitude { get; set; }
+
+
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.

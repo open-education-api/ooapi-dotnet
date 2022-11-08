@@ -26,7 +26,26 @@ namespace ooapi.v5.Models
         /// </summary>
         [JsonRequired]
         [JsonProperty(PropertyName = "primaryCode")]
-        public PrimaryCode PrimaryCode { get; set; }
+        [NotMapped]
+        public PrimaryCode primaryCode
+        {
+            get
+            {
+                return new PrimaryCode() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
+        }
+
+
+        [JsonIgnore]
+        public string PrimaryCodeType { get; set; }
+
+        [JsonIgnore]
+        public string PrimaryCode { get; set; }
 
         /// <summary>
         /// The name of this course (ECTS-title)
@@ -266,7 +285,7 @@ namespace ooapi.v5.Models
         }
 
         [JsonIgnore]
-        public String Enrollment { get; set; }
+        public string Enrollment { get; set; }
 
         [JsonIgnore]
         public string Resources { get; set; }
@@ -300,7 +319,7 @@ namespace ooapi.v5.Models
         }
 
         [JsonIgnore]
-        public String Assessment { get; set; }
+        public string Assessment { get; set; }
 
 
         /// <summary>
@@ -324,9 +343,12 @@ namespace ooapi.v5.Models
         /// Addresses for this course
         /// </summary>
         /// <value>Addresses for this course</value>
-
         [JsonProperty(PropertyName = "addresses")]
-        public List<Address> Addresses { get; set; }
+        [NotMapped]
+        public List<Address>? Addresses { get; set; }
+
+        [JsonIgnore]
+        public List<CourseAddress>? CoursesAddresses { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.

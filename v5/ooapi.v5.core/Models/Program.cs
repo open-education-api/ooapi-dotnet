@@ -24,9 +24,27 @@ namespace ooapi.v5.Models
         /// Gets or Sets PrimaryCode
         /// </summary>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "primaryCode")]
-        public PrimaryCode PrimaryCode { get; set; }
+        [NotMapped]
+        public PrimaryCode primaryCode
+        {
+            get
+            {
+                return new PrimaryCode() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
+        }
+
+
+        [JsonIgnore]
+        public string PrimaryCodeType { get; set; }
+
+        [JsonIgnore]
+        public string PrimaryCode { get; set; }
 
 
 
@@ -270,7 +288,7 @@ namespace ooapi.v5.Models
         }
 
         [JsonIgnore]
-        public String Enrollment { get; set; }
+        public string Enrollment { get; set; }
 
         //[JsonIgnore]
         //public List<Resource> Resources { get; set; }
@@ -312,7 +330,7 @@ namespace ooapi.v5.Models
         }
 
         [JsonIgnore]
-        public String Assessment { get; set; }
+        public string Assessment { get; set; }
 
 
         /// <summary>
@@ -390,9 +408,16 @@ namespace ooapi.v5.Models
         /// Addresses for this program
         /// </summary>
         /// <value>Addresses for this program</value>
-
+        /// <summary>
+        /// Addresses for this offering
+        /// </summary>
+        /// <value>Addresses for this offering</value>
         [JsonProperty(PropertyName = "addresses")]
-        public List<Address> Addresses { get; set; }
+        [NotMapped]
+        public List<Address>? Addresses { get; set; }
+
+        [JsonIgnore]
+        public List<ProgramAddress>? ProgramsAddresses { get; set; }
 
         /// <summary>
         /// Parent program of which the current program is a child. This object is [&#x60;expandable&#x60;](#tag/program_model)

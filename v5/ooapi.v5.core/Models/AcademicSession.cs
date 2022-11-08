@@ -35,9 +35,28 @@ namespace ooapi.v5.Models
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
+        [JsonRequired]
+        [JsonProperty(PropertyName = "primaryCode")]
+        [NotMapped]
+        public PrimaryCode primaryCode
+        {
+            get
+            {
+                return new PrimaryCode() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
+        }
 
-        [JsonProperty("primaryCode")]
-        public PrimaryCode PrimaryCode { get; set; }
+
+        [JsonIgnore]
+        public string PrimaryCodeType { get; set; }
+
+        [JsonIgnore]
+        public string PrimaryCode { get; set; }
 
         /// <summary>
         /// The name of this academic session

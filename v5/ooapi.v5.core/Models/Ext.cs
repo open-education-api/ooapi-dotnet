@@ -10,7 +10,7 @@ namespace ooapi.v5.Models
     {
 
         [JsonIgnore]
-        public string Extension { get; set; }
+        public string? Extension { get; set; }
 
 
         [JsonProperty(PropertyName = "ext")]

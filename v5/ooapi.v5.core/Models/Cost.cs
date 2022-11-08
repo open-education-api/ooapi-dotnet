@@ -83,7 +83,7 @@ namespace ooapi.v5.Models
         }
 
         [JsonIgnore]
-        public String DisplayAmount { get; set; }
+        public string DisplayAmount { get; set; }
 
 
 

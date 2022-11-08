@@ -52,7 +52,7 @@ namespace ooapi.v5.Models
         /// <value>Further details like building name, suite, apartment number, etc.</value>
         [JsonProperty(PropertyName = "additional")]
         [NotMapped]
-        public List<LanguageTypedString> addition
+        public List<LanguageTypedString>? addition
         {
             get
             {
@@ -66,7 +66,7 @@ namespace ooapi.v5.Models
 
 
         [JsonIgnore]
-        public String Additional { get; set; }
+        public string? Additional { get; set; }
 
         /// <summary>
         /// Postal code
@@ -98,8 +98,59 @@ namespace ooapi.v5.Models
         /// <value>Geolocation of the entrance of this address (WGS84 coordinate reference system)</value>
 
         [JsonProperty(PropertyName = "geolocation")]
-        public Geolocation Geolocation { get; set; }
+        [NotMapped]
+        public Geolocation? Geolocation
+        {
+            get
+            {
+                if (Latitude != null && Longitude != null)
+                {
+                    return new Geolocation() { Latitude = (decimal)Latitude, Longitude = (decimal)Longitude };
+                }
+                return null;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    Latitude = value.Latitude;
+                    Longitude = value.Longitude;
+                }
+            }
+        }
 
+
+        [JsonIgnore]
+        [Column(TypeName = "decimal(8, 6)")]
+        public decimal? Latitude { get; set; }
+
+
+        [JsonIgnore]
+        [Column(TypeName = "decimal(8, 6)")]
+        public decimal? Longitude { get; set; }
+
+
+
+        [JsonIgnore]
+        public List<OrganizationAddress>? OrganizationAddresses { get; set; }
+
+        [JsonIgnore]
+        public List<ComponentAddress>? ComponentsAddresses { get; set; }
+
+        [JsonIgnore]
+        public List<ComponentOfferingAddress>? ComponentOfferingsAddresses { get; set; }
+
+        [JsonIgnore]
+        public List<CourseAddress>? CoursesAddresses { get; set; }
+
+        [JsonIgnore]
+        public List<CourseOfferingAddress>? CourseOfferingsAddresses { get; set; }
+
+        [JsonIgnore]
+        public List<ProgramAddress>? ProgramsAddresses { get; set; }
+
+        [JsonIgnore]
+        public List<ProgramOfferingAddress>? ProgramOfferingsAddresses { get; set; }
 
 
     }

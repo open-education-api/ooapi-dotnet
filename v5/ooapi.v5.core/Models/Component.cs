@@ -25,9 +25,27 @@ namespace ooapi.v5.Models
         /// Gets or Sets PrimaryCode
         /// </summary>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "primaryCode")]
-        public PrimaryCode PrimaryCode { get; set; }
+        [NotMapped]
+        public PrimaryCode primaryCode
+        {
+            get
+            {
+                return new PrimaryCode() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
+        }
+
+
+        [JsonIgnore]
+        public string PrimaryCodeType { get; set; }
+
+        [JsonIgnore]
+        public string PrimaryCode { get; set; }
 
 
         /// <summary>
@@ -207,7 +225,7 @@ namespace ooapi.v5.Models
 
 
         [JsonIgnore]
-        public String Enrollment { get; set; }
+        public string Enrollment { get; set; }
 
 
         ////[JsonIgnore]
@@ -242,7 +260,7 @@ namespace ooapi.v5.Models
         }
 
         [JsonIgnore]
-        public String Assessment { get; set; }
+        public string Assessment { get; set; }
 
         /// <summary>
         /// Addresses for this component
@@ -250,7 +268,11 @@ namespace ooapi.v5.Models
         /// <value>Addresses for this component</value>
 
         [JsonProperty(PropertyName = "addresses")]
-        public List<Address> Addresses { get; set; }
+        [NotMapped]
+        public List<Address>? Addresses { get; set; }
+
+        [JsonIgnore]
+        public List<ComponentAddress>?  ComponentsAddresses { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
@@ -284,6 +306,7 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
+
 
 
     }

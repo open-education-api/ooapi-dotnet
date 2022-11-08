@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -21,7 +22,11 @@ namespace ooapi.v5.Models
         /// <value>Addresses for this offering</value>
 
         [JsonProperty(PropertyName = "addresses")]
-        public List<Address> Addresses { get; set; }
+        [NotMapped]
+        public List<Address>? Addresses { get; set; }
+
+        [JsonIgnore]
+        public List<ComponentOfferingAddress>? ComponentOfferingsAddresses { get; set; }
 
         /// <summary>
         /// Price information for this offering.

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -28,13 +29,6 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "flexibleEntryPeriodEnd")]
         public DateTime? FlexibleEntryPeriodEnd { get; set; }
 
-        /// <summary>
-        /// Addresses for this offering
-        /// </summary>
-        /// <value>Addresses for this offering</value>
-
-        [JsonProperty(PropertyName = "addresses")]
-        public List<Address> Addresses { get; set; }
 
         /// <summary>
         /// Price information for this offering.
