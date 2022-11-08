@@ -48,7 +48,6 @@ public class CoreDBContext : DbContext
     public DbSet<Cost> Costs { get; set; }
     public DbSet<LanguageOfChoice> LanguageOfChoices { get; set; }
     public DbSet<OtherCodes> OtherCodes { get; set; }
-    public DbSet<StudyLoadDescriptor> StudyLoadDescriptors { get; set; }
     public DbSet<Group> Groups { get; set; }
 
 
@@ -91,7 +90,6 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<Cost>().HasKey(c => c.CostId);
         modelBuilder.Entity<LanguageOfChoice>().HasKey(c => c.LanguageOfChoiceId);
         modelBuilder.Entity<OtherCodes>().HasKey(c => c.OtherCodesId);
-        modelBuilder.Entity<StudyLoadDescriptor>().HasKey(c => c.StudyLoadDescriptorId);
 
 
 
