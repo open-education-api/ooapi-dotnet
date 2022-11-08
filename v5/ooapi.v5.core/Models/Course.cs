@@ -93,14 +93,14 @@ namespace ooapi.v5.Models
         {
             get
             {
-                if (string.IsNullOrEmpty(StudyLoadDescriptor))
+                if (string.IsNullOrEmpty(StudyLoadUnit) || StudyLoadValue == null)
                     return null;
                 try
                 {
-                    JObject jObject = JsonConvert.DeserializeObject<JObject>(StudyLoadDescriptor);
+
                     StudyLoadDescriptor result = new StudyLoadDescriptor();
-                    result.StudyLoadUnit = jObject.Value<string>("studyLoadUnit");
-                    result.Value = jObject.Value<decimal>("value");
+                    result.StudyLoadUnit = StudyLoadUnit;
+                    result.Value = StudyLoadValue;
                     return result;
                 }
                 catch (Exception)
@@ -110,12 +110,16 @@ namespace ooapi.v5.Models
             }
             set
             {
-                StudyLoadDescriptor = value.ToString();
+                StudyLoadUnit = value.StudyLoadUnit;
+                StudyLoadValue = value.Value;
             }
         }
 
         [JsonIgnore]
-        public string? StudyLoadDescriptor { get; set; }
+        public string? StudyLoadUnit { get; set; }
+
+        [JsonIgnore]
+        public decimal? StudyLoadValue { get; set; }
 
         [JsonIgnore]
         public string ModeOfDelivery { get; set; }

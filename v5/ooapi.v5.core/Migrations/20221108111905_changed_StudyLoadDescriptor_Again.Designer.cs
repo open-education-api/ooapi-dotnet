@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ooapi.v5.core.Repositories;
 
@@ -11,9 +12,10 @@ using ooapi.v5.core.Repositories;
 namespace ooapi.v5.core.Migrations
 {
     [DbContext(typeof(CoreDBContext))]
-    partial class CoreDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221108111905_changed_StudyLoadDescriptor_Again")]
+    partial class changed_StudyLoadDescriptor_Again
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -372,6 +374,9 @@ namespace ooapi.v5.core.Migrations
                     b.Property<Guid?>("CourseOfferingOfferingId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("EducationSpecificationId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("GroupId")
                         .HasColumnType("uniqueidentifier");
 
@@ -418,6 +423,8 @@ namespace ooapi.v5.core.Migrations
                     b.HasIndex("CourseId");
 
                     b.HasIndex("CourseOfferingOfferingId");
+
+                    b.HasIndex("EducationSpecificationId");
 
                     b.HasIndex("GroupId");
 
@@ -718,10 +725,12 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Abbreviation")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("EducationSpecificationType")
@@ -731,6 +740,7 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FieldsOfStudy")
+                        .IsRequired()
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
@@ -744,6 +754,7 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Link")
+                        .IsRequired()
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
@@ -1601,6 +1612,10 @@ namespace ooapi.v5.core.Migrations
                         .WithMany("Consumers")
                         .HasForeignKey("CourseOfferingOfferingId");
 
+                    b.HasOne("ooapi.v5.Models.EducationSpecification", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("EducationSpecificationId");
+
                     b.HasOne("ooapi.v5.Models.Group", null)
                         .WithMany("Consumers")
                         .HasForeignKey("GroupId");
@@ -1908,6 +1923,8 @@ namespace ooapi.v5.core.Migrations
 
             modelBuilder.Entity("ooapi.v5.Models.EducationSpecification", b =>
                 {
+                    b.Navigation("Consumers");
+
                     b.Navigation("OtherCodes");
                 });
 
