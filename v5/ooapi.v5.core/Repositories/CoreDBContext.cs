@@ -25,6 +25,7 @@ public class CoreDBContext : DbContext
     }
 
 
+    public DbSet<Service> Services { get; set; }
 
     public DbSet<AcademicSession> AcademicSessions { get; set; }
     public DbSet<Association> Associations { get; set; }
@@ -53,7 +54,7 @@ public class CoreDBContext : DbContext
 
     public DbSet<OrganizationAddress> OrganizationsAddresses { get; set; }
     public DbSet<ComponentAddress> ComponentsAddresses { get; set; }
-    public DbSet<ComponentOfferingAddress>  ComponentOfferingsAddresses { get; set; }
+    public DbSet<ComponentOfferingAddress> ComponentOfferingsAddresses { get; set; }
     public DbSet<CourseAddress> CoursesAddresses { get; set; }
     public DbSet<CourseOfferingAddress> CourseOfferingsAddresses { get; set; }
     public DbSet<ProgramAddress> ProgramsAddresses { get; set; }
@@ -63,6 +64,8 @@ public class CoreDBContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("ooapiv5");
+
+        modelBuilder.Entity<Service>().HasKey(c => c.ServiceId);
 
         modelBuilder.Entity<AcademicSession>().HasKey(c => c.AcademicSessionId);
         modelBuilder.Entity<Association>().HasKey(c => c.AssociationId);

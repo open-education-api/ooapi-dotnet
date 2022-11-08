@@ -10,6 +10,14 @@ namespace ooapi.v5.Models
     [DataContract]
     public partial class Service : ModelBase
     {
+
+        /// <summary>
+        /// Unique id
+        /// </summary>
+        /// <value>Unique id</value>
+        [JsonIgnore]
+        public Guid ServiceId { get; set; }
+
         /// <summary>
         /// Contact e-mail address of the service owner
         /// </summary>
