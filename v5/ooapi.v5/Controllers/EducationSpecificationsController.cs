@@ -1,6 +1,11 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Services;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using Swashbuckle.AspNetCore.Annotations;
@@ -16,6 +21,14 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class EducationSpecificationsController : BaseController
 {
+
+    private readonly EducationSpecificationsRepository educationSpecificationsRepository;
+
+    public EducationSpecificationsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    {
+        educationSpecificationsRepository = new EducationSpecificationsRepository(dbContext);
+    }
+
     /// <summary>
     /// GET /education-specifications/{educationSpecificationId}/courses
     /// </summary>
@@ -129,6 +142,14 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecification), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] bool? returnTimelineOverrides, [FromQuery] List<string> expand)
     {
+        var service = new EducationSpecificationsService(educationSpecificationsRepository, UserRequestContext);
+        var result = service.Get(educationSpecificationId, out ErrorResponse errorResponse);
+        if (result == null)
+        {
+            return BadRequest(errorResponse);
+        }
+        return Ok(result);
+
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20033));
 
@@ -152,8 +173,6 @@ public class EducationSpecificationsController : BaseController
 
         //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(500, default(InlineResponse400));
-
-        return null;
     }
 
     /// <summary>
@@ -231,6 +250,18 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
     public virtual IActionResult EducationSpecificationsGet([FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string educationSpecificationType, [FromQuery] string primaryCode, [FromQuery] string sort)
     {
+        DataRequestParameters parameters = new DataRequestParameters();
+        parameters.PageNumber = pagingParams.pageNumber;
+        parameters.SetPageSize(pagingParams.pageSize);
+        parameters.Sort = sort;
+        parameters.SearchTerm = filterParams.q;
+        var service = new EducationSpecificationsService(educationSpecificationsRepository, UserRequestContext);
+        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        if (result == null)
+        {
+            return BadRequest(errorResponse);
+        }
+        return Ok(result);
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20012));
 
@@ -254,7 +285,5 @@ public class EducationSpecificationsController : BaseController
 
         //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(500, default(InlineResponse400));
-
-        return null;
     }
 }

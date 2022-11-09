@@ -9,7 +9,7 @@ public class BuildingsRepository : BaseRepository<Building>
         //
     }
 
-    public Building GetBuilding(string buildingId)
+    public Building GetBuilding(Guid buildingId)
     {
         return dbContext.Buildings.FirstOrDefault(x => x.BuildingId.Equals(buildingId));
     }

@@ -1,29 +1,34 @@
-﻿namespace ooapi.v5.core.Services
+﻿using ooapi.v5.core.Models;
+using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Utility;
+using ooapi.v5.Models;
+
+namespace ooapi.v5.core.Services
 {
-    public class BuildingsService
+    public class BuildingsService : ServiceBase
     {
-        //readonly BuildingsRepository repository;
-        //public BuildingsService(BuildingsRepository repository)
-        //{
-        //    this.repository = repository;
-        //}
+        readonly BuildingsRepository repository;
 
-        //public ServiceResult<Model.Building> GetAll(DataRequestParameters dataRequestParameters)
-        //{
-        //    try
-        //    {
-        //        PaginatedResult<Building> buildingEntities = repository.GetAllOrderedBy(dataRequestParameters);
-        //        var models = GetModelsFromEntities(buildingEntities.Items);
-        //        PaginatedResult<Model.Building> buildingModels = new PaginatedResult<Model.Building>(models, null, buildingEntities.ext);
-        //        buildingModels.SetPaginationMetadata(buildingEntities.GetTotalItems(), buildingEntities.PageSize, buildingEntities.PageNumber);
+        public BuildingsService(BuildingsRepository repository, UserRequestContext userRequestContext) : base(userRequestContext)
+        {
+            this.repository = repository;
+        }
 
-        //        return new ServiceResult<Model.Building>(buildingModels);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new ServiceErrorResult<Model.Building>(ex);
-        //    }
-        //}
+        public Buildings GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+        {
+            try
+            {
+                Pagination<Building> buildings = repository.GetAllOrderedBy(dataRequestParameters);
+
+                errorResponse = null;
+                return (Buildings)buildings;
+            }
+            catch (Exception ex)
+            {
+                errorResponse = new ErrorResponse(500);
+                return null;
+            }
+        }
 
         //private IQueryable<Model.Building> GetModelsFromEntities(IEnumerable<Building> entities)
         //{
@@ -55,14 +60,24 @@
         //    return result;
         //}
 
-        //public Building Get(string buildingId)
-        //{
-        //    var item = repository.GetBuilding(buildingId);
-        //    var result = GetModelFromEntity(item);
-        //    //HideAttributesBasedOnBivLevel(result, userRequestContext);
+        public Building Get(Guid buildingId, out ErrorResponse errorResponse)
+        {
+            try
+            {
+                var item = repository.GetBuilding(buildingId);
 
-        //    return result;
-        //}
+                errorResponse = null;
+                return item;
+            }
+            catch (Exception ex)
+            {
+                errorResponse = new ErrorResponse(500);
+                return null;
+            }
+            //var result = GetModelFromEntity(item);
+            //HideAttributesBasedOnBivLevel(result, userRequestContext);
+
+        }
 
     }
 }

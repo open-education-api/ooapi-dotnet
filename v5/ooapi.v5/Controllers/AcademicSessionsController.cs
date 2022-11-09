@@ -1,7 +1,10 @@
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Repositories;
 using ooapi.v5.Enums;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -17,6 +20,10 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class AcademicSessionsController : BaseController
 {
+    public AcademicSessionsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    {
+    }
+
     /// <summary>
     /// GET /academic-sessions
     /// </summary>

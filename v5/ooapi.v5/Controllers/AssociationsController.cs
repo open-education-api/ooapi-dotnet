@@ -1,7 +1,10 @@
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Repositories;
 using ooapi.v5.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -16,6 +19,11 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class AssociationsController : BaseController
 {
+
+    public AssociationsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    {
+    }
+
     /// <summary>
     /// GET /associations/{associationId}
     /// </summary>

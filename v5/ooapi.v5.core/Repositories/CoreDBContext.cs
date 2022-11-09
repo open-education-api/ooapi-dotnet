@@ -35,6 +35,7 @@ public class CoreDBContext : DbContext
 
     public DbSet<Course> Courses { get; set; }
     public DbSet<CourseOffering> CourseOfferings { get; set; }
+    public DbSet<EducationSpecification> EducationSpecifications { get; set; }
     public DbSet<NewsFeed> NewsFeeds { get; set; }
     public DbSet<NewsItem> NewsItems { get; set; }
     public DbSet<Organization> Organizations { get; set; }

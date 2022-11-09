@@ -1,8 +1,11 @@
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Services;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -20,6 +23,11 @@ public class BuildingsController : BaseController
 {
     private readonly BuildingsRepository buildingsRepository;
 
+    public BuildingsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    {
+        buildingsRepository = new BuildingsRepository(dbContext);
+    }
+
     /// <summary>
     /// GET /buildings/{buildingId}
     /// </summary>
@@ -33,6 +41,14 @@ public class BuildingsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Building), description: "OK")]
     public virtual IActionResult BuildingsBuildingIdGet([FromRoute][Required] Guid buildingId)
     {
+        var service = new BuildingsService(buildingsRepository, UserRequestContext);
+        var result = service.Get(buildingId, out ErrorResponse errorResponse);
+        if (result == null)
+        {
+            return BadRequest(errorResponse);
+        }
+        return Ok(result);
+
         //var service = new BuildingsService(DBContext, userRequestContext);
         //var result = service.Get(buildingId);
 
@@ -41,7 +57,7 @@ public class BuildingsController : BaseController
         //    return NotFound(new ServiceErrorResult<Building>(404, "Not found.", result));
         //}
 
-        return null;  //Ok(result);
+        //return null;  //Ok(result);
 
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20026));
@@ -66,7 +82,6 @@ public class BuildingsController : BaseController
 
         //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(500, default(InlineResponse400));
-        return null;
     }
 
     /// <summary>
@@ -142,9 +157,13 @@ public class BuildingsController : BaseController
         parameters.SetPageSize(pagingParams.pageSize);
         parameters.Sort = sort;
         parameters.SearchTerm = filterParams.q;
-        //var service = new BuildingsService(buildingsRepository);
-        //var result = service.GetAll(parameters);
-        return null; // Ok(result);
+        var service = new BuildingsService(buildingsRepository, UserRequestContext);
+        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        if (result == null)
+        {
+            return BadRequest(errorResponse);
+        }
+        return Ok(result);
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20025));
 
