@@ -52,7 +52,11 @@ namespace ooapi.v5.core.Utility
 
         public void SetPageSize(PageSizeEnum pageSize)
         {
-            PageSize = (int)pageSize;
+            if (pageSize == 0)
+                PageSize = (int)PageSizeEnum.Ten;
+
+            else
+                PageSize = (int)pageSize;
         }
     }
 }
