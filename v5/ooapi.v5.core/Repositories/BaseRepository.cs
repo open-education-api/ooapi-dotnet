@@ -17,7 +17,8 @@ public class BaseRepository<T> where T : class
         set = set ?? dbContext.Set<T>().AsQueryable();
         var searchedSet = !String.IsNullOrWhiteSpace(dataRequestParameters.SearchTerm) ? OrderedQueryable.SearchBy<T>(set, dataRequestParameters.SearchTerm) : set;
         var filteredSet = (dataRequestParameters.Filters != null && dataRequestParameters.Filters.Count > 0) ? OrderedQueryable.FilterBy<T>(searchedSet, dataRequestParameters.Filters) : searchedSet;
-        var orderedSet = OrderedQueryable.OrderBy<T>(filteredSet, dataRequestParameters.Sort);
+        var orderedSet = (dataRequestParameters.Sort != null) ? OrderedQueryable.OrderBy<T>(filteredSet, dataRequestParameters.Sort) : filteredSet;
+
         return new Pagination<T>(orderedSet, dataRequestParameters ?? new DataRequestParameters());
     }
 

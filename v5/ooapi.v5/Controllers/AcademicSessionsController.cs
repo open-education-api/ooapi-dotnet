@@ -20,7 +20,7 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class AcademicSessionsController : BaseController
 {
-    public AcademicSessionsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    public AcademicSessionsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
     }
 

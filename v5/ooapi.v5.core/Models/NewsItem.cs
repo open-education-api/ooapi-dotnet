@@ -42,11 +42,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
             }
             set
             {
-                Name = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Name = JsonConvert.SerializeObject(value);
             }
         }
 
@@ -111,11 +112,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Content);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Content);
             }
             set
             {
-                Content = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Content = JsonConvert.SerializeObject(value);
             }
         }
 

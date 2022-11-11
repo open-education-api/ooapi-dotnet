@@ -56,11 +56,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Additional);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Additional);
             }
             set
             {
-                Additional = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Additional = JsonConvert.SerializeObject(value);
             }
         }
 

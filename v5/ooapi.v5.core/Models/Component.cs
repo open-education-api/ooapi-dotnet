@@ -69,17 +69,19 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
             }
             set
             {
-                Name = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Name = JsonConvert.SerializeObject(value);
             }
         }
 
-
         [JsonIgnore]
         public string Name { get; set; }
+
+
 
 
 
@@ -171,11 +173,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
             }
             set
             {
-                Description = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Description = JsonConvert.SerializeObject(value);
             }
         }
 
@@ -215,11 +218,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Enrollment);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Enrollment);
             }
             set
             {
-                Enrollment = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Enrollment = JsonConvert.SerializeObject(value);
             }
         }
 
@@ -251,11 +255,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Assessment);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Assessment);
             }
             set
             {
-                Assessment = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Assessment = JsonConvert.SerializeObject(value);
             }
         }
 

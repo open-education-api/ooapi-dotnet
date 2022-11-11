@@ -20,7 +20,7 @@ namespace ooapi.v5.Controllers;
 public class AssociationsController : BaseController
 {
 
-    public AssociationsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    public AssociationsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
     }
 

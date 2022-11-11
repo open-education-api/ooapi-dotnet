@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Linq;
 
 namespace ooapi.v5.Models
 {
@@ -63,9 +64,23 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name of this academic session</value>
         [JsonRequired]
-
         [JsonProperty("name")]
-        public List<LanguageTypedString> Name { get; set; }
+        public List<LanguageTypedString> name
+        {
+            get
+            {
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
+            }
+            set
+            {
+                if (value != null)
+                    Name = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        [JsonIgnore]
+        public string Name { get; set; }
+
 
         /// <summary>
         /// The day on which this academic session starts, RFC3339 (full-date)

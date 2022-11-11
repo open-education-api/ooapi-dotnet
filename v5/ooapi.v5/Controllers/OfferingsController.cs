@@ -19,7 +19,7 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class OfferingsController : BaseController
 {
-    public OfferingsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    public OfferingsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
     }
 

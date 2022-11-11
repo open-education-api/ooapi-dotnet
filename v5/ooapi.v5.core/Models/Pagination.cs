@@ -16,6 +16,10 @@ namespace ooapi.v5.Models
 
         public Pagination(IQueryable<T> collection, DataRequestParameters dataRequestParameters = null)
         {
+            _totalItems = collection.Count();
+            PageSize = dataRequestParameters.PageSize;
+            PageNumber = dataRequestParameters.PageNumber;
+
             if (dataRequestParameters != null)
             {
                 dataRequestParameters.Validate();
@@ -28,11 +32,11 @@ namespace ooapi.v5.Models
             }
             else
             {
-                var totalItems = collection.Count();
-                SetPaginationMetadata(totalItems, totalItems == 0 ? 1 : totalItems, 1);
                 SetItems(collection.ToList());
-                SetExtendedAttributes();
             }
+            _currentPageSize = collection.Count();
+            SetExtendedAttributes();
+
         }
 
         private void SetItems(List<T> list)
@@ -89,14 +93,15 @@ namespace ooapi.v5.Models
 
         private int _currentPageSize { get; set; } = 0;
 
-        protected List<T>? PaginationItems { get; set; }
+        [JsonIgnore]
+        public List<T>? PaginationItems { get; set; }
 
-        private void SetPaginationMetadata(int totalItems, int? pageSize, int pageNumber)
-        {
-            _totalItems = totalItems;
-            PageSize = pageSize ?? totalItems;
-            PageNumber = (totalItems > 0) ? pageNumber : 0;
-        }
+        //private void SetPaginationMetadata(int totalItems, int? pageSize, int pageNumber)
+        //{
+        //    _totalItems = totalItems;
+        //    PageSize = pageSize ?? totalItems;
+        //    PageNumber = (totalItems > 0) ? pageNumber : 0;
+        //}
 
         public void SetExtendedAttributes()
         {

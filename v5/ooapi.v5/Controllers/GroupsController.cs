@@ -20,7 +20,7 @@ namespace ooapi.v5.Controllers;
 public class GroupsController : BaseController
 {
 
-    public GroupsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    public GroupsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
     }
 

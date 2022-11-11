@@ -22,11 +22,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Message);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Message);
             }
             set
             {
-                Message = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Message = JsonConvert.SerializeObject(value);
             }
         }
 

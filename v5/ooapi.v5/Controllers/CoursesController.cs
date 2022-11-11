@@ -22,7 +22,7 @@ namespace ooapi.v5.Controllers;
 public class CoursesController : BaseController
 {
 
-    public CoursesController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    public CoursesController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
     }
 

@@ -23,7 +23,7 @@ public class BuildingsController : BaseController
 {
     private readonly BuildingsRepository buildingsRepository;
 
-    public BuildingsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    public BuildingsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
         buildingsRepository = new BuildingsRepository(dbContext);
     }
@@ -150,13 +150,9 @@ public class BuildingsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("BuildingsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Buildings), description: "OK")]
-    public virtual IActionResult BuildingsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string sort)
+    public virtual IActionResult BuildingsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters();
-        parameters.PageNumber = pagingParams.pageNumber;
-        parameters.SetPageSize(pagingParams.pageSize);
-        parameters.Sort = sort;
-        parameters.SearchTerm = filterParams.q;
+        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new BuildingsService(buildingsRepository, UserRequestContext);
         var result = service.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)

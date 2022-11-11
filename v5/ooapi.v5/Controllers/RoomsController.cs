@@ -19,7 +19,7 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class RoomsController : BaseController
 {
-    public RoomsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    public RoomsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
     }
 

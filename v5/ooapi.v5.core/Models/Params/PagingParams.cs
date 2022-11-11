@@ -18,12 +18,8 @@ namespace ooapi.v5.Models.Params
         /// The page number to get. Page numbers start at 1. <br/>
         /// Example: pageNumber=1
         /// </summary>
-        /// <param name="pageNumber" example="IETS"></param>
-        [MinLength(1)]
-        public int pageNumber { get; set; } = 1;
-
-
-
+        [DefaultValue(1)]
+        public int pageNumber { get; set; }
 
 
     }

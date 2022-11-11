@@ -24,39 +24,70 @@ using System;
 [Route("v5.0")]
 public class BaseController : ControllerBase
 {
-    public UserRequestContext UserRequestContext { get; internal set; } = new UserRequestContext();
-
-    public BaseController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor)
+//    public UserRequestContext UserRequestContext { get; internal set; } = new UserRequestContext();
+    public UserRequestContext UserRequestContext
     {
+        get
+        {
+            UserRequestContext result = new UserRequestContext();
+            var curHeaders = HttpContext.Request.Headers;
+            //            var reqContext = Request;
 
+            if (curHeaders.TryGetValue("userId", out StringValues headerUserId))
+            {
+                if (headerUserId.Count > 0)
+                    result.UserID = headerUserId[0].ToString();
+            }
+            if (curHeaders.TryGetValue("isStudent", out StringValues headerIsStudent))
+            {
+                if (headerIsStudent.Count > 0)
+                    result.IsStudent = Convert.ToBoolean(headerIsStudent[0].ToString());
+            }
+            if (curHeaders.TryGetValue("IsEmployee", out StringValues headerIsEmployee))
+            {
+                if (headerIsEmployee.Count > 0)
+                    result.IsEmployee = Convert.ToBoolean(headerIsEmployee[0].ToString());
+            }
+            if (curHeaders.TryGetValue("Bivv", out StringValues headerBivv))
+            {
+                if (headerBivv.Count > 0)
+                    result.Bivv = String.IsNullOrEmpty(headerBivv[0].ToString()) ? headerBivv[0].ToString() : "laag";
+            }
+            result.IsLocal = (HttpContext.Request.Host.Host.ToLower().Equals("localhost"));
+            return result;
+        }
+    }
 
-        var curContext = httpContextAccessor.HttpContext;
-        var curHeaders = curContext.Request.Headers;
-        //            var reqContext = Request;
+    public BaseController(IConfiguration configuration, CoreDBContext dbContext)
+    {
+        
+        //var curHeaders = HttpContext.Request.Headers;
+        ////            var reqContext = Request;
 
-        if (curHeaders.TryGetValue("userId", out StringValues headerUserId))
-        {
-            if (headerUserId.Count > 0)
-                UserRequestContext.UserID = headerUserId[0].ToString();
-        }
-        if (curHeaders.TryGetValue("isStudent", out StringValues headerIsStudent))
-        {
-            if (headerIsStudent.Count > 0)
-                UserRequestContext.IsStudent = Convert.ToBoolean(headerIsStudent[0].ToString());
-        }
-        if (curHeaders.TryGetValue("IsEmployee", out StringValues headerIsEmployee))
-        {
-            if (headerIsEmployee.Count > 0)
-                UserRequestContext.IsEmployee = Convert.ToBoolean(headerIsEmployee[0].ToString());
-        }
-        if (curHeaders.TryGetValue("Bivv", out StringValues headerBivv))
-        {
-            if (headerBivv.Count > 0)
-                UserRequestContext.Bivv = String.IsNullOrEmpty(headerBivv[0].ToString()) ? headerBivv[0].ToString() : "laag";
-        }
-        UserRequestContext.IsLocal = (curContext.Request.Host.Host.ToLower().Equals("localhost"));
+        //if (curHeaders.TryGetValue("userId", out StringValues headerUserId))
+        //{
+        //    if (headerUserId.Count > 0)
+        //        UserRequestContext.UserID = headerUserId[0].ToString();
+        //}
+        //if (curHeaders.TryGetValue("isStudent", out StringValues headerIsStudent))
+        //{
+        //    if (headerIsStudent.Count > 0)
+        //        UserRequestContext.IsStudent = Convert.ToBoolean(headerIsStudent[0].ToString());
+        //}
+        //if (curHeaders.TryGetValue("IsEmployee", out StringValues headerIsEmployee))
+        //{
+        //    if (headerIsEmployee.Count > 0)
+        //        UserRequestContext.IsEmployee = Convert.ToBoolean(headerIsEmployee[0].ToString());
+        //}
+        //if (curHeaders.TryGetValue("Bivv", out StringValues headerBivv))
+        //{
+        //    if (headerBivv.Count > 0)
+        //        UserRequestContext.Bivv = String.IsNullOrEmpty(headerBivv[0].ToString()) ? headerBivv[0].ToString() : "laag";
+        //}
+        //UserRequestContext.IsLocal = (HttpContext.Request.Host.Host.ToLower().Equals("localhost"));
 
 
     }
+
 
 }

@@ -74,12 +74,14 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(DisplayAmount);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(DisplayAmount);
             }
             set
             {
-                DisplayAmount = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    DisplayAmount = JsonConvert.SerializeObject(value);
             }
+            
         }
 
         [JsonIgnore]

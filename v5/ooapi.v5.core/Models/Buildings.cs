@@ -9,6 +9,22 @@ namespace ooapi.v5.Models
     [DataContract]
     public class Buildings : Pagination<Building>
     {
+        public Buildings()
+        {
+
+        }
+
+        public Buildings(Pagination<Building> pagination)
+        {
+            Buildings result = new Buildings();
+            result.TotalPages = pagination.TotalPages;
+            result.HasPreviousPage = pagination.HasPreviousPage;
+            result.HasNextPage = pagination.HasNextPage;
+            result.PageNumber = pagination.PageNumber;
+            result.PageSize = pagination.PageSize;
+            AddItems((IEnumerable<Building>)pagination.PaginationItems);
+        }
+
         /// <summary>
         /// Array of objects (Building) 
         /// </summary>
@@ -28,5 +44,11 @@ namespace ooapi.v5.Models
             }
         }
 
+        private void AddItems(IEnumerable<Building> buildings)
+        {
+            if (Items == null)
+                Items = new List<Building>();
+            Items.AddRange(buildings);
+        }
     }
 }

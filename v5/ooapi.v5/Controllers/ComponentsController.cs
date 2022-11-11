@@ -20,7 +20,7 @@ namespace ooapi.v5.Controllers;
 public class ComponentsController : BaseController
 {
 
-    public ComponentsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    public ComponentsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
     }
 

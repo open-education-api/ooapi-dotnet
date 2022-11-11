@@ -15,7 +15,7 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class ServiceMetadataController : BaseController
 {
-    public ServiceMetadataController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    public ServiceMetadataController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
     }
 

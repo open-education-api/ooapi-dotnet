@@ -22,7 +22,7 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class PersonsController : BaseController
 {
-    public PersonsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    public PersonsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
     }
 

@@ -21,7 +21,7 @@ namespace ooapi.v5.Controllers;
 public class NewsController : BaseController
 {
 
-    public NewsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    public NewsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
     }
 

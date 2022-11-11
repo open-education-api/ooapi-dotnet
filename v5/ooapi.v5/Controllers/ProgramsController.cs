@@ -20,7 +20,7 @@ namespace ooapi.v5.Controllers
     [ApiController]
     public class ProgramsController : BaseController
     {
-        public ProgramsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+        public ProgramsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
         {
         }
 

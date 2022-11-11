@@ -24,7 +24,7 @@ public class EducationSpecificationsController : BaseController
 
     private readonly EducationSpecificationsRepository educationSpecificationsRepository;
 
-    public EducationSpecificationsController(IConfiguration configuration, CoreDBContext dbContext, IHttpContextAccessor httpContextAccessor) : base(configuration, dbContext, httpContextAccessor)
+    public EducationSpecificationsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
         educationSpecificationsRepository = new EducationSpecificationsRepository(dbContext);
     }
@@ -233,12 +233,12 @@ public class EducationSpecificationsController : BaseController
     /// GET /education-specifications
     /// </summary>
     /// <remarks>Get a list of all education specifications, ordered by name (ascending).</remarks>
+    /// <param name="primaryCodeParam"></param>
     /// <param name="filterParams"></param>
     /// <param name="pagingParams"></param>
     /// <param name="educationSpecificationType">Filter by type of education specification</param>
-    /// <param name="primaryCode">Filter by primary code of education specification</param>
     /// <param name="sort">
-    ///Default: [["name"]]<br/>
+    ///Default: ["name"]<br/>
     ///Items Enum: "educationSpecificationType" "name" "primaryCode" "-educationSpecificationType" "-name" "-primaryCode"<br/>
     ///Example: sort=educationSpecificationType,-primaryCode<br/>
     /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
@@ -248,13 +248,9 @@ public class EducationSpecificationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("EducationSpecificationsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
-    public virtual IActionResult EducationSpecificationsGet([FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string educationSpecificationType, [FromQuery] string primaryCode, [FromQuery] string sort)
+    public virtual IActionResult EducationSpecificationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? educationSpecificationType = "", [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters();
-        parameters.PageNumber = pagingParams.pageNumber;
-        parameters.SetPageSize(pagingParams.pageSize);
-        parameters.Sort = sort;
-        parameters.SearchTerm = filterParams.q;
+        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new EducationSpecificationsService(educationSpecificationsRepository, UserRequestContext);
         var result = service.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)

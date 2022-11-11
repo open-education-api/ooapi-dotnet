@@ -18,10 +18,10 @@ namespace ooapi.v5.core.Services
         {
             try
             {
-                Pagination<EducationSpecification> educationSpecifications = repository.GetAllOrderedBy(dataRequestParameters);
-
+                Pagination<EducationSpecification> pagination = repository.GetAllOrderedBy(dataRequestParameters);
                 errorResponse = null;
-                return (EducationSpecifications)educationSpecifications;
+                var educationSpecifications = new EducationSpecifications(pagination);
+                return educationSpecifications;
             }
             catch (Exception ex)
             {
@@ -45,6 +45,7 @@ namespace ooapi.v5.core.Services
                 return null;
             }
         }
+
 
     }
 }
