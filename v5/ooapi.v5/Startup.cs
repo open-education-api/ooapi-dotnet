@@ -132,8 +132,7 @@ namespace ooapi.v5
             {
                 options.PreSerializeFilters.Add((swagger, httpReq) =>
                 {
-                    var scheme = httpReq.Host.Host.StartsWith("localhost", StringComparison.OrdinalIgnoreCase) ? "http" : "https";
-                    swagger.Servers = new List<OpenApiServer>() { new OpenApiServer() { Url = $"{scheme}://{httpReq.Host}" } };
+                    swagger.Servers = new List<OpenApiServer>() { new OpenApiServer() { Url = $"https://{httpReq.Host}" } };
                 });
             });
             app.UseSwaggerUI(c =>
