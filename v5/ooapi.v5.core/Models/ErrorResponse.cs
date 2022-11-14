@@ -9,6 +9,12 @@ namespace ooapi.v5.Models
     [DataContract]
     public class ErrorResponse
     {
+
+        public ErrorResponse()
+        {
+
+        }
+
         public ErrorResponse(int statusCode, string detail = "")
         {
             Status = statusCode.ToString();

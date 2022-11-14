@@ -14,14 +14,13 @@ namespace ooapi.v5.core.Services
             this.repository = repository;
         }
 
-        public Buildings GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+        public Pagination<Building> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
         {
             try
             {
-                Pagination<Building> pagination = repository.GetAllOrderedBy(dataRequestParameters);
+                Pagination<Building> result = repository.GetAllOrderedBy(dataRequestParameters);
                 errorResponse = null;
-                var buildings = new Buildings(pagination);
-                return buildings;
+                return result;
             }
             catch (Exception ex)
             {

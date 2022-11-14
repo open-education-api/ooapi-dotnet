@@ -20,11 +20,11 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return PaginationItems;
+                return _items;
             }
             set
             {
-                PaginationItems = value;
+                _items = value;
             }
         }
     }

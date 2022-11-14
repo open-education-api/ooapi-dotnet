@@ -44,8 +44,8 @@ namespace ooapi.v5.core.Utility
                 }
                 if (curPagingParams != null)
                 {
-                    PageNumber = curPagingParams.pageNumber;
-                    SetPageSize(curPagingParams.pageSize);
+                    PageNumber = curPagingParams.PageNumber;
+                    SetPageSize(curPagingParams.PageSize);
                 }
             }
         }
