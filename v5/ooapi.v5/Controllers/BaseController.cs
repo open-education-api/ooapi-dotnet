@@ -24,7 +24,10 @@ using System;
 [Route("v5.0")]
 public class BaseController : ControllerBase
 {
-//    public UserRequestContext UserRequestContext { get; internal set; } = new UserRequestContext();
+    public readonly IConfiguration Configuration;
+    protected readonly CoreDBContext DBContext;
+
+    //    public UserRequestContext UserRequestContext { get; internal set; } = new UserRequestContext();
     public UserRequestContext UserRequestContext
     {
         get
@@ -60,7 +63,9 @@ public class BaseController : ControllerBase
 
     public BaseController(IConfiguration configuration, CoreDBContext dbContext)
     {
-        
+        Configuration = configuration;
+        DBContext = dbContext;
+
         //var curHeaders = HttpContext.Request.Headers;
         ////            var reqContext = Request;
 

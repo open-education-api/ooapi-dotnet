@@ -1,5 +1,3 @@
-
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -21,11 +19,8 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class BuildingsController : BaseController
 {
-    private readonly BuildingsRepository buildingsRepository;
-
     public BuildingsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
-        buildingsRepository = new BuildingsRepository(dbContext);
     }
 
     /// <summary>
@@ -41,7 +36,7 @@ public class BuildingsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Building), description: "OK")]
     public virtual IActionResult BuildingsBuildingIdGet([FromRoute][Required] Guid buildingId)
     {
-        var service = new BuildingsService(buildingsRepository, UserRequestContext);
+        var service = new BuildingsService(DBContext, UserRequestContext);
         var result = service.Get(buildingId, out ErrorResponse errorResponse);
         if (result == null)
         {
@@ -153,7 +148,7 @@ public class BuildingsController : BaseController
     public virtual IActionResult BuildingsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var service = new BuildingsService(buildingsRepository, UserRequestContext);
+        var service = new BuildingsService(DBContext, UserRequestContext);
         var result = service.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)
         {

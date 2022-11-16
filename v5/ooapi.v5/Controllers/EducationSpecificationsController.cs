@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -22,11 +21,8 @@ namespace ooapi.v5.Controllers;
 public class EducationSpecificationsController : BaseController
 {
 
-    private readonly EducationSpecificationsRepository educationSpecificationsRepository;
-
     public EducationSpecificationsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
     {
-        educationSpecificationsRepository = new EducationSpecificationsRepository(dbContext);
     }
 
     /// <summary>
@@ -142,7 +138,7 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecification), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] bool? returnTimelineOverrides, [FromQuery] List<string> expand)
     {
-        var service = new EducationSpecificationsService(educationSpecificationsRepository, UserRequestContext);
+        var service = new EducationSpecificationsService(DBContext, UserRequestContext);
         var result = service.Get(educationSpecificationId, out ErrorResponse errorResponse);
         if (result == null)
         {
@@ -251,7 +247,7 @@ public class EducationSpecificationsController : BaseController
     public virtual IActionResult EducationSpecificationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? educationSpecificationType = "", [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var service = new EducationSpecificationsService(educationSpecificationsRepository, UserRequestContext);
+        var service = new EducationSpecificationsService(DBContext, UserRequestContext);
         var result = service.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)
         {

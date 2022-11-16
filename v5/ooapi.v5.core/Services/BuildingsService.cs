@@ -7,18 +7,18 @@ namespace ooapi.v5.core.Services
 {
     public class BuildingsService : ServiceBase
     {
-        readonly BuildingsRepository repository;
+        private readonly BuildingsRepository _repository;
 
-        public BuildingsService(BuildingsRepository repository, UserRequestContext userRequestContext) : base(userRequestContext)
+        public BuildingsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
         {
-            this.repository = repository;
+            _repository = new BuildingsRepository(dbContext);
         }
 
         public Pagination<Building> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
         {
             try
             {
-                Pagination<Building> result = repository.GetAllOrderedBy(dataRequestParameters);
+                Pagination<Building> result = _repository.GetAllOrderedBy(dataRequestParameters);
                 errorResponse = null;
                 return result;
             }
@@ -63,7 +63,7 @@ namespace ooapi.v5.core.Services
         {
             try
             {
-                var item = repository.GetBuilding(buildingId);
+                var item = _repository.GetBuilding(buildingId);
 
                 errorResponse = null;
                 return item;

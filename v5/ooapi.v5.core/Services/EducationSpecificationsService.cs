@@ -7,18 +7,18 @@ namespace ooapi.v5.core.Services
 {
     public class EducationSpecificationsService : ServiceBase
     {
-        readonly EducationSpecificationsRepository repository;
+        private readonly EducationSpecificationsRepository _repository;
 
-        public EducationSpecificationsService(EducationSpecificationsRepository repository, UserRequestContext userRequestContext) : base(userRequestContext)
+        public EducationSpecificationsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
         {
-            this.repository = repository;
+            _repository = new EducationSpecificationsRepository(dbContext);
         }
 
         public Pagination<EducationSpecification> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
         {
             try
             {
-                Pagination<EducationSpecification> result = repository.GetAllOrderedBy(dataRequestParameters);
+                Pagination<EducationSpecification> result = _repository.GetAllOrderedBy(dataRequestParameters);
                 errorResponse = null;
                 return result;
             }
@@ -33,7 +33,7 @@ namespace ooapi.v5.core.Services
         {
             try
             {
-                var item = repository.GetEducationSpecification(educationSpecificationId);
+                var item = _repository.GetEducationSpecification(educationSpecificationId);
 
                 errorResponse = null;
                 return item;

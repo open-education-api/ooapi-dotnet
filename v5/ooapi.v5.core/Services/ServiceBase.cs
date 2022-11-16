@@ -1,5 +1,6 @@
 ﻿using ooapi.v5.Attributes;
 using ooapi.v5.core.Models;
+using ooapi.v5.core.Repositories;
 using System.Reflection;
 
 namespace ooapi.v5.core.Services
@@ -7,10 +8,11 @@ namespace ooapi.v5.core.Services
     public abstract class ServiceBase
     {
         internal readonly UserRequestContext userRequestContext;
+        internal readonly CoreDBContext dataContext;
 
-
-        public ServiceBase(UserRequestContext userRequestContext)
+        public ServiceBase(CoreDBContext dbContext, UserRequestContext userRequestContext)
         {
+            dataContext = dbContext;
             this.userRequestContext = userRequestContext ?? new UserRequestContext();
         }
 
