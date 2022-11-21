@@ -44,7 +44,7 @@ public class GroupsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("GroupsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
-    public virtual IActionResult GroupsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string groupType, [FromQuery] string sort)
+    public virtual IActionResult GroupsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new GroupsService(DBContext, UserRequestContext);
@@ -98,7 +98,7 @@ public class GroupsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("GroupsGroupIdPersonsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Persons), description: "OK")]
-    public virtual IActionResult GroupsGroupIdPersonsGet([FromRoute][Required] Guid groupId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string> affiliations, [FromQuery] string sort)
+    public virtual IActionResult GroupsGroupIdPersonsGet([FromRoute][Required] Guid groupId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string sort = "personId")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20035));

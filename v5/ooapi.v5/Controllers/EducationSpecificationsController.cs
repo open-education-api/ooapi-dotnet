@@ -46,7 +46,7 @@ public class EducationSpecificationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("EducationSpecificationsEducationSpecificationIdCoursesGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
-    public virtual IActionResult EducationSpecificationsEducationSpecificationIdCoursesGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string level, [FromQuery] List<string> modeOfDelivery, [FromQuery] string sort)
+    public virtual IActionResult EducationSpecificationsEducationSpecificationIdCoursesGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string sort = "courseId")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse2008));
@@ -94,7 +94,7 @@ public class EducationSpecificationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
-    public virtual IActionResult EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string sort)
+    public virtual IActionResult EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string sort = "educationSpecificationId")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse2008));
@@ -196,7 +196,7 @@ public class EducationSpecificationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("EducationSpecificationsEducationSpecificationIdProgramsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
-    public virtual IActionResult EducationSpecificationsEducationSpecificationIdProgramsGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string programType, [FromQuery] string qualificationAwarded, [FromQuery] string levelOfQualification, [FromQuery] string sector, [FromQuery] string fieldsOfStudy, [FromQuery] string crohoCreboCode, [FromQuery] string sort)
+    public virtual IActionResult EducationSpecificationsEducationSpecificationIdProgramsGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? crohoCreboCode, [FromQuery] string sort = "name")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse2007));

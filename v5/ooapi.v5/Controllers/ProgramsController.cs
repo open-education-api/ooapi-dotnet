@@ -49,7 +49,7 @@ namespace ooapi.v5.Controllers
         [ValidateModelState]
         [SwaggerOperation("ProgramsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
-        public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string programType, [FromQuery] string qualificationAwarded, [FromQuery] string levelOfQualification, [FromQuery] string sector, [FromQuery] string fieldsOfStudy, [FromQuery] string sort)
+        public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string sort = "name")
         {
             DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
             var service = new CoursesService(DBContext, UserRequestContext);
@@ -82,7 +82,7 @@ namespace ooapi.v5.Controllers
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdCoursesGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
-        public virtual IActionResult ProgramsProgramIdCoursesGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string level, [FromQuery] List<string> modeOfDelivery, [FromQuery] string sort)
+        public virtual IActionResult ProgramsProgramIdCoursesGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string sort = "courseId")
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse2008));
@@ -158,7 +158,7 @@ namespace ooapi.v5.Controllers
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdOfferingsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(ProgramOfferings), description: "OK")]
-        public virtual IActionResult ProgramsProgramIdOfferingsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string modeOfStudy, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string sort)
+        public virtual IActionResult ProgramsProgramIdOfferingsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? modeOfStudy, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string sort = "startDate")
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse20016));
@@ -211,7 +211,7 @@ namespace ooapi.v5.Controllers
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdProgramsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
-        public virtual IActionResult ProgramsProgramIdProgramsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string programType, [FromQuery] string qualificationAwarded, [FromQuery] string levelOfQualification, [FromQuery] string sector, [FromQuery] string fieldsOfStudy, [FromQuery] string sort)
+        public virtual IActionResult ProgramsProgramIdProgramsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string sort = "name")
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse2007));

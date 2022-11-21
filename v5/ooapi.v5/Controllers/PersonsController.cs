@@ -46,7 +46,7 @@ public class PersonsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("PersonsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Persons), description: "OK")]
-    public virtual IActionResult PersonsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string> affiliations, [FromQuery] string sort)
+    public virtual IActionResult PersonsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string sort = "personId")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new PersonsService(DBContext, UserRequestContext);
@@ -120,7 +120,7 @@ public class PersonsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("PersonsPersonIdAssociationsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Associations), description: "OK")]
-    public virtual IActionResult PersonsPersonIdAssociationsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string associationType, [FromQuery] string role, [FromQuery] string state, [FromQuery] string resultState, [FromQuery] string sort)
+    public virtual IActionResult PersonsPersonIdAssociationsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? associationType, [FromQuery] string? role, [FromQuery] string? state, [FromQuery] string? resultState, [FromQuery] string sort = "associationId")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse2003));
@@ -190,7 +190,7 @@ public class PersonsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("PersonsPersonIdGroupsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
-    public virtual IActionResult PersonsPersonIdGroupsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string groupType, [FromQuery] string sort)
+    public virtual IActionResult PersonsPersonIdGroupsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string sort = "name")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse2004));

@@ -44,7 +44,7 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Organizations), description: "OK")]
-    public virtual IActionResult OrganizationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string organizationType, [FromQuery] string sort)
+    public virtual IActionResult OrganizationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? organizationType, [FromQuery] string sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new OrganizationsService(DBContext, UserRequestContext);
@@ -61,10 +61,8 @@ public class OrganizationsController : BaseController
     /// </summary>
     /// <remarks>Get an ordered list of all components for a given organization, ordered by name.</remarks>
     /// <param name="organizationId">Organization ID</param>
-    /// <param name="pageSize">The number of items per page</param>
-    /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-    /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-    /// <param name="q">Filter by items having a name, abbreviation or description containing the given search term (exact partial match, case insensitive)</param>
+    /// <param name="filterParams"></param>
+    /// <param name="pagingParams"></param>
     /// <param name="teachingLanguage">Filter by teachingLanguage, which is a string describing the main teaching language, should be a three-letter language code as specified by ISO 639-2.</param>
     /// <param name="componentType">Filter by component type</param>
     /// <param name="sort">
@@ -78,7 +76,7 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdComponentsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Components), description: "OK")]
-    public virtual IActionResult OrganizationsOrganizationIdComponentsGet([FromRoute][Required] Guid organizationId, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string teachingLanguage, [FromQuery] string componentType, [FromQuery] string sort)
+    public virtual IActionResult OrganizationsOrganizationIdComponentsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? componentType, [FromQuery] string sort = "name")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse2009));
@@ -112,10 +110,8 @@ public class OrganizationsController : BaseController
     /// </summary>
     /// <remarks>Get an ordered list of all courses for a given organization, ordered by name.</remarks>
     /// <param name="organizationId">Organization ID</param>
-    /// <param name="pageSize">The number of items per page</param>
-    /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-    /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-    /// <param name="q">Filter by items having a name, abbreviation or description containing the given search term (exact partial match, case insensitive)</param>
+    /// <param name="filterParams"></param>
+    /// <param name="pagingParams"></param>
     /// <param name="teachingLanguage">Filter by teachingLanguage, which is a string describing the main teaching language, should be a three-letter language code as specified by ISO 639-2.</param>
     /// <param name="level">Filter by level</param>
     /// <param name="modeOfDelivery">Filter by modeOfDelivery</param>
@@ -130,7 +126,7 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdCoursesGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
-    public virtual IActionResult OrganizationsOrganizationIdCoursesGet([FromRoute][Required] Guid organizationId, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string teachingLanguage, [FromQuery] string level, [FromQuery] List<string> modeOfDelivery, [FromQuery] string sort)
+    public virtual IActionResult OrganizationsOrganizationIdCoursesGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string sort = "name")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse2008));
@@ -164,10 +160,8 @@ public class OrganizationsController : BaseController
     /// </summary>
     /// <remarks>Get an ordered list of all EducationSpecifications for a given organization, ordered by name.</remarks>
     /// <param name="organizationId">Organization ID</param>
-    /// <param name="pageSize">The number of items per page</param>
-    /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-    /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-    /// <param name="q">Filter by items having a name, abbreviation or description containing the given search term (exact partial match, case insensitive)</param>
+    /// <param name="filterParams"></param>
+    /// <param name="pagingParams"></param>
     /// <param name="educationSpecificationType">Filter by type of education specification</param>
     /// <param name="sort">
     ///Default: ["name"]<br/>
@@ -180,7 +174,7 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdEducationSpecificationsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
-    public virtual IActionResult OrganizationsOrganizationIdEducationSpecificationsGet([FromRoute][Required] Guid organizationId, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string educationSpecificationType, [FromQuery] string sort)
+    public virtual IActionResult OrganizationsOrganizationIdEducationSpecificationsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? educationSpecificationType, [FromQuery] string sort = "name")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20012));
@@ -237,10 +231,8 @@ public class OrganizationsController : BaseController
     /// </summary>
     /// <remarks>Get an ordered list of all groups for a given organization, ordered by name.</remarks>
     /// <param name="organizationId">Organization ID</param>
-    /// <param name="pageSize">The number of items per page</param>
-    /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-    /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-    /// <param name="q">Filter by items having a name, abbreviation or description containing the given search term (exact partial match, case insensitive)</param>
+    /// <param name="filterParams"></param>
+    /// <param name="pagingParams"></param>
     /// <param name="groupType">Filter by group type</param>
     /// <param name="sort">
     ///Default: ["name"]<br/>
@@ -253,7 +245,7 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdGroupsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
-    public virtual IActionResult OrganizationsOrganizationIdGroupsGet([FromRoute][Required] Guid organizationId, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string groupType, [FromQuery] string sort)
+    public virtual IActionResult OrganizationsOrganizationIdGroupsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string sort = "name")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20011));
@@ -284,10 +276,8 @@ public class OrganizationsController : BaseController
     /// </summary>
     /// <remarks>Get a list of all offerings for a given organization</remarks>
     /// <param name="organizationId">Organization ID</param>
-    /// <param name="pageSize">The number of items per page</param>
-    /// <param name="pageNumber">The page number to get. Page numbers start at 1.</param>
-    /// <param name="consumer">Request entities meant for a specific consumer. This query parameter is independent from the &#x60;consumers&#x60; attribute. See the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</param>
-    /// <param name="q">Filter by items having a name, abbreviation or description containing the given search term (exact partial match, case insensitive)</param>
+    /// <param name="filterParams"></param>
+    /// <param name="pagingParams"></param>
     /// <param name="teachingLanguage">Filter by teachingLanguage, which is a string describing the main teaching language, should be a three-letter language code as specified by ISO 639-2.</param>
     /// <param name="offeringType">Filter by offering type</param>
     /// <param name="resultExpected">Filter by resultExpected</param>
@@ -304,7 +294,7 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdOfferingsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Offerings), description: "OK")]
-    public virtual IActionResult OrganizationsOrganizationIdOfferingsGet([FromRoute][Required] Guid organizationId, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string teachingLanguage, [FromQuery] string offeringType, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string sort)
+    public virtual IActionResult OrganizationsOrganizationIdOfferingsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? offeringType, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string sort = "startDate")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20010));
@@ -357,7 +347,7 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdProgramsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
-    public virtual IActionResult OrganizationsOrganizationIdProgramsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string programType, [FromQuery] string qualificationAwarded, [FromQuery] string levelOfQualification, [FromQuery] string sector, [FromQuery] string fieldsOfStudy, [FromQuery] string sort)
+    public virtual IActionResult OrganizationsOrganizationIdProgramsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string sort = "name")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse2007));

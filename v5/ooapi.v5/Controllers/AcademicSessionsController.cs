@@ -5,7 +5,6 @@ using ooapi.v5.Attributes;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Services;
 using ooapi.v5.core.Utility;
-using ooapi.v5.Enums;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using Swashbuckle.AspNetCore.Annotations;
@@ -105,7 +104,7 @@ public class AcademicSessionsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("AcademicSessionsAcademicSessionIdOfferingsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Offerings), description: "OK")]
-    public virtual IActionResult AcademicSessionsAcademicSessionIdOfferingsGet([FromRoute][Required] Guid academicSessionId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] int? pageSize, [FromQuery] int? pageNumber, [FromQuery] string consumer, [FromQuery] string q, [FromQuery] string teachingLanguage, [FromQuery] OfferingTypeEnum offeringType, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string sort)
+    public virtual IActionResult AcademicSessionsAcademicSessionIdOfferingsGet([FromRoute][Required] Guid academicSessionId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? offeringType, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string sort = "startDate")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20010));
