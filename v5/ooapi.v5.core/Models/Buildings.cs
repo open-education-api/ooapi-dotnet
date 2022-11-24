@@ -1,16 +1,10 @@
 using Newtonsoft.Json;
-using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
 {
 
     public class Buildings : Pagination<Building>
     {
-        public Buildings()
-        {
-
-        }
-
         /// <summary>
         /// Array of objects (Building) 
         /// </summary>
