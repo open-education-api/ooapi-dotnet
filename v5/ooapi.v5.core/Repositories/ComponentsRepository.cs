@@ -14,4 +14,8 @@ public class ComponentsRepository : BaseRepository<Component>
         return dbContext.Components.FirstOrDefault(x => x.ComponentId.Equals(componentId));
     }
 
+    public List<Component> GetComponentsByCourseId(Guid courseId)
+    {
+        return dbContext.Components.Where(o => o.Course.Equals(courseId)).ToList();
+    }
 }
