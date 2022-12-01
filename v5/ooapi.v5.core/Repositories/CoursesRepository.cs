@@ -14,4 +14,8 @@ public class CoursesRepository : BaseRepository<Course>
         return dbContext.Courses.FirstOrDefault(x => x.CourseId.Equals(courseId));
     }
 
+    public List<Course> GetCoursesByEducationSpecificationId(Guid educationSpecificationId)
+    {
+        return dbContext.Courses.Where(o => o.EducationSpecification.Equals(educationSpecificationId)).ToList();
+    }
 }
