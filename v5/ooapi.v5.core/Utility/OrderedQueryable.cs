@@ -178,7 +178,7 @@ namespace ooapi.v5.core.Utility
                 }
             }
 
-            if (searchingPropertiesList.Count() == 0 && searchTerm.Length > 0)
+            if (searchingPropertiesList.Count == 0 && searchTerm.Length > 0)
             {
                 throw new Exception($"'There are no searchable fields defined for this endpoint. Clear the search parameter and call the API again");
             }

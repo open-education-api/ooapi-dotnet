@@ -30,7 +30,7 @@ namespace ooapi.v5.core.Utility
 
         Expression<Func<T, bool>> BuildExpression(IEnumerable<FilterNode> filterNodes)
         {
-            if (filterNodes == null || filterNodes.Count() == 0) { return null; }
+            if (filterNodes == null || !filterNodes.Any()) { return null; }
 
             ParameterExpression param = Expression.Parameter(typeof(T), "t");
             Expression exp = null;

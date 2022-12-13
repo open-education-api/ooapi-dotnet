@@ -14,4 +14,9 @@ public class PersonsRepository : BaseRepository<Person>
         return dbContext.Persons.FirstOrDefault(x => x.PersonId.Equals(personId));
     }
 
+    public List<Person> GetPersonsByGroupId(Guid groupId)
+    {
+        return null;
+        //TODO return dbContext.Persons.Where(o => o.GroupId.Equals(groupId)).ToList();
+    }
 }
