@@ -18,4 +18,9 @@ public class ComponentsRepository : BaseRepository<Component>
     {
         return dbContext.Components.Where(o => o.Course.Equals(courseId)).ToList();
     }
+
+    public List<Component> GetComponentsByOrganizationId(Guid organizationId)
+    {
+        return dbContext.Components.Where(o => o.Organization.Equals(organizationId)).ToList();
+    }
 }

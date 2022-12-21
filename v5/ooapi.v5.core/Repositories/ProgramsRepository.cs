@@ -18,4 +18,9 @@ public class ProgramsRepository : BaseRepository<Program>
     {
         return dbContext.Programs.Where(o => o.EducationSpecification.Equals(educationSpecificationId)).ToList();
     }
+
+    public List<Program> GetProgramsByOrganizationId(Guid organizationId)
+    {
+        return dbContext.Programs.Where(o => o.Organization.Equals(organizationId)).ToList();
+    }
 }

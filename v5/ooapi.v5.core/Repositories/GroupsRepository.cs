@@ -14,4 +14,8 @@ public class GroupsRepository : BaseRepository<Group>
         return dbContext.Groups.FirstOrDefault(x => x.GroupId.Equals(groupId));
     }
 
+    public List<Group> GetGroupsByOrganizationId(Guid organizationId)
+    {
+        return dbContext.Groups.Where(o => o.Organization.Equals(organizationId)).ToList();
+    }
 }

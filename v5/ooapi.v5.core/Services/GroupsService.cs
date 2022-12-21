@@ -45,5 +45,20 @@ namespace ooapi.v5.core.Services
             }
         }
 
+        public Pagination<Group> GetGroupsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse errorResponse)
+        {
+            try
+            {
+                var result = _repository.GetGroupsByOrganizationId(organizationId);
+                var paginationResult = new Pagination<Group>(result.AsQueryable(), dataRequestParameters);
+                errorResponse = null;
+                return paginationResult;
+            }
+            catch (Exception ex)
+            {
+                errorResponse = new ErrorResponse(500);
+                return null;
+            }
+        }
     }
 }

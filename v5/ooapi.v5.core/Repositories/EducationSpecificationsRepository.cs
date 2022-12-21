@@ -18,4 +18,9 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
     {
         return dbContext.EducationSpecifications.Where(o => o.Parent.Equals(educationSpecificationId)).ToList();
     }
+
+    public List<EducationSpecification> GetEducationSpecificationsByOrganizationId(Guid organizationId)
+    {
+        return dbContext.EducationSpecifications.Where(o => o.Organization.Equals(organizationId)).ToList();
+    }
 }
