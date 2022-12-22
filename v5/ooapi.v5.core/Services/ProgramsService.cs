@@ -76,5 +76,21 @@ namespace ooapi.v5.core.Services
                 return null;
             }
         }
+
+        public Pagination<Program> GetProgramsByProgramId(DataRequestParameters dataRequestParameters, Guid programId, out ErrorResponse errorResponse)
+        {
+            try
+            {
+                var result = _repository.GetProgramsByProgramId(programId);
+                var paginationResult = new Pagination<Program>(result.AsQueryable(), dataRequestParameters);
+                errorResponse = null;
+                return paginationResult;
+            }
+            catch (Exception ex)
+            {
+                errorResponse = new ErrorResponse(500);
+                return null;
+            }
+        }
     }
 }

@@ -23,4 +23,9 @@ public class CoursesRepository : BaseRepository<Course>
     {
         return dbContext.Courses.Where(o => o.Organization.Equals(organizationId)).ToList();
     }
+
+    public List<Course> GetCoursesByProgramId(Guid programId)
+    {
+        return dbContext.Courses.Where(o => o.Programs.Equals(programId)).ToList();
+    }
 }

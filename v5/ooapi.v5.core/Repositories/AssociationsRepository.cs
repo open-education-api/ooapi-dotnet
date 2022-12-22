@@ -14,4 +14,8 @@ public class AssociationsRepository : BaseRepository<Association>
         return dbContext.Associations.FirstOrDefault(x => x.AssociationId.Equals(associationId));
     }
 
+    public List<Association> GetAssociationsByPersonId(Guid personId)
+    {
+        return dbContext.Associations.Where(o => o.Person.Equals(personId)).ToList();
+    }
 }

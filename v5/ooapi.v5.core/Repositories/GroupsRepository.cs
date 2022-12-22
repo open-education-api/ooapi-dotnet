@@ -18,4 +18,11 @@ public class GroupsRepository : BaseRepository<Group>
     {
         return dbContext.Groups.Where(o => o.Organization.Equals(organizationId)).ToList();
     }
+
+    public List<Group> GetGroupsByPersonId(Guid personId)
+    {
+        return null;
+        //TODO return dbContext.Groups.Where(o => o.Person.Equals(personId)).ToList();
+    }
+
 }
