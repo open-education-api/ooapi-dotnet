@@ -84,7 +84,7 @@ public class OfferingsController : BaseController
     [Route("offerings/{offeringId}")]
     [ValidateModelState]
     [SwaggerOperation("OfferingsOfferingIdGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Offering), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(OneOfOfferingNoIdentifier), description: "OK")]
     public virtual IActionResult OfferingsOfferingIdGet([FromRoute][Required] Guid offeringId, [FromQuery] List<string> expand)
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

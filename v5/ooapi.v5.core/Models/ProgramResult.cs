@@ -20,7 +20,7 @@ namespace ooapi.v5.Models
         {
             get
             {
-                if (string.IsNullOrEmpty(StudyLoadUnit) || StudyLoadValue == null)
+                if (string.IsNullOrEmpty(StudyLoadUnit) || StudyLoadValue == 0)
                     return null;
                 try
                 {
@@ -46,7 +46,7 @@ namespace ooapi.v5.Models
         public string? StudyLoadUnit { get; set; }
 
         [JsonIgnore]
-        public decimal? StudyLoadValue { get; set; }
+        public int StudyLoadValue { get; set; }
 
 
     }

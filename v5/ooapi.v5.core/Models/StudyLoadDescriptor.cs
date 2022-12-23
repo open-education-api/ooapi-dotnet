@@ -25,7 +25,7 @@ namespace ooapi.v5.Models
         /// <value>The amount of load depicted in numbers</value>
 
         [JsonProperty(PropertyName = "value")]
-        public decimal? Value { get; set; }
+        public int Value { get; set; }
     }
 
 }

@@ -52,13 +52,13 @@ public class CoreDBContext : DbContext
     public DbSet<Group> Groups { get; set; }
 
 
-    public DbSet<OrganizationAddress> OrganizationsAddresses { get; set; }
-    public DbSet<ComponentAddress> ComponentsAddresses { get; set; }
-    public DbSet<ComponentOfferingAddress> ComponentOfferingsAddresses { get; set; }
-    public DbSet<CourseAddress> CoursesAddresses { get; set; }
-    public DbSet<CourseOfferingAddress> CourseOfferingsAddresses { get; set; }
-    public DbSet<ProgramAddress> ProgramsAddresses { get; set; }
-    public DbSet<ProgramOfferingAddress> ProgramOfferingsAddresses { get; set; }
+    //public DbSet<OrganizationAddress> OrganizationsAddresses { get; set; }
+    //public DbSet<ComponentAddress> ComponentsAddresses { get; set; }
+    //public DbSet<ComponentOfferingAddress> ComponentOfferingsAddresses { get; set; }
+    //public DbSet<CourseAddress> CoursesAddresses { get; set; }
+    //public DbSet<CourseOfferingAddress> CourseOfferingsAddresses { get; set; }
+    //public DbSet<ProgramAddress> ProgramsAddresses { get; set; }
+    //public DbSet<ProgramOfferingAddress> ProgramOfferingsAddresses { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -94,33 +94,33 @@ public class CoreDBContext : DbContext
 
 
 
-        modelBuilder.Entity<OrganizationAddress>().HasKey(bc => new { bc.OrganizationId, bc.AddressId });
-        modelBuilder.Entity<OrganizationAddress>().HasOne(bc => bc.Organization).WithMany(b => b.OrganizationAddresses).HasForeignKey(bc => bc.OrganizationId);
-        modelBuilder.Entity<OrganizationAddress>().HasOne(bc => bc.Address).WithMany(c => c.OrganizationAddresses).HasForeignKey(bc => bc.AddressId);
+        //modelBuilder.Entity<OrganizationAddress>().HasKey(bc => new { bc.OrganizationId, bc.AddressId });
+        //modelBuilder.Entity<OrganizationAddress>().HasOne(bc => bc.Organization).WithMany(b => b.OrganizationAddresses).HasForeignKey(bc => bc.OrganizationId);
+        //modelBuilder.Entity<OrganizationAddress>().HasOne(bc => bc.Address).WithMany(c => c.OrganizationAddresses).HasForeignKey(bc => bc.AddressId);
 
-        modelBuilder.Entity<ComponentAddress>().HasKey(bc => new { bc.ComponentId, bc.AddressId });
-        modelBuilder.Entity<ComponentAddress>().HasOne(bc => bc.Component).WithMany(b => b.ComponentsAddresses).HasForeignKey(bc => bc.ComponentId);
-        modelBuilder.Entity<ComponentAddress>().HasOne(bc => bc.Address).WithMany(c => c.ComponentsAddresses).HasForeignKey(bc => bc.AddressId);
+        //modelBuilder.Entity<ComponentAddress>().HasKey(bc => new { bc.ComponentId, bc.AddressId });
+        //modelBuilder.Entity<ComponentAddress>().HasOne(bc => bc.Component).WithMany(b => b.ComponentsAddresses).HasForeignKey(bc => bc.ComponentId);
+        //modelBuilder.Entity<ComponentAddress>().HasOne(bc => bc.Address).WithMany(c => c.ComponentsAddresses).HasForeignKey(bc => bc.AddressId);
 
-        modelBuilder.Entity<ComponentOfferingAddress>().HasKey(bc => new { bc.ComponentOfferingId, bc.AddressId });
-        modelBuilder.Entity<ComponentOfferingAddress>().HasOne(bc => bc.ComponentOffering).WithMany(b => b.ComponentOfferingsAddresses).HasForeignKey(bc => bc.ComponentOfferingId);
-        modelBuilder.Entity<ComponentOfferingAddress>().HasOne(bc => bc.Address).WithMany(c => c.ComponentOfferingsAddresses).HasForeignKey(bc => bc.AddressId);
+//        modelBuilder.Entity<ComponentOfferingAddress>().HasKey(bc => new { bc.ComponentOfferingId, bc.AddressId });
+//        modelBuilder.Entity<ComponentOfferingAddress>().HasOne(bc => bc.ComponentOffering).WithMany(b => b.ComponentOfferingsAddresses).HasForeignKey(bc => bc.ComponentOfferingId);
+//        modelBuilder.Entity<ComponentOfferingAddress>().HasOne(bc => bc.Address).WithMany(c => c.ComponentOfferingsAddresses).HasForeignKey(bc => bc.AddressId);
 
-        modelBuilder.Entity<CourseAddress>().HasKey(bc => new { bc.CourseId, bc.AddressId });
-        modelBuilder.Entity<CourseAddress>().HasOne(bc => bc.Course).WithMany(b => b.CoursesAddresses).HasForeignKey(bc => bc.CourseId);
-        modelBuilder.Entity<CourseAddress>().HasOne(bc => bc.Address).WithMany(c => c.CoursesAddresses).HasForeignKey(bc => bc.AddressId);
+        //modelBuilder.Entity<CourseAddress>().HasKey(bc => new { bc.CourseId, bc.AddressId });
+        //modelBuilder.Entity<CourseAddress>().HasOne(bc => bc.Course).WithMany(b => b.CoursesAddresses).HasForeignKey(bc => bc.CourseId);
+        //modelBuilder.Entity<CourseAddress>().HasOne(bc => bc.Address).WithMany(c => c.CoursesAddresses).HasForeignKey(bc => bc.AddressId);
 
-        modelBuilder.Entity<CourseOfferingAddress>().HasKey(bc => new { bc.CourseOfferingId, bc.AddressId });
-        modelBuilder.Entity<CourseOfferingAddress>().HasOne(bc => bc.CourseOffering).WithMany(b => b.CourseOfferingsAddresses).HasForeignKey(bc => bc.CourseOfferingId);
-        modelBuilder.Entity<CourseOfferingAddress>().HasOne(bc => bc.Address).WithMany(c => c.CourseOfferingsAddresses).HasForeignKey(bc => bc.AddressId);
+//        modelBuilder.Entity<CourseOfferingAddress>().HasKey(bc => new { bc.CourseOfferingId, bc.AddressId });
+//        modelBuilder.Entity<CourseOfferingAddress>().HasOne(bc => bc.CourseOffering).WithMany(b => b.CourseOfferingsAddresses).HasForeignKey(bc => bc.CourseOfferingId);
+//        modelBuilder.Entity<CourseOfferingAddress>().HasOne(bc => bc.Address).WithMany(c => c.CourseOfferingsAddresses).HasForeignKey(bc => bc.AddressId);
 
-        modelBuilder.Entity<ProgramAddress>().HasKey(bc => new { bc.ProgramId, bc.AddressId });
-        modelBuilder.Entity<ProgramAddress>().HasOne(bc => bc.Program).WithMany(b => b.ProgramsAddresses).HasForeignKey(bc => bc.ProgramId);
-        modelBuilder.Entity<ProgramAddress>().HasOne(bc => bc.Address).WithMany(c => c.ProgramsAddresses).HasForeignKey(bc => bc.AddressId);
+        //modelBuilder.Entity<ProgramAddress>().HasKey(bc => new { bc.ProgramId, bc.AddressId });
+        //modelBuilder.Entity<ProgramAddress>().HasOne(bc => bc.Program).WithMany(b => b.ProgramsAddresses).HasForeignKey(bc => bc.ProgramId);
+        //modelBuilder.Entity<ProgramAddress>().HasOne(bc => bc.Address).WithMany(c => c.ProgramsAddresses).HasForeignKey(bc => bc.AddressId);
 
-        modelBuilder.Entity<ProgramOfferingAddress>().HasKey(bc => new { bc.ProgramOfferingId, bc.AddressId });
-        modelBuilder.Entity<ProgramOfferingAddress>().HasOne(bc => bc.ProgramOffering).WithMany(b => b.ProgramOfferingsAddresses).HasForeignKey(bc => bc.ProgramOfferingId);
-        modelBuilder.Entity<ProgramOfferingAddress>().HasOne(bc => bc.Address).WithMany(c => c.ProgramOfferingsAddresses).HasForeignKey(bc => bc.AddressId);
+//        modelBuilder.Entity<ProgramOfferingAddress>().HasKey(bc => new { bc.ProgramOfferingId, bc.AddressId });
+//        modelBuilder.Entity<ProgramOfferingAddress>().HasOne(bc => bc.ProgramOffering).WithMany(b => b.ProgramOfferingsAddresses).HasForeignKey(bc => bc.ProgramOfferingId);
+//        modelBuilder.Entity<ProgramOfferingAddress>().HasOne(bc => bc.Address).WithMany(c => c.ProgramOfferingsAddresses).HasForeignKey(bc => bc.AddressId);
 
 
     }

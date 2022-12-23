@@ -14,7 +14,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "codeType")]
-        public string CodeType { get; set; }
+        public string? CodeType { get; set; }
 
         /// <summary>
         /// Human readable value for the code/identifier
@@ -23,7 +23,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "code")]
-        public string Code { get; set; }
+        public string? Code { get; set; }
     }
 
 }

@@ -166,5 +166,10 @@ namespace ooapi.v5.Models
         public List<Consumer> Consumers { get; set; }
 
 
+        [JsonIgnore]
+        public virtual ICollection<NewsFeed> NewsFeedsRef { get; set; }
+
+
+
     }
 }

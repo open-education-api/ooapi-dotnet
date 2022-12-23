@@ -123,9 +123,6 @@ namespace ooapi.v5.Models
         [NotMapped]
         public List<Address>? Addresses { get; set; }
 
-        [JsonIgnore]
-        public List<OrganizationAddress>? OrganizationAddresses { get; set; }
-
 
         /// <summary>
         /// URL of the organization&#x27;s website
@@ -161,6 +158,9 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "parent")]
         public OneOfOrganization? Parent { get; set; }
 
+        [JsonIgnore]
+        public Guid? ParentId { get; set; }
+
         /// <summary>
         /// All the organizational units for which this organization is the parent. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
         /// </summary>
@@ -177,6 +177,11 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "consumers")]
         public List<Consumer>? Consumers { get; set; }
+
+
+
+        [JsonIgnore]
+        public virtual ICollection<Address> AddressesRef { get; set; }
 
 
     }

@@ -276,8 +276,6 @@ namespace ooapi.v5.Models
         [NotMapped]
         public List<Address>? Addresses { get; set; }
 
-        [JsonIgnore]
-        public List<ComponentAddress>? ComponentsAddresses { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
@@ -295,6 +293,10 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "course")]
         public OneOfCourse Course { get; set; }
 
+        [JsonIgnore]
+        public Guid? CourseId { get; set; }
+
+
         /// <summary>
         /// The organization which provides this component. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
         /// </summary>
@@ -302,6 +304,9 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
+
+        [JsonIgnore]
+        public Guid? OrganizationId { get; set; }
 
 
         /// <summary>
@@ -312,6 +317,10 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
+
+
+        [JsonIgnore]
+        public virtual ICollection<Address> AddressesRef { get; set; }
 
 
     }

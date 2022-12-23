@@ -73,6 +73,15 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "result")]
         public OneOfResult? Result { get; set; }
 
+        [JsonIgnore]
+        public Guid? ProgramResultId { get; set; }
+
+        [JsonIgnore]
+        public Guid? CourseResultId { get; set; }
+
+        [JsonIgnore]
+        public Guid? ComponentResultId { get; set; }
+
         /// <summary>
         /// Identifier (string) or Person (object)
         /// </summary>
@@ -81,6 +90,10 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "person")]
         public OneOfPerson? Person { get; set; }
 
+        [JsonIgnore]
+        public Guid? PersonId { get; set; }
+
+
         /// <summary>
         /// Identifier (string) or Offering (object) or Offering (object) or Offering (object))
         /// </summary>
@@ -88,6 +101,9 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "offering")]
         public OneOfOffering? Offering { get; set; }
+
+        [JsonIgnore]
+        public Guid? OfferingId { get; set; }
 
 
 

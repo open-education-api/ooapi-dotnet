@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
@@ -175,11 +176,13 @@ namespace ooapi.v5.Models
 
         [JsonIgnore]
         [Column(TypeName = "decimal(8, 6)")]
+        [Precision(8, 6)]
         public decimal? Latitude { get; set; }
 
 
         [JsonIgnore]
         [Column(TypeName = "decimal(8, 6)")]
+        [Precision(8, 6)]
         public decimal? Longitude { get; set; }
 
 
@@ -199,6 +202,9 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "building")]
         public OneOfBuilding Building { get; set; }
+
+        [JsonIgnore]
+        public Guid? BuildingId { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.

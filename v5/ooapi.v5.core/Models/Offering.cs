@@ -9,9 +9,10 @@ namespace ooapi.v5.Models
     /// <summary>
     /// 
     /// </summary>
-    [DataContract]
-    public partial class Offering : ModelBase
+    //[DataContract]
+    public class Offering : ModelBase
     {
+
         /// <summary>
         /// Unique id of this offering
         /// </summary>
@@ -62,7 +63,12 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The academicsession during which this offering takes place. [&#x60;expandable&#x60;](#tag/academic_session_model) By default only the &#x60;academicSessionId&#x60; (a string) is returned. If the client requested an expansion of &#x60;academicSession&#x60; the full academicsession object should be returned. </value>
         [JsonProperty(PropertyName = "academicSession")]
+        [NotMapped]
         public OneOfAcademicSession? AcademicSession { get; set; }
+
+        //[JsonIgnore]
+        //public Guid? AcademicSessionId { get; set; }
+
 
 
         /// <summary>
@@ -198,7 +204,7 @@ namespace ooapi.v5.Models
         /// <value>The maximum number of students allowed to enroll for this offering</value>
 
         [JsonProperty(PropertyName = "maxNumberStudents")]
-        public decimal? MaxNumberStudents { get; set; }
+        public int MaxNumberStudents { get; set; }
 
         /// <summary>
         /// The number of students that have already enrolled for this offering
@@ -206,7 +212,7 @@ namespace ooapi.v5.Models
         /// <value>The number of students that have already enrolled for this offering</value>
 
         [JsonProperty(PropertyName = "enrolledNumberStudents")]
-        public decimal? EnrolledNumberStudents { get; set; }
+        public int EnrolledNumberStudents { get; set; }
 
         /// <summary>
         /// The number of students that have a pending enrollment request for this offering
@@ -214,7 +220,7 @@ namespace ooapi.v5.Models
         /// <value>The number of students that have a pending enrollment request for this offering</value>
 
         [JsonProperty(PropertyName = "pendingNumberStudents")]
-        public decimal? PendingNumberStudents { get; set; }
+        public int? PendingNumberStudents { get; set; }
 
         /// <summary>
         /// The minimum number of students needed for this offering to proceed
@@ -222,7 +228,7 @@ namespace ooapi.v5.Models
         /// <value>The minimum number of students needed for this offering to proceed</value>
 
         [JsonProperty(PropertyName = "minNumberStudents")]
-        public decimal? MinNumberStudents { get; set; }
+        public int? MinNumberStudents { get; set; }
 
 
         /// <summary>
@@ -231,7 +237,7 @@ namespace ooapi.v5.Models
         /// <value>resultExpected, previously knwon as isLineItem is used so the specific instance of the object is identified as being an element that CAN contain “grade” information. Offerings do not always have to result in a grade or an other type of result.  If there is a result expected from a programOffering/courseOffering/componentOffering the is resultExpected field should parse true </value>
         [JsonRequired]
         [JsonProperty(PropertyName = "resultExpected")]
-        public bool? ResultExpected { get; set; }
+        public bool ResultExpected { get; set; }
 
 
 
@@ -257,7 +263,7 @@ namespace ooapi.v5.Models
         /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
         [JsonProperty(PropertyName = "otherCodes")]
-        public List<OtherCodes> OtherCodes { get; set; }
+        public List<OtherCodes>? OtherCodes { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
@@ -265,31 +271,15 @@ namespace ooapi.v5.Models
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
         [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
+        public List<Consumer>? Consumers { get; set; }
 
-
-        /// <summary>
-        /// The moment on which this offering starts, RFC3339 (full-date)
-        /// </summary>
-        /// <value>The moment on which this offering starts, RFC3339 (full-date)</value>
-        [JsonRequired]
-        [JsonProperty(PropertyName = "startDate")]
-        public DateTime? StartDate { get; set; }
-
-        /// <summary>
-        /// The moment on which this offering ends, RFC3339 (full-date)
-        /// </summary>
-        /// <value>The moment on which this offering ends, RFC3339 (full-date)</value>
-        [JsonRequired]
-        [JsonProperty(PropertyName = "endDate")]
-        public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// The first day on which a student can enroll for this course.
         /// </summary>
         /// <value>The first day on which a student can enroll for this course.</value>
         [JsonProperty(PropertyName = "enrollStartDate")]
-        public DateTime? EnrollStartDate { get; set; }
+        public DateOnly? EnrollStartDate { get; set; }
 
         /// <summary>
         /// The last day on which a student can enroll for this course.
@@ -298,6 +288,24 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "enrollEndDate")]
         public DateTime? EnrollEndDate { get; set; }
 
+
+        ///// <summary>
+        ///// Addresses for this offering
+        ///// </summary>
+        ///// <value>Addresses for this offering</value>
+        //[JsonProperty(PropertyName = "addresses")]
+        //[NotMapped]
+        //public List<Address>? Addresses { get; set; }
+
+        ///// <summary>
+        ///// Price information for this offering.
+        ///// </summary>
+        ///// <value>Price information for this offering.</value>
+
+        //[JsonProperty(PropertyName = "priceInformation")]
+        //public List<Cost> PriceInformation { get; set; }
+
+
         /// <summary>
         /// The organization that manages this courseoffering. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
         /// </summary>
@@ -305,6 +313,14 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
+
+        [JsonIgnore]
+        public Guid? OrganizationId { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Address> AddressesRef { get; set; }
+
+
 
     }
 }

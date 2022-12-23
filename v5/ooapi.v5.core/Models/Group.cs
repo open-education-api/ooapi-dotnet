@@ -127,7 +127,7 @@ namespace ooapi.v5.Models
 
         [NotMapped]
         [JsonProperty(PropertyName = "personCount")]
-        public decimal? PersonCount { get; set; }
+        public int PersonCount { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
@@ -153,6 +153,15 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
 
+        [JsonIgnore]
+        public Guid? OrganizationId { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<Person> Persons{ get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Organization> Organizations { get; set; }
 
 
     }

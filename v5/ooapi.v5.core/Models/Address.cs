@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -123,35 +124,38 @@ namespace ooapi.v5.Models
 
         [JsonIgnore]
         [Column(TypeName = "decimal(8, 6)")]
+        [Precision(8, 6)]
         public decimal? Latitude { get; set; }
 
 
         [JsonIgnore]
         [Column(TypeName = "decimal(8, 6)")]
+        [Precision(8, 6)]
         public decimal? Longitude { get; set; }
 
 
+        [JsonIgnore]
+        public virtual ICollection<Organization> Organizations { get; set; }
 
         [JsonIgnore]
-        public List<OrganizationAddress>? OrganizationAddresses { get; set; }
+        public virtual ICollection<Program> Programs { get; set; }
 
         [JsonIgnore]
-        public List<ComponentAddress>? ComponentsAddresses { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
 
         [JsonIgnore]
-        public List<ComponentOfferingAddress>? ComponentOfferingsAddresses { get; set; }
+        public virtual ICollection<Component> Components { get; set; }
 
         [JsonIgnore]
-        public List<CourseAddress>? CoursesAddresses { get; set; }
+        public virtual ICollection<ProgramOffering> ProgramOfferings { get; set; }
 
         [JsonIgnore]
-        public List<CourseOfferingAddress>? CourseOfferingsAddresses { get; set; }
+        public virtual ICollection<CourseOffering> CourseOfferings { get; set; }
 
         [JsonIgnore]
-        public List<ProgramAddress>? ProgramsAddresses { get; set; }
+        public virtual ICollection<ComponentOffering> ComponentOfferings { get; set; }
 
-        [JsonIgnore]
-        public List<ProgramOfferingAddress>? ProgramOfferingsAddresses { get; set; }
+
 
 
     }

@@ -347,6 +347,8 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "consumers")]
         public List<Consumer> Consumers { get; set; }
 
+        [JsonIgnore]
+        public virtual ICollection<Group> Groups { get; set; }
 
     }
 }

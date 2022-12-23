@@ -7,7 +7,7 @@ namespace ooapi.v5.Helpers;
 
 public static class JsonConverter
 {
-    internal static List<LanguageTypedString> GetLanguageTypesStringList(string languageTypedStringValue)
+    internal static List<LanguageTypedString>? GetLanguageTypesStringList(string? languageTypedStringValue)
     {
 
         if (string.IsNullOrEmpty(languageTypedStringValue))
@@ -15,7 +15,7 @@ public static class JsonConverter
         try
         {
             List<LanguageTypedString> result = new List<LanguageTypedString>();
-            JArray jArray = JsonConvert.DeserializeObject<JArray>(languageTypedStringValue);
+            JArray? jArray = JsonConvert.DeserializeObject<JArray>(languageTypedStringValue);
             if (jArray == null)
                 return null;
             foreach (var item in jArray)

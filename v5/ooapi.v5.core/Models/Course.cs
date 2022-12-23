@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
@@ -93,7 +94,7 @@ namespace ooapi.v5.Models
         {
             get
             {
-                if (string.IsNullOrEmpty(StudyLoadUnit) || StudyLoadValue == null)
+                if (string.IsNullOrEmpty(StudyLoadUnit) || StudyLoadValue == 0)
                     return null;
                 try
                 {
@@ -119,7 +120,7 @@ namespace ooapi.v5.Models
         public string? StudyLoadUnit { get; set; }
 
         [JsonIgnore]
-        public decimal? StudyLoadValue { get; set; }
+        public int StudyLoadValue { get; set; }
 
         [JsonIgnore]
         public string ModeOfDelivery { get; set; }
@@ -370,6 +371,10 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "educationSpecification")]
         public OneOfEducationSpecification EducationSpecification { get; set; }
 
+
+        [JsonIgnore]
+        public Guid? EducationSpecificationId { get; set; }
+
         /// <summary>
         /// Addresses for this course
         /// </summary>
@@ -377,9 +382,6 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "addresses")]
         [NotMapped]
         public List<Address>? Addresses { get; set; }
-
-        [JsonIgnore]
-        public List<CourseAddress>? CoursesAddresses { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
@@ -422,6 +424,10 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
 
+        [JsonIgnore]
+        public Guid? OrganizationId { get; set; }
+
+
         /// <summary>
         /// The first day this course is valid (inclusive).
         /// </summary>
@@ -437,6 +443,19 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "validTo")]
         public DateTime? ValidTo { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Organization> Organizations { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Program> ProgramsRef { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Person> CoordinatorsRef { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<Address> AddressesRef { get; set; }
 
 
     }

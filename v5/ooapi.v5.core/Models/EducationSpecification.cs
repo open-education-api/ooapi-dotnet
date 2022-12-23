@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
@@ -184,7 +185,7 @@ namespace ooapi.v5.Models
         {
             get
             {
-                if (string.IsNullOrEmpty(StudyLoadUnit) || StudyLoadValue == null)
+                if (string.IsNullOrEmpty(StudyLoadUnit) || StudyLoadValue == 0)
                     return null;
                 try
                 {
@@ -210,7 +211,7 @@ namespace ooapi.v5.Models
         public string? StudyLoadUnit { get; set; }
 
         [JsonIgnore]
-        public decimal? StudyLoadValue { get; set; }
+        public int StudyLoadValue { get; set; }
 
 
         /// <summary>
@@ -239,6 +240,9 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "parent")]
         public OneOfEducationSpecification? Parent { get; set; }
 
+        [JsonIgnore]
+        public Guid? ParentId { get; set; }
+
         /// <summary>
         /// The EducationSpecifications that have this EducationSpecification as their parent. [&#x60;expandable&#x60;](#tag/education_specification_model)
         /// </summary>
@@ -254,6 +258,10 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization? Organization { get; set; }
+
+        [JsonIgnore]
+        public Guid? OrganizationId { get; set; }
+
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
@@ -280,6 +288,9 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "validTo")]
         public DateTime? ValidTo { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Organization> Organizations { get; set; }
 
 
     }

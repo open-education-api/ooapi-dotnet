@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty(PropertyName = "latitude")]
         [Column(TypeName = "decimal(8, 6)")]
+        [Precision(8, 6)]
         public decimal Latitude { get; set; }
 
         /// <summary>
@@ -26,6 +28,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty(PropertyName = "longitude")]
         [Column(TypeName = "decimal(8, 6)")]
+        [Precision(8, 6)]
         public decimal Longitude { get; set; }
 
 
