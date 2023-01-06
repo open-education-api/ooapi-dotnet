@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.core.Models.Many2Many;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -65,24 +66,8 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
 
-        //[JsonIgnore]
-        //public Guid? OrganizationId { get; set; }
-
-
-        //[JsonIgnore]
-        //public virtual ICollection<Cost> Costs { get; set; }
-
-
-        //[JsonIgnore]
-        //public virtual ICollection<Address> AddressesRef { get; set; }
-
-
-        //[JsonIgnore]
-        //public virtual ICollection<AcademicSession> AcademicSessions { get; set; }
-
-
-        //[JsonIgnore]
-        //public virtual ICollection<Organization> Organizations { get; set; }
+        [JsonIgnore]
+        public IList<CourseOfferingsCosts> CourseOfferingsCosts { get; set; }
 
 
     }

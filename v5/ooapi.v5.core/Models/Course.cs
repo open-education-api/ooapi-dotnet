@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using ooapi.v5.core.Models.Many2Many;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -396,9 +397,9 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
-
+        [JsonProperty("consumers")]
+        [NotMapped]
+        public List<dynamic>? Consumers { get; set; }
 
         /// <summary>
         /// The program of which this course is a part of. This object is [&#x60;expandable&#x60;](#tag/program_model)
@@ -444,8 +445,6 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "validTo")]
         public DateTime? ValidTo { get; set; }
 
-        [JsonIgnore]
-        public virtual ICollection<Organization> Organizations { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<Program> ProgramsRef { get; set; }
@@ -455,7 +454,7 @@ namespace ooapi.v5.Models
 
 
         [JsonIgnore]
-        public virtual ICollection<Address> AddressesRef { get; set; }
+        public virtual ICollection<Address> Address { get; set; }
 
 
     }

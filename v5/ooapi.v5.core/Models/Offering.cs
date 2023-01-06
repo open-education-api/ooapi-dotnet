@@ -270,9 +270,9 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer>? Consumers { get; set; }
-
+        [JsonProperty("consumers")]
+        [NotMapped]
+        public List<dynamic>? Consumers { get; set; }
 
         /// <summary>
         /// The first day on which a student can enroll for this course.
@@ -318,7 +318,7 @@ namespace ooapi.v5.Models
         public Guid? OrganizationId { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Address> AddressesRef { get; set; }
+        public virtual ICollection<Address> Address { get; set; }
 
 
 

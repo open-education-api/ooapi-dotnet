@@ -268,9 +268,9 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
+        [JsonProperty("consumers")]
         [NotMapped]
-        public List<Consumer>? Consumers { get; set; }
+        public List<dynamic>? Consumers { get; set; }
 
 
         /// <summary>
@@ -289,8 +289,6 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "validTo")]
         public DateTime? ValidTo { get; set; }
 
-        [JsonIgnore]
-        public virtual ICollection<Organization> Organizations { get; set; }
 
 
     }

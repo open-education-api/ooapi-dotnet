@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.core.Models.Many2Many;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -131,7 +132,7 @@ namespace ooapi.v5.Models
         /// <value>The newsFeeds where this item can be found. [&#x60;expandable&#x60;](#tag/news_feed_model)</value>
 
         [JsonProperty(PropertyName = "newsFeeds")]
-        public List<OneOfNewsFeed> NewsFeeds { get; set; }
+        public List<OneOfNewsFeed>? NewsFeeds { get; set; }
 
         /// <summary>
         /// The moment from which this news item is valid, RFC3339 (date-time)
@@ -162,14 +163,14 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
+        [JsonProperty("consumers")]
+        [NotMapped]
+        public List<dynamic>? Consumers { get; set; }
+
 
 
         [JsonIgnore]
-        public virtual ICollection<NewsFeed> NewsFeedsRef { get; set; }
-
-
+        public virtual ICollection<NewsItemsNewsFeeds> NewsItemsNewsFeeds { get; set; }
 
     }
 }

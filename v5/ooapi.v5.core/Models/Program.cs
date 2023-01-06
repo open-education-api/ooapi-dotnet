@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.core.Models.Many2Many;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -487,6 +488,7 @@ namespace ooapi.v5.Models
         /// <value>The organization providing this program. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [JsonProperty(PropertyName = "organization")]
+        [NotMapped]
         public OneOfOrganization Organization { get; set; }
 
         [JsonIgnore]
@@ -498,9 +500,9 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
-
+        [JsonProperty("consumers")]
+        [NotMapped]
+        public List<dynamic>? Consumers { get; set; }
 
         /// <summary>
         /// The first day this program is valid (inclusive).
@@ -518,15 +520,19 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "validTo")]
         public DateTime? ValidTo { get; set; }
 
-        [JsonIgnore]
-        public virtual ICollection<Organization> Organizations { get; set; }
+        //[JsonIgnore]
+        //public IList<OrganizationsPrograms> OrganizationsPrograms { get; set; }
+
+        //[JsonIgnore]
+        //public virtual ICollection<Organization> Organizations { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<Person> CoordinatorsRef { get; set; }
 
 
         [JsonIgnore]
-        public virtual ICollection<Address> AddressesRef { get; set; }
+        public virtual ICollection<Address> Address { get; set; }
+
 
     }
 }

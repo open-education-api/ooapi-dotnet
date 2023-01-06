@@ -1,4 +1,6 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.Many2Many;
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
@@ -65,6 +67,7 @@ namespace ooapi.v5.Models
         /// <value>The name of this academic session</value>
         [JsonRequired]
         [JsonProperty("name")]
+        [NotMapped]
         public List<LanguageTypedString> name
         {
             get
@@ -145,7 +148,9 @@ namespace ooapi.v5.Models
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
         [JsonProperty("consumers")]
-        public List<Consumer>? Consumers { get; set; }
+        [NotMapped]
+        //        public List<Consumer>? Consumers { get; set; }
+        public List<dynamic>? Consumers { get; set; }
 
 
         [JsonIgnore]
@@ -156,7 +161,6 @@ namespace ooapi.v5.Models
 
         [JsonIgnore]
         public virtual ICollection<ComponentOffering> ComponentOfferings{ get; set; }
-
 
 
     }

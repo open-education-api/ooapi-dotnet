@@ -57,8 +57,8 @@ namespace ooapi.v5.Models
 
 
 
-        [JsonIgnore]
-        public virtual ICollection<Cost> Costs { get; set; }
+        //[JsonIgnore]
+        //public virtual ICollection<Cost> Costs { get; set; }
 
 
 
