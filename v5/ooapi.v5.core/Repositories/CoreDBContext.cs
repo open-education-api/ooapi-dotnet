@@ -160,55 +160,55 @@ public class CoreDBContext : DbContext
         //modelBuilder.Entity<ServicesConsumers>().HasKey(c => new { c.ServiceId, c.ConsumerId });
 
         // Consumers
-        modelBuilder.Entity<AcademicSessionConsumer>().HasKey(c => new { c.AcademicSessionId, c.ConsumerKey });
+        modelBuilder.Entity<AcademicSessionConsumer>().HasKey(c => new { c.AcademicSessionId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<AcademicSessionConsumer>().HasOne(c => c.AcademicSession).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<AssociationConsumer>().HasKey(c => new { c.AssociationId, c.ConsumerKey });
+        modelBuilder.Entity<AssociationConsumer>().HasKey(c => new { c.AssociationId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<AssociationConsumer>().HasOne(c => c.Association).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<BuildingConsumer>().HasKey(c => new { c.BuildingId, c.ConsumerKey });
+        modelBuilder.Entity<BuildingConsumer>().HasKey(c => new { c.BuildingId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<BuildingConsumer>().HasOne(c => c.Building).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<ComponentOfferingConsumer>().HasKey(c => new { c.ComponentOfferingId, c.ConsumerKey });
+        modelBuilder.Entity<ComponentOfferingConsumer>().HasKey(c => new { c.ComponentOfferingId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<ComponentOfferingConsumer>().HasOne(c => c.ComponentOffering).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<ComponentConsumer>().HasKey(c => new { c.ComponentId, c.ConsumerKey });
+        modelBuilder.Entity<ComponentConsumer>().HasKey(c => new { c.ComponentId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<ComponentConsumer>().HasOne(c => c.Component).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<CourseOfferingConsumer>().HasKey(c => new { c.CourseOfferingId, c.ConsumerKey });
+        modelBuilder.Entity<CourseOfferingConsumer>().HasKey(c => new { c.CourseOfferingId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<CourseOfferingConsumer>().HasOne(c => c.CourseOffering).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<CourseConsumer>().HasKey(c => new { c.CourseId, c.ConsumerKey });
+        modelBuilder.Entity<CourseConsumer>().HasKey(c => new { c.CourseId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<CourseConsumer>().HasOne(c => c.Course).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<EducationSpecificationConsumer>().HasKey(c => new { c.EducationSpecificationId, c.ConsumerKey });
+        modelBuilder.Entity<EducationSpecificationConsumer>().HasKey(c => new { c.EducationSpecificationId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<EducationSpecificationConsumer>().HasOne(c => c.EducationSpecification).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<GroupConsumer>().HasKey(c => new { c.GroupId, c.ConsumerKey });
+        modelBuilder.Entity<GroupConsumer>().HasKey(c => new { c.GroupId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<GroupConsumer>().HasOne(c => c.Group).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<NewsFeedConsumer>().HasKey(c => new { c.NewsFeedId, c.ConsumerKey });
+        modelBuilder.Entity<NewsFeedConsumer>().HasKey(c => new { c.NewsFeedId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<NewsFeedConsumer>().HasOne(c => c.NewsFeed).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<NewsItemConsumer>().HasKey(c => new { c.NewsItemId, c.ConsumerKey });
+        modelBuilder.Entity<NewsItemConsumer>().HasKey(c => new { c.NewsItemId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<NewsItemConsumer>().HasOne(c => c.NewsItem).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<OrganizationConsumer>().HasKey(c => new { c.OrganizationId, c.ConsumerKey });
+        modelBuilder.Entity<OrganizationConsumer>().HasKey(c => new { c.OrganizationId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<OrganizationConsumer>().HasOne(c => c.Organization).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<PersonConsumer>().HasKey(c => new { c.PersonId, c.ConsumerKey });
+        modelBuilder.Entity<PersonConsumer>().HasKey(c => new { c.PersonId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<PersonConsumer>().HasOne(c => c.Person).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<ProgramOfferingConsumer>().HasKey(c => new { c.ProgramOfferingId, c.ConsumerKey });
+        modelBuilder.Entity<ProgramOfferingConsumer>().HasKey(c => new { c.ProgramOfferingId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<ProgramOfferingConsumer>().HasOne(c => c.ProgramOffering).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<ProgramConsumer>().HasKey(c => new { c.ProgramId, c.ConsumerKey });
+        modelBuilder.Entity<ProgramConsumer>().HasKey(c => new { c.ProgramId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<ProgramConsumer>().HasOne(c => c.Program).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<RoomConsumer>().HasKey(c => new { c.RoomId, c.ConsumerKey });
+        modelBuilder.Entity<RoomConsumer>().HasKey(c => new { c.RoomId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<RoomConsumer>().HasOne(c => c.Room).WithMany().OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<ServiceConsumer>().HasKey(c => new { c.ServiceId, c.ConsumerKey });
+        modelBuilder.Entity<ServiceConsumer>().HasKey(c => new { c.ServiceId, c.ConsumerKey, c.PropertyName });
         modelBuilder.Entity<ServiceConsumer>().HasOne(c => c.Service).WithMany().OnDelete(DeleteBehavior.Cascade);
 
 
