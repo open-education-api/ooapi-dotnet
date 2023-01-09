@@ -132,6 +132,7 @@ namespace ooapi.v5.Models
         /// <value>The newsFeeds where this item can be found. [&#x60;expandable&#x60;](#tag/news_feed_model)</value>
 
         [JsonProperty(PropertyName = "newsFeeds")]
+        [NotMapped]
         public List<OneOfNewsFeed>? NewsFeeds { get; set; }
 
         /// <summary>
@@ -167,10 +168,13 @@ namespace ooapi.v5.Models
         [NotMapped]
         public List<dynamic>? Consumers { get; set; }
 
-
-
         [JsonIgnore]
-        public virtual ICollection<NewsItemsNewsFeeds> NewsItemsNewsFeeds { get; set; }
+        public virtual ICollection<NewsFeed>  NewsFeedsRef { get; set; }
+
+
+
+        //[JsonIgnore]
+        //public virtual ICollection<NewsItemsNewsFeeds> NewsItemsNewsFeeds { get; set; }
 
     }
 }

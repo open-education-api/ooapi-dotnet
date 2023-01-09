@@ -292,7 +292,12 @@ namespace ooapi.v5.Models
         /// <value>The course of which this component is a part. [&#x60;expandable&#x60;](#tag/course_model) By default only the &#x60;courseId&#x60; (a string) is returned. If the client requested an expansion of &#x60;course&#x60; the full course object should be returned. </value>
 
         [JsonProperty(PropertyName = "course")]
-        public OneOfCourse Course { get; set; }
+        public OneOfCourse CourseModel { get; set; }
+
+
+        [JsonIgnore]
+        public Course? Course { get; set; }
+
 
         [JsonIgnore]
         public Guid? CourseId { get; set; }

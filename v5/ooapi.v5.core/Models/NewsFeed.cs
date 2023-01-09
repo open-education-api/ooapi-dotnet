@@ -90,9 +90,11 @@ namespace ooapi.v5.Models
         [NotMapped]
 
 
-
         [JsonIgnore]
-        public virtual ICollection<NewsItemsNewsFeeds> NewsItemsNewsFeeds { get; set; }
+        public virtual ICollection<NewsItem> NewsItemsRef { get; set; }
+
+        //[JsonIgnore]
+        //public virtual ICollection<NewsItemsNewsFeeds> NewsItemsNewsFeeds { get; set; }
 
     }
 }

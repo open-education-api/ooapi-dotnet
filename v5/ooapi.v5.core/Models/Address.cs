@@ -20,7 +20,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "addressId")]
-        public Guid? AddressId { get; set; }
+        public Guid AddressId { get; set; }
 
 
         /// <summary>

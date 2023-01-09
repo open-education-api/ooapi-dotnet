@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ooapi.v5.core.Repositories;
 
@@ -11,9 +12,10 @@ using ooapi.v5.core.Repositories;
 namespace ooapi.v5.core.Migrations
 {
     [DbContext(typeof(CoreDBContext))]
-    partial class CoreDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230109144520_Changed-Many2Many-News")]
+    partial class ChangedMany2ManyNews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -372,7 +374,7 @@ namespace ooapi.v5.core.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<Guid?>("AddressId")
+                    b.Property<Guid>("AddressId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -485,8 +487,6 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("nvarchar(3)");
 
                     b.HasKey("ComponentId");
-
-                    b.HasIndex("CourseId");
 
                     b.ToTable("Components", "ooapiv5");
                 });
@@ -2176,7 +2176,9 @@ namespace ooapi.v5.core.Migrations
                 {
                     b.HasOne("ooapi.v5.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Address");
                 });
@@ -2190,15 +2192,6 @@ namespace ooapi.v5.core.Migrations
                         .IsRequired();
 
                     b.Navigation("Building");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.Component", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId");
-
-                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.ComponentConsumer", b =>

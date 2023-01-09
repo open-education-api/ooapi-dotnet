@@ -18,7 +18,10 @@ namespace ooapi.v5.core.Services
         {
             try
             {
-                Pagination<Building> result = _repository.GetAllOrderedBy(dataRequestParameters);
+                Pagination<Building> result = _repository.GetAllBuildingOrderedBy(dataRequestParameters);
+
+
+
                 errorResponse = null;
                 return result;
             }

@@ -112,6 +112,9 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "address")]
         public Address Address { get; set; }
 
+        [JsonIgnore]
+        public Guid? AddressId { get; set; }
+
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
         /// </summary>

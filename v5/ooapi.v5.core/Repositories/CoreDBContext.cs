@@ -59,8 +59,8 @@ public class CoreDBContext : DbContext
     public DbSet<CourseOfferingsCosts> CourseOfferingsCosts { get; set; }
     public DbSet<ComponentOfferingsCosts> ComponentOfferingsCosts { get; set; }
 
-    // Many2Many New
-    public DbSet<NewsItemsNewsFeeds> NewsItemsNewsFeeds { get; set; }
+    // Many2Many News
+    //public DbSet<NewsItemsNewsFeeds> NewsItemsNewsFeeds { get; set; }
     
     // Many2Many Consumers
     //public DbSet<AcademicSessionsConsumers> AcademicSessionsConsumers { get; set; }
@@ -109,7 +109,11 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<AcademicSession>().HasKey(c => c.AcademicSessionId);
         modelBuilder.Entity<Association>().HasKey(c => c.AssociationId);
         modelBuilder.Entity<Building>().HasKey(c => c.BuildingId);
+
         modelBuilder.Entity<Component>().HasKey(c => c.ComponentId);
+        //modelBuilder.Entity<Component>().HasOne(c => c.Course).WithMany().OnDelete(DeleteBehavior.Cascade);
+
+
         modelBuilder.Entity<ComponentOffering>().HasKey(c => c.OfferingId);
 
         modelBuilder.Entity<Course>().HasKey(c => c.CourseId);
@@ -138,8 +142,8 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<CourseOfferingsCosts>().HasKey(c => new { c.CourseOfferingId, c.CostId });
         modelBuilder.Entity<ComponentOfferingsCosts>().HasKey(c => new { c.ComponentOfferingId, c.CostId });
 
-        // Many2Many New
-        modelBuilder.Entity<NewsItemsNewsFeeds>().HasKey(c => new { c.NewsItemId, c.NewsFeedId});
+        // Many2Many News
+        //modelBuilder.Entity<NewsItemsNewsFeeds>().HasKey(c => new { c.NewsItemId, c.NewsFeedId});
         
         // Many2Many Consumers
         //modelBuilder.Entity<AcademicSessionsConsumers>().HasKey(c => new { c.AcademicSessionId , c.ConsumerId });
