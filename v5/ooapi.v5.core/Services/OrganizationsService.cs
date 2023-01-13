@@ -19,6 +19,10 @@ namespace ooapi.v5.core.Services
             try
             {
                 Pagination<Organization> result = _repository.GetAllOrderedBy(dataRequestParameters);
+                foreach (var item in result.Items)
+                {
+                    SetAddresses(item);
+                }
                 errorResponse = null;
                 return result;
             }
@@ -26,6 +30,15 @@ namespace ooapi.v5.core.Services
             {
                 errorResponse = new ErrorResponse(500);
                 return null;
+            }
+        }
+
+        private void SetAddresses(Organization item)
+        {
+            if (item.Address!= null)
+            {
+                item.Addresses = new List<Address>();
+                item.Addresses.AddRange(item.Address);
             }
         }
 

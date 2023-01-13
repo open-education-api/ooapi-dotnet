@@ -16,28 +16,13 @@ public class BaseRepository<T> where T : class
     public virtual Pagination<T> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<T> set = null)
     {
 
-        //if (nameof(T).Equals("Building"))
-        //{
-        //    IQueryable<Building> buildingSet = dbContext.Set<Building>().AsQueryable();
-        //    var searchedSet = !String.IsNullOrWhiteSpace(dataRequestParameters.SearchTerm) ? OrderedQueryable.SearchBy<Building>(buildingSet, dataRequestParameters.SearchTerm) : buildingSet;
-        //    var filteredSet = (dataRequestParameters.Filters != null && dataRequestParameters.Filters.Count > 0) ? OrderedQueryable.FilterBy<Building>(searchedSet, dataRequestParameters.Filters) : searchedSet;
-        //    var orderedSet = (dataRequestParameters.Sort != null) ? OrderedQueryable.OrderBy<Building>(filteredSet, dataRequestParameters.Sort) : filteredSet;
+        set = set ?? dbContext.Set<T>().AsQueryable();
+        var searchedSet = !String.IsNullOrWhiteSpace(dataRequestParameters.SearchTerm) ? OrderedQueryable.SearchBy<T>(set, dataRequestParameters.SearchTerm) : set;
+        var filteredSet = (dataRequestParameters.Filters != null && dataRequestParameters.Filters.Count > 0) ? OrderedQueryable.FilterBy<T>(searchedSet, dataRequestParameters.Filters) : searchedSet;
+        var orderedSet = (dataRequestParameters.Sort != null) ? OrderedQueryable.OrderBy<T>(filteredSet, dataRequestParameters.Sort) : filteredSet;
 
-        //    return new Pagination<Building>(orderedSet, dataRequestParameters ?? new DataRequestParameters());
+        return new Pagination<T>(orderedSet, dataRequestParameters ?? new DataRequestParameters());
 
-        //    //            set = set ?? dbContext.Buildings.Include(x => x.Address).AsQueryable(T);
-
-        //}
-
-        //else
-        //{
-            set = set ?? dbContext.Set<T>().AsQueryable();
-            var searchedSet = !String.IsNullOrWhiteSpace(dataRequestParameters.SearchTerm) ? OrderedQueryable.SearchBy<T>(set, dataRequestParameters.SearchTerm) : set;
-            var filteredSet = (dataRequestParameters.Filters != null && dataRequestParameters.Filters.Count > 0) ? OrderedQueryable.FilterBy<T>(searchedSet, dataRequestParameters.Filters) : searchedSet;
-            var orderedSet = (dataRequestParameters.Sort != null) ? OrderedQueryable.OrderBy<T>(filteredSet, dataRequestParameters.Sort) : filteredSet;
-
-            return new Pagination<T>(orderedSet, dataRequestParameters ?? new DataRequestParameters());
-        //}
     }
 
 
