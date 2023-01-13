@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using ooapi.v5.core.Models.Many2Many;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -133,7 +132,7 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "newsFeeds")]
         [NotMapped]
-        public List<OneOfNewsFeed>? NewsFeeds { get; set; }
+        public List<OneOfNewsFeed>? OneOfNewsFeeds { get; set; }
 
         /// <summary>
         /// The moment from which this news item is valid, RFC3339 (date-time)
@@ -169,7 +168,7 @@ namespace ooapi.v5.Models
         public List<dynamic>? Consumers { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<NewsFeed>  NewsFeedsRef { get; set; }
+        public virtual ICollection<NewsFeed>  NewsFeeds { get; set; }
 
 
 

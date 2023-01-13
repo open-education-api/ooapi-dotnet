@@ -321,6 +321,8 @@ namespace ooapi.v5.Models
         public virtual ICollection<Address> Address { get; set; }
 
 
+        [JsonIgnore]
+        public virtual ICollection<Cost> Costs { get; set; }
 
     }
 }

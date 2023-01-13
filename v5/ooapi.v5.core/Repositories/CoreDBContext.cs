@@ -1,7 +1,7 @@
 ﻿namespace ooapi.v5.core.Repositories;
 
 using Microsoft.EntityFrameworkCore;
-using ooapi.v5.core.Models.Many2Many;
+
 using ooapi.v5.Helpers;
 using ooapi.v5.Models;
 using System;
@@ -46,39 +46,12 @@ public class CoreDBContext : DbContext
     public DbSet<Room> Rooms { get; set; }
 
     public DbSet<Address> Addresses { get; set; }
-    //public DbSet<Consumer> Consumers { get; set; }
     public DbSet<ConsumerRegistration> ConsumerRegistrations { get; set; }
     
     public DbSet<Cost> Costs { get; set; }
     public DbSet<LanguageOfChoice> LanguageOfChoices { get; set; }
     public DbSet<OtherCodes> OtherCodes { get; set; }
     public DbSet<Group> Groups { get; set; }
-
-    // Many2Many Costs
-    public DbSet<ProgramOfferingsCosts> ProgramOfferingsCosts { get; set; }
-    public DbSet<CourseOfferingsCosts> CourseOfferingsCosts { get; set; }
-    public DbSet<ComponentOfferingsCosts> ComponentOfferingsCosts { get; set; }
-
-    // Many2Many News
-    //public DbSet<NewsItemsNewsFeeds> NewsItemsNewsFeeds { get; set; }
-    
-    // Many2Many Consumers
-    //public DbSet<AcademicSessionsConsumers> AcademicSessionsConsumers { get; set; }
-    //public DbSet<AssociationsConsumers> AssociationsConsumers { get; set; }
-    //public DbSet<BuildingsConsumers> BuildingsConsumers { get; set; }
-    //public DbSet<ComponentOfferingsConsumers> ComponentOfferingsConsumers { get; set; }
-    //public DbSet<ComponentsConsumers> ComponentsConsumers { get; set; }
-    //public DbSet<CourseOfferingsConsumers> CourseOfferingsConsumers { get; set; }
-    //public DbSet<CoursesConsumers> CoursesConsumers { get; set; }
-    //public DbSet<GroupsConsumers> GroupsConsumers { get; set; }
-    //public DbSet<NewsFeedsConsumers> NewsFeedsConsumers  { get; set; }
-    //public DbSet<NewsItemsConsumers> NewsItemsConsumers { get; set; }
-    //public DbSet<OrganizationsConsumers> OrganizationsConsumers{ get; set; }
-    //public DbSet<PersonsConsumers> PersonsConsumers { get; set; }
-    //public DbSet<ProgramOfferingsConsumers> ProgramOfferingsConsumers { get; set; }
-    //public DbSet<ProgramsConsumers> ProgramsConsumers { get; set; }
-    //public DbSet<RoomsConsumers> RoomsConsumers { get; set; }
-    //public DbSet<ServicesConsumers> ServicesConsumers{ get; set; }
 
     // Consumers
     public DbSet<AcademicSessionConsumer> AcademicSessionConsumers { get; set; }
@@ -128,40 +101,12 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<ProgramOffering>().HasKey(c => c.OfferingId);
         modelBuilder.Entity<Room>().HasKey(c => c.RoomId);
 
-        //??modelBuilder.Entity<Offering>().HasKey(c => c.OfferingId);
         modelBuilder.Entity<Address>().HasKey(c => c.AddressId);
-        //modelBuilder.Entity<Consumer>().HasKey(c => c.ConsumerId);
         modelBuilder.Entity<ConsumerRegistration>().HasKey(c => c.ConsumerKey);
         modelBuilder.Entity<Cost>().HasKey(c => c.CostId);
         modelBuilder.Entity<LanguageOfChoice>().HasKey(c => c.LanguageOfChoiceId);
         modelBuilder.Entity<OtherCodes>().HasKey(c => c.OtherCodesId);
 
-
-        // Many2Many Costs
-        modelBuilder.Entity<ProgramOfferingsCosts>().HasKey(c => new { c.ProgramOfferingId, c.CostId });
-        modelBuilder.Entity<CourseOfferingsCosts>().HasKey(c => new { c.CourseOfferingId, c.CostId });
-        modelBuilder.Entity<ComponentOfferingsCosts>().HasKey(c => new { c.ComponentOfferingId, c.CostId });
-
-        // Many2Many News
-        //modelBuilder.Entity<NewsItemsNewsFeeds>().HasKey(c => new { c.NewsItemId, c.NewsFeedId});
-        
-        // Many2Many Consumers
-        //modelBuilder.Entity<AcademicSessionsConsumers>().HasKey(c => new { c.AcademicSessionId , c.ConsumerId });
-        //modelBuilder.Entity<AssociationsConsumers>().HasKey(c => new { c.AssociationId, c.ConsumerId });
-        //modelBuilder.Entity<BuildingsConsumers>().HasKey(c => new { c.BuildingId, c.ConsumerId });
-        //modelBuilder.Entity<ComponentOfferingsConsumers>().HasKey(c => new { c.ComponentOfferingId, c.ConsumerId });
-        //modelBuilder.Entity<ComponentsConsumers>().HasKey(c => new { c.ComponentId, c.ConsumerId });
-        //modelBuilder.Entity<CourseOfferingsConsumers>().HasKey(c => new { c.CourseOfferingId, c.ConsumerId });
-        //modelBuilder.Entity<CoursesConsumers>().HasKey(c => new { c.CourseId, c.ConsumerId });
-        //modelBuilder.Entity<GroupsConsumers>().HasKey(c => new { c.GroupId, c.ConsumerId });
-        //modelBuilder.Entity<NewsFeedsConsumers>().HasKey(c => new { c.NewsFeedId, c.ConsumerId });
-        //modelBuilder.Entity<NewsItemsConsumers>().HasKey(c => new { c.NewsItemId, c.ConsumerId });
-        //modelBuilder.Entity<OrganizationsConsumers>().HasKey(c => new { c.OrganizationId, c.ConsumerId });
-        //modelBuilder.Entity<PersonsConsumers>().HasKey(c => new { c.PersonId, c.ConsumerId });
-        //modelBuilder.Entity<ProgramOfferingsConsumers>().HasKey(c => new { c.ProgramOfferingId, c.ConsumerId });
-        //modelBuilder.Entity<ProgramsConsumers>().HasKey(c => new { c.ProgramId, c.ConsumerId });
-        //modelBuilder.Entity<RoomsConsumers>().HasKey(c => new { c.RoomId, c.ConsumerId });
-        //modelBuilder.Entity<ServicesConsumers>().HasKey(c => new { c.ServiceId, c.ConsumerId });
 
         // Consumers
         modelBuilder.Entity<AcademicSessionConsumer>().HasKey(c => new { c.AcademicSessionId, c.ConsumerKey, c.PropertyName });

@@ -1,8 +1,4 @@
 using Newtonsoft.Json;
-using ooapi.v5.core.Models.Many2Many;
-using ooapi.v5.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -65,9 +61,6 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
-
-        [JsonIgnore]
-        public IList<CourseOfferingsCosts> CourseOfferingsCosts { get; set; }
 
 
     }

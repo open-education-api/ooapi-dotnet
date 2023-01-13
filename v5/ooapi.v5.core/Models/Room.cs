@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using ooapi.v5.core.Models.Many2Many;
+
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

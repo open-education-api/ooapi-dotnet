@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using ooapi.v5.core.Models.Many2Many;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -91,7 +90,7 @@ namespace ooapi.v5.Models
 
 
         [JsonIgnore]
-        public virtual ICollection<NewsItem> NewsItemsRef { get; set; }
+        public virtual ICollection<NewsItem> NewsItems { get; set; }
 
         //[JsonIgnore]
         //public virtual ICollection<NewsItemsNewsFeeds> NewsItemsNewsFeeds { get; set; }

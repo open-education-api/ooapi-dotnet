@@ -1,9 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using ooapi.v5.core.Models.Many2Many;
-using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -70,9 +66,6 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty(PropertyName = "endDateTime")]
         public DateTime? EndDate { get; set; }
-
-        [JsonIgnore]
-        public IList<ComponentOfferingsCosts> ComponentOfferingsCosts { get; set; }
 
 
     }

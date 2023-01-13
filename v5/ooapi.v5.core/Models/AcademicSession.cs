@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Models.Many2Many;
+
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
