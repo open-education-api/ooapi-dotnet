@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,6 +20,8 @@ namespace ooapi.v5.Models
         /// <value>Unique id of this person</value>
         [JsonRequired]
         [JsonProperty("personId")]
+        [SortAllowed]
+        [SortDefault]
         public Guid PersonId { get; set; }
 
         /// <summary>
@@ -57,6 +59,7 @@ namespace ooapi.v5.Models
 
         [MaxLength(256)]
         [JsonProperty(PropertyName = "givenName")]
+        [SortAllowed]
         public string GivenName { get; set; }
 
         /// <summary>
@@ -75,6 +78,7 @@ namespace ooapi.v5.Models
 
         [MaxLength(256)]
         [JsonProperty(PropertyName = "surname")]
+        [SortAllowed]
         public string Surname { get; set; }
 
         /// <summary>
@@ -85,6 +89,7 @@ namespace ooapi.v5.Models
 
         [MaxLength(256)]
         [JsonProperty(PropertyName = "displayName")]
+        [SortAllowed]
         public string DisplayName { get; set; }
 
         /// <summary>

@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -19,6 +19,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "groupId")]
+        [SortAllowed]
         public Guid GroupId { get; set; }
 
         /// <summary>
@@ -79,6 +80,8 @@ namespace ooapi.v5.Models
 
 
         [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
         public string Name { get; set; }
 
 
@@ -111,6 +114,7 @@ namespace ooapi.v5.Models
         /// <value>The day on which this group starts being active, RFC3339 (full-date)</value>
 
         [JsonProperty(PropertyName = "startDate")]
+        [SortAllowed]
         public DateTime? StartDate { get; set; }
 
         /// <summary>
@@ -161,7 +165,7 @@ namespace ooapi.v5.Models
 
 
         [JsonIgnore]
-        public virtual ICollection<Person> Persons{ get; set; }
+        public virtual ICollection<Person> Persons { get; set; }
 
 
     }

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
@@ -18,6 +19,8 @@ namespace ooapi.v5.Models
         /// <value>The moment on which this offering starts, RFC3339 (full-date)</value>
         [JsonRequired]
         [JsonProperty(PropertyName = "startDate")]
+        [SortAllowed]
+        [SortDefault]
         public DateOnly? StartDate { get; set; }
 
         /// <summary>
@@ -26,6 +29,7 @@ namespace ooapi.v5.Models
         /// <value>The moment on which this offering ends, RFC3339 (full-date)</value>
         [JsonRequired]
         [JsonProperty(PropertyName = "endDate")]
+        [SortAllowed]
         public DateOnly? EndDate { get; set; }
 
 

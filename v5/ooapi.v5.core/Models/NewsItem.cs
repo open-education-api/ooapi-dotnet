@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,6 +20,8 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "newsItemId")]
+        [SortAllowed]
+        [SortDefault]
         public Guid NewsItemId { get; set; }
 
 
@@ -53,6 +56,7 @@ namespace ooapi.v5.Models
 
 
         [JsonIgnore]
+        [SortAllowed]
         public string Name { get; set; }
 
 
@@ -140,6 +144,7 @@ namespace ooapi.v5.Models
         /// <value>The moment from which this news item is valid, RFC3339 (date-time)</value>
 
         [JsonProperty(PropertyName = "validFrom")]
+        [SortAllowed]
         public DateTime? ValidFrom { get; set; }
 
         /// <summary>
@@ -148,6 +153,7 @@ namespace ooapi.v5.Models
         /// <value>The moment until which this news item is valid, RFC3339 (date-time)</value>
 
         [JsonProperty(PropertyName = "validUntil")]
+        [SortAllowed]
         public DateTime? ValidUntil { get; set; }
 
         /// <summary>
@@ -156,6 +162,7 @@ namespace ooapi.v5.Models
         /// <value>The moment on which this news item was updated, RFC3339 (date-time)</value>
 
         [JsonProperty(PropertyName = "lastModified")]
+        [SortAllowed]
         public DateTime? LastModified { get; set; }
 
         /// <summary>
@@ -168,7 +175,7 @@ namespace ooapi.v5.Models
         public List<dynamic>? Consumers { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<NewsFeed>  NewsFeeds { get; set; }
+        public virtual ICollection<NewsFeed> NewsFeeds { get; set; }
 
 
 

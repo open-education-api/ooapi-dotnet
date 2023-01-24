@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,6 +21,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "roomId")]
+        [SortAllowed]
         public Guid RoomId { get; set; }
 
         /// <summary>
@@ -90,6 +91,8 @@ namespace ooapi.v5.Models
 
 
         [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
         public string Name { get; set; }
 
 
@@ -121,6 +124,7 @@ namespace ooapi.v5.Models
         /// <value>The total number of seats located in the room</value>
 
         [JsonProperty(PropertyName = "totalSeats")]
+        [SortAllowed]
         public int? TotalSeats { get; set; }
 
         /// <summary>
@@ -129,6 +133,7 @@ namespace ooapi.v5.Models
         /// <value>The total number of available (&#x3D;non-reserved) seats in the room</value>
 
         [JsonProperty(PropertyName = "availableSeats")]
+        [SortAllowed]
         public int? AvailableSeats { get; set; }
 
         /// <summary>

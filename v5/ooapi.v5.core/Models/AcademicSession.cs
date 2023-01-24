@@ -3,7 +3,6 @@ using ooapi.v5.Attributes;
 
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
 
 namespace ooapi.v5.Models
 {
@@ -19,6 +18,7 @@ namespace ooapi.v5.Models
         /// <value>Unique id for this academic session</value>
         [JsonRequired]
         [JsonProperty("academicSessionId")]
+        [SortAllowed]
         public Guid AcademicSessionId { get; set; }
 
         /// <summary>
@@ -82,6 +82,7 @@ namespace ooapi.v5.Models
         }
 
         [JsonIgnore]
+        [SortAllowed]
         public string? Name { get; set; }
 
 
@@ -92,6 +93,8 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty("startDate")]
         [JsonConverter(typeof(MyDateFormatConverter))]
+        [SortAllowed]
+        [SortDefault]
         public DateTime StartDate { get; set; }
 
         /// <summary>
@@ -160,7 +163,7 @@ namespace ooapi.v5.Models
         public virtual ICollection<CourseOffering> CourseOfferings { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<ComponentOffering> ComponentOfferings{ get; set; }
+        public virtual ICollection<ComponentOffering> ComponentOfferings { get; set; }
 
 
     }

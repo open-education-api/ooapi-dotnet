@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -22,6 +23,8 @@ namespace ooapi.v5.Models
         /// <value>Unique id for this association</value>
         [JsonRequired]
         [JsonProperty("associationId")]
+        [SortAllowed]
+        [SortDefault]
         public Guid AssociationId { get; set; }
 
         /// <summary>

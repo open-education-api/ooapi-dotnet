@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,6 +20,8 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "componentId")]
+        [SortAllowed]
+        [SortDefault]
         public Guid? ComponentId { get; set; }
 
         /// <summary>
@@ -80,6 +82,7 @@ namespace ooapi.v5.Models
         }
 
         [JsonIgnore]
+        [SortAllowed]
         public string Name { get; set; }
 
 

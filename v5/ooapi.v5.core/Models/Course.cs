@@ -1,6 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,6 +20,7 @@ namespace ooapi.v5.Models
         /// <value>Unique id of this course</value>
         [JsonRequired]
         [JsonProperty("courseId")]
+        [SortAllowed]
         public Guid CourseId { get; set; }
 
         /// <summary>
@@ -72,6 +72,8 @@ namespace ooapi.v5.Models
 
 
         [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
         public string Name { get; set; }
 
 

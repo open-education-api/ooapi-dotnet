@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,6 +19,7 @@ namespace ooapi.v5.Models
         /// <value>Unique id of this program</value>
         [JsonRequired]
         [JsonProperty("programId")]
+        [SortAllowed]
         public Guid ProgramId { get; set; }
 
         /// <summary>
@@ -80,6 +81,8 @@ namespace ooapi.v5.Models
 
 
         [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
         public string Name { get; set; }
 
 
