@@ -10,8 +10,6 @@ namespace ooapi.v5.Models
     [DataContract]
     public partial class StudyLoadDescriptor
     {
-        [JsonIgnore]
-        public Guid StudyLoadDescriptorId { get; set; }
 
         /// <summary>
         /// The unit in which the studyload is specfied - contacttime: CONTACTUUR amount of time spent in classes - ects: ECTS_PUNT European Credit Transfer System - sbu: SBU studentloadhours - sp: STUDIEPUNT studentpoints - hour: UUR hours 
@@ -19,7 +17,7 @@ namespace ooapi.v5.Models
         /// <value>The unit in which the studyload is specfied - contacttime: CONTACTUUR amount of time spent in classes - ects: ECTS_PUNT European Credit Transfer System - sbu: SBU studentloadhours - sp: STUDIEPUNT studentpoints - hour: UUR hours </value>
 
         [JsonProperty(PropertyName = "studyLoadUnit")]
-        public StudyLoadUnitEnum? StudyLoadUnit { get; set; }
+        public string? StudyLoadUnit { get; set; }
 
         /// <summary>
         /// The amount of load depicted in numbers
@@ -27,7 +25,7 @@ namespace ooapi.v5.Models
         /// <value>The amount of load depicted in numbers</value>
 
         [JsonProperty(PropertyName = "value")]
-        public decimal? Value { get; set; }
+        public int Value { get; set; }
     }
 
 }

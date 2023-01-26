@@ -1,12 +1,10 @@
 using Newtonsoft.Json;
-using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
 {
     /// <summary>
     /// 
     /// </summary>
-    [DataContract]
     public class ComponentOfferings : Pagination<ComponentOffering>
     {
         /// <summary>
@@ -16,17 +14,12 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "items")]
-        public List<ComponentOffering> Items
+        public override List<ComponentOffering> Items
         {
             get
             {
-                return PaginationItems;
-            }
-            set
-            {
-                PaginationItems = value;
+                return _items;
             }
         }
-
     }
 }

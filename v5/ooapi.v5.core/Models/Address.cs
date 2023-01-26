@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,7 +20,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "addressId")]
-        public Guid? AddressId { get; set; }
+        public Guid AddressId { get; set; }
 
 
         /// <summary>
@@ -52,21 +53,22 @@ namespace ooapi.v5.Models
         /// <value>Further details like building name, suite, apartment number, etc.</value>
         [JsonProperty(PropertyName = "additional")]
         [NotMapped]
-        public List<LanguageTypedString> addition
+        public List<LanguageTypedString>? addition
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Additional);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Additional);
             }
             set
             {
-                Additional = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Additional = JsonConvert.SerializeObject(value);
             }
         }
 
 
         [JsonIgnore]
-        public String Additional { get; set; }
+        public string? Additional { get; set; }
 
         /// <summary>
         /// Postal code
@@ -93,11 +95,66 @@ namespace ooapi.v5.Models
         public string CountryCode { get; set; }
 
         /// <summary>
-        /// Gets or Sets Geolocation
+        /// Geolocation of the entrance of this address (WGS84 coordinate reference system)
         /// </summary>
+        /// <value>Geolocation of the entrance of this address (WGS84 coordinate reference system)</value>
 
         [JsonProperty(PropertyName = "geolocation")]
-        public Geolocation Geolocation { get; set; }
+        [NotMapped]
+        public Geolocation? Geolocation
+        {
+            get
+            {
+                if (Latitude != null && Longitude != null)
+                {
+                    return new Geolocation() { Latitude = (decimal)Latitude, Longitude = (decimal)Longitude };
+                }
+                return null;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    Latitude = value.Latitude;
+                    Longitude = value.Longitude;
+                }
+            }
+        }
+
+
+        [JsonIgnore]
+        [Column(TypeName = "decimal(8, 6)")]
+        [Precision(8, 6)]
+        public decimal? Latitude { get; set; }
+
+
+        [JsonIgnore]
+        [Column(TypeName = "decimal(8, 6)")]
+        [Precision(8, 6)]
+        public decimal? Longitude { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<Organization> Organizations { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Program> Programs { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Course> Courses { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Component> Components { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<ProgramOffering> ProgramOfferings { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<CourseOffering> CourseOfferings { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<ComponentOffering> ComponentOfferings { get; set; }
+
 
 
 

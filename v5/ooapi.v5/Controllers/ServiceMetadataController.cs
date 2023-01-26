@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Services;
 using ooapi.v5.Models;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -12,6 +15,10 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class ServiceMetadataController : BaseController
 {
+    public ServiceMetadataController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    {
+    }
+
     /// <summary>
     /// GET /
     /// </summary>
@@ -23,30 +30,12 @@ public class ServiceMetadataController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Service), description: "OK")]
     public virtual IActionResult RootGet()
     {
-        //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(200, default(InlineResponse200));
-
-        //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(400, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(401, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(403, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(404, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(405, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(429, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(500, default(InlineResponse400));
-
-        return null;
+        var service = new ServiceMetadataService(DBContext, UserRequestContext);
+        var result = service.Get(out ErrorResponse errorResponse);
+        if (result == null)
+        {
+            return BadRequest(errorResponse);
+        }
+        return Ok(result);
     }
 }

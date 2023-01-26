@@ -16,6 +16,10 @@ namespace ooapi.v5.Models
 
         public Pagination(IQueryable<T> collection, DataRequestParameters dataRequestParameters = null)
         {
+            TotalItems = collection.Count();
+            PageSize = dataRequestParameters.PageSize;
+            PageNumber = dataRequestParameters.PageNumber;
+
             if (dataRequestParameters != null)
             {
                 dataRequestParameters.Validate();
@@ -28,18 +32,43 @@ namespace ooapi.v5.Models
             }
             else
             {
-                var totalItems = collection.Count();
-                SetPaginationMetadata(totalItems, totalItems == 0 ? 1 : totalItems, 1);
                 SetItems(collection.ToList());
-                SetExtendedAttributes();
             }
+
+            SetExtendedAttributes();
+
         }
 
         private void SetItems(List<T> list)
         {
-            _currentPageSize = list.Count();
-            PaginationItems = list;
+            CurrentPageSize = list.Count();
+            //CurrentPage = (TotalItems > 0) ? PageNumber : 0;
+
+            int remainder = (TotalItems % PageSize) == 0 ? 0 : 1;
+            TotalPages = (int)(Math.Floor((double)(TotalItems / PageSize)) + remainder);
+
+            HasPreviousPage = PageNumber > 1;
+            HasNextPage = PageNumber < TotalPages;
+
+            _items = list;
         }
+
+
+        //public int CurrentPage { get;set; }
+        //{
+        //    get
+        //    {
+        //        return _currentPage;
+        //    }
+        //    set
+        //    {
+        //        if (value > TotalPages)
+        //        {
+        //            throw new Exception($"{nameof(CurrentPage)} ({value}) is > {nameof(TotalPages)} ({TotalPages})");
+        //        }
+        //        _currentPage = value;
+        //    }
+        //}
 
         /// <summary>
         /// The number of items per page
@@ -66,7 +95,8 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "hasPreviousPage")]
-        public bool HasPreviousPage { get; set; } = false;
+        public bool HasPreviousPage { get; set; }
+        //public bool HasPreviousPage => CurrentPage > 1;
 
         /// <summary>
         /// Whether there is a previous page
@@ -75,7 +105,8 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "hasNextPage")]
-        public bool HasNextPage { get; set; } = false;
+        public bool HasNextPage { get; set; }
+        //public bool HasNextPage => CurrentPage < TotalPages;
 
         /// <summary>
         /// Total number of pages
@@ -83,29 +114,68 @@ namespace ooapi.v5.Models
         /// <value>Total number of pages</value>
 
         [JsonProperty(PropertyName = "totalPages")]
-        public int TotalPages { get; set; } = 0;
+        public int TotalPages { get; set; }
+        //{
+        //    get
+        //    {
+        //        return _totalPages;
+        //    }
+        //    set
+        //    {
+        //        int remainder = (_totalItems % PageSize) == 0 ? 0 : 1;
+        //        _totalPages = (int)(Math.Floor((double)(_totalItems / PageSize)) + remainder);
+        //        //return (int)(Math.Floor((double)(_totalItems / PageSize)) + remainder);
+        //    }
+        //}
+        ////public int TotalPages { get; set; } = 0;
 
-        private int _totalItems { get; set; } = 0;
+        //private int _totalPages { get; set; } = 0;
 
-        private int _currentPageSize { get; set; } = 0;
+        [JsonIgnore]
+        public int TotalItems { get; set; } = 0;
 
-        protected List<T>? PaginationItems { get; set; }
+        [JsonIgnore]
+        public int CurrentPageSize { get; set; } = 0;
 
-        private void SetPaginationMetadata(int totalItems, int? pageSize, int pageNumber)
+        [JsonIgnore]
+        protected List<T>? _items { get; set; }
+
+        //private void SetPaginationMetadata(int totalItems, int? pageSize, int pageNumber)
+        //{
+        //    _totalItems = totalItems;
+        //    PageSize = pageSize ?? totalItems;
+        //    PageNumber = (totalItems > 0) ? pageNumber : 0;
+        //}
+
+        [JsonProperty(PropertyName = "items")]
+        public virtual List<T> Items
         {
-            _totalItems = totalItems;
-            PageSize = pageSize ?? totalItems;
-            PageNumber = (totalItems > 0) ? pageNumber : 0;
+            get
+            {
+                return _items;
+            }
+            set
+            {
+                _items = value;
+            }
         }
 
         public void SetExtendedAttributes()
         {
             JObject extendedObject = new JObject(
-                new JProperty("totalItems", _totalItems),
-                new JProperty("currentPageSize", _currentPageSize)
+                new JProperty("totalItems", TotalItems),
+                new JProperty("currentPageSize", CurrentPageSize)
 
                 );
             Extension = JsonConvert.SerializeObject(extendedObject);
         }
+
+        protected void AddItems(List<T> items, IEnumerable<T> paginationItems)
+        {
+            if (items == null)
+                items = new List<T>();
+            items.AddRange(paginationItems);
+        }
+
     }
 }

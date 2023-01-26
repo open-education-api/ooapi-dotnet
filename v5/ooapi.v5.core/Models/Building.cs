@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -18,15 +19,34 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "buildingId")]
+        [SortAllowed]
         public Guid BuildingId { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "primaryCode")]
-        public PrimaryCode PrimaryCode { get; set; }
+        [NotMapped]
+        public IdentifierEntry primaryCode
+        {
+            get
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
+        }
+
+
+        [JsonIgnore]
+        public string PrimaryCodeType { get; set; }
+
+        [JsonIgnore]
+        public string PrimaryCode { get; set; }
 
         /// <summary>
         /// The abbreviation of the name of this building
@@ -42,22 +62,24 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name of this building</value>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "name")]
         [NotMapped]
         public List<LanguageTypedString> name
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
             }
             set
             {
-                Name = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Name = JsonConvert.SerializeObject(value);
             }
         }
 
         [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
         public string Name { get; set; }
 
         /// <summary>
@@ -71,11 +93,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
             }
             set
             {
-                Description = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Description = JsonConvert.SerializeObject(value);
             }
         }
 
@@ -91,6 +114,9 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "address")]
         public Address Address { get; set; }
 
+        [JsonIgnore]
+        public Guid? AddressId { get; set; }
+
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
         /// </summary>
@@ -104,8 +130,9 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
+        [JsonProperty("consumers")]
+        [NotMapped]
+        public List<dynamic>? Consumers { get; set; }
 
 
 

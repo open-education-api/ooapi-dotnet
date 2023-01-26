@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Services;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using ooapi.v5.Security;
@@ -19,6 +23,10 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class PersonsController : BaseController
 {
+    public PersonsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    {
+    }
+
     /// <summary>
     /// GET /persons
     /// </summary>
@@ -38,30 +46,16 @@ public class PersonsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("PersonsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Persons), description: "OK")]
-    public virtual IActionResult PersonsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string> affiliations, [FromQuery] string sort)
+    public virtual IActionResult PersonsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string sort = "personId")
     {
-        //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(200, default(InlineResponse2001));
-
-        //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(400, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(401, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(403, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(405, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(429, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(500, default(InlineResponse400));
-
-        return null;
+        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        var service = new PersonsService(DBContext, UserRequestContext);
+        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        if (result == null)
+        {
+            return BadRequest(errorResponse);
+        }
+        return Ok(result);
     }
 
     /// <summary>
@@ -126,33 +120,16 @@ public class PersonsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("PersonsPersonIdAssociationsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Associations), description: "OK")]
-    public virtual IActionResult PersonsPersonIdAssociationsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string associationType, [FromQuery] string role, [FromQuery] string state, [FromQuery] string resultState, [FromQuery] string sort)
+    public virtual IActionResult PersonsPersonIdAssociationsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? associationType, [FromQuery] string? role, [FromQuery] string? state, [FromQuery] string? resultState, [FromQuery] string sort = "associationId")
     {
-        //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(200, default(InlineResponse2003));
-
-        //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(400, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(401, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(403, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(404, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(405, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(429, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(500, default(InlineResponse400));
-
-        return null;
+        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var service = new AssociationsService(DBContext, UserRequestContext);
+        var result = service.GetAssociationsByPersonId(parameters, personId, out ErrorResponse errorResponse);
+        if (result == null)
+        {
+            return BadRequest(errorResponse);
+        }
+        return Ok(result);
     }
 
     /// <summary>
@@ -168,31 +145,13 @@ public class PersonsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Person), description: "OK")]
     public virtual IActionResult PersonsPersonIdGet([FromRoute][Required] Guid personId)
     {
-        //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(200, default(InlineResponse2002));
-
-        //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(400, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(401, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(403, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(404, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(405, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(429, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(500, default(InlineResponse400));
-
-        return null;
+        var service = new PersonsService(DBContext, UserRequestContext);
+        var result = service.Get(personId, out ErrorResponse errorResponse);
+        if (result == null)
+        {
+            return BadRequest(errorResponse);
+        }
+        return Ok(result);
     }
 
     /// <summary>
@@ -214,29 +173,16 @@ public class PersonsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("PersonsPersonIdGroupsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
-    public virtual IActionResult PersonsPersonIdGroupsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string groupType, [FromQuery] string sort)
+    public virtual IActionResult PersonsPersonIdGroupsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string sort = "name")
     {
-        //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(200, default(InlineResponse2004));
-
-        //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(400, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(401, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(403, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(405, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(429, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(500, default(InlineResponse400));
-        return null;
+        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var service = new GroupsService(DBContext, UserRequestContext);
+        var result = service.GetGroupsByPersonId(parameters, personId, out ErrorResponse errorResponse);
+        if (result == null)
+        {
+            return BadRequest(errorResponse);
+        }
+        return Ok(result);
     }
 
     ///// <summary>

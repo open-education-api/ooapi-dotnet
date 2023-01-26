@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -18,16 +19,34 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "groupId")]
+        [SortAllowed]
         public Guid GroupId { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "primaryCode")]
-        public PrimaryCode PrimaryCode { get; set; }
+        [NotMapped]
+        public IdentifierEntry primaryCode
+        {
+            get
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
+        }
 
+
+        [JsonIgnore]
+        public string PrimaryCodeType { get; set; }
+
+        [JsonIgnore]
+        public string PrimaryCode { get; set; }
 
 
         /// <summary>
@@ -50,16 +69,19 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
             }
             set
             {
-                Name = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Name = JsonConvert.SerializeObject(value);
             }
         }
 
 
         [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
         public string Name { get; set; }
 
 
@@ -74,11 +96,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
             }
             set
             {
-                Description = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Description = JsonConvert.SerializeObject(value);
             }
         }
 
@@ -91,6 +114,7 @@ namespace ooapi.v5.Models
         /// <value>The day on which this group starts being active, RFC3339 (full-date)</value>
 
         [JsonProperty(PropertyName = "startDate")]
+        [SortAllowed]
         public DateTime? StartDate { get; set; }
 
         /// <summary>
@@ -108,7 +132,7 @@ namespace ooapi.v5.Models
 
         [NotMapped]
         [JsonProperty(PropertyName = "personCount")]
-        public decimal? PersonCount { get; set; }
+        public int PersonCount { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
@@ -123,8 +147,10 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
+        [JsonProperty("consumers")]
+        [NotMapped]
+        public List<dynamic>? Consumers { get; set; }
+
 
         /// <summary>
         /// The organization that manages this group. [&#x60;expandable&#x60;](.#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -134,6 +160,12 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
 
+        [JsonIgnore]
+        public Guid? OrganizationId { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<Person> Persons { get; set; }
 
 
     }

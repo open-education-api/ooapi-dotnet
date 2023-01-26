@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,15 +20,35 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "componentId")]
+        [SortAllowed]
+        [SortDefault]
         public Guid? ComponentId { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "primaryCode")]
-        public PrimaryCode PrimaryCode { get; set; }
+        [NotMapped]
+        public IdentifierEntry primaryCode
+        {
+            get
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
+        }
+
+
+        [JsonIgnore]
+        public string PrimaryCodeType { get; set; }
+
+        [JsonIgnore]
+        public string PrimaryCode { get; set; }
 
 
         /// <summary>
@@ -51,17 +72,20 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
             }
             set
             {
-                Name = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Name = JsonConvert.SerializeObject(value);
             }
         }
 
-
         [JsonIgnore]
+        [SortAllowed]
         public string Name { get; set; }
+
+
 
 
 
@@ -153,11 +177,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
             }
             set
             {
-                Description = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Description = JsonConvert.SerializeObject(value);
             }
         }
 
@@ -197,17 +222,18 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Enrollment);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Enrollment);
             }
             set
             {
-                Enrollment = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Enrollment = JsonConvert.SerializeObject(value);
             }
         }
 
 
         [JsonIgnore]
-        public String Enrollment { get; set; }
+        public string Enrollment { get; set; }
 
 
         ////[JsonIgnore]
@@ -233,16 +259,17 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Assessment);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Assessment);
             }
             set
             {
-                Assessment = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Assessment = JsonConvert.SerializeObject(value);
             }
         }
 
         [JsonIgnore]
-        public String Assessment { get; set; }
+        public string Assessment { get; set; }
 
         /// <summary>
         /// Addresses for this component
@@ -250,7 +277,9 @@ namespace ooapi.v5.Models
         /// <value>Addresses for this component</value>
 
         [JsonProperty(PropertyName = "addresses")]
-        public List<Address> Addresses { get; set; }
+        [NotMapped]
+        public List<Address>? Addresses { get; set; }
+
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
@@ -266,7 +295,16 @@ namespace ooapi.v5.Models
         /// <value>The course of which this component is a part. [&#x60;expandable&#x60;](#tag/course_model) By default only the &#x60;courseId&#x60; (a string) is returned. If the client requested an expansion of &#x60;course&#x60; the full course object should be returned. </value>
 
         [JsonProperty(PropertyName = "course")]
-        public OneOfCourse Course { get; set; }
+        public OneOfCourse CourseModel { get; set; }
+
+
+        [JsonIgnore]
+        public Course? Course { get; set; }
+
+
+        [JsonIgnore]
+        public Guid? CourseId { get; set; }
+
 
         /// <summary>
         /// The organization which provides this component. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -276,15 +314,22 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
 
+        [JsonIgnore]
+        public Guid? OrganizationId { get; set; }
+
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
+        [JsonProperty("consumers")]
+        [NotMapped]
+        public List<dynamic>? Consumers { get; set; }
 
+
+        [JsonIgnore]
+        public virtual ICollection<Address> Address { get; set; }
 
     }
 }

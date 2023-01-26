@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Repositories;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using Swashbuckle.AspNetCore.Annotations;
@@ -16,6 +18,10 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class OfferingsController : BaseController
 {
+    public OfferingsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    {
+    }
+
     /// <summary>
     /// GET /offerings/{offeringId}/associations
     /// </summary>
@@ -38,7 +44,7 @@ public class OfferingsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OfferingsOfferingIdAssociationsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Associations), description: "OK")]
-    public virtual IActionResult OfferingsOfferingIdAssociationsGet([FromRoute][Required] Guid offeringId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string associationType, [FromQuery] string role, [FromQuery] string state, [FromQuery] string resultState, [FromQuery] string sort)
+    public virtual IActionResult OfferingsOfferingIdAssociationsGet([FromRoute][Required] Guid offeringId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? associationType, [FromQuery] string? role, [FromQuery] string? state, [FromQuery] string? resultState, [FromQuery] string sort = "associationId")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20022));
@@ -78,7 +84,7 @@ public class OfferingsController : BaseController
     [Route("offerings/{offeringId}")]
     [ValidateModelState]
     [SwaggerOperation("OfferingsOfferingIdGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Offering), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(OneOfOfferingNoIdentifier), description: "OK")]
     public virtual IActionResult OfferingsOfferingIdGet([FromRoute][Required] Guid offeringId, [FromQuery] List<string> expand)
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -127,7 +133,7 @@ public class OfferingsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OfferingsOfferingIdGroupsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
-    public virtual IActionResult OfferingsOfferingIdGroupsGet([FromRoute][Required] Guid offeringId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string groupType, [FromQuery] string sort)
+    public virtual IActionResult OfferingsOfferingIdGroupsGet([FromRoute][Required] Guid offeringId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string sort = "name")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse2004));

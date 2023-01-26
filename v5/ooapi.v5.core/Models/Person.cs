@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,16 +20,36 @@ namespace ooapi.v5.Models
         /// <value>Unique id of this person</value>
         [JsonRequired]
         [JsonProperty("personId")]
+        [SortAllowed]
+        [SortDefault]
         public Guid PersonId { get; set; }
-
 
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "primaryCode")]
-        public PrimaryCode PrimaryCode { get; set; }
+        [NotMapped]
+        public IdentifierEntry primaryCode
+        {
+            get
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
+        }
+
+
+        [JsonIgnore]
+        public string PrimaryCodeType { get; set; }
+
+        [JsonIgnore]
+        public string PrimaryCode { get; set; }
+
 
         /// <summary>
         /// The first name of this person
@@ -39,6 +59,7 @@ namespace ooapi.v5.Models
 
         [MaxLength(256)]
         [JsonProperty(PropertyName = "givenName")]
+        [SortAllowed]
         public string GivenName { get; set; }
 
         /// <summary>
@@ -57,6 +78,7 @@ namespace ooapi.v5.Models
 
         [MaxLength(256)]
         [JsonProperty(PropertyName = "surname")]
+        [SortAllowed]
         public string Surname { get; set; }
 
         /// <summary>
@@ -67,6 +89,7 @@ namespace ooapi.v5.Models
 
         [MaxLength(256)]
         [JsonProperty(PropertyName = "displayName")]
+        [SortAllowed]
         public string DisplayName { get; set; }
 
         /// <summary>
@@ -177,34 +200,6 @@ namespace ooapi.v5.Models
 
 
 
-        [JsonIgnore]
-        public string Extension { get; set; }
-
-        [JsonProperty(PropertyName = "ext")]
-        [NotMapped]
-        /// <summary>
-        /// Object for additional non-standard attributes
-        /// </summary>
-        public JObject? Ext
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(Extension))
-                    return null;
-                try
-                {
-                    return JsonConvert.DeserializeObject<JObject>(Extension);
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
-            }
-            set
-            {
-                Extension = value.ToString();
-            }
-        }
 
 
         /// <summary>
@@ -355,8 +350,13 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
+        [JsonProperty("consumers")]
+        [NotMapped]
+        public List<dynamic>? Consumers { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<Group> Groups { get; set; }
 
 
     }

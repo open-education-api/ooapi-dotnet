@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Services;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using Swashbuckle.AspNetCore.Annotations;
@@ -17,6 +21,10 @@ namespace ooapi.v5.Controllers
     [ApiController]
     public class ProgramsController : BaseController
     {
+        public ProgramsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+        {
+        }
+
         /// <summary>
         /// GET /programs
         /// </summary>
@@ -41,30 +49,16 @@ namespace ooapi.v5.Controllers
         [ValidateModelState]
         [SwaggerOperation("ProgramsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
-        public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string programType, [FromQuery] string qualificationAwarded, [FromQuery] string levelOfQualification, [FromQuery] string sector, [FromQuery] string fieldsOfStudy, [FromQuery] string sort)
+        public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string sort = "name")
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(InlineResponse2007));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(403, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(InlineResponse400));
-
-            return null;
+            DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+            var service = new CoursesService(DBContext, UserRequestContext);
+            var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+            if (result == null)
+            {
+                return BadRequest(errorResponse);
+            }
+            return Ok(result);
         }
 
         /// <summary>
@@ -88,33 +82,16 @@ namespace ooapi.v5.Controllers
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdCoursesGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
-        public virtual IActionResult ProgramsProgramIdCoursesGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string level, [FromQuery] List<string> modeOfDelivery, [FromQuery] string sort)
+        public virtual IActionResult ProgramsProgramIdCoursesGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string sort = "courseId")
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(InlineResponse2008));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(403, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(InlineResponse400));
-
-            return null;
+            DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+            var service = new CoursesService(DBContext, UserRequestContext);
+            var result = service.GetCoursesByProgramId(parameters, programId, out ErrorResponse errorResponse);
+            if (result == null)
+            {
+                return BadRequest(errorResponse);
+            }
+            return Ok(result);
         }
 
         /// <summary>
@@ -132,31 +109,13 @@ namespace ooapi.v5.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Models.Program), description: "OK")]
         public virtual IActionResult ProgramsProgramIdGet([FromRoute][Required] Guid programId, [FromQuery] List<string> expand, [FromQuery] bool? returnTimelineOverrides)
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(InlineResponse20015));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(403, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(InlineResponse400));
-
-            return null;
+            var service = new ProgramsService(DBContext, UserRequestContext);
+            var result = service.Get(programId, out ErrorResponse errorResponse);
+            if (result == null)
+            {
+                return BadRequest(errorResponse);
+            }
+            return Ok(result);
         }
 
         /// <summary>
@@ -182,7 +141,7 @@ namespace ooapi.v5.Controllers
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdOfferingsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(ProgramOfferings), description: "OK")]
-        public virtual IActionResult ProgramsProgramIdOfferingsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string modeOfStudy, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string sort)
+        public virtual IActionResult ProgramsProgramIdOfferingsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? modeOfStudy, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string sort = "startDate")
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(InlineResponse20016));
@@ -235,30 +194,16 @@ namespace ooapi.v5.Controllers
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdProgramsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
-        public virtual IActionResult ProgramsProgramIdProgramsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string programType, [FromQuery] string qualificationAwarded, [FromQuery] string levelOfQualification, [FromQuery] string sector, [FromQuery] string fieldsOfStudy, [FromQuery] string sort)
+        public virtual IActionResult ProgramsProgramIdProgramsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string sort = "name")
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(InlineResponse2007));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(403, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(InlineResponse400));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(InlineResponse400));
-
-            return null;
+            DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+            var service = new ProgramsService(DBContext, UserRequestContext);
+            var result = service.GetProgramsByProgramId(parameters, programId, out ErrorResponse errorResponse);
+            if (result == null)
+            {
+                return BadRequest(errorResponse);
+            }
+            return Ok(result);
         }
     }
 }

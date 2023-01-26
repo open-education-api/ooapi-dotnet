@@ -1,4 +1,6 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -11,6 +13,25 @@ namespace ooapi.v5.Models
     {
 
 
+        /// <summary>
+        /// The moment on which this offering starts, RFC3339 (full-date)
+        /// </summary>
+        /// <value>The moment on which this offering starts, RFC3339 (full-date)</value>
+        [JsonRequired]
+        [JsonProperty(PropertyName = "startDate")]
+        [SortAllowed]
+        [SortDefault]
+        public DateOnly? StartDate { get; set; }
+
+        /// <summary>
+        /// The moment on which this offering ends, RFC3339 (full-date)
+        /// </summary>
+        /// <value>The moment on which this offering ends, RFC3339 (full-date)</value>
+        [JsonRequired]
+        [JsonProperty(PropertyName = "endDate")]
+        [SortAllowed]
+        public DateOnly? EndDate { get; set; }
+
 
         /// <summary>
         /// If this is a course wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodEnd&#x60;.
@@ -18,7 +39,7 @@ namespace ooapi.v5.Models
         /// <value>If this is a course wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodEnd&#x60;.</value>
 
         [JsonProperty(PropertyName = "flexibleEntryPeriodStart")]
-        public DateTime? FlexibleEntryPeriodStart { get; set; }
+        public DateOnly? FlexibleEntryPeriodStart { get; set; }
 
         /// <summary>
         /// If this is a course wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodStart&#x60;.
@@ -26,15 +47,8 @@ namespace ooapi.v5.Models
         /// <value>If this is a course wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodStart&#x60;.</value>
 
         [JsonProperty(PropertyName = "flexibleEntryPeriodEnd")]
-        public DateTime? FlexibleEntryPeriodEnd { get; set; }
+        public DateOnly? FlexibleEntryPeriodEnd { get; set; }
 
-        /// <summary>
-        /// Addresses for this offering
-        /// </summary>
-        /// <value>Addresses for this offering</value>
-
-        [JsonProperty(PropertyName = "addresses")]
-        public List<Address> Addresses { get; set; }
 
         /// <summary>
         /// Price information for this offering.
@@ -42,9 +56,13 @@ namespace ooapi.v5.Models
         /// <value>Price information for this offering.</value>
 
         [JsonProperty(PropertyName = "priceInformation")]
+        [NotMapped]
         public List<Cost> PriceInformation { get; set; }
 
 
+
+        //[JsonIgnore]
+        //public virtual ICollection<Cost> Costs { get; set; }
 
 
 

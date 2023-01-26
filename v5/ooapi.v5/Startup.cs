@@ -46,7 +46,8 @@ namespace ooapi.v5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CoreDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ooapiDB"))
+                options.UseSqlServer(Configuration.GetConnectionString("ooapiDB"),
+                x => x.MigrationsHistoryTable("__EFMigrationsHistory", "ooapiv5"))
             );
 
             // Add framework services.
@@ -131,8 +132,7 @@ namespace ooapi.v5
             {
                 options.PreSerializeFilters.Add((swagger, httpReq) =>
                 {
-                    var scheme = httpReq.Host.Host.StartsWith("localhost", StringComparison.OrdinalIgnoreCase) ? "http" : "https";
-                    swagger.Servers = new List<OpenApiServer>() { new OpenApiServer() { Url = $"{scheme}://{httpReq.Host}" } };
+                    swagger.Servers = new List<OpenApiServer>() { new OpenApiServer() { Url = $"https://{httpReq.Host}" } };
                 });
             });
             app.UseSwaggerUI(c =>

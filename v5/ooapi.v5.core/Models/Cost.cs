@@ -74,16 +74,28 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(DisplayAmount);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(DisplayAmount);
             }
             set
             {
-                DisplayAmount = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    DisplayAmount = JsonConvert.SerializeObject(value);
             }
+            
         }
 
         [JsonIgnore]
-        public String DisplayAmount { get; set; }
+        public string DisplayAmount { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<ProgramOffering> ProgramOfferings { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<CourseOffering> CourseOfferings { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<ComponentOffering> ComponentOfferings { get; set; }
 
 
 

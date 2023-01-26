@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Services;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using Swashbuckle.AspNetCore.Annotations;
@@ -16,6 +20,10 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class RoomsController : BaseController
 {
+    public RoomsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    {
+    }
+
     /// <summary>
     /// GET /rooms
     /// </summary>
@@ -35,30 +43,16 @@ public class RoomsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("RoomsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Rooms), description: "OK")]
-    public virtual IActionResult RoomsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string roomType, [FromQuery] string sort)
+    public virtual IActionResult RoomsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? roomType, [FromQuery] string sort = "name")
     {
-        //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(200, default(InlineResponse20027));
-
-        //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(400, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(401, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(403, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(405, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(429, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(500, default(InlineResponse400));
-
-        return null;
+        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        var service = new RoomsService(DBContext, UserRequestContext);
+        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        if (result == null)
+        {
+            return BadRequest(errorResponse);
+        }
+        return Ok(result);
     }
 
     /// <summary>
@@ -75,29 +69,12 @@ public class RoomsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Room), description: "OK")]
     public virtual IActionResult RoomsRoomIdGet([FromRoute][Required] Guid roomId, [FromQuery] List<string> expand)
     {
-        //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(200, default(InlineResponse20028));
-
-        //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(400, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(401, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(403, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(404, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(405, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(429, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(500, default(InlineResponse400));
-        return null;
+        var service = new RoomsService(DBContext, UserRequestContext);
+        var result = service.Get(roomId, out ErrorResponse errorResponse);
+        if (result == null)
+        {
+            return BadRequest(errorResponse);
+        }
+        return Ok(result);
     }
 }

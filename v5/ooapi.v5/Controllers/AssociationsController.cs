@@ -1,7 +1,9 @@
-
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Services;
 using ooapi.v5.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -16,6 +18,11 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class AssociationsController : BaseController
 {
+
+    public AssociationsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    {
+    }
+
     /// <summary>
     /// GET /associations/{associationId}
     /// </summary>
@@ -31,31 +38,13 @@ public class AssociationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(List<Association>), description: "OK")]
     public virtual IActionResult AssociationsAssociationIdGet([FromRoute][Required] Guid associationId, [FromQuery] List<string> expand)
     {
-        //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(200, default(InlineResponse20023));
-
-        //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(400, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(401, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(403, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(404, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(405, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(429, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(500, default(InlineResponse400));
-
-        return null;
+        var service = new AssociationsService(DBContext, UserRequestContext);
+        var result = service.Get(associationId, out ErrorResponse errorResponse);
+        if (result == null)
+        {
+            return BadRequest(errorResponse);
+        }
+        return Ok(result);
     }
 
     ///// <summary>

@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -12,29 +14,22 @@ namespace ooapi.v5.Models
     {
 
         /// <summary>
-        /// Unique id of this geolocation
-        /// </summary>
-        /// <value>Unique id of this geolocation</value>
-        [JsonIgnore]
-        [JsonProperty("geolocationId")]
-        public Guid GeolocationId { get; set; }
-
-
-        /// <summary>
         /// Gets or Sets Latitude
         /// </summary>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "latitude")]
-        public double? Latitude { get; set; }
+        [Column(TypeName = "decimal(8, 6)")]
+        [Precision(8, 6)]
+        public decimal Latitude { get; set; }
 
         /// <summary>
         /// Gets or Sets Longitude
         /// </summary>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "longitude")]
-        public double? Longitude { get; set; }
+        [Column(TypeName = "decimal(8, 6)")]
+        [Precision(8, 6)]
+        public decimal Longitude { get; set; }
 
 
     }

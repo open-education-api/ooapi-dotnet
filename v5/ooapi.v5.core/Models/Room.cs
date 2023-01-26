@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,15 +21,34 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "roomId")]
+        [SortAllowed]
         public Guid RoomId { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "primaryCode")]
-        public PrimaryCode PrimaryCode { get; set; }
+        [NotMapped]
+        public IdentifierEntry primaryCode
+        {
+            get
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
+        }
+
+
+        [JsonIgnore]
+        public string PrimaryCodeType { get; set; }
+
+        [JsonIgnore]
+        public string PrimaryCode { get; set; }
 
 
         /// <summary>
@@ -59,16 +80,19 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
             }
             set
             {
-                Name = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Name = JsonConvert.SerializeObject(value);
             }
         }
 
 
         [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
         public string Name { get; set; }
 
 
@@ -82,11 +106,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
             }
             set
             {
-                Description = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Description = JsonConvert.SerializeObject(value);
             }
         }
 
@@ -99,6 +124,7 @@ namespace ooapi.v5.Models
         /// <value>The total number of seats located in the room</value>
 
         [JsonProperty(PropertyName = "totalSeats")]
+        [SortAllowed]
         public int? TotalSeats { get; set; }
 
         /// <summary>
@@ -107,6 +133,7 @@ namespace ooapi.v5.Models
         /// <value>The total number of available (&#x3D;non-reserved) seats in the room</value>
 
         [JsonProperty(PropertyName = "availableSeats")]
+        [SortAllowed]
         public int? AvailableSeats { get; set; }
 
         /// <summary>
@@ -126,11 +153,45 @@ namespace ooapi.v5.Models
         public string Wing { get; set; }
 
         /// <summary>
-        /// Gets or Sets Geolocation
+        /// Geolocation of the entrance of this room (WGS84 coordinate reference system)
         /// </summary>
+        /// <value>Geolocation of the entrance of this room (WGS84 coordinate reference system)</value>
 
         [JsonProperty(PropertyName = "geolocation")]
-        public RoomGeolocation Geolocation { get; set; }
+        [NotMapped]
+        public Geolocation? Geolocation
+        {
+            get
+            {
+                if (Latitude != null && Longitude != null)
+                {
+                    return new Geolocation() { Latitude = (decimal)Latitude, Longitude = (decimal)Longitude };
+                }
+                return null;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    Latitude = value.Latitude;
+                    Longitude = value.Longitude;
+                }
+            }
+        }
+
+
+        [JsonIgnore]
+        [Column(TypeName = "decimal(8, 6)")]
+        [Precision(8, 6)]
+        public decimal? Latitude { get; set; }
+
+
+        [JsonIgnore]
+        [Column(TypeName = "decimal(8, 6)")]
+        [Precision(8, 6)]
+        public decimal? Longitude { get; set; }
+
+
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
@@ -148,13 +209,17 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "building")]
         public OneOfBuilding Building { get; set; }
 
+        [JsonIgnore]
+        public Guid? BuildingId { get; set; }
+
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
+        [JsonProperty("consumers")]
+        [NotMapped]
+        public dynamic? Consumers { get; set; }
 
 
     }

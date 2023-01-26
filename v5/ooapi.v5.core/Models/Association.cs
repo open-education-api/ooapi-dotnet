@@ -1,5 +1,7 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -21,6 +23,8 @@ namespace ooapi.v5.Models
         /// <value>Unique id for this association</value>
         [JsonRequired]
         [JsonProperty("associationId")]
+        [SortAllowed]
+        [SortDefault]
         public Guid AssociationId { get; set; }
 
         /// <summary>
@@ -62,8 +66,9 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
+        [JsonProperty("consumers")]
+        [NotMapped]
+        public List<dynamic>? Consumers { get; set; }
 
         /// <summary>
         /// A result as part of an association
@@ -73,6 +78,15 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "result")]
         public OneOfResult? Result { get; set; }
 
+        [JsonIgnore]
+        public Guid? ProgramResultId { get; set; }
+
+        [JsonIgnore]
+        public Guid? CourseResultId { get; set; }
+
+        [JsonIgnore]
+        public Guid? ComponentResultId { get; set; }
+
         /// <summary>
         /// Identifier (string) or Person (object)
         /// </summary>
@@ -80,6 +94,10 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "person")]
         public OneOfPerson? Person { get; set; }
+
+        [JsonIgnore]
+        public Guid? PersonId { get; set; }
+
 
         /// <summary>
         /// Identifier (string) or Offering (object) or Offering (object) or Offering (object))
@@ -89,7 +107,8 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "offering")]
         public OneOfOffering? Offering { get; set; }
 
-
+        [JsonIgnore]
+        public Guid? OfferingId { get; set; }
 
     }
 

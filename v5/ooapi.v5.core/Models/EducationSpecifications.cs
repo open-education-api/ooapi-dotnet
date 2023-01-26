@@ -1,12 +1,7 @@
 using Newtonsoft.Json;
-using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [DataContract]
     public class EducationSpecifications : Pagination<EducationSpecification>
     {
         /// <summary>
@@ -14,17 +9,12 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Array of objects (EducationSpecification) </value>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "items")]
-        public List<EducationSpecification> Items
+        public override List<EducationSpecification> Items
         {
             get
             {
-                return PaginationItems;
-            }
-            set
-            {
-                PaginationItems = value;
+                return _items;
             }
         }
     }

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -18,6 +19,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "newsFeedId")]
+        [SortAllowed]
         public Guid NewsFeedId { get; set; }
 
 
@@ -42,16 +44,19 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
             }
             set
             {
-                Name = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Name = JsonConvert.SerializeObject(value);
             }
         }
 
 
         [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
         public string Name { get; set; }
 
 
@@ -67,11 +72,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
             }
             set
             {
-                Description = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Description = JsonConvert.SerializeObject(value);
             }
         }
 
@@ -83,9 +89,15 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
+        [JsonProperty("consumers")]
+        [NotMapped]
 
+
+        [JsonIgnore]
+        public virtual ICollection<NewsItem> NewsItems { get; set; }
+
+        //[JsonIgnore]
+        //public virtual ICollection<NewsItemsNewsFeeds> NewsItemsNewsFeeds { get; set; }
 
     }
 }

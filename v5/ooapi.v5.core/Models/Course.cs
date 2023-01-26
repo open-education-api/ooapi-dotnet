@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,6 +20,7 @@ namespace ooapi.v5.Models
         /// <value>Unique id of this course</value>
         [JsonRequired]
         [JsonProperty("courseId")]
+        [SortAllowed]
         public Guid CourseId { get; set; }
 
         /// <summary>
@@ -26,7 +28,26 @@ namespace ooapi.v5.Models
         /// </summary>
         [JsonRequired]
         [JsonProperty(PropertyName = "primaryCode")]
-        public PrimaryCode PrimaryCode { get; set; }
+        [NotMapped]
+        public IdentifierEntry primaryCode
+        {
+            get
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
+        }
+
+
+        [JsonIgnore]
+        public string PrimaryCodeType { get; set; }
+
+        [JsonIgnore]
+        public string PrimaryCode { get; set; }
 
         /// <summary>
         /// The name of this course (ECTS-title)
@@ -40,16 +61,19 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
             }
             set
             {
-                Name = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Name = JsonConvert.SerializeObject(value);
             }
         }
 
 
         [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
         public string Name { get; set; }
 
 
@@ -67,13 +91,39 @@ namespace ooapi.v5.Models
         /// <summary>
         /// Gets or Sets StudyLoad
         /// </summary>
-
         [JsonProperty(PropertyName = "studyLoad")]
         [NotMapped]
-        public StudyLoadDescriptor? StudyLoad { get; set; }
+        public StudyLoadDescriptor? StudyLoad
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(StudyLoadUnit) || StudyLoadValue == 0)
+                    return null;
+                try
+                {
+
+                    StudyLoadDescriptor result = new StudyLoadDescriptor();
+                    result.StudyLoadUnit = StudyLoadUnit;
+                    result.Value = StudyLoadValue;
+                    return result;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                StudyLoadUnit = value.StudyLoadUnit;
+                StudyLoadValue = value.Value;
+            }
+        }
 
         [JsonIgnore]
-        public Guid? StudyLoadDescriptorId { get; set; }
+        public string? StudyLoadUnit { get; set; }
+
+        [JsonIgnore]
+        public int StudyLoadValue { get; set; }
 
         [JsonIgnore]
         public string ModeOfDelivery { get; set; }
@@ -160,11 +210,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
             }
             set
             {
-                Description = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Description = JsonConvert.SerializeObject(value);
             }
         }
 
@@ -213,11 +264,12 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(AdmissionRequirements);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(AdmissionRequirements);
             }
             set
             {
-                AdmissionRequirements = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    AdmissionRequirements = JsonConvert.SerializeObject(value);
             }
         }
 
@@ -257,19 +309,20 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Enrollment);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Enrollment);
             }
             set
             {
-                Enrollment = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Enrollment = JsonConvert.SerializeObject(value);
             }
         }
 
         [JsonIgnore]
-        public String Enrollment { get; set; }
+        public string Enrollment { get; set; }
 
         [JsonIgnore]
-        public List<Resource> Resources { get; set; }
+        public string Resources { get; set; }
 
         /// <summary>
         /// An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)
@@ -291,16 +344,17 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Assessment);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Assessment);
             }
             set
             {
-                Assessment = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Assessment = JsonConvert.SerializeObject(value);
             }
         }
 
         [JsonIgnore]
-        public String Assessment { get; set; }
+        public string Assessment { get; set; }
 
 
         /// <summary>
@@ -320,13 +374,17 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "educationSpecification")]
         public OneOfEducationSpecification EducationSpecification { get; set; }
 
+
+        [JsonIgnore]
+        public Guid? EducationSpecificationId { get; set; }
+
         /// <summary>
         /// Addresses for this course
         /// </summary>
         /// <value>Addresses for this course</value>
-
         [JsonProperty(PropertyName = "addresses")]
-        public List<Address> Addresses { get; set; }
+        [NotMapped]
+        public List<Address>? Addresses { get; set; }
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
@@ -341,9 +399,9 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
-
+        [JsonProperty("consumers")]
+        [NotMapped]
+        public List<dynamic>? Consumers { get; set; }
 
         /// <summary>
         /// The program of which this course is a part of. This object is [&#x60;expandable&#x60;](#tag/program_model)
@@ -369,6 +427,10 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "organization")]
         public OneOfOrganization Organization { get; set; }
 
+        [JsonIgnore]
+        public Guid? OrganizationId { get; set; }
+
+
         /// <summary>
         /// The first day this course is valid (inclusive).
         /// </summary>
@@ -384,6 +446,17 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "validTo")]
         public DateTime? ValidTo { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<Program> ProgramsRef { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Person> CoordinatorsRef { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<Address> Address { get; set; }
 
 
     }

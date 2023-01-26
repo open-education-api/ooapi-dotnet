@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,9 +27,29 @@ namespace ooapi.v5.Models
         /// Gets or Sets PrimaryCode
         /// </summary>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "primaryCode")]
-        public PrimaryCode PrimaryCode { get; set; }
+        [NotMapped]
+        public IdentifierEntry primaryCode
+        {
+            get
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
+        }
+
+
+        [JsonIgnore]
+        public string PrimaryCodeType { get; set; }
+
+        [JsonIgnore]
+        [SortAllowed]
+        public string PrimaryCode { get; set; }
+
 
         /// <summary>
         /// An array of additional human readable codes/identifiers for the entity being described.
@@ -36,7 +57,7 @@ namespace ooapi.v5.Models
         /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
         [JsonProperty(PropertyName = "otherCodes")]
-        public List<OtherCodes> OtherCodes { get; set; }
+        public List<OtherCodes>? OtherCodes { get; set; }
 
         /// <summary>
         /// The type of education specification   - program: HOOPLEIDING   - privateProgram: PARTICULIEREOPLEIDING   - programCluster: HOONDERWIJSEENHEDENCLUSTER   - course: HOONDERWIJSEENHEID 
@@ -52,6 +73,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "educationSpecificationType")]
+        [SortAllowed]
         public EducationSpecificationTypeEnum? EducationSpecificationType { get; set; }
 
         /// <summary>
@@ -65,16 +87,19 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Name);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
             }
             set
             {
-                Name = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Name = JsonConvert.SerializeObject(value);
             }
         }
 
 
         [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
         public string Name { get; set; }
 
 
@@ -86,7 +111,7 @@ namespace ooapi.v5.Models
 
         [MaxLength(256)]
         [JsonProperty(PropertyName = "abbreviation")]
-        public string Abbreviation { get; set; }
+        public string? Abbreviation { get; set; }
 
         /// <summary>
         /// The description of this program. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.
@@ -94,20 +119,21 @@ namespace ooapi.v5.Models
         /// <value>The description of this program. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.</value>
         [JsonProperty(PropertyName = "description")]
         [NotMapped]
-        public List<LanguageTypedString> description
+        public List<LanguageTypedString>? description
         {
             get
             {
-                return (List<LanguageTypedString>)JsonConvert.DeserializeObject(Description);
+                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
             }
             set
             {
-                Description = JsonConvert.SerializeObject(value);
+                if (value != null)
+                    Description = JsonConvert.SerializeObject(value);
             }
         }
 
         [JsonIgnore]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
 
 
@@ -152,14 +178,45 @@ namespace ooapi.v5.Models
 
         [MaxLength(4)]
         [JsonProperty(PropertyName = "fieldsOfStudy")]
-        public string FieldsOfStudy { get; set; }
+        public string? FieldsOfStudy { get; set; }
 
         /// <summary>
         /// Gets or Sets StudyLoad
         /// </summary>
-
         [JsonProperty(PropertyName = "studyLoad")]
-        public StudyLoadDescriptor StudyLoad { get; set; }
+        [NotMapped]
+        public StudyLoadDescriptor? StudyLoad
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(StudyLoadUnit) || StudyLoadValue == 0)
+                    return null;
+                try
+                {
+
+                    StudyLoadDescriptor result = new StudyLoadDescriptor();
+                    result.StudyLoadUnit = StudyLoadUnit;
+                    result.Value = StudyLoadValue;
+                    return result;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                StudyLoadUnit = value.StudyLoadUnit;
+                StudyLoadValue = value.Value;
+            }
+        }
+
+        [JsonIgnore]
+        public string? StudyLoadUnit { get; set; }
+
+        [JsonIgnore]
+        public int StudyLoadValue { get; set; }
+
 
         /// <summary>
         /// Statements that describe the knowledge or skills students should acquire by the end of a particular course or program (ECTS-learningoutcome).
@@ -168,7 +225,7 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "learningOutcomes")]
         [NotMapped]
-        public List<List<LanguageTypedString>> LearningOutcomes { get; set; }
+        public List<List<LanguageTypedString>>? LearningOutcomes { get; set; }
 
         /// <summary>
         /// URL of the program&#x27;s website
@@ -177,7 +234,7 @@ namespace ooapi.v5.Models
 
         [MaxLength(2048)]
         [JsonProperty(PropertyName = "link")]
-        public string Link { get; set; }
+        public string? Link { get; set; }
 
         /// <summary>
         /// The educationSpecification that is the parent of this educationSpecification if it exists. [&#x60;expandable&#x60;](#tag/education_specification_model)
@@ -185,7 +242,10 @@ namespace ooapi.v5.Models
         /// <value>The educationSpecification that is the parent of this educationSpecification if it exists. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
 
         [JsonProperty(PropertyName = "parent")]
-        public OneOfEducationSpecification Parent { get; set; }
+        public OneOfEducationSpecification? Parent { get; set; }
+
+        [JsonIgnore]
+        public Guid? ParentId { get; set; }
 
         /// <summary>
         /// The EducationSpecifications that have this EducationSpecification as their parent. [&#x60;expandable&#x60;](#tag/education_specification_model)
@@ -193,7 +253,7 @@ namespace ooapi.v5.Models
         /// <value>The EducationSpecifications that have this EducationSpecification as their parent. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
 
         [JsonProperty(PropertyName = "children")]
-        public List<OneOfEducationSpecification> Children { get; set; }
+        public List<OneOfEducationSpecification>? Children { get; set; }
 
         /// <summary>
         /// The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -201,15 +261,20 @@ namespace ooapi.v5.Models
         /// <value>The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [JsonProperty(PropertyName = "organization")]
-        public OneOfOrganization Organization { get; set; }
+        public OneOfOrganization? Organization { get; set; }
+
+        [JsonIgnore]
+        public Guid? OrganizationId { get; set; }
+
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty(PropertyName = "consumers")]
-        public List<Consumer> Consumers { get; set; }
+        [JsonProperty("consumers")]
+        [NotMapped]
+        public List<dynamic>? Consumers { get; set; }
 
 
         /// <summary>
@@ -227,6 +292,7 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "validTo")]
         public DateTime? ValidTo { get; set; }
+
 
 
     }

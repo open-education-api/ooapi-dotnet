@@ -1,4 +1,5 @@
-﻿using ooapi.v5.Enums.Params;
+﻿using Newtonsoft.Json;
+using ooapi.v5.Enums.Params;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -12,18 +13,16 @@ namespace ooapi.v5.Models.Params
         /// Default: 10
         /// </summary>
         [DefaultValue(PageSizeEnum.Ten)]
-        public PageSizeEnum pageSize { get; set; }
+        [JsonProperty("pageSize")]
+        public PageSizeEnum PageSize { get; set; }
 
         /// <summary>
         /// The page number to get. Page numbers start at 1. <br/>
         /// Example: pageNumber=1
         /// </summary>
-        /// <param name="pageNumber" example="IETS"></param>
-        [MinLength(1)]
-        public int pageNumber { get; set; } = 1;
-
-
-
+        [DefaultValue(1)]
+        [JsonProperty("pageNumber")]
+        public int PageNumber { get; set; } = 1;
 
 
     }

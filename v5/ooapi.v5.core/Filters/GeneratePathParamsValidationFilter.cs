@@ -1,8 +1,7 @@
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Filters
 {
@@ -26,7 +25,7 @@ namespace ooapi.v5.Filters
 
                 var attributes = ((ControllerParameterDescriptor)par.ParameterDescriptor).ParameterInfo.CustomAttributes;
 
-                if (attributes != null && attributes.Count() > 0 && swaggerParam != null)
+                if (attributes != null && attributes.Any() && swaggerParam != null)
                 {
                     // Required - [JsonRequired]
                     var requiredAttr = attributes.FirstOrDefault(p => p.AttributeType == typeof(RequiredAttribute));
