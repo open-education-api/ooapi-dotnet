@@ -14,20 +14,20 @@ public enum GenderEnum
     /// Enum MEnum for M
     /// </summary>
     [EnumMember(Value = "M")]
-    MEnum = 0,
+    M = 0,
     /// <summary>
     /// Enum FEnum for F
     /// </summary>
     [EnumMember(Value = "F")]
-    FEnum = 1,
+    F = 1,
     /// <summary>
     /// Enum UEnum for U
     /// </summary>
     [EnumMember(Value = "U")]
-    UEnum = 2,
+    U = 2,
     /// <summary>
     /// Enum XEnum for X
     /// </summary>
     [EnumMember(Value = "X")]
-    XEnum = 3
+    X = 3
 }

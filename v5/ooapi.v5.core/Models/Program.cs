@@ -214,27 +214,27 @@ namespace ooapi.v5.Models
                         {
                             case "distance-learning":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.DistanceLearningEnum);
+                                    list.Add(ModeOfDeliveryEnum.distance_learning);
                                     break;
                                 }
                             case "on campus":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.OnCampusEnum);
+                                    list.Add(ModeOfDeliveryEnum.on_campus);
                                     break;
                                 }
                             case "online":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.OnlineEnum);
+                                    list.Add(ModeOfDeliveryEnum.online);
                                     break;
                                 }
                             case "hybrid":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.HybridEnum);
+                                    list.Add(ModeOfDeliveryEnum.hybrid);
                                     break;
                                 }
                             case "situated":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.SituatedEnum);
+                                    list.Add(ModeOfDeliveryEnum.situated);
                                     break;
                                 }
                             default:
@@ -290,7 +290,7 @@ namespace ooapi.v5.Models
         /// <value>The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs </value>
 
         [JsonProperty(PropertyName = "sector")]
-        public SectorEnum? Sector { get; set; }
+        public ProgramSectorEnum? Sector { get; set; }
 
         /// <summary>
         /// Field(s) of study (e.g. ISCED-F) (http://uis.unesco.org/sites/default/files/documents/isced-fields-of-education-and-training-2013-en.pdf.

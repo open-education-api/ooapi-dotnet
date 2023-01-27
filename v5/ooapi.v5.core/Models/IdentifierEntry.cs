@@ -1,4 +1,6 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Models
 {
@@ -21,8 +23,9 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Human readable value for the code/identifier</value>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "code")]
+        [MaxLength(256)]
+        [Searchable]
         public string? Code { get; set; }
     }
 

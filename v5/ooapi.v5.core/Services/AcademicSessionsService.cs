@@ -1,6 +1,7 @@
 ﻿using ooapi.v5.core.Models;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Utility;
+using ooapi.v5.Enums;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services
@@ -14,11 +15,11 @@ namespace ooapi.v5.core.Services
             _repository = new AcademicSessionsRepository(dbContext);
         }
 
-        public Pagination<AcademicSession> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+        public Pagination<AcademicSession> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse, AcademicSessionTypeEnum? academicSessionType)
         {
             try
             {
-                Pagination<AcademicSession> result = _repository.GetAllOrderedBy(dataRequestParameters);
+                Pagination<AcademicSession> result = _repository.GetAllOrderedBy(dataRequestParameters, academicSessionType);
                 errorResponse = null;
                 return result;
             }

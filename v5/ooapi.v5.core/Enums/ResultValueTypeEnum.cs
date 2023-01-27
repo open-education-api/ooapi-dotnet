@@ -14,25 +14,25 @@ public enum ResultValueTypeEnum
     /// Enum PassOrFailEnum for pass-or-fail
     /// </summary>
     [EnumMember(Value = "pass-or-fail")]
-    PassOrFailEnum = 0,
+    pass_or_fail = 0,
     /// <summary>
     /// Enum USLetterEnum for US letter
     /// </summary>
     [EnumMember(Value = "US letter")]
-    USLetterEnum = 1,
+    US_letter = 1,
     /// <summary>
     /// Enum UKLetterEnum for UK letter
     /// </summary>
     [EnumMember(Value = "UK letter")]
-    UKLetterEnum = 2,
+    UK_letter = 2,
     /// <summary>
     /// Enum _0100Enum for 0-100
     /// </summary>
     [EnumMember(Value = "0-100")]
-    _0100Enum = 3,
+    _0_100 = 3,
     /// <summary>
     /// Enum _110Enum for 1-10
     /// </summary>
     [EnumMember(Value = "1-10")]
-    _110Enum = 4
+    _1_10 = 4
 }

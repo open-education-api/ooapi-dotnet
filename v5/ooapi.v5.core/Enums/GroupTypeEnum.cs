@@ -14,15 +14,15 @@ public enum GroupTypeEnum
     /// Enum LearningGroupEnum for learning group
     /// </summary>
     [EnumMember(Value = "learning group")]
-    LearningGroupEnum = 0,
+    learning_group = 0,
     /// <summary>
     /// Enum ClassEnum for class
     /// </summary>
     [EnumMember(Value = "class")]
-    ClassEnum = 1,
+    Class = 1,
     /// <summary>
     /// Enum TeamEnum for team
     /// </summary>
     [EnumMember(Value = "team")]
-    TeamEnum = 2
+    team = 2
 }

@@ -12,7 +12,7 @@ namespace ooapi.v5.Models.Params
         /// The number of items per page <br/>
         /// Default: 10
         /// </summary>
-        [DefaultValue(PageSizeEnum.Ten)]
+        [DefaultValue(PageSizeEnum._10)]
         [JsonProperty("pageSize")]
         public PageSizeEnum PageSize { get; set; }
 

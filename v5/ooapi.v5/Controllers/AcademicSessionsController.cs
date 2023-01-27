@@ -5,6 +5,8 @@ using ooapi.v5.Attributes;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Services;
 using ooapi.v5.core.Utility;
+using ooapi.v5.Enums;
+using ooapi.v5.Filters;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using Swashbuckle.AspNetCore.Annotations;
@@ -17,6 +19,7 @@ namespace ooapi.v5.Controllers;
 /// 
 /// </summary>
 [ApiController]
+[ValidateModelStateAttribute]
 public class AcademicSessionsController : BaseController
 {
 
@@ -45,11 +48,11 @@ public class AcademicSessionsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("AcademicSessionsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(AcademicSessions), description: "OK")]
-    public virtual IActionResult AcademicSessionsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? academicSessionType, [FromQuery] Guid? parent, [FromQuery] Guid? year, [FromQuery] string sort = "startDate")
+    public virtual IActionResult AcademicSessionsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] AcademicSessionTypeEnum? academicSessionType, [FromQuery] Guid? parent, [FromQuery] Guid? year, [FromQuery] string sort = "startDate")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new AcademicSessionsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        var result = service.GetAll(parameters, out ErrorResponse errorResponse, academicSessionType);
         if (result == null)
         {
             return BadRequest(errorResponse);

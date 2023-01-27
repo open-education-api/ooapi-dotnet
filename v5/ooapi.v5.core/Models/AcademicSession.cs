@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-
+using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ooapi.v5.Models
@@ -10,7 +13,7 @@ namespace ooapi.v5.Models
     /// A named period of time that can be used to communicate the various schedules and time periods an institution recognizes and uses to organize their education. AcademicSessions can be nested. Offerings MAY be be linked to a specific AcademicSession to indicate that the specified Offering takes place during the AcademicSession, however this is not mandatory. 
     /// </summary>
 
-    public partial class AcademicSession : ModelBase
+    public class AcademicSession : ModelBase, IValidatableObject
     {
         /// <summary>
         /// Unique id for this academic session
@@ -33,7 +36,7 @@ namespace ooapi.v5.Models
         /// </summary>
 
         [JsonProperty("academicSessionType")]
-        public string? AcademicSessionType { get; set; }
+        public AcademicSessionTypeEnum? AcademicSessionType { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
@@ -166,5 +169,11 @@ namespace ooapi.v5.Models
         public virtual ICollection<ComponentOffering> ComponentOfferings { get; set; }
 
 
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var vali = validationContext;
+            return null;
+            //Type = result.ToString(); //normalize Type
+        }
     }
 }

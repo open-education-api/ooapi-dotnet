@@ -1,5 +1,5 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -47,7 +47,6 @@ namespace ooapi.v5.Models
         public string PrimaryCodeType { get; set; }
 
         [JsonIgnore]
-        [SortAllowed]
         public string PrimaryCode { get; set; }
 
 
@@ -73,7 +72,6 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "educationSpecificationType")]
-        [SortAllowed]
         public EducationSpecificationTypeEnum? EducationSpecificationType { get; set; }
 
         /// <summary>
@@ -98,8 +96,6 @@ namespace ooapi.v5.Models
 
 
         [JsonIgnore]
-        [SortAllowed]
-        [SortDefault]
         public string Name { get; set; }
 
 
@@ -159,7 +155,7 @@ namespace ooapi.v5.Models
         /// <value>The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs </value>
 
         [JsonProperty(PropertyName = "sector")]
-        public SectorEnum? Sector { get; set; }
+        public ProgramSectorEnum? Sector { get; set; }
 
 
 

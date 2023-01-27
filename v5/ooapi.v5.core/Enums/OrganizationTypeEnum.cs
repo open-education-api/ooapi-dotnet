@@ -14,35 +14,35 @@ public enum OrganizationTypeEnum
     /// Enum RootEnum for root
     /// </summary>
     [EnumMember(Value = "root")]
-    RootEnum = 0,
+    root = 0,
     /// <summary>
     /// Enum InstituteEnum for institute
     /// </summary>
     [EnumMember(Value = "institute")]
-    InstituteEnum = 1,
+    institute = 1,
     /// <summary>
     /// Enum DepartmentEnum for department
     /// </summary>
     [EnumMember(Value = "department")]
-    DepartmentEnum = 2,
+    department = 2,
     /// <summary>
     /// Enum FacultyEnum for faculty
     /// </summary>
     [EnumMember(Value = "faculty")]
-    FacultyEnum = 3,
+    faculty = 3,
     /// <summary>
     /// Enum BranchEnum for branch
     /// </summary>
     [EnumMember(Value = "branch")]
-    BranchEnum = 4,
+    branch = 4,
     /// <summary>
     /// Enum AcademyEnum for academy
     /// </summary>
     [EnumMember(Value = "academy")]
-    AcademyEnum = 5,
+    academy = 5,
     /// <summary>
     /// Enum SchoolEnum for school
     /// </summary>
     [EnumMember(Value = "school")]
-    SchoolEnum = 6
+    school = 6
 }

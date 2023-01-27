@@ -14,15 +14,15 @@ public enum AssociationTypeEnum
     /// Enum ProgramOfferingAssociationEnum for programOfferingAssociation
     /// </summary>
     [EnumMember(Value = "programOfferingAssociation")]
-    ProgramOfferingAssociationEnum = 0,
+    programOfferingAssociation = 0,
     /// <summary>
     /// Enum CourseOfferingAssociationEnum for courseOfferingAssociation
     /// </summary>
     [EnumMember(Value = "courseOfferingAssociation")]
-    CourseOfferingAssociationEnum = 1,
+    courseOfferingAssociation = 1,
     /// <summary>
     /// Enum ComponentOfferingAssociationEnum for componentOfferingAssociation
     /// </summary>
     [EnumMember(Value = "componentOfferingAssociation")]
-    ComponentOfferingAssociationEnum = 2
+    componentOfferingAssociation = 2
 }

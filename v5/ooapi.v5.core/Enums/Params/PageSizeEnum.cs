@@ -4,15 +4,15 @@
 
 public enum PageSizeEnum
 {
-    Ten = 10,
+    _10 = 10,
 
-    Twenty = 20,
+    _20 = 20,
 
-    Fifty = 50,
+    _50 = 50,
 
-    Hundred = 100,
+    _100 = 100,
 
-    Twohundredfifty = 250
+    _250 = 250
 
 }
 

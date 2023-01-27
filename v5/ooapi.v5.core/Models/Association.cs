@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -23,8 +22,6 @@ namespace ooapi.v5.Models
         /// <value>Unique id for this association</value>
         [JsonRequired]
         [JsonProperty("associationId")]
-        [SortAllowed]
-        [SortDefault]
         public Guid AssociationId { get; set; }
 
         /// <summary>
@@ -38,12 +35,12 @@ namespace ooapi.v5.Models
 
 
         /// <summary>
-        /// The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coÃ¶rdinator   - guest: gast 
+        /// The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coördinator   - guest: gast 
         /// </summary>
-        /// <value>The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coÃ¶rdinator   - guest: gast </value>
+        /// <value>The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coördinator   - guest: gast </value>
         [JsonRequired]
         [JsonProperty(PropertyName = "role")]
-        public RoleEnum Role { get; set; }
+        public AssociationRoleEnum Role { get; set; }
 
         /// <summary>
         /// The state of this association

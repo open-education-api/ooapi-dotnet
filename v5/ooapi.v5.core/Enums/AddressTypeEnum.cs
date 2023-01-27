@@ -15,25 +15,25 @@ public enum AddressTypeEnum
     /// Enum PostalEnum for postal
     /// </summary>
     [EnumMember(Value = "postal")]
-    PostalEnum = 0,
+    postal = 0,
     /// <summary>
     /// Enum VisitEnum for visit
     /// </summary>
     [EnumMember(Value = "visit")]
-    VisitEnum = 1,
+    visit = 1,
     /// <summary>
     /// Enum DeliveriesEnum for deliveries
     /// </summary>
     [EnumMember(Value = "deliveries")]
-    DeliveriesEnum = 2,
+    deliveries = 2,
     /// <summary>
     /// Enum BillingEnum for billing
     /// </summary>
     [EnumMember(Value = "billing")]
-    BillingEnum = 3,
+    billing = 3,
     /// <summary>
     /// Enum TeachingEnum for teaching
     /// </summary>
     [EnumMember(Value = "teaching")]
-    TeachingEnum = 4
+    teaching = 4
 }

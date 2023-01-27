@@ -14,25 +14,25 @@ public enum FormalDocumentEnum
     /// Enum DiplomaEnum for diploma
     /// </summary>
     [EnumMember(Value = "diploma")]
-    DiplomaEnum = 0,
+    diploma = 0,
     /// <summary>
     /// Enum CertificateEnum for certificate
     /// </summary>
     [EnumMember(Value = "certificate")]
-    CertificateEnum = 1,
+    certificate = 1,
     /// <summary>
     /// Enum NoOfficialDocumentEnum for no official document
     /// </summary>
     [EnumMember(Value = "no official document")]
-    NoOfficialDocumentEnum = 2,
+    no_official_document = 2,
     /// <summary>
     /// Enum TestimonialEnum for testimonial
     /// </summary>
     [EnumMember(Value = "testimonial")]
-    TestimonialEnum = 3,
+    testimonial = 3,
     /// <summary>
     /// Enum SchoolAdviceEnum for school advice
     /// </summary>
     [EnumMember(Value = "school advice")]
-    SchoolAdviceEnum = 4
+    school_advice = 4
 }

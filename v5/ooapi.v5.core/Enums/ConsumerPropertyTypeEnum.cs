@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 public enum ConsumerPropertyTypeEnum
 {
 
-    [EnumMember(Value = "string")]
+    [EnumMember(Value = "String")]
     String = 0,
 
     [EnumMember(Value = "JArray")]
@@ -17,10 +17,10 @@ public enum ConsumerPropertyTypeEnum
     [EnumMember(Value = "JObject")]
     JObject = 2,
 
-    [EnumMember(Value = "int")]
+    [EnumMember(Value = "Int")]
     Int = 3,
 
-    [EnumMember(Value = "bool")]
+    [EnumMember(Value = "Bool")]
     Bool = 4
 
 }

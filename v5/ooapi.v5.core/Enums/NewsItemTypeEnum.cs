@@ -14,20 +14,20 @@ public enum NewsItemTypeEnum
     /// Enum CalamityEnum for calamity
     /// </summary>
     [EnumMember(Value = "calamity")]
-    CalamityEnum = 0,
+    calamity = 0,
     /// <summary>
     /// Enum GeneralEnum for general
     /// </summary>
     [EnumMember(Value = "general")]
-    GeneralEnum = 1,
+    general = 1,
     /// <summary>
     /// Enum ScheduleChangeEnum for schedule-change
     /// </summary>
     [EnumMember(Value = "schedule-change")]
-    ScheduleChangeEnum = 2,
+    schedule_change = 2,
     /// <summary>
     /// Enum AnnouncementEnum for announcement
     /// </summary>
     [EnumMember(Value = "announcement")]
-    AnnouncementEnum = 3
+    announcement = 3
 }

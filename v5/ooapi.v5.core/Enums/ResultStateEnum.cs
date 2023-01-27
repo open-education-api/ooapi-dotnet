@@ -14,20 +14,20 @@ public enum ResultStateEnum
     /// Enum InProgressEnum for in progress
     /// </summary>
     [EnumMember(Value = "in progress")]
-    InProgressEnum = 0,
+    in_progress = 0,
     /// <summary>
     /// Enum PostponedEnum for postponed
     /// </summary>
     [EnumMember(Value = "postponed")]
-    PostponedEnum = 1,
+    postponed = 1,
     /// <summary>
     /// Enum CompletedEnum for completed
     /// </summary>
     [EnumMember(Value = "completed")]
-    CompletedEnum = 2,
+    completed = 2,
     /// <summary>
     /// Enum QueuedEnum for queued
     /// </summary>
     [EnumMember(Value = "queued")]
-    QueuedEnum = 3
+    queued = 3
 }

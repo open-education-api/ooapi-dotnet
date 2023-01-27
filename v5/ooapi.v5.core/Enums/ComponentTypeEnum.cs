@@ -14,55 +14,55 @@ public enum ComponentTypeEnum
     /// Enum TestEnum for test
     /// </summary>
     [EnumMember(Value = "test")]
-    TestEnum = 0,
+    test = 0,
     /// <summary>
     /// Enum LectureEnum for lecture
     /// </summary>
     [EnumMember(Value = "lecture")]
-    LectureEnum = 1,
+    lecture = 1,
     /// <summary>
     /// Enum PracticalEnum for practical
     /// </summary>
     [EnumMember(Value = "practical")]
-    PracticalEnum = 2,
+    practical = 2,
     /// <summary>
     /// Enum TutorialEnum for tutorial
     /// </summary>
     [EnumMember(Value = "tutorial")]
-    TutorialEnum = 3,
+    tutorial = 3,
     /// <summary>
     /// Enum ConsultationEnum for consultation
     /// </summary>
     [EnumMember(Value = "consultation")]
-    ConsultationEnum = 4,
+    consultation = 4,
     /// <summary>
     /// Enum ProjectEnum for project
     /// </summary>
     [EnumMember(Value = "project")]
-    ProjectEnum = 5,
+    project = 5,
     /// <summary>
     /// Enum WorkshopEnum for workshop
     /// </summary>
     [EnumMember(Value = "workshop")]
-    WorkshopEnum = 6,
+    workshop = 6,
     /// <summary>
     /// Enum ExcursionEnum for excursion
     /// </summary>
     [EnumMember(Value = "excursion")]
-    ExcursionEnum = 7,
+    excursion = 7,
     /// <summary>
     /// Enum IndependentStudyEnum for independent study
     /// </summary>
     [EnumMember(Value = "independent study")]
-    IndependentStudyEnum = 8,
+    independent_study = 8,
     /// <summary>
     /// Enum ExternalEnum for external
     /// </summary>
     [EnumMember(Value = "external")]
-    ExternalEnum = 9,
+    external = 9,
     /// <summary>
     /// Enum SkillsTrainingEnum for skills training
     /// </summary>
     [EnumMember(Value = "skills training")]
-    SkillsTrainingEnum = 10
+    skills_training = 10
 }

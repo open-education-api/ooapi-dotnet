@@ -174,17 +174,17 @@ namespace ooapi.v5.Models
                         {
                             case "student":
                                 {
-                                    list.Add(AffiliationsEnum.StudentEnum);
+                                    list.Add(AffiliationsEnum.student);
                                     break;
                                 }
                             case "employee":
                                 {
-                                    list.Add(AffiliationsEnum.EmployeeEnum);
+                                    list.Add(AffiliationsEnum.employee);
                                     break;
                                 }
                             case "guest":
                                 {
-                                    list.Add(AffiliationsEnum.GuestEnum);
+                                    list.Add(AffiliationsEnum.guest);
                                     break;
                                 }
                             default:

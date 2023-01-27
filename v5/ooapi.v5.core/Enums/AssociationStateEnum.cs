@@ -15,25 +15,25 @@ public enum AssociationStateEnum
     /// Enum PendingEnum for pending
     /// </summary>
     [EnumMember(Value = "pending")]
-    PendingEnum = 0,
+    pending = 0,
     /// <summary>
     /// Enum CanceledEnum for canceled
     /// </summary>
     [EnumMember(Value = "canceled")]
-    CanceledEnum = 1,
+    canceled = 1,
     /// <summary>
     /// Enum DeniedEnum for denied
     /// </summary>
     [EnumMember(Value = "denied")]
-    DeniedEnum = 2,
+    denied = 2,
     /// <summary>
     /// Enum AssociatedEnum for associated
     /// </summary>
     [EnumMember(Value = "associated")]
-    AssociatedEnum = 3,
+    associated = 3,
     /// <summary>
     /// Enum QueuedEnum for queued
     /// </summary>
     [EnumMember(Value = "queued")]
-    QueuedEnum = 4
+    queued = 4
 }

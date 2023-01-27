@@ -14,50 +14,50 @@ public enum RoomTypeEnum
     /// Enum GeneralPurposeEnum for general purpose
     /// </summary>
     [EnumMember(Value = "general purpose")]
-    GeneralPurposeEnum = 0,
+    general_purpose = 0,
     /// <summary>
     /// Enum LectureRoomEnum for lecture room
     /// </summary>
     [EnumMember(Value = "lecture room")]
-    LectureRoomEnum = 1,
+    lecture_room = 1,
     /// <summary>
     /// Enum ComputerRoomEnum for computer room
     /// </summary>
     [EnumMember(Value = "computer room")]
-    ComputerRoomEnum = 2,
+    computer_room = 2,
     /// <summary>
     /// Enum LaboratoryEnum for laboratory
     /// </summary>
     [EnumMember(Value = "laboratory")]
-    LaboratoryEnum = 3,
+    laboratory = 3,
     /// <summary>
     /// Enum OfficeEnum for office
     /// </summary>
     [EnumMember(Value = "office")]
-    OfficeEnum = 4,
+    office = 4,
     /// <summary>
     /// Enum WorkspaceEnum for workspace
     /// </summary>
     [EnumMember(Value = "workspace")]
-    WorkspaceEnum = 5,
+    workspace = 5,
     /// <summary>
     /// Enum ExamLocationEnum for exam location
     /// </summary>
     [EnumMember(Value = "exam location")]
-    ExamLocationEnum = 6,
+    exam_location = 6,
     /// <summary>
     /// Enum StudyRoomEnum for study room
     /// </summary>
     [EnumMember(Value = "study room")]
-    StudyRoomEnum = 7,
+    study_room = 7,
     /// <summary>
     /// Enum ExaminationRoomEnum for examination room
     /// </summary>
     [EnumMember(Value = "examination room")]
-    ExaminationRoomEnum = 8,
+    examination_room = 8,
     /// <summary>
     /// Enum ConferenceRoomEnum for conference room
     /// </summary>
     [EnumMember(Value = "conference room")]
-    ConferenceRoomEnum = 9
+    conference_room = 9
 }
