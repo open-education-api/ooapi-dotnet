@@ -16,7 +16,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         return dbContext.AcademicSessions.FirstOrDefault(x => x.AcademicSessionId.Equals(academicSessionId));
     }
 
-    internal Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, Enums.AcademicSessionTypeEnum? academicSessionType = null)
+    internal Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, string? academicSessionType = null)
     {
         IQueryable<AcademicSession> set = dbContext.Set<AcademicSession>().AsQueryable();
 

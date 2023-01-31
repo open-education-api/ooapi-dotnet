@@ -15,7 +15,7 @@ namespace ooapi.v5.core.Services
             _repository = new AcademicSessionsRepository(dbContext);
         }
 
-        public Pagination<AcademicSession> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse, AcademicSessionTypeEnum? academicSessionType)
+        public Pagination<AcademicSession> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse, string? academicSessionType)
         {
             try
             {

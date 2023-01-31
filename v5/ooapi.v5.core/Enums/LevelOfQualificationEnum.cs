@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 /// Level of qualification according to the Dutch National Qualification Framework and the European Qualifications Framework, see [this overview](https://nlqf.nl/images/downloads/English2018/Schematic_overview_NLQF_2020.pdf) for more information.
 /// </summary>
 /// <value>Level of qualification according to the Dutch National Qualification Framework and the European Qualifications Framework, see [this overview](https://nlqf.nl/images/downloads/English2018/Schematic_overview_NLQF_2020.pdf) for more information.</value>
+[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 public enum LevelOfQualificationEnum
 {
     /// <summary>

@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -115,6 +116,7 @@ namespace ooapi.v5.Models
         /// <value>The date of birth of this person, RFC3339 (full-date)</value>
 
         [JsonProperty(PropertyName = "dateOfBirth")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? DateOfBirth { get; set; }
 
         /// <summary>
@@ -147,6 +149,7 @@ namespace ooapi.v5.Models
         /// <value>The date of nationality of this person, RFC3339 (full-date)</value>
 
         [JsonProperty(PropertyName = "dateOfNationality")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? DateOfNationality { get; set; }
 
         [JsonIgnore]

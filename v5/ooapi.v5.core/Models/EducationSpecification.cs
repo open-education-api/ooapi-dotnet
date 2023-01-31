@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -279,6 +280,7 @@ namespace ooapi.v5.Models
         /// <value>The first day this EducationSpecification is valid (inclusive).</value>
 
         [JsonProperty(PropertyName = "validFrom")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? ValidFrom { get; set; }
 
         /// <summary>
@@ -287,6 +289,7 @@ namespace ooapi.v5.Models
         /// <value>The day this EducationSpecification ceases to be valid (e.g. exclusive).</value>
 
         [JsonProperty(PropertyName = "validTo")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? ValidTo { get; set; }
 
 

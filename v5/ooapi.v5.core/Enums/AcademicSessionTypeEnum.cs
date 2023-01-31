@@ -20,7 +20,7 @@ public enum AcademicSessionTypeEnum
     /// <summary>
     /// academic year
     /// </summary>
-    [EnumMember(Value = "academic_year")]
+    [EnumMember(Value = "academic year")]
     academic_year = 0,
     /// <summary>
     /// semester, typically there are two semesters per academic year
