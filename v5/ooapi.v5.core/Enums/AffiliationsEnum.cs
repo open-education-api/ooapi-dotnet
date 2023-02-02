@@ -14,15 +14,15 @@ public enum AffiliationsEnum
     /// Enum StudentEnum for student
     /// </summary>
     [EnumMember(Value = "student")]
-    StudentEnum = 0,
+    student = 0,
     /// <summary>
     /// Enum EmployeeEnum for employee
     /// </summary>
     [EnumMember(Value = "employee")]
-    EmployeeEnum = 1,
+    employee = 1,
     /// <summary>
     /// Enum GuestEnum for guest
     /// </summary>
     [EnumMember(Value = "guest")]
-    GuestEnum = 2
+    guest = 2
 }

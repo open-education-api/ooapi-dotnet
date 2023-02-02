@@ -14,20 +14,20 @@ public enum EducationSpecificationTypeEnum
     /// Enum ProgramEnum for program
     /// </summary>
     [EnumMember(Value = "program")]
-    ProgramEnum = 0,
+    program = 0,
     /// <summary>
     /// Enum PrivateProgramEnum for privateProgram
     /// </summary>
     [EnumMember(Value = "privateProgram")]
-    PrivateProgramEnum = 1,
+    privateProgram = 1,
     /// <summary>
     /// Enum ClusterEnum for cluster
     /// </summary>
     [EnumMember(Value = "cluster")]
-    ClusterEnum = 2,
+    cluster = 2,
     /// <summary>
     /// Enum CourseEnum for course
     /// </summary>
     [EnumMember(Value = "course")]
-    CourseEnum = 3
+    course = 3
 }

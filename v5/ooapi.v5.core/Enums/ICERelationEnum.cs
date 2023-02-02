@@ -14,15 +14,15 @@ public enum ICERelationEnum
     /// Enum PartnerEnum for partner
     /// </summary>
     [EnumMember(Value = "partner")]
-    PartnerEnum = 0,
+    partner = 0,
     /// <summary>
     /// Enum ParentEnum for parent
     /// </summary>
     [EnumMember(Value = "parent")]
-    ParentEnum = 1,
+    parent = 1,
     /// <summary>
     /// Enum OtherEnum for other
     /// </summary>
     [EnumMember(Value = "other")]
-    OtherEnum = 2
+    other = 2
 }

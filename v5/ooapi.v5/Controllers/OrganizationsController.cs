@@ -5,6 +5,7 @@ using ooapi.v5.Attributes;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Services;
 using ooapi.v5.core.Utility;
+using ooapi.v5.Enums;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using Swashbuckle.AspNetCore.Annotations;
@@ -44,11 +45,11 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Organizations), description: "OK")]
-    public virtual IActionResult OrganizationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? organizationType, [FromQuery] string sort = "name")
+    public virtual IActionResult OrganizationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] OrganizationTypeEnum? organizationType, [FromQuery] string sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new OrganizationsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        var result = service.GetAll(parameters, out ErrorResponse errorResponse, organizationType);
         if (result == null)
         {
             return BadRequest(errorResponse);

@@ -14,15 +14,15 @@ public enum PassEnum
     /// Enum UnknownEnum for unknown
     /// </summary>
     [EnumMember(Value = "unknown")]
-    UnknownEnum = 0,
+    unknown = 0,
     /// <summary>
     /// Enum PassedEnum for passed
     /// </summary>
     [EnumMember(Value = "passed")]
-    PassedEnum = 1,
+    passed = 1,
     /// <summary>
     /// Enum FailedEnum for failed
     /// </summary>
     [EnumMember(Value = "failed")]
-    FailedEnum = 2
+    failed = 2
 }

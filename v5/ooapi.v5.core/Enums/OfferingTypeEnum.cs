@@ -14,15 +14,15 @@ public enum OfferingTypeEnum
     /// Enum ProgramEnum for program
     /// </summary>
     [EnumMember(Value = "program")]
-    ProgramEnum = 0,
+    program = 0,
     /// <summary>
     /// Enum CourseEnum for course
     /// </summary>
     [EnumMember(Value = "course")]
-    CourseEnum = 1,
+    course = 1,
     /// <summary>
     /// Enum ComponentEnum for component
     /// </summary>
     [EnumMember(Value = "component")]
-    ComponentEnum = 2
+    component = 2
 }

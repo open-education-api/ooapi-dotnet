@@ -1,6 +1,7 @@
 ﻿using ooapi.v5.core.Models;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Utility;
+using ooapi.v5.Enums;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services
@@ -14,11 +15,11 @@ namespace ooapi.v5.core.Services
             _repository = new OrganizationsRepository(dbContext);
         }
 
-        public Pagination<Organization> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+        public Pagination<Organization> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse, OrganizationTypeEnum? organizationType = null)
         {
             try
             {
-                Pagination<Organization> result = _repository.GetAllOrderedBy(dataRequestParameters);
+                Pagination<Organization> result = _repository.GetAllOrderedBy(dataRequestParameters, organizationType);
                 foreach (var item in result.Items)
                 {
                     SetAddresses(item);

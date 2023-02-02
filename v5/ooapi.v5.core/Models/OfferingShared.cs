@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
@@ -21,7 +22,8 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "startDate")]
         [SortAllowed]
         [SortDefault]
-        public DateOnly? StartDate { get; set; }
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
+        public DateTime? StartDate { get; set; }
 
         /// <summary>
         /// The moment on which this offering ends, RFC3339 (full-date)
@@ -30,7 +32,8 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty(PropertyName = "endDate")]
         [SortAllowed]
-        public DateOnly? EndDate { get; set; }
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
+        public DateTime? EndDate { get; set; }
 
 
         /// <summary>
@@ -39,7 +42,8 @@ namespace ooapi.v5.Models
         /// <value>If this is a course wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodEnd&#x60;.</value>
 
         [JsonProperty(PropertyName = "flexibleEntryPeriodStart")]
-        public DateOnly? FlexibleEntryPeriodStart { get; set; }
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
+        public DateTime? FlexibleEntryPeriodStart { get; set; }
 
         /// <summary>
         /// If this is a course wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodStart&#x60;.
@@ -47,7 +51,8 @@ namespace ooapi.v5.Models
         /// <value>If this is a course wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodStart&#x60;.</value>
 
         [JsonProperty(PropertyName = "flexibleEntryPeriodEnd")]
-        public DateOnly? FlexibleEntryPeriodEnd { get; set; }
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
+        public DateTime? FlexibleEntryPeriodEnd { get; set; }
 
 
         /// <summary>

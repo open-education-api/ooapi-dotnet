@@ -2,14 +2,13 @@
 
 namespace ooapi.v5.Helpers
 {
-    public class MyDateFormatConverter : IsoDateTimeConverter
+    public class DateFormatConverter : IsoDateTimeConverter
 
     {
 
-        public MyDateFormatConverter()
-
+        public DateFormatConverter(string format)
         {
-            DateTimeFormat = "yyyy-MM-dd";
+            DateTimeFormat = format;
         }
     }
 }

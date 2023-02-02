@@ -126,27 +126,27 @@ namespace ooapi.v5.Models
                         {
                             case "distance-learning":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.DistanceLearningEnum);
+                                    list.Add(ModeOfDeliveryEnum.distance_learning);
                                     break;
                                 }
                             case "on campus":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.OnCampusEnum);
+                                    list.Add(ModeOfDeliveryEnum.on_campus);
                                     break;
                                 }
                             case "online":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.OnlineEnum);
+                                    list.Add(ModeOfDeliveryEnum.online);
                                     break;
                                 }
                             case "hybrid":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.HybridEnum);
+                                    list.Add(ModeOfDeliveryEnum.hybrid);
                                     break;
                                 }
                             case "situated":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.SituatedEnum);
+                                    list.Add(ModeOfDeliveryEnum.situated);
                                     break;
                                 }
                             default:

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.Helpers;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models
@@ -18,6 +19,7 @@ namespace ooapi.v5.Models
         /// <value>If this is a program wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodEnd&#x60;.</value>
 
         [JsonProperty(PropertyName = "flexibleEntryPeriodStart")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? FlexibleEntryPeriodStart { get; set; }
 
         /// <summary>
@@ -26,6 +28,7 @@ namespace ooapi.v5.Models
         /// <value>If this is a program wherein participants can start at various moments, without missing anything, use this attribute in combination with &#x60;flexibleEntryPeriodStart&#x60;.</value>
 
         [JsonProperty(PropertyName = "flexibleEntryPeriodEnd")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? FlexibleEntryPeriodEnd { get; set; }
 
 

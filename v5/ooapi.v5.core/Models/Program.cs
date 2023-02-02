@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -214,27 +215,27 @@ namespace ooapi.v5.Models
                         {
                             case "distance-learning":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.DistanceLearningEnum);
+                                    list.Add(ModeOfDeliveryEnum.distance_learning);
                                     break;
                                 }
                             case "on campus":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.OnCampusEnum);
+                                    list.Add(ModeOfDeliveryEnum.on_campus);
                                     break;
                                 }
                             case "online":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.OnlineEnum);
+                                    list.Add(ModeOfDeliveryEnum.online);
                                     break;
                                 }
                             case "hybrid":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.HybridEnum);
+                                    list.Add(ModeOfDeliveryEnum.hybrid);
                                     break;
                                 }
                             case "situated":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.SituatedEnum);
+                                    list.Add(ModeOfDeliveryEnum.situated);
                                     break;
                                 }
                             default:
@@ -261,6 +262,7 @@ namespace ooapi.v5.Models
         /// <value>The date when participants can follow this program for the first time.</value>
 
         [JsonProperty(PropertyName = "firstStartDate")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? FirstStartDate { get; set; }
 
 
@@ -290,7 +292,7 @@ namespace ooapi.v5.Models
         /// <value>The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs </value>
 
         [JsonProperty(PropertyName = "sector")]
-        public SectorEnum? Sector { get; set; }
+        public ProgramSectorEnum? Sector { get; set; }
 
         /// <summary>
         /// Field(s) of study (e.g. ISCED-F) (http://uis.unesco.org/sites/default/files/documents/isced-fields-of-education-and-training-2013-en.pdf.
@@ -513,6 +515,7 @@ namespace ooapi.v5.Models
         /// <value>The first day this program is valid (inclusive).</value>
 
         [JsonProperty(PropertyName = "validFrom")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? ValidFrom { get; set; }
 
         /// <summary>
@@ -521,6 +524,7 @@ namespace ooapi.v5.Models
         /// <value>The day this program ceases to be valid (e.g. exclusive).</value>
 
         [JsonProperty(PropertyName = "validTo")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? ValidTo { get; set; }
 
         //[JsonIgnore]

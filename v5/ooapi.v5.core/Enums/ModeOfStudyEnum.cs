@@ -14,20 +14,20 @@ public enum ModeOfStudyEnum
     /// Enum FullTimeEnum for full-time
     /// </summary>
     [EnumMember(Value = "full-time")]
-    FullTimeEnum = 0,
+    full_time = 0,
     /// <summary>
     /// Enum PartTimeEnum for part-time
     /// </summary>
     [EnumMember(Value = "part-time")]
-    PartTimeEnum = 1,
+    part_time = 1,
     /// <summary>
     /// Enum DualTrainingEnum for dual training
     /// </summary>
     [EnumMember(Value = "dual training")]
-    DualTrainingEnum = 2,
+    dual_training = 2,
     /// <summary>
     /// Enum SelfPacedEnum for self-paced
     /// </summary>
     [EnumMember(Value = "self-paced")]
-    SelfPacedEnum = 3
+    self_paced = 3
 }

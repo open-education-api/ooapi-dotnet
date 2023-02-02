@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -167,27 +168,27 @@ namespace ooapi.v5.Models
                         {
                             case "distance-learning":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.DistanceLearningEnum);
+                                    list.Add(ModeOfDeliveryEnum.distance_learning);
                                     break;
                                 }
                             case "on campus":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.OnCampusEnum);
+                                    list.Add(ModeOfDeliveryEnum.on_campus);
                                     break;
                                 }
                             case "online":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.OnlineEnum);
+                                    list.Add(ModeOfDeliveryEnum.online);
                                     break;
                                 }
                             case "hybrid":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.HybridEnum);
+                                    list.Add(ModeOfDeliveryEnum.hybrid);
                                     break;
                                 }
                             case "situated":
                                 {
-                                    list.Add(ModeOfDeliveryEnum.SituatedEnum);
+                                    list.Add(ModeOfDeliveryEnum.situated);
                                     break;
                                 }
                             default:
@@ -281,13 +282,15 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The first day on which a student can enroll for this course.</value>
         [JsonProperty(PropertyName = "enrollStartDate")]
-        public DateOnly? EnrollStartDate { get; set; }
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
+        public DateTime? EnrollStartDate { get; set; }
 
         /// <summary>
         /// The last day on which a student can enroll for this course.
         /// </summary>
         /// <value>The last day on which a student can enroll for this course.</value>
         [JsonProperty(PropertyName = "enrollEndDate")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? EnrollEndDate { get; set; }
 
 

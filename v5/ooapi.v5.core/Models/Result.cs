@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
@@ -53,6 +54,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
 
         [JsonProperty(PropertyName = "resultDate")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime ResultDate { get; set; }
 
 

@@ -11,7 +11,7 @@ namespace ooapi.v5.core.Utility
         public Dictionary<string, object> Filters { get; set; } = new Dictionary<string, object>();
         public Dictionary<string, object> FiltersExt { get; set; } = new Dictionary<string, object>();
         public string Sort { get; set; }
-        public string SearchTerm { get; set; }
+        public string PrimaryCodeSearch { get; set; }
         public string Expand { get; set; }
         public int Skip => (PageNumber - 1) * PageSize;
 
@@ -41,14 +41,14 @@ namespace ooapi.v5.core.Utility
         {
             if (primaryCodeParam != null && primaryCodeParam.primaryCode != null)
             {
-                SearchTerm = $"primaryCode = {primaryCodeParam.primaryCode}";
+                PrimaryCodeSearch = primaryCodeParam.primaryCode;
             }
             else
             {
                 Sort = sort;
                 if (filterParams != null)
                 {
-                    SearchTerm = filterParams.q;
+                    PrimaryCodeSearch = filterParams.q;
                 }
                 if (curPagingParams != null)
                 {
@@ -61,7 +61,7 @@ namespace ooapi.v5.core.Utility
         public void SetPageSize(PageSizeEnum pageSize)
         {
             if (pageSize == 0)
-                PageSize = (int)PageSizeEnum.Ten;
+                PageSize = (int)PageSizeEnum._10;
 
             else
                 PageSize = (int)pageSize;

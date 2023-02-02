@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
@@ -115,6 +116,7 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "startDate")]
         [SortAllowed]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? StartDate { get; set; }
 
         /// <summary>
@@ -123,6 +125,7 @@ namespace ooapi.v5.Models
         /// <value>The day on which this group ends being active, RFC3339 (full-date)</value>
 
         [JsonProperty(PropertyName = "endDate")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? EndDate { get; set; }
 
         /// <summary>

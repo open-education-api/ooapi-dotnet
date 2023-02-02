@@ -14,18 +14,7 @@ public class CoreDBContext : DbContext
         //
     }
 
-    protected override void ConfigureConventions(ModelConfigurationBuilder builder)
-    {
-        builder.Properties<DateOnly>()
-            .HaveConversion<DateOnlyConverter>()
-            .HaveColumnType("date");
-
-        builder.Properties<DateOnly?>()
-            .HaveConversion<NullableDateOnlyConverter>()
-            .HaveColumnType("date");
-    }
-
-
+ 
     public DbSet<Service> Services { get; set; }
 
     public DbSet<AcademicSession> AcademicSessions { get; set; }

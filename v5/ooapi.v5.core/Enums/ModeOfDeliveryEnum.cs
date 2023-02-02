@@ -13,26 +13,26 @@ public enum ModeOfDeliveryEnum
     /// <summary>
     /// Enum DistanceLearningEnum for distance-learning
     /// </summary>
-    [EnumMember(Value = "distance-learning")]
-    DistanceLearningEnum = 0,
+    [EnumMember(Value = "distance learning")]
+    distance_learning = 0,
     /// <summary>
     /// Enum OnCampusEnum for on campus
     /// </summary>
     [EnumMember(Value = "on campus")]
-    OnCampusEnum = 1,
+    on_campus = 1,
     /// <summary>
     /// Enum OnlineEnum for online
     /// </summary>
     [EnumMember(Value = "online")]
-    OnlineEnum = 2,
+    online = 2,
     /// <summary>
     /// Enum HybridEnum for hybrid
     /// </summary>
     [EnumMember(Value = "hybrid")]
-    HybridEnum = 3,
+    hybrid = 3,
     /// <summary>
     /// Enum SituatedEnum for situated
     /// </summary>
     [EnumMember(Value = "situated")]
-    SituatedEnum = 4
+    situated = 4
 }

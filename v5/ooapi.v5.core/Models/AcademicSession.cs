@@ -1,7 +1,11 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-
+using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ooapi.v5.Models
@@ -10,7 +14,7 @@ namespace ooapi.v5.Models
     /// A named period of time that can be used to communicate the various schedules and time periods an institution recognizes and uses to organize their education. AcademicSessions can be nested. Offerings MAY be be linked to a specific AcademicSession to indicate that the specified Offering takes place during the AcademicSession, however this is not mandatory. 
     /// </summary>
 
-    public partial class AcademicSession : ModelBase
+    public class AcademicSession : ModelBase  
     {
         /// <summary>
         /// Unique id for this academic session
@@ -33,7 +37,7 @@ namespace ooapi.v5.Models
         /// </summary>
 
         [JsonProperty("academicSessionType")]
-        public string? AcademicSessionType { get; set; }
+        public AcademicSessionTypeEnum? AcademicSessionType { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCode
@@ -92,7 +96,7 @@ namespace ooapi.v5.Models
         /// <value>The day on which this academic session starts, RFC3339 (full-date)</value>
         [JsonRequired]
         [JsonProperty("startDate")]
-        [JsonConverter(typeof(MyDateFormatConverter))]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         [SortAllowed]
         [SortDefault]
         public DateTime StartDate { get; set; }
@@ -103,7 +107,7 @@ namespace ooapi.v5.Models
         /// <value>The day on which this academic session ends, RFC3339 (full-date)</value>
         [JsonRequired]
         [JsonProperty("endDate")]
-        [JsonConverter(typeof(MyDateFormatConverter))]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime EndDate { get; set; }
 
         /// <summary>
@@ -165,6 +169,5 @@ namespace ooapi.v5.Models
         [JsonIgnore]
         public virtual ICollection<ComponentOffering> ComponentOfferings { get; set; }
 
-
-    }
+        }
 }

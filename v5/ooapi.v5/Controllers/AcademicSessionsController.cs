@@ -9,6 +9,7 @@ using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Controllers;
@@ -31,7 +32,14 @@ public class AcademicSessionsController : BaseController
     /// <param name="primaryCodeParam"></param>
     /// <param name="filterParams"></param>
     /// <param name="pagingParams"></param>
-    /// <param name="academicSessionType">Filter by academic session type <br/> Example: academicSessionType=semester</param>
+    /// <param name="academicSessionType">
+    /// - academic year: academic year <br/>
+    /// - semester: semester, typically there are two semesters per academic year <br/>
+    /// - trimester: trimester, typically there are three semesters per academic year <br/>
+    /// - quarter: quarter, typically there are four quarters per academic year <br/>
+    /// - testing period: a period in which tests take place <br/>
+    /// - period: any other period in an academic year  <br/>
+    /// </param>
     /// <param name="parent">Filter by parent (academicSessionId)</param>
     /// <param name="year">Filter by year (academicSessionId)</param>
     /// <param name="sort">	
@@ -49,7 +57,8 @@ public class AcademicSessionsController : BaseController
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new AcademicSessionsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        var result = service.GetAll(parameters, out ErrorResponse errorResponse, academicSessionType);
+        //var result = service.GetAll(parameters, out ErrorResponse errorResponse, academicTypeEnumParams.AcademicSessionType);
         if (result == null)
         {
             return BadRequest(errorResponse);
