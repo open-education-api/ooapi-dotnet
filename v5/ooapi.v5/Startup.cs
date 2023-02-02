@@ -80,13 +80,13 @@ namespace ooapi.v5
                     {
                         Title = "OoApi V5.0",
                         Version = "Open Onderwijs Api V5.0",
-                        Description = "Open Education API",
-                        Contact = new OpenApiContact()
-                        {
-                            Name = "Open Education API",
-                            Url = new Uri("https://open-education-api.github.io/specification/v5/docs.html"),
-                            Email = ""
-                        }//, TermsOfService = new Uri("")
+                        Description = "Open Education API"
+                        //Contact = new OpenApiContact()
+                        //{
+                        //    Name = "Open Education API",
+                        //    Url = new Uri("https://open-education-api.github.io/specification/v5/docs.html"),
+                        //    Email = ""
+                        //}//, TermsOfService = new Uri("")
                     });
                     options.UseOneOfForPolymorphism();
 
