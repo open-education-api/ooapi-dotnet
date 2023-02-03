@@ -47,9 +47,18 @@ public class OrganizationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Organizations), description: "OK")]
     public virtual IActionResult OrganizationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] OrganizationTypeEnum? organizationType, [FromQuery] string sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         var service = new OrganizationsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse, organizationType);
+        if (!string.IsNullOrWhiteSpace(primaryCodeParam.primaryCode))
+        {
+            parameters.Filters.Add("primaryCode", primaryCodeParam.primaryCode);
+        }
+        if (!string.IsNullOrWhiteSpace(organizationType.ToString()))
+        {
+            parameters.Filters.Add("organizationType", organizationType);
+        }
+        //var result = service.GetAll(parameters, out ErrorResponse errorResponse, organizationType);
+        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

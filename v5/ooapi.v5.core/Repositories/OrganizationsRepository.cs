@@ -19,8 +19,8 @@ public class OrganizationsRepository : BaseRepository<Organization>
     internal Pagination<Organization> GetAllOrderedBy(DataRequestParameters dataRequestParameters, Enums.OrganizationTypeEnum? organizationType = null)
     {
         IQueryable<Organization> set = dbContext.Set<Organization>().Include(x => x.Address).AsQueryable();
-        if (organizationType != null)
-            set = set.Where(x => x.OrganizationType.Equals(organizationType));
+        //if (organizationType != null)
+        //    set = set.Where(x => x.OrganizationType.Equals(organizationType));
         return GetAllOrderedBy(dataRequestParameters, set);
     }
 

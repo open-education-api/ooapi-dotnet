@@ -1,7 +1,6 @@
 ﻿using ooapi.v5.Attributes;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Reflection.Metadata;
 
 namespace ooapi.v5.core.Utility
 {
@@ -163,6 +162,77 @@ namespace ooapi.v5.core.Utility
             return returnValue;
         }
 
+        public static IOrderedQueryable<TEntity> SearchBy<TEntity>(this IQueryable<TEntity> source, string searchTerm) where TEntity : class
+        {
+            IOrderedQueryable<TEntity> returnValue;
+            var searchingPropertiesList = new List<PropertyInfo>();
+            Type type = typeof(TEntity);
+            PropertyInfo[] typeProperties = type.GetProperties();
+            searchTerm = searchTerm.Trim().ToLower();
+
+            foreach (var typeProperty in typeProperties)
+            {
+                if (typeProperty.GetCustomAttribute<SearchableAttribute>() != null)
+                {
+                    searchingPropertiesList.Add(typeProperty);
+                }
+            }
+
+            if (searchingPropertiesList.Count == 0 && searchTerm.Length > 0)
+            {
+                throw new Exception($"'There are no searchable fields defined for this endpoint. Clear the search parameter and call the API again");
+            }
+
+            IQueryable<TEntity> expTest = source;
+            ParameterExpression parameter = Expression.Parameter(type, "p"); // for example: {p}
+            Expression orElseExpressionRight = null;
+            bool isFirstSearchProperty = true;
+
+            foreach (var searchProperty in searchingPropertiesList)
+            {
+                try
+                {
+                    Expression propertyExpression;
+
+                    propertyExpression = Expression.MakeMemberAccess(parameter, searchProperty); // for example: {p.Name}
+
+                    if (searchProperty.PropertyType == typeof(object))
+                    {
+                        propertyExpression = Expression.Call(propertyExpression, "ToString", null);
+                    }
+
+                    Expression targetExpression = Expression.Constant(searchTerm); // for example: {"abc"}
+                    MethodInfo toLowerMethod = typeof(string).GetMethod("ToLower", new Type[] { });
+                    Expression toLowerExpressionRight = Expression.Call(propertyExpression, toLowerMethod); // for example: {p.Name.ToLower()}
+                    MethodInfo containsMethod = typeof(string).GetMethod("Contains", new Type[] { typeof(string) });
+                    Expression containsExpressionRight = Expression.Call(toLowerExpressionRight, containsMethod, targetExpression); // for example: {p.Name.ToLower().Contains("abc")}
+                    if (isFirstSearchProperty)
+                    {
+                        orElseExpressionRight = containsExpressionRight;
+                    }
+                    else
+                    {
+                        orElseExpressionRight = Expression.OrElse(orElseExpressionRight, containsExpressionRight); // for example: {p.Name.ToLower().Contains("abc") || p.Description.ToLower().Contains("abc")} 
+                    }
+                    isFirstSearchProperty = false;
+                }
+                catch (Exception)
+                {
+                    // The Searchable attribute is probably defined on a non-string property that doesn't have a ToLower and/or Contains method.
+                }
+            }
+
+            if (orElseExpressionRight != null)
+            {
+                var equalsLambda = Expression.Lambda<Func<TEntity, bool>>(orElseExpressionRight, parameter); // for example: {p => p.Name.ToLower().Contains("abc") || p.Description.ToLower().Contains("abc")}
+                expTest = expTest.Where(equalsLambda);
+            }
+
+            returnValue = (IOrderedQueryable<TEntity>)expTest;
+
+            return returnValue;
+        }
+
         public static IOrderedQueryable<TEntity> SearchByPrimaryCode<TEntity>(this IQueryable<TEntity> source, string searchTerm) where TEntity : class
         {
             IOrderedQueryable<TEntity> returnValue = null;
@@ -185,7 +255,7 @@ namespace ooapi.v5.core.Utility
                 try
                 {
                     propertyExpression = Expression.MakeMemberAccess(parameter, primaryCodeProperty); // {p.PrimaryCode}
-                    Expression targetExpression = Expression.Constant(searchTerm); 
+                    Expression targetExpression = Expression.Constant(searchTerm);
                     MethodInfo containsMethod = typeof(string).GetMethod("Contains", new Type[] { typeof(string) });
                     expression = Expression.Call(propertyExpression, containsMethod, targetExpression); // for example: {p.Name.ToLower().Contains("abc")}
                 }

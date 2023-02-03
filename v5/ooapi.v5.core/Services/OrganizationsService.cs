@@ -19,7 +19,8 @@ namespace ooapi.v5.core.Services
         {
             try
             {
-                Pagination<Organization> result = _repository.GetAllOrderedBy(dataRequestParameters, organizationType);
+                //Pagination<Organization> result = _repository.GetAllOrderedBy(dataRequestParameters, organizationType);
+                Pagination<Organization> result = _repository.GetAllOrderedBy(dataRequestParameters);
                 foreach (var item in result.Items)
                 {
                     SetAddresses(item);
