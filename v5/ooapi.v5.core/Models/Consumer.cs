@@ -9,6 +9,9 @@ namespace ooapi.v5.Models
 
     public class Consumer
     {
+        public Guid Id { get; set; }
+
+        public string ModelTypeName { get; set; }
 
         public string ConsumerKey { get; set; }
 

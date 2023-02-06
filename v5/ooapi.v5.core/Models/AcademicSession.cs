@@ -7,6 +7,7 @@ using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Linq;
 
 namespace ooapi.v5.Models
 {
@@ -65,7 +66,7 @@ namespace ooapi.v5.Models
         [JsonIgnore]
         public string? PrimaryCode { get; set; }
 
-        /// <summary>
+       /// <summary>
         /// The name of this academic session
         /// </summary>
         /// <value>The name of this academic session</value>
@@ -76,18 +77,18 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
-            }
-            set
-            {
-                if (value != null)
-                    Name = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
         [JsonIgnore]
         [SortAllowed]
-        public string? Name { get; set; }
+        public List<Attribute> Attributes{ get; set; }
 
 
         /// <summary>
@@ -157,7 +158,15 @@ namespace ooapi.v5.Models
         [JsonProperty("consumers")]
         [NotMapped]
         //        public List<Consumer>? Consumers { get; set; }
-        public List<dynamic>? Consumers { get; set; }
+        public List<dynamic>? consumers { get; set; }
+
+
+        [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
+        public List<Consumer> Consumers { get; set; }
+
+
 
 
         [JsonIgnore]

@@ -1,20 +1,20 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json;
+//using Newtonsoft.Json.Linq;
 
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 
-namespace ooapi.v5.Models
-{
+//namespace ooapi.v5.Models
+//{
 
-    public class CourseOfferingConsumer : Consumer
-    {
-
-
-        public Guid CourseOfferingId { get; set; }
-
-        public CourseOffering CourseOffering { get; set; }
+//    public class CourseOfferingConsumer : Consumer
+//    {
 
 
+//        public Guid CourseOfferingId { get; set; }
 
-    }
-}
+//        public CourseOffering CourseOffering { get; set; }
+
+
+
+//    }
+//}

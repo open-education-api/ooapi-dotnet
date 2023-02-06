@@ -355,7 +355,15 @@ namespace ooapi.v5.Models
 
         [JsonProperty("consumers")]
         [NotMapped]
-        public List<dynamic>? Consumers { get; set; }
+        public List<dynamic>? consumers { get; set; }
+
+
+        [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
+        public List<Consumer> Consumers { get; set; }
+
+
 
 
         [JsonIgnore]

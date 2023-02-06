@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -65,7 +66,15 @@ namespace ooapi.v5.Models
 
         [JsonProperty("consumers")]
         [NotMapped]
-        public List<dynamic>? Consumers { get; set; }
+        public List<dynamic>? consumers { get; set; }
+
+
+        [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
+        public List<Consumer> Consumers { get; set; }
+
+
 
         /// <summary>
         /// A result as part of an association

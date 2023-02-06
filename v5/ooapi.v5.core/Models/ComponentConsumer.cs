@@ -1,20 +1,20 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json;
+//using Newtonsoft.Json.Linq;
 
-using System.Runtime.Serialization;
+//using System.Runtime.Serialization;
 
-namespace ooapi.v5.Models
-{
+//namespace ooapi.v5.Models
+//{
 
-    public class ComponentConsumer : Consumer
-    {
-
-
-        public Guid ComponentId { get; set; }
-
-        public Component Component { get; set; }
+//    public class ComponentConsumer : Consumer
+//    {
 
 
+//        public Guid ComponentId { get; set; }
 
-    }
-}
+//        public Component Component { get; set; }
+
+
+
+//    }
+//}

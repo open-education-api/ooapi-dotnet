@@ -71,20 +71,21 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
-            }
-            set
-            {
-                if (value != null)
-                    Name = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
+
 
 
         [JsonIgnore]
         [SortAllowed]
         [SortDefault]
-        public string Name { get; set; }
+        public List<Attribute> Attributes { get; set; }
 
 
 
@@ -109,17 +110,14 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
-            }
-            set
-            {
-                if (value != null)
-                    Description = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("description")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
-
-        [JsonIgnore]
-        public string Description { get; set; }
 
         /// <summary>
         /// The (primary) teaching language in which this program is given, should be a three-letter language code as specified by ISO 639-2.
@@ -507,7 +505,15 @@ namespace ooapi.v5.Models
 
         [JsonProperty("consumers")]
         [NotMapped]
-        public List<dynamic>? Consumers { get; set; }
+        public List<dynamic>? consumers { get; set; }
+
+
+        [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
+        public List<Consumer> Consumers { get; set; }
+
+
 
         /// <summary>
         /// The first day this program is valid (inclusive).

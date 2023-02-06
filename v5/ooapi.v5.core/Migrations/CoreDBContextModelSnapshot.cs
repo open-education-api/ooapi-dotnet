@@ -194,16 +194,13 @@ namespace ooapi.v5.core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AcademicSessionType")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("AcademicSessionType")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Extension")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ParentId")
@@ -224,29 +221,6 @@ namespace ooapi.v5.core.Migrations
                     b.HasKey("AcademicSessionId");
 
                     b.ToTable("AcademicSessions", "ooapiv5");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.AcademicSessionConsumer", b =>
-                {
-                    b.Property<Guid>("AcademicSessionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AcademicSessionId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("AcademicSessionConsumers", "ooapiv5");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.Address", b =>
@@ -338,27 +312,92 @@ namespace ooapi.v5.core.Migrations
                     b.ToTable("Associations", "ooapiv5");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.AssociationConsumer", b =>
+            modelBuilder.Entity("ooapi.v5.Models.Attribute", b =>
                 {
-                    b.Property<Guid>("AssociationId")
+                    b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ConsumerKey")
+                    b.Property<string>("ModelTypeName")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PropertyName")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
+                    b.Property<string>("Language")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("PropertyValue")
+                    b.Property<Guid?>("AcademicSessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("BuildingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ComponentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ComponentOfferingOfferingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CourseOfferingOfferingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("EducationSpecificationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("NewsFeedId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("NewsItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("OrganizationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProgramId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProgramOfferingOfferingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AssociationId", "ConsumerKey", "PropertyName");
+                    b.HasKey("Id", "ModelTypeName", "PropertyName", "Language");
 
-                    b.ToTable("AssociationConsumers", "ooapiv5");
+                    b.HasIndex("AcademicSessionId");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("ComponentId");
+
+                    b.HasIndex("ComponentOfferingOfferingId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("CourseOfferingOfferingId");
+
+                    b.HasIndex("EducationSpecificationId");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("NewsFeedId");
+
+                    b.HasIndex("NewsItemId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("ProgramId");
+
+                    b.HasIndex("ProgramOfferingOfferingId");
+
+                    b.ToTable("Attributes", "ooapiv5");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.Building", b =>
@@ -375,15 +414,7 @@ namespace ooapi.v5.core.Migrations
                     b.Property<Guid?>("AddressId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Extension")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PrimaryCode")
@@ -401,29 +432,6 @@ namespace ooapi.v5.core.Migrations
                     b.ToTable("Buildings", "ooapiv5");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.BuildingConsumer", b =>
-                {
-                    b.Property<Guid>("BuildingId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("BuildingId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("BuildingConsumers", "ooapiv5");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.Component", b =>
                 {
                     b.Property<Guid?>("ComponentId")
@@ -435,25 +443,13 @@ namespace ooapi.v5.core.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Assessment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("ComponentType")
                         .HasColumnType("int");
 
                     b.Property<Guid?>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Duration")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Enrollment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -461,10 +457,6 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ModeOfDelivery")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -491,29 +483,6 @@ namespace ooapi.v5.core.Migrations
                     b.ToTable("Components", "ooapiv5");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.ComponentConsumer", b =>
-                {
-                    b.Property<Guid>("ComponentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ComponentId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("ComponentConsumers", "ooapiv5");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.ComponentOffering", b =>
                 {
                     b.Property<Guid>("OfferingId")
@@ -531,10 +500,6 @@ namespace ooapi.v5.core.Migrations
                     b.Property<Guid?>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
@@ -542,7 +507,7 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EnrollStartDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("EnrolledNumberStudents")
                         .HasColumnType("int");
@@ -562,10 +527,6 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ModeOfDelivery")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -615,16 +576,61 @@ namespace ooapi.v5.core.Migrations
                     b.ToTable("ComponentOfferings", "ooapiv5");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.ComponentOfferingConsumer", b =>
+            modelBuilder.Entity("ooapi.v5.Models.Consumer", b =>
                 {
-                    b.Property<Guid>("ComponentOfferingId")
+                    b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ModelTypeName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConsumerKey")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PropertyName")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid?>("AcademicSessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AssociationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("BuildingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ComponentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ComponentOfferingOfferingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CourseOfferingOfferingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("EducationSpecificationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("NewsItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("OrganizationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("PersonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProgramId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProgramOfferingOfferingId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("PropertyType")
                         .HasColumnType("int");
@@ -633,9 +639,42 @@ namespace ooapi.v5.core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ComponentOfferingId", "ConsumerKey", "PropertyName");
+                    b.Property<Guid?>("ServiceId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.ToTable("ComponentOfferingConsumers", "ooapiv5");
+                    b.HasKey("Id", "ModelTypeName", "ConsumerKey", "PropertyName");
+
+                    b.HasIndex("AcademicSessionId");
+
+                    b.HasIndex("AssociationId");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("ComponentId");
+
+                    b.HasIndex("ComponentOfferingOfferingId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("CourseOfferingOfferingId");
+
+                    b.HasIndex("EducationSpecificationId");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("NewsItemId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("PersonId");
+
+                    b.HasIndex("ProgramId");
+
+                    b.HasIndex("ProgramOfferingOfferingId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("Consumers", "ooapiv5");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.ConsumerRegistration", b =>
@@ -701,28 +740,12 @@ namespace ooapi.v5.core.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("AdmissionRequirements")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Assessment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Duration")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("EducationSpecificationId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Enrollment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Extension")
                         .HasColumnType("nvarchar(max)");
@@ -751,10 +774,6 @@ namespace ooapi.v5.core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("OrganizationId")
                         .HasColumnType("uniqueidentifier");
 
@@ -763,10 +782,6 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PrimaryCodeType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QualificationRequirements")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -796,29 +811,6 @@ namespace ooapi.v5.core.Migrations
                     b.ToTable("Courses", "ooapiv5");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.CourseConsumer", b =>
-                {
-                    b.Property<Guid>("CourseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CourseId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("CourseConsumers", "ooapiv5");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.CourseOffering", b =>
                 {
                     b.Property<Guid>("OfferingId")
@@ -836,18 +828,14 @@ namespace ooapi.v5.core.Migrations
                     b.Property<Guid?>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EnrollEndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EnrollStartDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("EnrolledNumberStudents")
                         .HasColumnType("int");
@@ -873,10 +861,6 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ModeOfDelivery")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -907,7 +891,7 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("StartDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("TeachingLanguage")
                         .IsRequired()
@@ -921,29 +905,6 @@ namespace ooapi.v5.core.Migrations
                     b.ToTable("CourseOfferings", "ooapiv5");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.CourseOfferingConsumer", b =>
-                {
-                    b.Property<Guid>("CourseOfferingId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CourseOfferingId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("CourseOfferingConsumers", "ooapiv5");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.EducationSpecification", b =>
                 {
                     b.Property<Guid>("EducationSpecificationId")
@@ -953,9 +914,6 @@ namespace ooapi.v5.core.Migrations
                     b.Property<string>("Abbreviation")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("EducationSpecificationType")
                         .HasColumnType("int");
@@ -979,10 +937,6 @@ namespace ooapi.v5.core.Migrations
                     b.Property<string>("Link")
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("OrganizationId")
                         .HasColumnType("uniqueidentifier");
@@ -1018,38 +972,11 @@ namespace ooapi.v5.core.Migrations
                     b.ToTable("EducationSpecifications", "ooapiv5");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.EducationSpecificationConsumer", b =>
-                {
-                    b.Property<Guid>("EducationSpecificationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EducationSpecificationId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("EducationSpecificationConsumers", "ooapiv5");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.Group", b =>
                 {
                     b.Property<Guid>("GroupId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
@@ -1059,10 +986,6 @@ namespace ooapi.v5.core.Migrations
 
                     b.Property<int?>("GroupType")
                         .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("OrganizationId")
                         .HasColumnType("uniqueidentifier");
@@ -1081,29 +1004,6 @@ namespace ooapi.v5.core.Migrations
                     b.HasKey("GroupId");
 
                     b.ToTable("Groups", "ooapiv5");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.GroupConsumer", b =>
-                {
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("GroupId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("GroupConsumers", "ooapiv5");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.LanguageOfChoice", b =>
@@ -1132,15 +1032,7 @@ namespace ooapi.v5.core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Extension")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("NewsFeedType")
@@ -1156,29 +1048,6 @@ namespace ooapi.v5.core.Migrations
                     b.ToTable("NewsFeeds", "ooapiv5");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.NewsFeedConsumer", b =>
-                {
-                    b.Property<Guid>("NewsFeedId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("NewsFeedId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("NewsFeedConsumers", "ooapiv5");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.NewsItem", b =>
                 {
                     b.Property<Guid>("NewsItemId")
@@ -1186,10 +1055,6 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Authors")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -1209,10 +1074,6 @@ namespace ooapi.v5.core.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("NewsItemType")
                         .HasColumnType("int");
 
@@ -1227,37 +1088,11 @@ namespace ooapi.v5.core.Migrations
                     b.ToTable("NewsItems", "ooapiv5");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.NewsItemConsumer", b =>
-                {
-                    b.Property<Guid>("NewsItemId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("NewsItemId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("NewsItemConsumers", "ooapiv5");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.Organization", b =>
                 {
                     b.Property<Guid>("OrganizationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Extension")
                         .HasColumnType("nvarchar(max)");
@@ -1269,10 +1104,6 @@ namespace ooapi.v5.core.Migrations
                     b.Property<string>("Logo")
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("OrganizationType")
                         .HasColumnType("int");
@@ -1296,29 +1127,6 @@ namespace ooapi.v5.core.Migrations
                     b.HasKey("OrganizationId");
 
                     b.ToTable("Organizations", "ooapiv5");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.OrganizationConsumer", b =>
-                {
-                    b.Property<Guid>("OrganizationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("OrganizationId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("OrganizationConsumers", "ooapiv5");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.OtherCodes", b =>
@@ -1546,29 +1354,6 @@ namespace ooapi.v5.core.Migrations
                     b.ToTable("Persons", "ooapiv5");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.PersonConsumer", b =>
-                {
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PersonId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("PersonConsumers", "ooapiv5");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.Program", b =>
                 {
                     b.Property<Guid>("ProgramId")
@@ -1590,10 +1375,6 @@ namespace ooapi.v5.core.Migrations
 
                     b.Property<Guid?>("CourseId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Duration")
                         .IsRequired()
@@ -1634,10 +1415,6 @@ namespace ooapi.v5.core.Migrations
 
                     b.Property<int?>("ModeOfStudy")
                         .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("OrganizationId")
                         .HasColumnType("uniqueidentifier");
@@ -1690,29 +1467,6 @@ namespace ooapi.v5.core.Migrations
                     b.ToTable("Programs", "ooapiv5");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.ProgramConsumer", b =>
-                {
-                    b.Property<Guid>("ProgramId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProgramId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("ProgramConsumers", "ooapiv5");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.ProgramOffering", b =>
                 {
                     b.Property<Guid>("OfferingId")
@@ -1727,18 +1481,14 @@ namespace ooapi.v5.core.Migrations
                     b.Property<Guid?>("AcademicSessionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EnrollEndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EnrollStartDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("EnrolledNumberStudents")
                         .HasColumnType("int");
@@ -1747,10 +1497,10 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("FlexibleEntryPeriodEnd")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("FlexibleEntryPeriodStart")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Link")
                         .IsRequired()
@@ -1764,10 +1514,6 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ModeOfDelivery")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -1798,7 +1544,7 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("StartDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("TeachingLanguage")
                         .IsRequired()
@@ -1810,29 +1556,6 @@ namespace ooapi.v5.core.Migrations
                     b.HasIndex("AcademicSessionId");
 
                     b.ToTable("ProgramOfferings", "ooapiv5");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.ProgramOfferingConsumer", b =>
-                {
-                    b.Property<Guid>("ProgramOfferingId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProgramOfferingId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("ProgramOfferingConsumers", "ooapiv5");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.Room", b =>
@@ -1898,29 +1621,6 @@ namespace ooapi.v5.core.Migrations
                     b.ToTable("Rooms", "ooapiv5");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.RoomConsumer", b =>
-                {
-                    b.Property<Guid>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoomId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("RoomConsumers", "ooapiv5");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.Service", b =>
                 {
                     b.Property<Guid>("ServiceId")
@@ -1948,29 +1648,6 @@ namespace ooapi.v5.core.Migrations
                     b.HasKey("ServiceId");
 
                     b.ToTable("Services", "ooapiv5");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.ServiceConsumer", b =>
-                {
-                    b.Property<Guid>("ServiceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConsumerKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ServiceId", "ConsumerKey", "PropertyName");
-
-                    b.ToTable("ServiceConsumers", "ooapiv5");
                 });
 
             modelBuilder.Entity("AddressComponent", b =>
@@ -2138,26 +1815,59 @@ namespace ooapi.v5.core.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.AcademicSessionConsumer", b =>
+            modelBuilder.Entity("ooapi.v5.Models.Attribute", b =>
                 {
-                    b.HasOne("ooapi.v5.Models.AcademicSession", "AcademicSession")
-                        .WithMany()
-                        .HasForeignKey("AcademicSessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ooapi.v5.Models.AcademicSession", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("AcademicSessionId");
 
-                    b.Navigation("AcademicSession");
-                });
+                    b.HasOne("ooapi.v5.Models.Building", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("BuildingId");
 
-            modelBuilder.Entity("ooapi.v5.Models.AssociationConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.Association", "Association")
-                        .WithMany()
-                        .HasForeignKey("AssociationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ooapi.v5.Models.Component", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("ComponentId");
 
-                    b.Navigation("Association");
+                    b.HasOne("ooapi.v5.Models.ComponentOffering", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("ComponentOfferingOfferingId");
+
+                    b.HasOne("ooapi.v5.Models.Course", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("CourseId");
+
+                    b.HasOne("ooapi.v5.Models.CourseOffering", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("CourseOfferingOfferingId");
+
+                    b.HasOne("ooapi.v5.Models.EducationSpecification", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("EducationSpecificationId");
+
+                    b.HasOne("ooapi.v5.Models.Group", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("GroupId");
+
+                    b.HasOne("ooapi.v5.Models.NewsFeed", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("NewsFeedId");
+
+                    b.HasOne("ooapi.v5.Models.NewsItem", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("NewsItemId");
+
+                    b.HasOne("ooapi.v5.Models.Organization", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("OrganizationId");
+
+                    b.HasOne("ooapi.v5.Models.Program", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("ProgramId");
+
+                    b.HasOne("ooapi.v5.Models.ProgramOffering", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("ProgramOfferingOfferingId");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.Building", b =>
@@ -2169,17 +1879,6 @@ namespace ooapi.v5.core.Migrations
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.BuildingConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.Building", "Building")
-                        .WithMany()
-                        .HasForeignKey("BuildingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Building");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.Component", b =>
                 {
                     b.HasOne("ooapi.v5.Models.Course", "Course")
@@ -2187,17 +1886,6 @@ namespace ooapi.v5.core.Migrations
                         .HasForeignKey("CourseId");
 
                     b.Navigation("Course");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.ComponentConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.Component", "Component")
-                        .WithMany()
-                        .HasForeignKey("ComponentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Component");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.ComponentOffering", b =>
@@ -2213,26 +1901,67 @@ namespace ooapi.v5.core.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.ComponentOfferingConsumer", b =>
+            modelBuilder.Entity("ooapi.v5.Models.Consumer", b =>
                 {
-                    b.HasOne("ooapi.v5.Models.ComponentOffering", "ComponentOffering")
-                        .WithMany()
-                        .HasForeignKey("ComponentOfferingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ooapi.v5.Models.AcademicSession", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("AcademicSessionId");
 
-                    b.Navigation("ComponentOffering");
-                });
+                    b.HasOne("ooapi.v5.Models.Association", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("AssociationId");
 
-            modelBuilder.Entity("ooapi.v5.Models.CourseConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ooapi.v5.Models.Building", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("BuildingId");
 
-                    b.Navigation("Course");
+                    b.HasOne("ooapi.v5.Models.Component", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("ComponentId");
+
+                    b.HasOne("ooapi.v5.Models.ComponentOffering", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("ComponentOfferingOfferingId");
+
+                    b.HasOne("ooapi.v5.Models.Course", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("CourseId");
+
+                    b.HasOne("ooapi.v5.Models.CourseOffering", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("CourseOfferingOfferingId");
+
+                    b.HasOne("ooapi.v5.Models.EducationSpecification", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("EducationSpecificationId");
+
+                    b.HasOne("ooapi.v5.Models.Group", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("GroupId");
+
+                    b.HasOne("ooapi.v5.Models.NewsItem", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("NewsItemId");
+
+                    b.HasOne("ooapi.v5.Models.Organization", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("OrganizationId");
+
+                    b.HasOne("ooapi.v5.Models.Person", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("PersonId");
+
+                    b.HasOne("ooapi.v5.Models.Program", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("ProgramId");
+
+                    b.HasOne("ooapi.v5.Models.ProgramOffering", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("ProgramOfferingOfferingId");
+
+                    b.HasOne("ooapi.v5.Models.Service", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("ServiceId");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.CourseOffering", b =>
@@ -2240,39 +1969,6 @@ namespace ooapi.v5.core.Migrations
                     b.HasOne("ooapi.v5.Models.AcademicSession", null)
                         .WithMany("CourseOfferings")
                         .HasForeignKey("AcademicSessionId");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.CourseOfferingConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.CourseOffering", "CourseOffering")
-                        .WithMany()
-                        .HasForeignKey("CourseOfferingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CourseOffering");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.EducationSpecificationConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.EducationSpecification", "EducationSpecification")
-                        .WithMany()
-                        .HasForeignKey("EducationSpecificationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("EducationSpecification");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.GroupConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.LanguageOfChoice", b =>
@@ -2287,39 +1983,6 @@ namespace ooapi.v5.core.Migrations
                     b.HasOne("ooapi.v5.Models.NewsItem", null)
                         .WithMany("NewsFeeds")
                         .HasForeignKey("NewsItemId");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.NewsFeedConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.NewsFeed", "NewsFeed")
-                        .WithMany()
-                        .HasForeignKey("NewsFeedId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("NewsFeed");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.NewsItemConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.NewsItem", "NewsItem")
-                        .WithMany()
-                        .HasForeignKey("NewsItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("NewsItem");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.OrganizationConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.Organization", "Organization")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Organization");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.OtherCodes", b =>
@@ -2396,33 +2059,11 @@ namespace ooapi.v5.core.Migrations
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.PersonConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.Program", b =>
                 {
                     b.HasOne("ooapi.v5.Models.Course", null)
                         .WithMany("ProgramsRef")
                         .HasForeignKey("CourseId");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.ProgramConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.Program", "Program")
-                        .WithMany()
-                        .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Program");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.ProgramOffering", b =>
@@ -2432,42 +2073,13 @@ namespace ooapi.v5.core.Migrations
                         .HasForeignKey("AcademicSessionId");
                 });
 
-            modelBuilder.Entity("ooapi.v5.Models.ProgramOfferingConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.ProgramOffering", "ProgramOffering")
-                        .WithMany()
-                        .HasForeignKey("ProgramOfferingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProgramOffering");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.RoomConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.ServiceConsumer", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Service");
-                });
-
             modelBuilder.Entity("ooapi.v5.Models.AcademicSession", b =>
                 {
+                    b.Navigation("Attributes");
+
                     b.Navigation("ComponentOfferings");
+
+                    b.Navigation("Consumers");
 
                     b.Navigation("CourseOfferings");
 
@@ -2476,23 +2088,44 @@ namespace ooapi.v5.core.Migrations
                     b.Navigation("ProgramOfferings");
                 });
 
+            modelBuilder.Entity("ooapi.v5.Models.Association", b =>
+                {
+                    b.Navigation("Consumers");
+                });
+
             modelBuilder.Entity("ooapi.v5.Models.Building", b =>
                 {
+                    b.Navigation("Attributes");
+
+                    b.Navigation("Consumers");
+
                     b.Navigation("OtherCodes");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.Component", b =>
                 {
+                    b.Navigation("Attributes");
+
+                    b.Navigation("Consumers");
+
                     b.Navigation("OtherCodes");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.ComponentOffering", b =>
                 {
+                    b.Navigation("Attributes");
+
+                    b.Navigation("Consumers");
+
                     b.Navigation("OtherCodes");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.Course", b =>
                 {
+                    b.Navigation("Attributes");
+
+                    b.Navigation("Consumers");
+
                     b.Navigation("CoordinatorsRef");
 
                     b.Navigation("OtherCodes");
@@ -2502,31 +2135,58 @@ namespace ooapi.v5.core.Migrations
 
             modelBuilder.Entity("ooapi.v5.Models.CourseOffering", b =>
                 {
+                    b.Navigation("Attributes");
+
+                    b.Navigation("Consumers");
+
                     b.Navigation("OtherCodes");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.EducationSpecification", b =>
                 {
+                    b.Navigation("Attributes");
+
+                    b.Navigation("Consumers");
+
                     b.Navigation("OtherCodes");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.Group", b =>
                 {
+                    b.Navigation("Attributes");
+
+                    b.Navigation("Consumers");
+
                     b.Navigation("OtherCodes");
+                });
+
+            modelBuilder.Entity("ooapi.v5.Models.NewsFeed", b =>
+                {
+                    b.Navigation("Attributes");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.NewsItem", b =>
                 {
+                    b.Navigation("Attributes");
+
+                    b.Navigation("Consumers");
+
                     b.Navigation("NewsFeeds");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.Organization", b =>
                 {
+                    b.Navigation("Attributes");
+
+                    b.Navigation("Consumers");
+
                     b.Navigation("OtherCodes");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.Person", b =>
                 {
+                    b.Navigation("Consumers");
+
                     b.Navigation("LanguageOfChoice");
 
                     b.Navigation("OtherCodes");
@@ -2534,6 +2194,10 @@ namespace ooapi.v5.core.Migrations
 
             modelBuilder.Entity("ooapi.v5.Models.Program", b =>
                 {
+                    b.Navigation("Attributes");
+
+                    b.Navigation("Consumers");
+
                     b.Navigation("CoordinatorsRef");
 
                     b.Navigation("OtherCodes");
@@ -2541,12 +2205,21 @@ namespace ooapi.v5.core.Migrations
 
             modelBuilder.Entity("ooapi.v5.Models.ProgramOffering", b =>
                 {
+                    b.Navigation("Attributes");
+
+                    b.Navigation("Consumers");
+
                     b.Navigation("OtherCodes");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.Room", b =>
                 {
                     b.Navigation("OtherCodes");
+                });
+
+            modelBuilder.Entity("ooapi.v5.Models.Service", b =>
+                {
+                    b.Navigation("Consumers");
                 });
 #pragma warning restore 612, 618
         }

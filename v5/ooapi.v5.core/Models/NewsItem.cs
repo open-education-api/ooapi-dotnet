@@ -45,19 +45,20 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
-            }
-            set
-            {
-                if (value != null)
-                    Name = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
 
         [JsonIgnore]
         [SortAllowed]
-        public string Name { get; set; }
+        [SortDefault]
+        public List<Attribute> Attributes { get; set; }
 
 
 
@@ -116,17 +117,15 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Content);
-            }
-            set
-            {
-                if (value != null)
-                    Content = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("content")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
-        [JsonIgnore]
-        public string Content { get; set; }
 
 
         /// <summary>
@@ -172,7 +171,15 @@ namespace ooapi.v5.Models
 
         [JsonProperty("consumers")]
         [NotMapped]
-        public List<dynamic>? Consumers { get; set; }
+        public List<dynamic>? consumers { get; set; }
+
+
+        [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
+        public List<Consumer> Consumers { get; set; }
+
+
 
         [JsonIgnore]
         public virtual ICollection<NewsFeed> NewsFeeds { get; set; }

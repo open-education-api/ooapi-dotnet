@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
@@ -80,24 +81,25 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name of this education specification</value>
         [JsonRequired]
-        [JsonProperty(PropertyName = "name")]
+        [JsonProperty("name")]
         [NotMapped]
         public List<LanguageTypedString> name
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
-            }
-            set
-            {
-                if (value != null)
-                    Name = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
-
         [JsonIgnore]
-        public string Name { get; set; }
+        [SortAllowed]
+        [SortDefault]
+        public List<Attribute> Attributes { get; set; }
 
 
 
@@ -120,18 +122,14 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
-            }
-            set
-            {
-                if (value != null)
-                    Description = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("description")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
-
-        [JsonIgnore]
-        public string? Description { get; set; }
-
 
 
         /// <summary>
@@ -271,7 +269,15 @@ namespace ooapi.v5.Models
 
         [JsonProperty("consumers")]
         [NotMapped]
-        public List<dynamic>? Consumers { get; set; }
+        public List<dynamic>? consumers { get; set; }
+
+
+        [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
+        public List<Consumer> Consumers { get; set; }
+
+
 
 
         /// <summary>
