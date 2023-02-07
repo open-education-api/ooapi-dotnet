@@ -312,17 +312,15 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Enrollment);
-            }
-            set
-            {
-                if (value != null)
-                    Enrollment = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("enrollment")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
-        [JsonIgnore]
-        public string Enrollment { get; set; }
 
         //[JsonIgnore]
         //public List<Resource> Resources { get; set; }
@@ -355,17 +353,14 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Assessment);
-            }
-            set
-            {
-                if (value != null)
-                    Assessment = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("assessment")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
-
-        [JsonIgnore]
-        public string Assessment { get; set; }
 
 
         /// <summary>
@@ -379,17 +374,15 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(AdmissionRequirements);
-            }
-            set
-            {
-                if (value != null)
-                    AdmissionRequirements = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("admissionRequirements")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
-        [JsonIgnore]
-        public string AdmissionRequirements { get; set; }
 
 
         /// <summary>
@@ -403,17 +396,14 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(QualificationRequirements);
-            }
-            set
-            {
-                if (value != null)
-                    QualificationRequirements = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("qualificationRequirements")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
-
-        [JsonIgnore]
-        public string QualificationRequirements { get; set; }
 
 
         /// <summary>
