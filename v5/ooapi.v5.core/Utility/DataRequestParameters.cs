@@ -50,30 +50,30 @@ namespace ooapi.v5.core.Utility
             }
         }
 
-        public DataRequestParameters(PrimaryCodeParam? primaryCodeParam = null, FilterParams? filterParams = null, PagingParams? curPagingParams = null, string sort = null) : this(filterParams, curPagingParams, sort)
-        {
-        }
-
-        //public DataRequestParameters(PrimaryCodeParam? primaryCodeParam = null, FilterParams? filterParams = null, PagingParams? curPagingParams = null, string sort = null)
+        //public DataRequestParameters(PrimaryCodeParam? primaryCodeParam = null, FilterParams? filterParams = null, PagingParams? curPagingParams = null, string sort = null) : this(filterParams, curPagingParams, sort)
         //{
-        //    if (primaryCodeParam != null && primaryCodeParam.primaryCode != null)
-        //    {
-        //        PrimaryCodeSearch = primaryCodeParam.primaryCode;
-        //    }
-        //    else
-        //    {
-        //        Sort = sort;
-        //        if (filterParams != null)
-        //        {
-        //            PrimaryCodeSearch = filterParams.q;
-        //        }
-        //        if (curPagingParams != null)
-        //        {
-        //            PageNumber = curPagingParams.PageNumber;
-        //            SetPageSize(curPagingParams.PageSize);
-        //        }
-        //    }
         //}
+
+        public DataRequestParameters(PrimaryCodeParam? primaryCodeParam = null, FilterParams? filterParams = null, PagingParams? curPagingParams = null, string sort = null)
+        {
+            if (primaryCodeParam != null && primaryCodeParam.primaryCode != null)
+            {
+                PrimaryCodeSearch = primaryCodeParam.primaryCode;
+            }
+            else
+            {
+                Sort = sort;
+                if (filterParams != null)
+                {
+                    PrimaryCodeSearch = filterParams.q;
+                }
+                if (curPagingParams != null)
+                {
+                    PageNumber = curPagingParams.PageNumber;
+                    SetPageSize(curPagingParams.PageSize);
+                }
+            }
+        }
 
         public void SetPageSize(PageSizeEnum pageSize)
         {

@@ -80,7 +80,7 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
+                return Helpers.LanguageTypedStringJsonConverter.GetLanguageTypesStringList(Name);
             }
             set
             {
@@ -106,7 +106,7 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
+                return Helpers.LanguageTypedStringJsonConverter.GetLanguageTypesStringList(Description);
             }
             set
             {

@@ -22,7 +22,7 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Message);
+                return Helpers.LanguageTypedStringJsonConverter.GetLanguageTypesStringList(Message);
             }
             set
             {

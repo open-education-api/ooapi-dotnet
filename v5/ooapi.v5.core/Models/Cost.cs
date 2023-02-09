@@ -74,7 +74,7 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(DisplayAmount);
+                return Helpers.LanguageTypedStringJsonConverter.GetLanguageTypesStringList(DisplayAmount);
             }
             set
             {

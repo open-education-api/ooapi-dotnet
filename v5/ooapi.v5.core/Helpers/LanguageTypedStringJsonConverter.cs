@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace ooapi.v5.Helpers;
 
-public static class JsonConverter
+public static class LanguageTypedStringJsonConverter
 {
     internal static List<LanguageTypedString>? GetLanguageTypesStringList(string? languageTypedStringValue)
     {

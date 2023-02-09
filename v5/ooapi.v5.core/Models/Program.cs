@@ -421,10 +421,21 @@ namespace ooapi.v5.Models
         /// <value>The educationSpecification of which this program is a more concrete implementation. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
 
         [JsonProperty(PropertyName = "educationSpecification")]
-        public OneOfEducationSpecification EducationSpecification { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfEducationSpecificationConverter))]
+        public OneOfEducationSpecification OneOfEducationSpecification
+        { 
+            get {
+                return new OneOfEducationSpecificationInstance(EducationSpecificationId, EducationSpecification);
+                //return new OneOfEducationSpecification(EducationSpecificationId);
+            }
+        }
 
         [JsonIgnore]
         public Guid? EducationSpecificationId { get; set; }
+
+        [JsonIgnore]
+        public EducationSpecification? EducationSpecification{ get; set; }
 
 
         /// <summary>

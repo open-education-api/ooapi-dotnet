@@ -1,4 +1,6 @@
-﻿using ooapi.v5.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Utility;
+using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
@@ -12,6 +14,18 @@ public class ProgramsRepository : BaseRepository<Program>
     public Program GetProgram(Guid programId)
     {
         return dbContext.Programs.FirstOrDefault(x => x.ProgramId.Equals(programId));
+    }
+
+    public Pagination<Program> GetAllOrderedBy_Expand(DataRequestParameters dataRequestParameters)
+    {
+        IQueryable<Program> set = dbContext.Set<Program>().Include(x=>x.EducationSpecification).AsQueryable();
+        return GetAllOrderedBy(dataRequestParameters, set);
+    }
+
+    public Pagination<Program> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    {
+        IQueryable<Program> set = dbContext.Set<Program>().AsQueryable();
+        return GetAllOrderedBy(dataRequestParameters, set);
     }
 
     public List<Program> GetProgramsByEducationSpecificationId(Guid educationSpecificationId)

@@ -52,7 +52,7 @@ namespace ooapi.v5.Controllers
         public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string sort = "name")
         {
             DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-            var service = new CoursesService(DBContext, UserRequestContext);
+            var service = new ProgramsService(DBContext, UserRequestContext);
             var result = service.GetAll(parameters, out ErrorResponse errorResponse);
             if (result == null)
             {
