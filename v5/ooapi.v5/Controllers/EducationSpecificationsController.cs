@@ -105,7 +105,7 @@ public class EducationSpecificationsController : BaseController
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] bool? returnTimelineOverrides, [FromQuery] List<string> expand)
     {
         var service = new EducationSpecificationsService(DBContext, UserRequestContext);
-        var result = service.Get(educationSpecificationId, out ErrorResponse errorResponse);
+        var result = service.Get(educationSpecificationId, expand, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

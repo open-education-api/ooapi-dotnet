@@ -1,8 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Query;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
+using System.Collections;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
 namespace ooapi.v5.core.Repositories;
+
 
 public class ProgramsRepository : BaseRepository<Program>
 {
@@ -11,14 +18,70 @@ public class ProgramsRepository : BaseRepository<Program>
         //
     }
 
-    public Program GetProgram(Guid programId)
+    public Program GetProgram(Guid programId, List<string> expand)
     {
-        return dbContext.Programs.FirstOrDefault(x => x.ProgramId.Equals(programId));
+        // expands: parent, organization, educationSpecification
+        // nog te doen: children, coordinators
+        var set = dbContext.Programs;
+
+        if (expand != null && expand.Any())
+        {
+
+            bool getParent = expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
+            bool getOrganization = expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
+            bool getEducationspecification = expand.Contains("educationspecification", StringComparer.InvariantCultureIgnoreCase);
+
+            if (getParent && getOrganization && getEducationspecification)
+            {
+                return set.Include(x => x.Parent)
+                          .Include(x => x.Organization)
+                          .Include(x => x.EducationSpecification)
+                          .FirstOrDefault(x => x.ProgramId.Equals(programId));
+            }
+            else if (getParent && getOrganization && !getEducationspecification) 
+            {
+                return set.Include(x => x.Parent)
+                          .Include(x => x.Organization)
+                          .FirstOrDefault(x => x.ProgramId.Equals(programId));
+            }
+            else if (getParent && !getOrganization && getEducationspecification) 
+            {
+                return set.Include(x => x.Parent)
+                        .Include(x => x.EducationSpecification)
+                        .FirstOrDefault(x => x.ProgramId.Equals(programId));
+            }
+            else if (!getParent && getOrganization && getEducationspecification)
+            {
+                return set.Include(x => x.Organization)
+                    .Include(x => x.EducationSpecification)
+                    .FirstOrDefault(x => x.ProgramId.Equals(programId));
+            }
+
+            else if (getParent && !getOrganization && !getEducationspecification)
+            {
+                return set.Include(x => x.Parent)
+                    .FirstOrDefault(x => x.ProgramId.Equals(programId));
+            }
+            else if (!getParent && getOrganization && !getEducationspecification)
+            {
+                return set.Include(x => x.Organization)
+                    .FirstOrDefault(x => x.ProgramId.Equals(programId));
+            }
+            else if (!getParent && !getOrganization && getEducationspecification)
+            {
+                return set.Include(x => x.EducationSpecification)
+                    .FirstOrDefault(x => x.ProgramId.Equals(programId));
+            }
+        }
+
+        return set.FirstOrDefault(x => x.ProgramId.Equals(programId));
     }
+
+ 
 
     public Pagination<Program> GetAllOrderedBy_Expand(DataRequestParameters dataRequestParameters)
     {
-        IQueryable<Program> set = dbContext.Set<Program>().Include(x=>x.EducationSpecification).AsQueryable();
+        IQueryable<Program> set = dbContext.Set<Program>().AsQueryable();
         return GetAllOrderedBy(dataRequestParameters, set);
     }
 

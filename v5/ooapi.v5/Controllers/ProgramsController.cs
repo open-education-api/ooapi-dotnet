@@ -110,7 +110,7 @@ namespace ooapi.v5.Controllers
         public virtual IActionResult ProgramsProgramIdGet([FromRoute][Required] Guid programId, [FromQuery] List<string> expand, [FromQuery] bool? returnTimelineOverrides)
         {
             var service = new ProgramsService(DBContext, UserRequestContext);
-            var result = service.Get(programId, out ErrorResponse errorResponse);
+            var result = service.Get(programId, expand, out ErrorResponse errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);

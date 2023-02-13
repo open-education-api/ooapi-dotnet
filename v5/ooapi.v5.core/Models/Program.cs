@@ -422,12 +422,12 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "educationSpecification")]
         [NotMapped]
-        [JsonConverter(typeof(OneOfEducationSpecificationConverter))]
+        [JsonConverter(typeof(OneOfConverter))]
         public OneOfEducationSpecification OneOfEducationSpecification
         { 
             get {
+                if (EducationSpecificationId == null) return null;
                 return new OneOfEducationSpecificationInstance(EducationSpecificationId, EducationSpecification);
-                //return new OneOfEducationSpecification(EducationSpecificationId);
             }
         }
 
@@ -463,12 +463,22 @@ namespace ooapi.v5.Models
         /// Parent program of which the current program is a child. This object is [&#x60;expandable&#x60;](#tag/program_model)
         /// </summary>
         /// <value>Parent program of which the current program is a child. This object is [&#x60;expandable&#x60;](#tag/program_model)</value>
-
         [JsonProperty(PropertyName = "parent")]
-        public OneOfProgram Parent { get; set; }
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfProgram OneOfProgram
+        {
+            get
+            {
+                if (ParentId == null) return null;
+                return new OneOfProgramInstance(ParentId, Parent);
+            }
+        }
 
         [JsonIgnore]
         public Guid? ParentId { get; set; }
+
+        [JsonIgnore]
+        public Program? Parent { get; set; }
 
         /// <summary>
         /// Programs which are a part of this program (e.g specializations). This object is [&#x60;expandable&#x60;](#tag/program_model)
@@ -493,11 +503,21 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "organization")]
         [NotMapped]
-        public OneOfOrganization Organization { get; set; }
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfOrganization OneOfOrganization
+        {
+            get
+            {
+                if (OrganizationId == null) return null;
+                return new OneOfOrganizationInstance(OrganizationId, Organization);
+            }
+        }
 
         [JsonIgnore]
         public Guid? OrganizationId { get; set; }
 
+        [JsonIgnore]
+        public Organization? Organization { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.

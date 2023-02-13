@@ -9,4 +9,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 [NotMapped]
 public abstract class OneOfProgram { }
 
+public class OneOfProgramInstance : OneOfProgram
+{
+    public Guid? Id { get; set; }
+    public Program? Program { get; set; }
+
+    public OneOfProgramInstance(Guid? id, Program? program)
+    {
+        Id = id;
+        Program = program;
+    }
+}
+
 

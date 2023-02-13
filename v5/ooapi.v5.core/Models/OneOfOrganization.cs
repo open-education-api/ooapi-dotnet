@@ -10,3 +10,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 public abstract class OneOfOrganization { }
 
 
+public class OneOfOrganizationInstance : OneOfOrganization
+{
+    public Guid? Id { get; set; }
+    public Organization? Organization { get; set; }
+
+    public OneOfOrganizationInstance(Guid? id, Organization? organization)
+    {
+        Id = id;
+        Organization = organization;
+    }
+}
+
+

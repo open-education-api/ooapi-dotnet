@@ -1,4 +1,5 @@
-﻿using ooapi.v5.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
@@ -9,9 +10,36 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
         //
     }
 
-    public EducationSpecification GetEducationSpecification(Guid educationSpecificationId)
+    public EducationSpecification GetEducationSpecification(Guid educationSpecificationId, List<string> expand)
     {
-        return dbContext.EducationSpecifications.FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));
+        var set = dbContext.EducationSpecifications;
+
+        if (expand != null && expand.Any())
+        {
+
+            bool getParent = expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
+            bool getOrganization = expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
+
+            if (getParent && getOrganization)
+            {
+                return set.Include(x => x.Parent)
+                          .Include(x => x.Organization)
+                          .FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));
+            }
+            else if (getParent && !getOrganization)
+            {
+                return set.Include(x => x.Parent)
+                          .FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));
+            }
+            else if (!getParent && getOrganization)
+            {
+                return set.Include(x => x.Organization)
+                          .FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));
+            }
+
+        }
+
+        return set.FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));
     }
 
     public List<EducationSpecification> GetEducationSpecificationsByEducationSpecificationId(Guid educationSpecificationId)

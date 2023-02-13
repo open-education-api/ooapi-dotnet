@@ -29,11 +29,11 @@ namespace ooapi.v5.core.Services
             }
         }
 
-        public Program Get(Guid programId, out ErrorResponse errorResponse)
+        public Program Get(Guid programId, List<string> expand, out ErrorResponse errorResponse)
         {
             try
             {
-                var item = _repository.GetProgram(programId);
+                var item = _repository.GetProgram(programId, expand);
 
                 errorResponse = null;
                 return item;

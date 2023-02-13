@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ooapi.v5.core.Repositories;
 
@@ -11,9 +12,10 @@ using ooapi.v5.core.Repositories;
 namespace ooapi.v5.core.Migrations
 {
     [DbContext(typeof(CoreDBContext))]
-    partial class CoreDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230210091541_Added-Organization-to-Program")]
+    partial class AddedOrganizationtoProgram
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -968,10 +970,6 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("EducationSpecificationId");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.HasIndex("ParentId");
 
                     b.ToTable("EducationSpecifications", "ooapiv5");
                 });
@@ -1963,21 +1961,6 @@ namespace ooapi.v5.core.Migrations
                     b.HasOne("ooapi.v5.Models.AcademicSession", null)
                         .WithMany("CourseOfferings")
                         .HasForeignKey("AcademicSessionId");
-                });
-
-            modelBuilder.Entity("ooapi.v5.Models.EducationSpecification", b =>
-                {
-                    b.HasOne("ooapi.v5.Models.Organization", "Organization")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId");
-
-                    b.HasOne("ooapi.v5.Models.EducationSpecification", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentId");
-
-                    b.Navigation("Organization");
-
-                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.LanguageOfChoice", b =>

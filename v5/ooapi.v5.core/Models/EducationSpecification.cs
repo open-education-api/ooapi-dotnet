@@ -235,12 +235,23 @@ namespace ooapi.v5.Models
         /// The educationSpecification that is the parent of this educationSpecification if it exists. [&#x60;expandable&#x60;](#tag/education_specification_model)
         /// </summary>
         /// <value>The educationSpecification that is the parent of this educationSpecification if it exists. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
-
         [JsonProperty(PropertyName = "parent")]
-        public OneOfEducationSpecification? Parent { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfEducationSpecification OneOfEducationSpecification
+        {
+            get
+            {
+                if (ParentId == null) return null;
+                return new OneOfEducationSpecificationInstance(ParentId, Parent);
+            }
+        }
 
         [JsonIgnore]
         public Guid? ParentId { get; set; }
+
+        [JsonIgnore]
+        public EducationSpecification? Parent { get; set; }
 
         /// <summary>
         /// The EducationSpecifications that have this EducationSpecification as their parent. [&#x60;expandable&#x60;](#tag/education_specification_model)
@@ -256,12 +267,22 @@ namespace ooapi.v5.Models
         /// <value>The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [JsonProperty(PropertyName = "organization")]
-        public OneOfOrganization? Organization { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfOrganization OneOfOrganization
+        {
+            get
+            {
+                if (OrganizationId == null) return null;
+                return new OneOfOrganizationInstance(OrganizationId, Organization);
+            }
+        }
 
         [JsonIgnore]
         public Guid? OrganizationId { get; set; }
 
-
+        [JsonIgnore]
+        public Organization? Organization { get; set; }
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
         /// </summary>
