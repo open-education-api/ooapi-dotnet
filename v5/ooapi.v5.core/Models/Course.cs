@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
@@ -371,11 +372,24 @@ namespace ooapi.v5.Models
         /// <value>The educationSpecification of which this course is a more concrete implementation. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
 
         [JsonProperty(PropertyName = "educationSpecification")]
-        public OneOfEducationSpecification EducationSpecification { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfEducationSpecification OneOfEducationSpecification
+        {
+            get
+            {
+                if (EducationSpecificationId == null) return null;
+                return new OneOfEducationSpecificationInstance(EducationSpecificationId, EducationSpecification);
+            }
+        }
 
 
         [JsonIgnore]
         public Guid? EducationSpecificationId { get; set; }
+
+
+        [JsonIgnore]
+        public EducationSpecification? EducationSpecification { get; set; }
 
         /// <summary>
         /// Addresses for this course
@@ -431,10 +445,22 @@ namespace ooapi.v5.Models
         /// <value>The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [JsonProperty(PropertyName = "organization")]
-        public OneOfOrganization Organization { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfOrganization OneOfOrganization
+        {
+            get
+            {
+                if (OrganizationId == null) return null;
+                return new OneOfOrganizationInstance(OrganizationId, Organization);
+            }
+        }
 
         [JsonIgnore]
         public Guid? OrganizationId { get; set; }
+
+        [JsonIgnore]
+        public Organization? Organization { get; set; }
 
 
         /// <summary>

@@ -1,6 +1,8 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -159,10 +161,23 @@ namespace ooapi.v5.Models
         /// <value>The organizational unit which is the parent of this organization. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [JsonProperty(PropertyName = "parent")]
-        public OneOfOrganization? Parent { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfOrganization? OneOfOrganization
+        {
+            get
+            {
+                if (ParentId == null) return null;
+                return new OneOfOrganizationInstance(ParentId, Parent);
+            }
+        }
 
         [JsonIgnore]
         public Guid? ParentId { get; set; }
+
+        [JsonIgnore]
+        public Organization? Parent { get; set; }
+
 
         /// <summary>
         /// All the organizational units for which this organization is the parent. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 

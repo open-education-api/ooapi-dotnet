@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

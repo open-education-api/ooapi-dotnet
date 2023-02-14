@@ -25,9 +25,10 @@ public class CoreDBContext : DbContext
     public DbSet<Building> Buildings { get; set; }
     public DbSet<Component> Components { get; set; }
     public DbSet<ComponentOffering> ComponentOfferings { get; set; }
-
+    public DbSet<ComponentResult> ComponentResults { get; set; }
     public DbSet<Course> Courses { get; set; }
     public DbSet<CourseOffering> CourseOfferings { get; set; }
+    public DbSet<CourseResult> CourseResults { get; set; }
     public DbSet<EducationSpecification> EducationSpecifications { get; set; }
     public DbSet<NewsFeed> NewsFeeds { get; set; }
     public DbSet<NewsItem> NewsItems { get; set; }
@@ -35,6 +36,7 @@ public class CoreDBContext : DbContext
     public DbSet<Person> Persons { get; set; }
     public DbSet<Program> Programs { get; set; }
     public DbSet<ProgramOffering> ProgramOfferings { get; set; }
+    public DbSet<ProgramResult> ProgramResults { get; set; }
     public DbSet<Room> Rooms { get; set; }
 
     public DbSet<Address> Addresses { get; set; }
@@ -60,12 +62,16 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<Service>().HasKey(c => c.ServiceId);
 
         modelBuilder.Entity<AcademicSession>().HasKey(c => c.AcademicSessionId);
+        modelBuilder.Entity<AcademicSession>().HasOne(c => c.Parent).WithMany().HasForeignKey(c => c.AcademicSessionId);
+
         modelBuilder.Entity<Association>().HasKey(c => c.AssociationId);
         modelBuilder.Entity<Building>().HasKey(c => c.BuildingId);
         modelBuilder.Entity<Component>().HasKey(c => c.ComponentId);
         modelBuilder.Entity<ComponentOffering>().HasKey(c => c.OfferingId);
+        modelBuilder.Entity<ComponentResult>().HasKey(c => c.ResultId);
         modelBuilder.Entity<Course>().HasKey(c => c.CourseId);
         modelBuilder.Entity<CourseOffering>().HasKey(c => c.OfferingId);
+        modelBuilder.Entity<CourseResult>().HasKey(c => c.ResultId);
         modelBuilder.Entity<EducationSpecification>().HasKey(c => c.EducationSpecificationId);
         modelBuilder.Entity<Group>().HasKey(c => c.GroupId);
         modelBuilder.Entity<NewsFeed>().HasKey(c => c.NewsFeedId);
@@ -74,6 +80,7 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<Person>().HasKey(c => c.PersonId);
         modelBuilder.Entity<Program>().HasKey(c => c.ProgramId);
         modelBuilder.Entity<ProgramOffering>().HasKey(c => c.OfferingId);
+        modelBuilder.Entity<ProgramResult>().HasKey(c => c.ResultId);
         modelBuilder.Entity<Room>().HasKey(c => c.RoomId);
         modelBuilder.Entity<Address>().HasKey(c => c.AddressId);
         modelBuilder.Entity<ConsumerRegistration>().HasKey(c => c.ConsumerKey);

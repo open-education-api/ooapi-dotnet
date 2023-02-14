@@ -16,6 +16,6 @@ public class AssociationsRepository : BaseRepository<Association>
 
     public List<Association> GetAssociationsByPersonId(Guid personId)
     {
-        return dbContext.Associations.Where(o => o.Person.Equals(personId)).ToList();
+        return dbContext.Associations.Where(o => o.PersonId.Equals(personId)).ToList();
     }
 }

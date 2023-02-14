@@ -44,11 +44,11 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
 
     public List<EducationSpecification> GetEducationSpecificationsByEducationSpecificationId(Guid educationSpecificationId)
     {
-        return dbContext.EducationSpecifications.Where(o => o.Parent.Equals(educationSpecificationId)).ToList();
+        return dbContext.EducationSpecifications.Where(o => o.ParentId.Equals(educationSpecificationId)).ToList();
     }
 
     public List<EducationSpecification> GetEducationSpecificationsByOrganizationId(Guid organizationId)
     {
-        return dbContext.EducationSpecifications.Where(o => o.Organization.Equals(organizationId)).ToList();
+        return dbContext.EducationSpecifications.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;

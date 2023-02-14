@@ -1,6 +1,8 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
@@ -82,16 +84,37 @@ namespace ooapi.v5.Models
         /// <value>A result as part of an association</value>
 
         [JsonProperty(PropertyName = "result")]
-        public OneOfResult? Result { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfResult? OneOfResult
+        {
+            get
+            {
+                if (ResultId == null) return null;
+                if (ProgramResult != null)
+                    return new OneOfResultInstance(ResultId, ProgramResult);
+                else if (CourseResult != null)
+                    return new OneOfResultInstance(ResultId, CourseResult);
+                else if (ComponentResult != null)
+                    return new OneOfResultInstance(ResultId, ComponentResult);
+                else
+                    return null;
+            }
+        }
 
         [JsonIgnore]
-        public Guid? ProgramResultId { get; set; }
+        public Guid? ResultId { get; set; }
 
         [JsonIgnore]
-        public Guid? CourseResultId { get; set; }
+        public ProgramResult? ProgramResult { get; set; }
+
 
         [JsonIgnore]
-        public Guid? ComponentResultId { get; set; }
+        public CourseResult? CourseResult { get; set; }
+
+        [JsonIgnore]
+        public ComponentResult? ComponentResult { get; set; }
+
 
         /// <summary>
         /// Identifier (string) or Person (object)
@@ -99,10 +122,22 @@ namespace ooapi.v5.Models
         /// <value>Identifier (string) or Person (object)</value>
 
         [JsonProperty(PropertyName = "person")]
-        public OneOfPerson? Person { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfPerson? OneOfPerson
+        {
+            get
+            {
+                if (ResultId == null) return null;
+                return new OneOfPersonInstance(PersonId, Person);
+            }
+        }
 
         [JsonIgnore]
         public Guid? PersonId { get; set; }
+
+        [JsonIgnore]
+        public Person? Person { get; set; }
 
 
         /// <summary>
@@ -111,10 +146,36 @@ namespace ooapi.v5.Models
         /// <value>Identifier (string) or Offering (object) or Offering (object) or Offering (object)</value>
 
         [JsonProperty(PropertyName = "offering")]
-        public OneOfOffering? Offering { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfOffering? OneOfOffering
+        {
+            get
+            {
+                if (OfferingId == null) return null;
+                if (ProgramOffering != null)
+                    return new OneOfOfferingInstance(OfferingId, ProgramOffering);
+                else if (CourseOffering != null)
+                    return new OneOfOfferingInstance(OfferingId, CourseOffering);
+                else if (ComponentOffering != null)
+                    return new OneOfOfferingInstance(OfferingId, ComponentOffering);
+                else
+                    return null;
+            }
+        }
 
         [JsonIgnore]
         public Guid? OfferingId { get; set; }
+
+        [JsonIgnore]
+        public ProgramOffering? ProgramOffering { get; set; }
+
+        [JsonIgnore]
+        public CourseOffering? CourseOffering { get; set; }
+
+        [JsonIgnore]
+        public ComponentOffering? ComponentOffering { get; set; }
+
 
     }
 

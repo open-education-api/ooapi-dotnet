@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -207,10 +209,22 @@ namespace ooapi.v5.Models
         /// <value>The building in which the room is located. [&#x60;expandable&#x60;](#tag/building_model) By default only the &#x60;buildingId&#x60; (a string) is returned. If the client requested an expansion of &#x60;building&#x60; the full building object should be returned. </value>
 
         [JsonProperty(PropertyName = "building")]
-        public OneOfBuilding Building { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfBuilding OneOfBuilding
+        {
+            get
+            {
+                if (BuildingId == null) return null;
+                return new OneOfBuildingInstance(BuildingId, Building);
+            }
+        }
 
         [JsonIgnore]
         public Guid? BuildingId { get; set; }
+
+        [JsonIgnore]
+        public Building? Building { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.

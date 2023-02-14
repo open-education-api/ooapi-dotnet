@@ -93,16 +93,16 @@ public class ProgramsRepository : BaseRepository<Program>
 
     public List<Program> GetProgramsByEducationSpecificationId(Guid educationSpecificationId)
     {
-        return dbContext.Programs.Where(o => o.EducationSpecification.Equals(educationSpecificationId)).ToList();
+        return dbContext.Programs.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).ToList();
     }
 
     public List<Program> GetProgramsByOrganizationId(Guid organizationId)
     {
-        return dbContext.Programs.Where(o => o.Organization.Equals(organizationId)).ToList();
+        return dbContext.Programs.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 
     public List<Program> GetProgramsByProgramId(Guid programId)
     {
-        return dbContext.Programs.Where(o => o.Parent.Equals(programId)).ToList();
+        return dbContext.Programs.Where(o => o.ParentId.Equals(programId)).ToList();
     }
 }

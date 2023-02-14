@@ -1,4 +1,5 @@
-namespace ooapi.v5.Models;
+namespace ooapi.v5.core.Models.OneOfModels;
+using ooapi.v5.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;

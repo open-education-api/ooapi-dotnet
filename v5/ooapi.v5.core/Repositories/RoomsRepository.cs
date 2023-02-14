@@ -16,6 +16,6 @@ public class RoomsRepository : BaseRepository<Room>
 
     public List<Room> GetRoomsByBuildingId(Guid buildingId)
     {
-        return dbContext.Rooms.Where(o => o.Building.Equals(buildingId)).ToList();
+        return dbContext.Rooms.Where(o => o.BuildingId.Equals(buildingId)).ToList();
     }
 }

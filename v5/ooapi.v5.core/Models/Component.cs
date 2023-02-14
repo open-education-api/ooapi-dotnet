@@ -1,6 +1,8 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -289,15 +291,24 @@ namespace ooapi.v5.Models
         /// <value>The course of which this component is a part. [&#x60;expandable&#x60;](#tag/course_model) By default only the &#x60;courseId&#x60; (a string) is returned. If the client requested an expansion of &#x60;course&#x60; the full course object should be returned. </value>
 
         [JsonProperty(PropertyName = "course")]
-        public OneOfCourse CourseModel { get; set; }
-
-
-        [JsonIgnore]
-        public Course? Course { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfCourse OneOfCourse
+        {
+            get
+            {
+                if (CourseId == null) return null;
+                return new OneOfCourseInstance(CourseId, Course);
+            }
+        }
 
 
         [JsonIgnore]
         public Guid? CourseId { get; set; }
+
+        [JsonIgnore]
+        public Course? Course { get; set; }
+
 
 
         /// <summary>
@@ -306,10 +317,22 @@ namespace ooapi.v5.Models
         /// <value>The organization which provides this component. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [JsonProperty(PropertyName = "organization")]
-        public OneOfOrganization Organization { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfOrganization OneOfOrganization
+        {
+            get
+            {
+                if (OrganizationId == null) return null;
+                return new OneOfOrganizationInstance(OrganizationId, Organization);
+            }
+        }
 
         [JsonIgnore]
         public Guid? OrganizationId { get; set; }
+
+        [JsonIgnore]
+        public Organization? Organization { get; set; }
 
 
         /// <summary>

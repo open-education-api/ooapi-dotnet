@@ -16,16 +16,17 @@ public class CoursesRepository : BaseRepository<Course>
 
     public List<Course> GetCoursesByEducationSpecificationId(Guid educationSpecificationId)
     {
-        return dbContext.Courses.Where(o => o.EducationSpecification.Equals(educationSpecificationId)).ToList();
+        return dbContext.Courses.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).ToList();
     }
 
     public List<Course> GetCoursesByOrganizationId(Guid organizationId)
     {
-        return dbContext.Courses.Where(o => o.Organization.Equals(organizationId)).ToList();
+        return dbContext.Courses.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 
     public List<Course> GetCoursesByProgramId(Guid programId)
     {
-        return dbContext.Courses.Where(o => o.Programs.Equals(programId)).ToList();
+        return null;
+        //return dbContext.Courses.Where(o => o.Programs.Equals(programId)).ToList();
     }
 }

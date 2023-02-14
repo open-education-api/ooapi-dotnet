@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
@@ -464,8 +465,9 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Parent program of which the current program is a child. This object is [&#x60;expandable&#x60;](#tag/program_model)</value>
         [JsonProperty(PropertyName = "parent")]
+        [NotMapped]
         [JsonConverter(typeof(OneOfConverter))]
-        public OneOfProgram OneOfProgram
+        public OneOfProgram OneOfParent
         {
             get
             {

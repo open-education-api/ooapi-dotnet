@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
@@ -66,7 +67,23 @@ namespace ooapi.v5.Models
         /// <value>The academicsession during which this offering takes place. [&#x60;expandable&#x60;](#tag/academic_session_model) By default only the &#x60;academicSessionId&#x60; (a string) is returned. If the client requested an expansion of &#x60;academicSession&#x60; the full academicsession object should be returned. </value>
         [JsonProperty(PropertyName = "academicSession")]
         [NotMapped]
-        public OneOfAcademicSession? AcademicSession { get; set; }
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfAcademicSession? OneOfAcademicSession
+        {
+            get
+            {
+                if (AcademicSessionId == null) return null;
+                return new OneOfAcademicSessionInstance(AcademicSessionId, AcademicSession);
+            }
+        }
+
+        [JsonIgnore]
+        public Guid? AcademicSessionId { get; set; }
+
+        [JsonIgnore]
+        public AcademicSession? AcademicSession { get; set; }
+
+
 
         //[JsonIgnore]
         //public Guid? AcademicSessionId { get; set; }
@@ -323,10 +340,23 @@ namespace ooapi.v5.Models
         /// <value>The organization that manages this courseoffering. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [JsonProperty(PropertyName = "organization")]
-        public OneOfOrganization Organization { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfOrganization OneOfOrganization
+        {
+            get
+            {
+                if (OrganizationId == null) return null;
+                return new OneOfOrganizationInstance(OrganizationId, Organization);
+            }
+        }
 
         [JsonIgnore]
         public Guid? OrganizationId { get; set; }
+
+        [JsonIgnore]
+        public Organization? Organization { get; set; }
+
 
         [JsonIgnore]
         public virtual ICollection<Address> Address { get; set; }

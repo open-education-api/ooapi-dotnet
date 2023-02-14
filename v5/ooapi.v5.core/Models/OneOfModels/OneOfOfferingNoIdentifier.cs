@@ -1,4 +1,5 @@
-namespace ooapi.v5.Models;
+namespace ooapi.v5.core.Models.OneOfModels;
+using ooapi.v5.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,5 +9,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 [SwaggerSubType(typeof(ComponentOffering), DiscriminatorValue = "componentOffering")]
 [NotMapped]
 public abstract class OneOfOfferingNoIdentifier { }
+
+
+public class OneOfOfferingNoIdentifierInstance : OneOfOfferingNoIdentifier
+{
+    public Guid? Id { get; set; }
+    public Offering? Offering { get; set; }
+
+    public OneOfOfferingNoIdentifierInstance(Guid? id, Offering? offering)
+    {
+        Id = id;
+        Offering = offering;
+    }
+}
 
 

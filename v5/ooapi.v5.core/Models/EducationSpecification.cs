@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
@@ -238,7 +239,7 @@ namespace ooapi.v5.Models
         [JsonProperty(PropertyName = "parent")]
         [NotMapped]
         [JsonConverter(typeof(OneOfConverter))]
-        public OneOfEducationSpecification OneOfEducationSpecification
+        public OneOfEducationSpecification OneOfParent
         {
             get
             {
@@ -283,6 +284,8 @@ namespace ooapi.v5.Models
 
         [JsonIgnore]
         public Organization? Organization { get; set; }
+
+
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
         /// </summary>

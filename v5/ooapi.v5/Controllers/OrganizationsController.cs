@@ -57,8 +57,7 @@ public class OrganizationsController : BaseController
         {
             parameters.Filters.Add("organizationType", organizationType);
         }
-        //var result = service.GetAll(parameters, out ErrorResponse errorResponse, organizationType);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        var result = service.GetAll(parameters, out ErrorResponse errorResponse, organizationType);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -292,7 +291,7 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdProgramsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
-    public virtual IActionResult OrganizationsOrganizationIdProgramsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string sort = "name")
+    public virtual IActionResult OrganizationsOrganizationIdProgramsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         var service = new ProgramsService(DBContext, UserRequestContext);
