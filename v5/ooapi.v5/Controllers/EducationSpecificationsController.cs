@@ -171,7 +171,15 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
     public virtual IActionResult EducationSpecificationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? educationSpecificationType = "", [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        if (!string.IsNullOrWhiteSpace(primaryCodeParam.primaryCode))
+        {
+            parameters.Filters.Add("primaryCode", primaryCodeParam.primaryCode);
+        }
+        if (!string.IsNullOrWhiteSpace(educationSpecificationType.ToString()))
+        {
+            parameters.Filters.Add("EducationSpecificationType", educationSpecificationType);
+        }
         var service = new EducationSpecificationsService(DBContext, UserRequestContext);
         var result = service.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)

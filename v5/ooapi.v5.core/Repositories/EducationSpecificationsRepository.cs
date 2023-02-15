@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
@@ -10,33 +11,31 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
         //
     }
 
+    internal Pagination<EducationSpecification> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    {
+        IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>();
+        bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
+        if (includeConsumer)
+        {
+            set = set.Include(x => x.Consumers);
+        }
+        return GetAllOrderedBy(dataRequestParameters, set);
+    }
+
     public EducationSpecification GetEducationSpecification(Guid educationSpecificationId, List<string> expand)
     {
-        var set = dbContext.EducationSpecifications;
+        IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>();
 
-        if (expand != null && expand.Any())
+        bool getParent = expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
+        bool getOrganization = expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
+
+        if (getParent)
         {
-
-            bool getParent = expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
-            bool getOrganization = expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
-
-            if (getParent && getOrganization)
-            {
-                return set.Include(x => x.Parent)
-                          .Include(x => x.Organization)
-                          .FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));
-            }
-            else if (getParent && !getOrganization)
-            {
-                return set.Include(x => x.Parent)
-                          .FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));
-            }
-            else if (!getParent && getOrganization)
-            {
-                return set.Include(x => x.Organization)
-                          .FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));
-            }
-
+            set = set.Include(x => x.Parent);
+        }
+        if (getOrganization)
+        {
+            set = set.Include(x => x.Organization);
         }
 
         return set.FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));

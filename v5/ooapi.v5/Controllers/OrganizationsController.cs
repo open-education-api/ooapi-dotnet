@@ -48,7 +48,6 @@ public class OrganizationsController : BaseController
     public virtual IActionResult OrganizationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] OrganizationTypeEnum? organizationType, [FromQuery] string sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new OrganizationsService(DBContext, UserRequestContext);
         if (!string.IsNullOrWhiteSpace(primaryCodeParam.primaryCode))
         {
             parameters.Filters.Add("primaryCode", primaryCodeParam.primaryCode);
@@ -57,6 +56,7 @@ public class OrganizationsController : BaseController
         {
             parameters.Filters.Add("organizationType", organizationType);
         }
+        var service = new OrganizationsService(DBContext, UserRequestContext);
         var result = service.GetAll(parameters, out ErrorResponse errorResponse, organizationType);
         if (result == null)
         {
