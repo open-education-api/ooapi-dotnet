@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
+using System.Runtime.CompilerServices;
 
 namespace ooapi.v5.core.Repositories;
 
@@ -17,7 +18,7 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
         bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
         if (includeConsumer)
         {
-            set = set.Include(x => x.Consumers);
+            set = set.Include(x => x.Consumers.Where(y=>y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
         return GetAllOrderedBy(dataRequestParameters, set);
     }

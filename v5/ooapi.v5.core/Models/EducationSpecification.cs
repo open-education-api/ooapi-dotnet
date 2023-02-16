@@ -1,10 +1,14 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 namespace ooapi.v5.Models
 {
@@ -308,17 +312,18 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "consumers")]
         [NotMapped]
-        public List<Consumer>? ConsumersList
+        public List<JObject>? ConsumersList
         {
             get
             {
-                return Consumers;
+                if (Consumers != null && Consumers.Any())
+                    return ConsumerConverter.GetDynamicConsumers(Consumers);
+                return null;
             }
         }
 
-
         [JsonIgnore]
-        public List<Consumer> Consumers { get; set; }
+        public List<Consumer>? Consumers { get; set; }
 
 
 
