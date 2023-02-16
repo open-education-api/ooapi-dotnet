@@ -1,15 +1,10 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ooapi.v5.Attributes;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
 
 namespace ooapi.v5.Models
 {
@@ -17,7 +12,7 @@ namespace ooapi.v5.Models
     /// A named period of time that can be used to communicate the various schedules and time periods an institution recognizes and uses to organize their education. AcademicSessions can be nested. Offerings MAY be be linked to a specific AcademicSession to indicate that the specified Offering takes place during the AcademicSession, however this is not mandatory. 
     /// </summary>
 
-    public class AcademicSession : ModelBase  
+    public class AcademicSession : ModelBase
     {
         /// <summary>
         /// Unique id for this academic session
@@ -68,7 +63,7 @@ namespace ooapi.v5.Models
         [JsonIgnore]
         public string? PrimaryCode { get; set; }
 
-       /// <summary>
+        /// <summary>
         /// The name of this academic session
         /// </summary>
         /// <value>The name of this academic session</value>
@@ -90,7 +85,7 @@ namespace ooapi.v5.Models
 
         [JsonIgnore]
         [SortAllowed]
-        public List<Attribute> Attributes{ get; set; }
+        public List<Attribute> Attributes { get; set; }
 
 
         /// <summary>
@@ -212,19 +207,20 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty("consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         [NotMapped]
-        //        public List<Consumer>? Consumers { get; set; }
-        public List<dynamic>? consumers { get; set; }
-
+        public List<JObject>? ConsumersList
+        {
+            get
+            {
+                if (Consumers != null && Consumers.Any())
+                    return ConsumerConverter.GetDynamicConsumers(Consumers);
+                return null;
+            }
+        }
 
         [JsonIgnore]
-        [SortAllowed]
-        [SortDefault]
-        public List<Consumer> Consumers { get; set; }
-
-
-
+        public List<Consumer>? Consumers { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<ProgramOffering> ProgramOfferings { get; set; }
@@ -235,5 +231,5 @@ namespace ooapi.v5.Models
         [JsonIgnore]
         public virtual ICollection<ComponentOffering> ComponentOfferings { get; set; }
 
-        }
+    }
 }

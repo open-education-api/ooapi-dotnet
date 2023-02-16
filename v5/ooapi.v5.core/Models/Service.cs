@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
-using ooapi.v5.Attributes;
+using Newtonsoft.Json.Linq;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -55,16 +56,19 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty("consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         [NotMapped]
-        public List<dynamic>? consumers { get; set; }
-
+        public List<JObject>? ConsumersList
+        {
+            get
+            {
+                if (Consumers != null && Consumers.Any())
+                    return ConsumerConverter.GetDynamicConsumers(Consumers);
+                return null;
+            }
+        }
 
         [JsonIgnore]
-        [SortAllowed]
-        [SortDefault]
-        public List<Consumer> Consumers { get; set; }
-
-
+        public List<Consumer>? Consumers { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ooapi.v5.Attributes;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
@@ -220,7 +221,7 @@ namespace ooapi.v5.Models
             }
         }
 
-   
+
         /// <summary>
         /// The (primary) teaching language in which this course is given, should be a three-letter language code as specified by ISO 639-2.
         /// </summary>
@@ -412,16 +413,20 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty("consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         [NotMapped]
-        public List<dynamic>? consumers { get; set; }
-
+        public List<JObject>? ConsumersList
+        {
+            get
+            {
+                if (Consumers != null && Consumers.Any())
+                    return ConsumerConverter.GetDynamicConsumers(Consumers);
+                return null;
+            }
+        }
 
         [JsonIgnore]
-        [SortAllowed]
-        [SortDefault]
-        public List<Consumer> Consumers{ get; set; }
-
+        public List<Consumer>? Consumers { get; set; }
 
         /// <summary>
         /// The program of which this course is a part of. This object is [&#x60;expandable&#x60;](#tag/program_model)
