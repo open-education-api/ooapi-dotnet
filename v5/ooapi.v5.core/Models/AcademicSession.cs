@@ -6,6 +6,7 @@ using ooapi.v5.Attributes;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
@@ -133,7 +134,11 @@ namespace ooapi.v5.Models
         public Guid? ParentId { get; set; }
 
         [JsonIgnore]
+        [NotMapped]
         public AcademicSession? Parent { get; set; }
+
+
+        //??public virtual ICollection<AcademicSession> ChildAcademicSessions { get; set; }
 
         /// <summary>
         /// The list of Academicsession children of this Session (e.g. all academic sessions in fall semester 20xx). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)
@@ -142,7 +147,31 @@ namespace ooapi.v5.Models
 
         [JsonProperty("children")]
         [NotMapped]
-        public List<OneOfAcademicSession>? Children { get; set; }
+        [JsonConverter(typeof(OneOfConverter))]
+        public List<OneOfAcademicSession>? ChildrenList
+        {
+            get
+            {
+                if (ChildrenIds == null) return null;
+                List<OneOfAcademicSession>? result = new List<OneOfAcademicSession>();
+                foreach (var ChildId in ChildrenIds)
+                {
+                    result.Add(new OneOfAcademicSessionInstance(ChildId, Children.FirstOrDefault(x => x.AcademicSessionId.Equals(ChildId))));
+                }
+                return result;
+            }
+        }
+
+
+        [JsonIgnore]
+        [NotMapped]
+        public List<Guid>? ChildrenIds { get; set; }
+
+
+        [JsonIgnore]
+        [NotMapped]
+        public List<AcademicSession>? Children { get; set; }
+
 
         /// <summary>
         /// The top level year of this session (e.g. 20xx where the current session is a week 40 of a semester). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)
@@ -157,6 +186,8 @@ namespace ooapi.v5.Models
             get
             {
                 if (YearId == null) return null;
+                if (Year != null && Year.AcademicSessionId.Equals(YearId))
+                    return null;
                 return new OneOfAcademicSessionInstance(YearId, Year);
             }
         }
@@ -165,6 +196,7 @@ namespace ooapi.v5.Models
         public Guid? YearId { get; set; }
 
         [JsonIgnore]
+        [NotMapped]
         public AcademicSession? Year { get; set; }
 
         /// <summary>

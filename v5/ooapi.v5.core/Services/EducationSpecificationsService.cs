@@ -29,7 +29,7 @@ namespace ooapi.v5.core.Services
             }
         }
 
-        public EducationSpecification Get(Guid educationSpecificationId, List<string> expand, out ErrorResponse errorResponse)
+        public EducationSpecification Get(Guid educationSpecificationId, List<string>? expand, out ErrorResponse errorResponse)
         {
             try
             {

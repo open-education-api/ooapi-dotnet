@@ -30,11 +30,11 @@ namespace ooapi.v5.core.Services
             }
         }
 
-        public AcademicSession Get(Guid academicSessionId, out ErrorResponse errorResponse)
+        public AcademicSession Get(Guid academicSessionId, List<string>? expand, out ErrorResponse errorResponse)
         {
             try
             {
-                var item = _repository.GetAcademicSession(academicSessionId);
+                var item = _repository.GetAcademicSession(academicSessionId, expand);
 
                 errorResponse = null;
                 return item;

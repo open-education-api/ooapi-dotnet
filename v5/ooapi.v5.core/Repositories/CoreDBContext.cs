@@ -7,6 +7,7 @@ using ooapi.v5.Models;
 using System;
 using System.IO;
 using System.Reflection.Emit;
+using System.Xml;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 public class CoreDBContext : DbContext
@@ -62,7 +63,8 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<Service>().HasKey(c => c.ServiceId);
 
         modelBuilder.Entity<AcademicSession>().HasKey(c => c.AcademicSessionId);
-        modelBuilder.Entity<AcademicSession>().HasOne(c => c.Parent).WithMany().HasForeignKey(c => c.AcademicSessionId);
+        //modelBuilder.Entity<AcademicSession>().HasOne(c => c.Parent).WithMany().HasForeignKey(c => c.AcademicSessionId);
+        //modelBuilder.Entity<AcademicSession>().HasOne(c => c.Parent).WithOne(x=>x.AcademicSessionId);
 
         modelBuilder.Entity<Association>().HasKey(c => c.AssociationId);
         modelBuilder.Entity<Building>().HasKey(c => c.BuildingId);

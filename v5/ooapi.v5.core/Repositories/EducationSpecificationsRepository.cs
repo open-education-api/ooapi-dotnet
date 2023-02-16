@@ -23,12 +23,12 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
         return GetAllOrderedBy(dataRequestParameters, set);
     }
 
-    public EducationSpecification GetEducationSpecification(Guid educationSpecificationId, List<string> expand)
+    public EducationSpecification GetEducationSpecification(Guid educationSpecificationId, List<string>? expand)
     {
         IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>();
 
-        bool getParent = expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
-        bool getOrganization = expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
+        bool getParent = expand != null && expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
+        bool getOrganization = expand != null && expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
 
         if (getParent)
         {
