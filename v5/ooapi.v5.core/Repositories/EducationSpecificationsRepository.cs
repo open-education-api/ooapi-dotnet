@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
-using System.Runtime.CompilerServices;
 
 namespace ooapi.v5.core.Repositories;
 
@@ -14,18 +13,18 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
 
     internal Pagination<EducationSpecification> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
-        IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>();
+        IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>().Include(x => x.Attributes);
         bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
         if (includeConsumer)
         {
-            set = set.Include(x => x.Consumers.Where(y=>y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
         return GetAllOrderedBy(dataRequestParameters, set);
     }
 
     public EducationSpecification GetEducationSpecification(Guid educationSpecificationId, List<string>? expand)
     {
-        IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>();
+        IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>().Include(x => x.Attributes);
 
         bool getParent = expand != null && expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
         bool getOrganization = expand != null && expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
