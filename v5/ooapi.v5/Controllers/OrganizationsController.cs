@@ -54,7 +54,7 @@ public class OrganizationsController : BaseController
         }
         if (!string.IsNullOrWhiteSpace(organizationType.ToString()))
         {
-            parameters.Filters.Add("organizationType", organizationType);
+            parameters.Filters.Add("OrganizationType", organizationType);
         }
         var service = new OrganizationsService(DBContext, UserRequestContext);
         var result = service.GetAll(parameters, out ErrorResponse errorResponse, organizationType);
@@ -166,7 +166,7 @@ public class OrganizationsController : BaseController
     /// </summary>
     /// <remarks>Get a single organization.</remarks>
     /// <param name="organizationId">Organization ID</param>
-    /// <param name="expand">Optional properties to expand, separated by a comma</param>
+    /// <param name="expand">Items Enum: "parent" "children" <br/>Optional properties to expand, separated by a comma</param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("organizations/{organizationId}")]

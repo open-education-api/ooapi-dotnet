@@ -233,48 +233,6 @@ namespace ooapi.v5.core.Utility
             return returnValue;
         }
 
-        public static IOrderedQueryable<TEntity> SearchByPrimaryCode<TEntity>(this IQueryable<TEntity> source, string searchTerm) where TEntity : class
-        {
-            IOrderedQueryable<TEntity> returnValue = null;
-            var searchingPropertiesList = new List<PropertyInfo>();
-            Type type = typeof(TEntity);
-            searchTerm = searchTerm.Trim().ToLower();
-            if (string.IsNullOrEmpty(searchTerm))
-                return null;
-
-            var primaryCodeProperty = type.GetProperties().FirstOrDefault(x => x.Name.Equals("PrimaryCode"));
-
-            IQueryable<TEntity> expTest = source;
-            ParameterExpression parameter = Expression.Parameter(type, "p"); // for example: {p}
-
-            Expression propertyExpression = null;
-            Expression expression = null;
-
-            if (primaryCodeProperty!=null)
-            {
-                try
-                {
-                    propertyExpression = Expression.MakeMemberAccess(parameter, primaryCodeProperty); // {p.PrimaryCode}
-                    Expression targetExpression = Expression.Constant(searchTerm);
-                    MethodInfo containsMethod = typeof(string).GetMethod("Contains", new Type[] { typeof(string) });
-                    expression = Expression.Call(propertyExpression, containsMethod, targetExpression); // for example: {p.Name.ToLower().Contains("abc")}
-                }
-                catch (Exception)
-                {
-                    // 
-                }
-                if (expression != null)
-                {
-                    var equalsLambda = Expression.Lambda<Func<TEntity, bool>>(expression, parameter); // for example: {p => p.Name.ToLower().Contains("abc") || p.Description.ToLower().Contains("abc")}
-                    expTest = expTest.Where(equalsLambda);
-                    returnValue = (IOrderedQueryable<TEntity>)expTest;
-                }
-
-            }
-
-
-
-            return returnValue;
-        }
+    
     }
 }

@@ -71,7 +71,7 @@ public class AcademicSessionsController : BaseController
     /// </summary>
     /// <remarks>Get a single academic session.</remarks>
     /// <param name="academicSessionId">Academic session ID</param>
-    /// <param name="expand">Optional properties to expand, separated by a comma <br/>Items Enum: "parent" "children" "year" </param>
+    /// <param name="expand">Items Enum: "parent" "children" "year" <br/> Optional properties to expand, separated by a comma </param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("academic-sessions/{academicSessionId}")]

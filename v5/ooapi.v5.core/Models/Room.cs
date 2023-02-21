@@ -33,7 +33,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty(PropertyName = "primaryCode")]
         [NotMapped]
-        public IdentifierEntry primaryCode
+        public IdentifierEntry primaryCodeIdentifier
         {
             get
             {

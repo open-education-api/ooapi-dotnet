@@ -95,7 +95,7 @@ public class EducationSpecificationsController : BaseController
     /// <remarks>Get a single education specification.</remarks>
     /// <param name="educationSpecificationId">Education specification ID</param>
     /// <param name="returnTimelineOverrides">Controls whether the attribute &#x60;timelineOverrides&#x60; is returned or not. The default is &#x60;false&#x60;, so this has to explicitly set to &#x60;true&#x60; if a client needs the timeline overrides. See [GET /education-specifications/{educationSpecificationId}](#tag/education-specifications/paths/~1education-specifications~1{educationSpecificationId}/get) for an example.</param>
-    /// <param name="expand">Optional properties to include, separated by a comma</param>
+    /// <param name="expand">Items Enum: "parent" "children" "organization"  <br/>Optional properties to expand, separated by a comma</param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("education-specifications/{educationSpecificationId}")]
@@ -174,7 +174,7 @@ public class EducationSpecificationsController : BaseController
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         if (!string.IsNullOrWhiteSpace(primaryCodeParam.primaryCode))
         {
-            parameters.Filters.Add("primaryCode", primaryCodeParam.primaryCode);
+            parameters.Filters.Add("PrimaryCode", primaryCodeParam.primaryCode);
         }
         if (!string.IsNullOrWhiteSpace(educationSpecificationType.ToString()))
         {

@@ -114,7 +114,7 @@ public class NewsController : BaseController
     /// </summary>
     /// <remarks>Get a single news item.</remarks>
     /// <param name="newsItemId">News item ID</param>
-    /// <param name="expand">Optional properties to include, separated by a comma</param>
+    /// <param name="expand">Items Value: "newsFeeds" <br/>Optional properties to expand, separated by a comma</param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("news-items/{newsItemId}")]
