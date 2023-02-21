@@ -177,6 +177,7 @@ namespace ooapi.v5.Models
         public Guid? ParentId { get; set; }
 
         [JsonIgnore]
+        [NotMapped]
         public Organization? Parent { get; set; }
 
 
@@ -185,9 +186,32 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>All the organizational units for which this organization is the parent. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
-        [JsonProperty(PropertyName = "children")]
+        [JsonProperty("children")]
         [NotMapped]
-        public List<OneOfOrganization>? Children { get; set; }
+        [JsonConverter(typeof(OneOfConverter))]
+        public List<OneOfOrganization>? ChildrenList
+        {
+            get
+            {
+                if (ChildrenIds == null || !ChildrenIds.Any()) return null;
+                List<OneOfOrganization>? result = new List<OneOfOrganization>();
+                foreach (var ChildId in ChildrenIds)
+                {
+                    result.Add(new OneOfOrganizationInstance(ChildId, Children.FirstOrDefault(x => x.OrganizationId.Equals(ChildId))));
+                }
+                return result;
+            }
+        }
+
+
+        [JsonIgnore]
+        [NotMapped]
+        public List<Guid>? ChildrenIds { get; set; }
+
+
+        [JsonIgnore]
+        [NotMapped]
+        public List<Organization>? Children { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.

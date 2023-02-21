@@ -252,15 +252,40 @@ namespace ooapi.v5.Models
         public Guid? ParentId { get; set; }
 
         [JsonIgnore]
+        [NotMapped]
         public EducationSpecification? Parent { get; set; }
 
         /// <summary>
         /// The EducationSpecifications that have this EducationSpecification as their parent. [&#x60;expandable&#x60;](#tag/education_specification_model)
         /// </summary>
         /// <value>The EducationSpecifications that have this EducationSpecification as their parent. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
+        [JsonProperty("children")]
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public List<OneOfEducationSpecification>? ChildrenList
+        {
+            get
+            {
+                if (ChildrenIds == null || !ChildrenIds.Any()) return null;
+                List<OneOfEducationSpecification>? result = new List<OneOfEducationSpecification>();
+                foreach (var ChildId in ChildrenIds)
+                {
+                    result.Add(new OneOfEducationSpecificationInstance(ChildId, Children.FirstOrDefault(x => x.EducationSpecificationId.Equals(ChildId))));
+                }
+                return result;
+            }
+        }
 
-        [JsonProperty(PropertyName = "children")]
-        public List<OneOfEducationSpecification>? Children { get; set; }
+
+        [JsonIgnore]
+        [NotMapped]
+        public List<Guid>? ChildrenIds { get; set; }
+
+
+        [JsonIgnore]
+        [NotMapped]
+        public List<EducationSpecification>? Children { get; set; }
+
 
         /// <summary>
         /// The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 

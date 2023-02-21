@@ -173,10 +173,10 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Organization), description: "OK")]
-    public virtual IActionResult OrganizationsOrganizationIdGet([FromRoute][Required] Guid organizationId, [FromQuery] List<string> expand)
+    public virtual IActionResult OrganizationsOrganizationIdGet([FromRoute][Required] Guid organizationId, [FromQuery] List<string>? expand)
     {
         var service = new OrganizationsService(DBContext, UserRequestContext);
-        var result = service.Get(organizationId, out ErrorResponse errorResponse);
+        var result = service.Get(organizationId, expand, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

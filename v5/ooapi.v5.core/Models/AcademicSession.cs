@@ -142,16 +142,17 @@ namespace ooapi.v5.Models
 
         [JsonProperty("children")]
         [NotMapped]
-        [JsonConverter(typeof(OneOfConverter))]
+        [JsonConverter(typeof(ListOneOfConverter))]
         public List<OneOfAcademicSession>? ChildrenList
         {
             get
             {
-                if (ChildrenIds == null) return null;
+                if (ChildrenIds == null || !ChildrenIds.Any()) return null;
+
                 List<OneOfAcademicSession>? result = new List<OneOfAcademicSession>();
                 foreach (var ChildId in ChildrenIds)
                 {
-                    result.Add(new OneOfAcademicSessionInstance(ChildId, Children.FirstOrDefault(x => x.AcademicSessionId.Equals(ChildId))));
+                    result.Add(new OneOfAcademicSessionInstance(ChildId, (Children != null) ? Children.FirstOrDefault(x => x.AcademicSessionId.Equals(ChildId)) : null));
                 }
                 return result;
             }
@@ -181,7 +182,7 @@ namespace ooapi.v5.Models
             get
             {
                 if (YearId == null) return null;
-                if (Year != null && Year.AcademicSessionId.Equals(YearId))
+                if (Year != null && Year.AcademicSessionId.Equals(AcademicSessionId))
                     return null;
                 return new OneOfAcademicSessionInstance(YearId, Year);
             }

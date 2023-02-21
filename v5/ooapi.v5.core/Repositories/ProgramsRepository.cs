@@ -20,61 +20,43 @@ public class ProgramsRepository : BaseRepository<Program>
 
     public Program GetProgram(Guid programId, List<string> expand)
     {
-        // expands: parent, organization, educationSpecification
-        // nog te doen: children, coordinators
-        var set = dbContext.Programs;
 
-        if (expand != null && expand.Any())
+        // expands: parent, organization, educationSpecification, children
+        // nog te doen: , coordinators
+
+        IQueryable<Program> set = dbContext.Set<Program>().AsNoTracking();
+
+        Program result = set.FirstOrDefault(x => x.ProgramId.Equals(programId));
+        result.ChildrenIds = dbContext.Set<Program>().AsNoTracking().Where(x => x.ParentId.Equals(result.ProgramId)).Select(x => x.ProgramId).ToList();
+        result.ChildrenIds = dbContext.Set<Program>().AsNoTracking().Where(x => x.ParentId.Equals(result.ProgramId)).Select(x => x.ProgramId).ToList();
+
+        bool getParent = expand != null && expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
+        if (getParent && result.ParentId != null)
         {
-
-            bool getParent = expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
-            bool getOrganization = expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
-            bool getEducationspecification = expand.Contains("educationspecification", StringComparer.InvariantCultureIgnoreCase);
-
-            if (getParent && getOrganization && getEducationspecification)
-            {
-                return set.Include(x => x.Parent)
-                          .Include(x => x.Organization)
-                          .Include(x => x.EducationSpecification)
-                          .FirstOrDefault(x => x.ProgramId.Equals(programId));
-            }
-            else if (getParent && getOrganization && !getEducationspecification) 
-            {
-                return set.Include(x => x.Parent)
-                          .Include(x => x.Organization)
-                          .FirstOrDefault(x => x.ProgramId.Equals(programId));
-            }
-            else if (getParent && !getOrganization && getEducationspecification) 
-            {
-                return set.Include(x => x.Parent)
-                        .Include(x => x.EducationSpecification)
-                        .FirstOrDefault(x => x.ProgramId.Equals(programId));
-            }
-            else if (!getParent && getOrganization && getEducationspecification)
-            {
-                return set.Include(x => x.Organization)
-                    .Include(x => x.EducationSpecification)
-                    .FirstOrDefault(x => x.ProgramId.Equals(programId));
-            }
-
-            else if (getParent && !getOrganization && !getEducationspecification)
-            {
-                return set.Include(x => x.Parent)
-                    .FirstOrDefault(x => x.ProgramId.Equals(programId));
-            }
-            else if (!getParent && getOrganization && !getEducationspecification)
-            {
-                return set.Include(x => x.Organization)
-                    .FirstOrDefault(x => x.ProgramId.Equals(programId));
-            }
-            else if (!getParent && !getOrganization && getEducationspecification)
-            {
-                return set.Include(x => x.EducationSpecification)
-                    .FirstOrDefault(x => x.ProgramId.Equals(programId));
-            }
+            result.Parent = dbContext.Set<Program>().AsNoTracking().FirstOrDefault(x => x.OrganizationId.Equals(result.ParentId));
         }
 
-        return set.FirstOrDefault(x => x.ProgramId.Equals(programId));
+        bool getChildren = expand != null && expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
+        if (getChildren)
+        {
+            result.Children = dbContext.Set<Program>().AsNoTracking().Where(x => x.ParentId.Equals(result.ProgramId)).ToList();
+        }
+
+
+        bool getOrganization = expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
+        if (getOrganization)
+        {
+            set = set.Include(x => x.Organization);
+        }
+
+
+        bool getEducationspecification = expand.Contains("educationspecification", StringComparer.InvariantCultureIgnoreCase);
+        if (getEducationspecification)
+        {
+            set = set.Include(x => x.EducationSpecification);
+        }
+
+        return result;
     }
 
  

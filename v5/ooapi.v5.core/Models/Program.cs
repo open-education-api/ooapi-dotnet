@@ -482,15 +482,40 @@ namespace ooapi.v5.Models
         public Guid? ParentId { get; set; }
 
         [JsonIgnore]
+        [NotMapped]
         public Program? Parent { get; set; }
 
         /// <summary>
         /// Programs which are a part of this program (e.g specializations). This object is [&#x60;expandable&#x60;](#tag/program_model)
         /// </summary>
         /// <value>Programs which are a part of this program (e.g specializations). This object is [&#x60;expandable&#x60;](#tag/program_model)</value>
+        [JsonProperty("children")]
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public List<OneOfProgram>? ChildrenList
+        {
+            get
+            {
+                if (ChildrenIds == null || !ChildrenIds.Any()) return null;
+                List<OneOfProgram>? result = new List<OneOfProgram>();
+                foreach (var ChildId in ChildrenIds)
+                {
+                    result.Add(new OneOfProgramInstance(ChildId, Children.FirstOrDefault(x => x.ProgramId.Equals(ChildId))));
+                }
+                return result;
+            }
+        }
 
-        [JsonProperty(PropertyName = "children")]
-        public List<OneOfProgram> Children { get; set; }
+
+        [JsonIgnore]
+        [NotMapped]
+        public List<Guid>? ChildrenIds { get; set; }
+
+
+        [JsonIgnore]
+        [NotMapped]
+        public List<Program>? Children { get; set; }
+
 
         /// <summary>
         /// The person(s) responsible for this program. This object is [&#x60;expandable&#x60;](#tag/person_model)

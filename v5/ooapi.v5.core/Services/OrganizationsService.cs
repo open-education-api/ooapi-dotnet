@@ -43,11 +43,11 @@ namespace ooapi.v5.core.Services
             }
         }
 
-        public Organization Get(Guid organizationId, out ErrorResponse errorResponse)
+        public Organization Get(Guid organizationId, List<string>? expand, out ErrorResponse errorResponse)
         {
             try
             {
-                var item = _repository.GetOrganization(organizationId);
+                var item = _repository.GetOrganization(organizationId, expand);
 
                 errorResponse = null;
                 return item;
