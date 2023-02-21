@@ -7,6 +7,8 @@ namespace ooapi.v5.Models
 
     public class Consumer
     {
+        [JsonIgnore]
+        public Guid Id { get; set; } 
 
         [JsonIgnore]
         public string ModelTypeName { get; set; }

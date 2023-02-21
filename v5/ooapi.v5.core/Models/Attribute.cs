@@ -11,7 +11,10 @@ namespace ooapi.v5.Models
     public class Attribute : LanguageTypedProperty
     {
 
+        [JsonIgnore]
+        public Guid Id { get; set; }
 
+        [JsonIgnore]
         public string ModelTypeName { get; set; }
 
     }
