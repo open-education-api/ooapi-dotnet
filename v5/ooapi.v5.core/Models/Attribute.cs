@@ -11,7 +11,6 @@ namespace ooapi.v5.Models
     public class Attribute : LanguageTypedProperty
     {
 
-        public Guid Id { get; set; }
 
         public string ModelTypeName { get; set; }
 

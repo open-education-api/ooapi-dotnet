@@ -8,7 +8,7 @@ namespace ooapi.v5.Models
     public class Consumer
     {
         [JsonIgnore]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [JsonIgnore]
         public string ModelTypeName { get; set; }
