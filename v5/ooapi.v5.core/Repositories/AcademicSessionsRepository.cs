@@ -11,26 +11,26 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         //
     }
 
-    public AcademicSession GetAcademicSession(Guid academicSessionId, List<string>? expand)
+    public AcademicSession GetAcademicSession(Guid academicSessionId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<AcademicSession> set = dbContext.Set<AcademicSession>().AsNoTracking();
 
         AcademicSession result = set.FirstOrDefault(x => x.AcademicSessionId.Equals(academicSessionId));
         result.ChildrenIds = dbContext.Set<AcademicSession>().AsNoTracking().Where(x => x.ParentId.Equals(result.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
 
-        bool getParent = expand != null && expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
+        bool getParent = dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
         if (getParent && result.ParentId != null)
         {
             result.Parent = dbContext.Set<AcademicSession>().AsNoTracking().FirstOrDefault(x => x.AcademicSessionId.Equals(result.ParentId));
         }
 
-        bool getChildren = expand != null && expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
+        bool getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
         if (getChildren)
         {
             result.Children = dbContext.Set<AcademicSession>().AsNoTracking().Where(x => x.ParentId.Equals(result.AcademicSessionId)).ToList();
         }
 
-        bool getYear = expand != null && expand.Contains("year", StringComparer.InvariantCultureIgnoreCase);
+        bool getYear = dataRequestParameters.Expand.Contains("year", StringComparer.InvariantCultureIgnoreCase);
         if (getYear && result.YearId != null)
         {
             result.Year = dbContext.Set<AcademicSession>().AsNoTracking().FirstOrDefault(x => x.AcademicSessionId.Equals(result.YearId));

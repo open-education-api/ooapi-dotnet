@@ -1,17 +1,14 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using ooapi.v5.core.Repositories;
-using ooapi.v5.Filters;
 using ooapi.v5.Security;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
@@ -51,6 +48,7 @@ namespace ooapi.v5
             services.AddDbContext<CoreDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ooapiDB"),
                 x => x.MigrationsHistoryTable("__EFMigrationsHistory", "ooapiv5"))
+            //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
 
             // Add framework services.

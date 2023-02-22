@@ -11,20 +11,20 @@ public class OrganizationsRepository : BaseRepository<Organization>
         //
     }
 
-    public Organization GetOrganization(Guid organizationId, List<string>? expand)
+    public Organization GetOrganization(Guid organizationId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<Organization> set = dbContext.Set<Organization>().AsNoTracking();
 
         Organization result = set.FirstOrDefault(x => x.OrganizationId.Equals(organizationId));
         result.ChildrenIds = dbContext.Set<Organization>().AsNoTracking().Where(x => x.ParentId.Equals(result.OrganizationId)).Select(x => x.OrganizationId).ToList();
 
-        bool getParent = expand != null && expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
+        bool getParent = dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
         if (getParent && result.ParentId != null)
         {
             result.Parent = dbContext.Set<Organization>().AsNoTracking().FirstOrDefault(x => x.OrganizationId.Equals(result.ParentId));
         }
 
-        bool getChildren = expand != null && expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
+        bool getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
         if (getChildren)
         {
             result.Children = dbContext.Set<Organization>().AsNoTracking().Where(x => x.ParentId.Equals(result.OrganizationId)).ToList();

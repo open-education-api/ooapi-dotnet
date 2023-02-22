@@ -14,7 +14,7 @@ namespace ooapi.v5.core.Utility
         public string SearchTerm { get; set; }
         public string Consumer { get; set; }
         public string PrimaryCodeSearch { get; set; }
-        public string Expand { get; set; }
+        public List<string> Expand { get; set; } = new List<string>();
         public int Skip => (PageNumber - 1) * PageSize;
 
         public void Validate()

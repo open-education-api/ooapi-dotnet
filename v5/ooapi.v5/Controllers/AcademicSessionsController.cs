@@ -80,8 +80,10 @@ public class AcademicSessionsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(AcademicSession), description: "OK")]
     public virtual IActionResult AcademicSessionsAcademicSessionIdGet([FromRoute][Required] Guid academicSessionId, [FromQuery] List<string>? expand)
     {
+        DataRequestParameters parameters = new DataRequestParameters();
+        parameters.Expand = expand;
         var service = new AcademicSessionsService(DBContext, UserRequestContext);
-        var result = service.Get(academicSessionId, expand, out ErrorResponse errorResponse);
+        var result = service.Get(academicSessionId, parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

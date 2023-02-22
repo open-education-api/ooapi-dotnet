@@ -175,8 +175,10 @@ public class OrganizationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Organization), description: "OK")]
     public virtual IActionResult OrganizationsOrganizationIdGet([FromRoute][Required] Guid organizationId, [FromQuery] List<string>? expand)
     {
+        DataRequestParameters parameters = new DataRequestParameters();
+        parameters.Expand = expand;
         var service = new OrganizationsService(DBContext, UserRequestContext);
-        var result = service.Get(organizationId, expand, out ErrorResponse errorResponse);
+        var result = service.Get(organizationId, parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

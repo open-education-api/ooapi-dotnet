@@ -104,8 +104,10 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecification), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] bool? returnTimelineOverrides, [FromQuery] List<string>? expand)
     {
+        DataRequestParameters parameters = new DataRequestParameters();
+        parameters.Expand = expand;
         var service = new EducationSpecificationsService(DBContext, UserRequestContext);
-        var result = service.Get(educationSpecificationId, expand, out ErrorResponse errorResponse);
+        var result = service.Get(educationSpecificationId, parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

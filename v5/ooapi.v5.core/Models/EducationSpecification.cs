@@ -3,12 +3,9 @@ using Newtonsoft.Json.Linq;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
-using System.Text.RegularExpressions;
 
 namespace ooapi.v5.Models
 {
