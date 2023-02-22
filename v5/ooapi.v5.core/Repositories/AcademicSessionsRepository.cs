@@ -13,7 +13,9 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
 
     public AcademicSession GetAcademicSession(Guid academicSessionId, DataRequestParameters dataRequestParameters)
     {
-        IQueryable<AcademicSession> set = dbContext.Set<AcademicSession>().AsNoTracking();
+        IQueryable<AcademicSession> set = dbContext.Set<AcademicSession>().Include(x => x.Attributes);
+
+        set = set.AsNoTracking();
 
         AcademicSession result = set.FirstOrDefault(x => x.AcademicSessionId.Equals(academicSessionId));
         result.ChildrenIds = dbContext.Set<AcademicSession>().AsNoTracking().Where(x => x.ParentId.Equals(result.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
@@ -41,7 +43,14 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
 
     internal Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, string? academicSessionType = null)
     {
-        IQueryable<AcademicSession> set = dbContext.Set<AcademicSession>().AsNoTracking().AsQueryable();
+        IQueryable<AcademicSession> set = dbContext.Set<AcademicSession>().Include(x => x.Attributes);
+        bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
+        if (includeConsumer)
+        {
+            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+        }
+
+        set = set.AsNoTracking().AsQueryable();
 
         if (academicSessionType != null)
             set = set.Where(x => x.AcademicSessionType.Equals(academicSessionType));
