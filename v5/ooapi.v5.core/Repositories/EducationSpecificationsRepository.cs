@@ -25,26 +25,27 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
     public EducationSpecification GetEducationSpecification(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>().AsNoTracking().Include(x => x.Attributes);
+        IQueryable<EducationSpecification> setIncluded = set;
 
         bool getOrganization = dataRequestParameters.Expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
         if (getOrganization)
         {
-            set = set.Include(x => x.Organization);
+            setIncluded = setIncluded.Include(x => x.Organization);
         }
 
-        EducationSpecification result = set.FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));
+        EducationSpecification result = setIncluded.FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));
         result.ChildrenIds = dbContext.Set<EducationSpecification>().AsNoTracking().Where(x => x.ParentId.Equals(result.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToList();
 
         bool getParent = dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
         if (getParent && result.ParentId != null)
         {
-            result.Parent = dbContext.Set<EducationSpecification>().AsNoTracking().Include(x => x.Attributes).AsNoTracking().FirstOrDefault(x => x.EducationSpecificationId.Equals(result.ParentId));
+            result.Parent = set.FirstOrDefault(x => x.EducationSpecificationId.Equals(result.ParentId));
         }
 
         bool getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
         if (getChildren)
         {
-            result.Children = dbContext.Set<EducationSpecification>().AsNoTracking().Include(x => x.Attributes).AsNoTracking().Where(x => x.ParentId.Equals(result.EducationSpecificationId)).ToList();
+            result.Children = set.Where(x => x.ParentId.Equals(result.EducationSpecificationId)).ToList();
             foreach (var item in result.Children)
             {
                 item.ChildrenIds = dbContext.Set<EducationSpecification>().AsNoTracking().Where(x => x.ParentId.Equals(item.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToList();

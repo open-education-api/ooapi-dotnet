@@ -13,7 +13,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
 
     public AcademicSession GetAcademicSession(Guid academicSessionId, DataRequestParameters dataRequestParameters)
     {
-        IQueryable<AcademicSession> set =  dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
+        IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
 
 
         AcademicSession result = set.FirstOrDefault(x => x.AcademicSessionId.Equals(academicSessionId));
@@ -22,13 +22,13 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         bool getParent = dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
         if (getParent && result.ParentId != null)
         {
-            result.Parent = dbContext.AcademicSessionsNoTracking.FirstOrDefault(x => x.AcademicSessionId.Equals(result.ParentId));
+            result.Parent = set.FirstOrDefault(x => x.AcademicSessionId.Equals(result.ParentId));
         }
 
         bool getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
         if (getChildren)
         {
-            result.Children = dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(result.AcademicSessionId)).ToList();
+            result.Children = set.Where(x => x.ParentId.Equals(result.AcademicSessionId)).ToList();
             foreach (var item in result.Children)
             {
                 item.ChildrenIds = dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(item.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
@@ -38,7 +38,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         bool getYear = dataRequestParameters.Expand.Contains("year", StringComparer.InvariantCultureIgnoreCase);
         if (getYear && result.YearId != null)
         {
-            result.Year = dbContext.AcademicSessionsNoTracking.FirstOrDefault(x => x.AcademicSessionId.Equals(result.YearId));
+            result.Year = set.FirstOrDefault(x => x.AcademicSessionId.Equals(result.YearId));
         }
 
         return result;
