@@ -22,6 +22,8 @@ public class CoreDBContext : DbContext
     public DbSet<Service> Services { get; set; }
 
     public DbSet<AcademicSession> AcademicSessions { get; set; }
+    public IQueryable<AcademicSession> AcademicSessionsNoTracking { get => AcademicSessions.AsNoTracking(); }
+
     public DbSet<Association> Associations { get; set; }
     public DbSet<Building> Buildings { get; set; }
     public DbSet<Component> Components { get; set; }
@@ -52,6 +54,7 @@ public class CoreDBContext : DbContext
     public DbSet<Consumer> Consumers { get; set; }
 
     public DbSet<v5.Models.Attribute> Attributes { get; set; }
+
 
 
 

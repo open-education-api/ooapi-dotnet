@@ -13,29 +13,32 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
 
     public AcademicSession GetAcademicSession(Guid academicSessionId, DataRequestParameters dataRequestParameters)
     {
-        IQueryable<AcademicSession> set = dbContext.Set<AcademicSession>().Include(x => x.Attributes);
+        IQueryable<AcademicSession> set =  dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
 
-        set = set.AsNoTracking();
 
         AcademicSession result = set.FirstOrDefault(x => x.AcademicSessionId.Equals(academicSessionId));
-        result.ChildrenIds = dbContext.Set<AcademicSession>().AsNoTracking().Where(x => x.ParentId.Equals(result.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
+        result.ChildrenIds = dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(result.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
 
         bool getParent = dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
         if (getParent && result.ParentId != null)
         {
-            result.Parent = dbContext.Set<AcademicSession>().AsNoTracking().FirstOrDefault(x => x.AcademicSessionId.Equals(result.ParentId));
+            result.Parent = dbContext.AcademicSessionsNoTracking.FirstOrDefault(x => x.AcademicSessionId.Equals(result.ParentId));
         }
 
         bool getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
         if (getChildren)
         {
-            result.Children = dbContext.Set<AcademicSession>().AsNoTracking().Where(x => x.ParentId.Equals(result.AcademicSessionId)).ToList();
+            result.Children = dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(result.AcademicSessionId)).ToList();
+            foreach (var item in result.Children)
+            {
+                item.ChildrenIds = dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(item.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
+            }
         }
 
         bool getYear = dataRequestParameters.Expand.Contains("year", StringComparer.InvariantCultureIgnoreCase);
         if (getYear && result.YearId != null)
         {
-            result.Year = dbContext.Set<AcademicSession>().AsNoTracking().FirstOrDefault(x => x.AcademicSessionId.Equals(result.YearId));
+            result.Year = dbContext.AcademicSessionsNoTracking.FirstOrDefault(x => x.AcademicSessionId.Equals(result.YearId));
         }
 
         return result;
@@ -43,7 +46,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
 
     internal Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, string? academicSessionType = null)
     {
-        IQueryable<AcademicSession> set = dbContext.Set<AcademicSession>().Include(x => x.Attributes);
+        IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
         bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
         if (includeConsumer)
         {

@@ -13,7 +13,7 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
 
     internal Pagination<EducationSpecification> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
-        IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>().Include(x => x.Attributes);
+        IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>().AsNoTracking().Include(x => x.Attributes);
         bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
         if (includeConsumer)
         {
@@ -24,7 +24,7 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
 
     public EducationSpecification GetEducationSpecification(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
-        IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>().Include(x => x.Attributes);
+        IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>().AsNoTracking().Include(x => x.Attributes);
 
         bool getOrganization = dataRequestParameters.Expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
         if (getOrganization)
@@ -38,13 +38,17 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
         bool getParent = dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
         if (getParent && result.ParentId != null)
         {
-            result.Parent = dbContext.Set<EducationSpecification>().Include(x => x.Attributes).AsNoTracking().FirstOrDefault(x => x.EducationSpecificationId.Equals(result.ParentId));
+            result.Parent = dbContext.Set<EducationSpecification>().AsNoTracking().Include(x => x.Attributes).AsNoTracking().FirstOrDefault(x => x.EducationSpecificationId.Equals(result.ParentId));
         }
 
         bool getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
         if (getChildren)
         {
-            result.Children = dbContext.Set<EducationSpecification>().Include(x => x.Attributes).AsNoTracking().Where(x => x.ParentId.Equals(result.EducationSpecificationId)).ToList();
+            result.Children = dbContext.Set<EducationSpecification>().AsNoTracking().Include(x => x.Attributes).AsNoTracking().Where(x => x.ParentId.Equals(result.EducationSpecificationId)).ToList();
+            foreach (var item in result.Children)
+            {
+                item.ChildrenIds = dbContext.Set<EducationSpecification>().AsNoTracking().Where(x => x.ParentId.Equals(item.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToList();
+            }
         }
 
         return result;

@@ -258,7 +258,7 @@ namespace ooapi.v5.Models
         /// <value>The EducationSpecifications that have this EducationSpecification as their parent. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
         [JsonProperty("children")]
         [NotMapped]
-        [JsonConverter(typeof(OneOfConverter))]
+        [JsonConverter(typeof(ListOneOfConverter))]
         public List<OneOfEducationSpecification>? ChildrenList
         {
             get
@@ -267,7 +267,7 @@ namespace ooapi.v5.Models
                 List<OneOfEducationSpecification>? result = new List<OneOfEducationSpecification>();
                 foreach (var ChildId in ChildrenIds)
                 {
-                    result.Add(new OneOfEducationSpecificationInstance(ChildId, Children.FirstOrDefault(x => x.EducationSpecificationId.Equals(ChildId))));
+                    result.Add(new OneOfEducationSpecificationInstance(ChildId, (Children != null) ? Children.FirstOrDefault(x => x.EducationSpecificationId.Equals(ChildId)) : null));
                 }
                 return result;
             }
