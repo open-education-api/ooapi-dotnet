@@ -57,7 +57,7 @@ public class OrganizationsController : BaseController
             parameters.Filters.Add("OrganizationType", organizationType);
         }
         var service = new OrganizationsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse, organizationType);
+        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

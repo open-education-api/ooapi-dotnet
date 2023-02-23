@@ -188,7 +188,7 @@ namespace ooapi.v5.Models
 
         [JsonProperty("children")]
         [NotMapped]
-        [JsonConverter(typeof(OneOfConverter))]
+        [JsonConverter(typeof(ListOneOfConverter))]
         public List<OneOfOrganization>? ChildrenList
         {
             get
@@ -197,7 +197,7 @@ namespace ooapi.v5.Models
                 List<OneOfOrganization>? result = new List<OneOfOrganization>();
                 foreach (var ChildId in ChildrenIds)
                 {
-                    result.Add(new OneOfOrganizationInstance(ChildId, Children.FirstOrDefault(x => x.OrganizationId.Equals(ChildId))));
+                    result.Add(new OneOfOrganizationInstance(ChildId, (Children != null) ? Children.FirstOrDefault(x => x.OrganizationId.Equals(ChildId)) : null));
                 }
                 return result;
             }

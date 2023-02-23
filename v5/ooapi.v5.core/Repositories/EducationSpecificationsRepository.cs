@@ -30,11 +30,11 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
         bool getOrganization = dataRequestParameters.Expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
         if (getOrganization)
         {
-            setIncluded = setIncluded.Include(x => x.Organization);
+            setIncluded = setIncluded.Include(x => x.Organization.Attributes);
         }
 
         EducationSpecification result = setIncluded.FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));
-        result.ChildrenIds = dbContext.Set<EducationSpecification>().AsNoTracking().Where(x => x.ParentId.Equals(result.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToList();
+        result.ChildrenIds = set.Where(x => x.ParentId.Equals(result.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToList();
 
         bool getParent = dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
         if (getParent && result.ParentId != null)
@@ -44,12 +44,12 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
         }
 
         bool getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
-        if (getChildren)
+        if (getChildren && result.ChildrenIds != null)
         {
             result.Children = set.Where(x => x.ParentId.Equals(result.EducationSpecificationId)).ToList();
             foreach (var item in result.Children)
             {
-                item.ChildrenIds = dbContext.Set<EducationSpecification>().AsNoTracking().Where(x => x.ParentId.Equals(item.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToList();
+                item.ChildrenIds = set.Where(x => x.ParentId.Equals(item.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToList();
             }
         }
 
