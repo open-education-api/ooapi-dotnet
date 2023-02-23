@@ -49,6 +49,7 @@ namespace ooapi.v5.Models
         public string PrimaryCodeType { get; set; }
 
         [JsonIgnore]
+        [SortAllowed]
         public string PrimaryCode { get; set; }
 
 

@@ -11,6 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace ooapi.v5.Controllers;
 
@@ -49,6 +50,18 @@ public class EducationSpecificationsController : BaseController
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdCoursesGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string sort = "courseId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        if (!string.IsNullOrWhiteSpace(teachingLanguage))
+        {
+            parameters.Filters.Add("TeachingLanguage", teachingLanguage);
+        }
+        if (!string.IsNullOrWhiteSpace(level))
+        {
+            parameters.Filters.Add("Level", level);
+        }
+        if (modeOfDelivery != null && modeOfDelivery.Any())
+        {
+            parameters.Filters.Add("ModeOfDelivery", modeOfDelivery);
+        }
         var service = new CoursesService(DBContext, UserRequestContext);
         var result = service.GetCoursesByEducationSpecificationId(parameters, educationSpecificationId, out ErrorResponse errorResponse);
         if (result == null)
@@ -143,6 +156,38 @@ public class EducationSpecificationsController : BaseController
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdProgramsGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? crohoCreboCode, [FromQuery] string sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        if (!string.IsNullOrWhiteSpace(teachingLanguage))
+        {
+            parameters.Filters.Add("TeachingLanguage", teachingLanguage);
+        }
+        if (!string.IsNullOrWhiteSpace(programType))
+        {
+            parameters.Filters.Add("ProgramType", programType);
+        }
+        if (!string.IsNullOrWhiteSpace(qualificationAwarded))
+        {
+            parameters.Filters.Add("QualificationAwarded", qualificationAwarded);
+        }
+        if (!string.IsNullOrWhiteSpace(levelOfQualification))
+        {
+            parameters.Filters.Add("LevelOfQualification", levelOfQualification);
+        }
+        if (!string.IsNullOrWhiteSpace(sector))
+        {
+            parameters.Filters.Add("Sector", sector);
+        }
+        if (!string.IsNullOrWhiteSpace(fieldsOfStudy))
+        {
+            parameters.Filters.Add("FieldsOfStudy", fieldsOfStudy);
+        }
+        if (!string.IsNullOrWhiteSpace(fieldsOfStudy))
+        {
+            parameters.Filters.Add("FieldsOfStudy", fieldsOfStudy);
+        }
+        if (!string.IsNullOrWhiteSpace(crohoCreboCode))
+        {
+            parameters.Filters.Add("PrimaryCode", crohoCreboCode);
+        }
         var service = new ProgramsService(DBContext, UserRequestContext);
         var result = service.GetProgramsByEducationSpecificationId(parameters, educationSpecificationId, out ErrorResponse errorResponse);
         if (result == null)

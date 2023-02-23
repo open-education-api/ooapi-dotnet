@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ooapi.v5.Attributes;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
@@ -21,6 +22,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Unique id of this educationSpecification</value>
         [JsonRequired]
+        [SortAllowed]
         [JsonProperty("educationSpecificationId")]
         public Guid EducationSpecificationId { get; set; }
 
@@ -49,6 +51,7 @@ namespace ooapi.v5.Models
         public string PrimaryCodeType { get; set; }
 
         [JsonIgnore]
+        [SortAllowed]
         public string PrimaryCode { get; set; }
 
 
@@ -72,7 +75,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The type of education specification   - program: HOOPLEIDING   - privateProgram: PARTICULIEREOPLEIDING   - programCluster: HOONDERWIJSEENHEDENCLUSTER   - course: HOONDERWIJSEENHEID </value>
         [JsonRequired]
-
+        [SortAllowed]
         [JsonProperty(PropertyName = "educationSpecificationType")]
         public EducationSpecificationTypeEnum? EducationSpecificationType { get; set; }
 
@@ -97,8 +100,9 @@ namespace ooapi.v5.Models
         }
 
         [JsonIgnore]
+        [SortAllowed]
+        [SortDefault]
         public List<Attribute> Attributes { get; set; }
-
 
 
         /// <summary>
