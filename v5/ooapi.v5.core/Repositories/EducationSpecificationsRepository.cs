@@ -40,6 +40,7 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
         if (getParent && result.ParentId != null)
         {
             result.Parent = set.FirstOrDefault(x => x.EducationSpecificationId.Equals(result.ParentId));
+            result.Parent.ChildrenIds = set.Where(x => x.ParentId.Equals(result.Parent.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToList();
         }
 
         bool getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
