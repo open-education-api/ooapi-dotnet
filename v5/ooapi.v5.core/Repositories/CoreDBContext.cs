@@ -25,35 +25,80 @@ public class CoreDBContext : DbContext
     public IQueryable<AcademicSession> AcademicSessionsNoTracking { get => AcademicSessions.AsNoTracking(); }
 
     public DbSet<Association> Associations { get; set; }
+    public IQueryable<Association> AssociationsNoTracking { get => Associations.AsNoTracking(); }
+
     public DbSet<Building> Buildings { get; set; }
+    public IQueryable<Building> BuildingsNoTracking { get => Buildings.AsNoTracking(); }
+
     public DbSet<Component> Components { get; set; }
+    public IQueryable<Component> ComponentsNoTracking { get => Components.AsNoTracking(); }
+
     public DbSet<ComponentOffering> ComponentOfferings { get; set; }
+    public IQueryable<ComponentOffering> ComponentOfferingsNoTracking { get => ComponentOfferings.AsNoTracking(); }
+
     public DbSet<ComponentResult> ComponentResults { get; set; }
+    public IQueryable<ComponentResult> ComponentResultsNoTracking { get => ComponentResults.AsNoTracking(); }
+
     public DbSet<Course> Courses { get; set; }
+    public IQueryable<Course> CoursesNoTracking { get => Courses.AsNoTracking(); }
+
     public DbSet<CourseOffering> CourseOfferings { get; set; }
+    public IQueryable<CourseOffering> CourseOfferingsNoTracking { get => CourseOfferings.AsNoTracking(); }
+
     public DbSet<CourseResult> CourseResults { get; set; }
+    public IQueryable<CourseResult> CourseResultsNoTracking { get => CourseResults.AsNoTracking(); }
+
     public DbSet<EducationSpecification> EducationSpecifications { get; set; }
+    public IQueryable<EducationSpecification> EducationSpecificationsNoTracking { get => EducationSpecifications.AsNoTracking(); }
+
     public DbSet<NewsFeed> NewsFeeds { get; set; }
+    public IQueryable<NewsFeed> NewsFeedsNoTracking { get => NewsFeeds.AsNoTracking(); }
+
     public DbSet<NewsItem> NewsItems { get; set; }
+    public IQueryable<NewsItem> NewsItemsNoTracking { get => NewsItems.AsNoTracking(); }
+
     public DbSet<Organization> Organizations { get; set; }
+    public IQueryable<Organization> OrganizationsNoTracking { get => Organizations.AsNoTracking(); }
+
     public DbSet<Person> Persons { get; set; }
+    public IQueryable<Person> PersonsNoTracking { get => Persons.AsNoTracking(); }
+
     public DbSet<Program> Programs { get; set; }
+    public IQueryable<Program> ProgramsNoTracking { get => Programs.AsNoTracking(); }
+
     public DbSet<ProgramOffering> ProgramOfferings { get; set; }
+    public IQueryable<ProgramOffering> ProgramOfferingsNoTracking { get => ProgramOfferings.AsNoTracking(); }
+
     public DbSet<ProgramResult> ProgramResults { get; set; }
+    public IQueryable<ProgramResult> ProgramResultsNoTracking { get => ProgramResults.AsNoTracking(); }
+
     public DbSet<Room> Rooms { get; set; }
+    public IQueryable<Room> RoomsNoTracking { get => Rooms.AsNoTracking(); }
 
     public DbSet<Address> Addresses { get; set; }
+    public IQueryable<Address> AddressesNoTracking { get => Addresses.AsNoTracking(); }
+
     public DbSet<ConsumerRegistration> ConsumerRegistrations { get; set; }
+    public IQueryable<ConsumerRegistration> ConsumerRegistrationsNoTracking { get => ConsumerRegistrations.AsNoTracking(); }
+
 
     public DbSet<Cost> Costs { get; set; }
-    public DbSet<LanguageOfChoice> LanguageOfChoices { get; set; }
-    public DbSet<OtherCodes> OtherCodes { get; set; }
-    public DbSet<Group> Groups { get; set; }
+    public IQueryable<Cost> CostsNoTracking { get => Costs.AsNoTracking(); }
 
+    public DbSet<LanguageOfChoice> LanguageOfChoices { get; set; }
+    public IQueryable<LanguageOfChoice> LanguageOfChoicesNoTracking { get => LanguageOfChoices.AsNoTracking(); }
+
+    public DbSet<OtherCodes> OtherCodes { get; set; }
+    public IQueryable<OtherCodes> OtherCodesNoTracking { get => OtherCodes.AsNoTracking(); }
+
+    public DbSet<Group> Groups { get; set; }
+    public IQueryable<Group> GroupsNoTracking { get => Groups.AsNoTracking(); }
 
     public DbSet<Consumer> Consumers { get; set; }
+    public IQueryable<Consumer> ConsumersNoTracking { get => Consumers.AsNoTracking(); }
 
     public DbSet<v5.Models.Attribute> Attributes { get; set; }
+    public IQueryable<v5.Models.Attribute> AttributesNoTracking { get => Attributes.AsNoTracking(); }
 
 
 

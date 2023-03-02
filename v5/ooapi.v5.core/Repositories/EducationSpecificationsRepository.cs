@@ -13,7 +13,7 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
 
     internal Pagination<EducationSpecification> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
-        IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>().AsNoTracking().Include(x => x.Attributes);
+        IQueryable<EducationSpecification> set = dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes);
         bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
         if (includeConsumer)
         {
@@ -24,14 +24,8 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
 
     public EducationSpecification GetEducationSpecification(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
-        IQueryable<EducationSpecification> set = dbContext.Set<EducationSpecification>().AsNoTracking().Include(x => x.Attributes);
+        IQueryable<EducationSpecification> set = dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes);
         IQueryable<EducationSpecification> setIncluded = set;
-
-        bool getOrganization = dataRequestParameters.Expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
-        if (getOrganization)
-        {
-            setIncluded = setIncluded.Include(x => x.Organization.Attributes);
-        }
 
         EducationSpecification result = setIncluded.FirstOrDefault(x => x.EducationSpecificationId.Equals(educationSpecificationId));
         result.ChildrenIds = set.Where(x => x.ParentId.Equals(result.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToList();
@@ -53,6 +47,13 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
             }
         }
 
+        bool getOrganization = dataRequestParameters.Expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase);
+        if (getOrganization)
+        {
+            result.Organization = dbContext.OrganizationsNoTracking.Include(x=>x.Attributes).FirstOrDefault(x => x.OrganizationId.Equals(result.OrganizationId));
+            result.Organization.Parent = dbContext.OrganizationsNoTracking.FirstOrDefault(x => x.OrganizationId.Equals(result.Organization.ParentId));
+            result.Organization.ChildrenIds = dbContext.OrganizationsNoTracking.Where(x => x.ParentId.Equals(result.Organization.OrganizationId)).Select(x => x.OrganizationId).ToList();
+        }
         return result;
     }
 

@@ -1,4 +1,5 @@
-﻿using ooapi.v5.core.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Models;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
@@ -18,7 +19,7 @@ namespace ooapi.v5.core.Services
         {
             try
             {
-                Pagination<Program> result = _repository.GetAllOrderedBy_Expand(dataRequestParameters);
+                Pagination<Program> result = _repository.GetAllOrderedBy(dataRequestParameters);
                 errorResponse = null;
                 return result;
             }
@@ -29,11 +30,11 @@ namespace ooapi.v5.core.Services
             }
         }
 
-        public Program Get(Guid programId, List<string> expand, out ErrorResponse errorResponse)
+        public Program Get(Guid programId, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
         {
             try
             {
-                var item = _repository.GetProgram(programId, expand);
+                var item = _repository.GetProgram(programId, dataRequestParameters);
 
                 errorResponse = null;
                 return item;
@@ -49,10 +50,9 @@ namespace ooapi.v5.core.Services
         {
             try
             {
-                var result = _repository.GetProgramsByEducationSpecificationId(educationSpecificationId);
-                var paginationResult = new Pagination<Program>(result.AsQueryable(), dataRequestParameters);
+                Pagination<Program> result = _repository.GetProgramsByEducationSpecificationId(educationSpecificationId, dataRequestParameters);
                 errorResponse = null;
-                return paginationResult;
+                return result;
             }
             catch (Exception ex)
             {

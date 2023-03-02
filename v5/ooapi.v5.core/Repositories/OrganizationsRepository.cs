@@ -13,7 +13,7 @@ public class OrganizationsRepository : BaseRepository<Organization>
 
     public Organization GetOrganization(Guid organizationId, DataRequestParameters dataRequestParameters)
     {
-        IQueryable<Organization> set = dbContext.Set<Organization>().AsNoTracking().Include(x => x.Attributes);
+        IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes);
 
         Organization result = set.FirstOrDefault(x => x.OrganizationId.Equals(organizationId));
         result.ChildrenIds = set.Where(x => x.ParentId.Equals(result.OrganizationId)).Select(x => x.OrganizationId).ToList();
@@ -40,7 +40,7 @@ public class OrganizationsRepository : BaseRepository<Organization>
 
     internal Pagination<Organization> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
-        IQueryable<Organization> set = dbContext.Set<Organization>().AsNoTracking().Include(x => x.Attributes);
+        IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes);
         bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
         if (includeConsumer)
         {

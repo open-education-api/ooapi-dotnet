@@ -109,8 +109,10 @@ namespace ooapi.v5.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Models.Program), description: "OK")]
         public virtual IActionResult ProgramsProgramIdGet([FromRoute][Required] Guid programId, [FromQuery] List<string> expand, [FromQuery] bool? returnTimelineOverrides)
         {
+            DataRequestParameters parameters = new DataRequestParameters();
+            parameters.Expand = expand;
             var service = new ProgramsService(DBContext, UserRequestContext);
-            var result = service.Get(programId, expand, out ErrorResponse errorResponse);
+            var result = service.Get(programId, parameters, out ErrorResponse errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);

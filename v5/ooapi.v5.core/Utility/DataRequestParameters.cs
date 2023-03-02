@@ -65,7 +65,9 @@ namespace ooapi.v5.core.Utility
                 Sort = sort;
                 if (filterParams != null)
                 {
-                    PrimaryCodeSearch = filterParams.q;
+                    //PrimaryCodeSearch = filterParams.q;
+                    SearchTerm = filterParams.q;
+                    Consumer = filterParams.consumer;
                 }
                 if (curPagingParams != null)
                 {

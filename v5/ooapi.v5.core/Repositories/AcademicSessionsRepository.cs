@@ -23,6 +23,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         if (getParent && result.ParentId != null)
         {
             result.Parent = set.FirstOrDefault(x => x.AcademicSessionId.Equals(result.ParentId));
+            result.Parent.ChildrenIds = set.Where(x => x.ParentId.Equals(result.Parent.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
         }
 
         bool getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
@@ -53,7 +54,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
-        set = set.AsNoTracking().AsQueryable();
+        set = set.AsQueryable();
 
         if (academicSessionType != null)
             set = set.Where(x => x.AcademicSessionType.Equals(academicSessionType));
