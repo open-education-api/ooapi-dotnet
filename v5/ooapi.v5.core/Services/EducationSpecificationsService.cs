@@ -29,11 +29,11 @@ namespace ooapi.v5.core.Services
             }
         }
 
-        public EducationSpecification Get(Guid educationSpecificationId, out ErrorResponse errorResponse)
+        public EducationSpecification Get(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
         {
             try
             {
-                var item = _repository.GetEducationSpecification(educationSpecificationId);
+                var item = _repository.GetEducationSpecification(educationSpecificationId, dataRequestParameters);
 
                 errorResponse = null;
                 return item;

@@ -16,13 +16,13 @@ public class GroupsRepository : BaseRepository<Group>
 
     public List<Group> GetGroupsByOrganizationId(Guid organizationId)
     {
-        return dbContext.Groups.Where(o => o.Organization.Equals(organizationId)).ToList();
+        return dbContext.Groups.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 
     public List<Group> GetGroupsByPersonId(Guid personId)
     {
         return null;
-        //TODO return dbContext.Groups.Where(o => o.Person.Equals(personId)).ToList();
+        //return dbContext.Groups.Where(o => o.PersonId.Equals(personId)).ToList();
     }
 
 }

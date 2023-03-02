@@ -63,7 +63,7 @@ public class CoursesController : BaseController
     /// </summary>
     /// <remarks>Get a single course.</remarks>
     /// <param name="courseId">Course ID</param>
-    /// <param name="expand">Optional properties to include, separated by a comma</param>
+    /// <param name="expand">Items Enum: "programs" "coordinators" "organization" "educationSpecification"  <br/>Optional properties to expand, separated by a comma</param>
     /// <param name="returnTimelineOverrides">Controls whether the attribute &#x60;timelineOverrides&#x60; is returned or not. The default is &#x60;false&#x60;, so this has to explicitly set to &#x60;true&#x60; if a client needs the timeline overrides. See [GET /education-specifications/{educationSpecificationId}](#tag/education-specifications/paths/~1education-specifications~1{educationSpecificationId}/get) for an example.</param>
     /// <response code="200">OK</response>
     [HttpGet]

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -78,7 +79,7 @@ public class OfferingsController : BaseController
     /// </summary>
     /// <remarks>Get a single offering.</remarks>
     /// <param name="offeringId">Offering ID</param>
-    /// <param name="expand">Optional properties to expand, separated by a comma</param>
+    /// <param name="expand">Items Enum: "program" "programOffering" "course" "courseOffering" "component" "organization" "academicSession" <br/>Optional properties to expand, separated by a comma</param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("offerings/{offeringId}")]

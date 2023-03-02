@@ -61,7 +61,7 @@ public class GroupsController : BaseController
     /// </summary>
     /// <remarks>Get a single group.</remarks>
     /// <param name="groupId">Group ID</param>
-    /// <param name="expand">Optional properties to expand, separated by a comma</param>
+    /// <param name="expand">Items Value: "organization" <br/>Optional properties to expand, separated by a comma</param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("groups/{groupId}")]

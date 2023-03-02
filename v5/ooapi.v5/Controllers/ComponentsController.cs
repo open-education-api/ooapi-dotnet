@@ -29,7 +29,7 @@ public class ComponentsController : BaseController
     /// </summary>
     /// <remarks>Get a single component.</remarks>
     /// <param name="componentId">component ID</param>
-    /// <param name="expand">Optional properties to expand, separated by a comma</param>
+    /// <param name="expand">Items Enum: "course" "organization"  <br/>Optional properties to expand, separated by a comma</param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("components/{componentId}")]

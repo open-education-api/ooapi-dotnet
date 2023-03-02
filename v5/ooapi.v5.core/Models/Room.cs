@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -30,7 +33,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty(PropertyName = "primaryCode")]
         [NotMapped]
-        public IdentifierEntry primaryCode
+        public IdentifierEntry primaryCodeIdentifier
         {
             get
             {
@@ -80,7 +83,7 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
+                return Helpers.LanguageTypedStringJsonConverter.GetLanguageTypesStringList(Name);
             }
             set
             {
@@ -106,7 +109,7 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
+                return Helpers.LanguageTypedStringJsonConverter.GetLanguageTypesStringList(Description);
             }
             set
             {
@@ -207,20 +210,41 @@ namespace ooapi.v5.Models
         /// <value>The building in which the room is located. [&#x60;expandable&#x60;](#tag/building_model) By default only the &#x60;buildingId&#x60; (a string) is returned. If the client requested an expansion of &#x60;building&#x60; the full building object should be returned. </value>
 
         [JsonProperty(PropertyName = "building")]
-        public OneOfBuilding Building { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfBuilding OneOfBuilding
+        {
+            get
+            {
+                if (BuildingId == null) return null;
+                return new OneOfBuildingInstance(BuildingId, Building);
+            }
+        }
 
         [JsonIgnore]
         public Guid? BuildingId { get; set; }
+
+        [JsonIgnore]
+        public Building? Building { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty("consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         [NotMapped]
-        public dynamic? Consumers { get; set; }
+        public List<JObject>? ConsumersList
+        {
+            get
+            {
+                if (Consumers != null && Consumers.Any())
+                    return ConsumerConverter.GetDynamicConsumers(Consumers);
+                return null;
+            }
+        }
 
-
+        [JsonIgnore]
+        public List<Consumer>? Consumers { get; set; }
     }
 }

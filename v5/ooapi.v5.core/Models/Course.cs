@@ -1,5 +1,7 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
@@ -30,7 +32,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty(PropertyName = "primaryCode")]
         [NotMapped]
-        public IdentifierEntry primaryCode
+        public IdentifierEntry primaryCodeIdentifier
         {
             get
             {
@@ -55,27 +57,25 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name of this course (ECTS-title)</value>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "name")]
         [NotMapped]
         public List<LanguageTypedString> name
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
-            }
-            set
-            {
-                if (value != null)
-                    Name = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
-
 
         [JsonIgnore]
         [SortAllowed]
         [SortDefault]
-        public string Name { get; set; }
+        public List<Attribute> Attributes { get; set; }
 
 
 
@@ -212,17 +212,15 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
-            }
-            set
-            {
-                if (value != null)
-                    Description = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("description")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
-        [JsonIgnore]
-        public string Description { get; set; }
 
         /// <summary>
         /// The (primary) teaching language in which this course is given, should be a three-letter language code as specified by ISO 639-2.
@@ -266,17 +264,14 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(AdmissionRequirements);
-            }
-            set
-            {
-                if (value != null)
-                    AdmissionRequirements = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("admissionRequirement")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
-
-        [JsonIgnore]
-        public string AdmissionRequirements { get; set; }
 
 
         /// <summary>
@@ -286,10 +281,19 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "qualificationRequirements")]
         [NotMapped]
-        public List<LanguageTypedString> qualificationRequirements { get; set; }
+        public List<LanguageTypedString> qualificationRequirements
+        {
+            get
+            {
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("qualificationRequirement")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
+            }
+        }
 
-        [JsonIgnore]
-        public string QualificationRequirements { get; set; }
 
         /// <summary>
         /// The level of this course (ECTS-year of study if applicable) - secondary vocational education: mbo - secondary vocational education 1: mbo 1, corresponds to levelOfQualification 1 - secondary vocational education 2: mbo 2, corresponds to levelOfQualification 2 - secondary vocational education 3: mbo 3, corresponds to levelOfQualification 3 - secondary vocational education 4: mbo 4, corresponds to levelOfQualification 4 - associate degree: associate degree, corresponds to levelOfQualification 5 - bachelor: bachelor, corresponds to levelOfQualification 6 - master: master, corresponds to levelOfQualification 7 - doctoral: doctoraal, corresponds to levelOfQualification 8 - undefined: onbepaald - undivided: ongedeeld - nt2-1: NT2 niveau 1 - nt2-2: NT2 niveau 2 
@@ -311,20 +315,15 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Enrollment);
-            }
-            set
-            {
-                if (value != null)
-                    Enrollment = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("enrollment")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
-        [JsonIgnore]
-        public string Enrollment { get; set; }
-
-        [JsonIgnore]
-        public string Resources { get; set; }
 
         /// <summary>
         /// An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)
@@ -336,6 +335,9 @@ namespace ooapi.v5.Models
         public List<string> resources { get; set; }
 
 
+        [JsonIgnore]
+        public string Resources { get; set; }
+
         /// <summary>
         /// A description of the way exams for this course are taken (ECTS-assessment method and criteria).
         /// </summary>
@@ -346,17 +348,14 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Assessment);
-            }
-            set
-            {
-                if (value != null)
-                    Assessment = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("assessment")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
-
-        [JsonIgnore]
-        public string Assessment { get; set; }
 
 
         /// <summary>
@@ -374,11 +373,24 @@ namespace ooapi.v5.Models
         /// <value>The educationSpecification of which this course is a more concrete implementation. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
 
         [JsonProperty(PropertyName = "educationSpecification")]
-        public OneOfEducationSpecification EducationSpecification { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfEducationSpecification OneOfEducationSpecification
+        {
+            get
+            {
+                if (EducationSpecificationId == null) return null;
+                return new OneOfEducationSpecificationInstance(EducationSpecificationId, EducationSpecification);
+            }
+        }
 
 
         [JsonIgnore]
         public Guid? EducationSpecificationId { get; set; }
+
+
+        [JsonIgnore]
+        public EducationSpecification? EducationSpecification { get; set; }
 
         /// <summary>
         /// Addresses for this course
@@ -401,9 +413,20 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty("consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         [NotMapped]
-        public List<dynamic>? Consumers { get; set; }
+        public List<JObject>? ConsumersList
+        {
+            get
+            {
+                if (Consumers != null && Consumers.Any())
+                    return ConsumerConverter.GetDynamicConsumers(Consumers);
+                return null;
+            }
+        }
+
+        [JsonIgnore]
+        public List<Consumer>? Consumers { get; set; }
 
         /// <summary>
         /// The program of which this course is a part of. This object is [&#x60;expandable&#x60;](#tag/program_model)
@@ -427,10 +450,22 @@ namespace ooapi.v5.Models
         /// <value>The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [JsonProperty(PropertyName = "organization")]
-        public OneOfOrganization Organization { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfOrganization OneOfOrganization
+        {
+            get
+            {
+                if (OrganizationId == null) return null;
+                return new OneOfOrganizationInstance(OrganizationId, Organization);
+            }
+        }
 
         [JsonIgnore]
         public Guid? OrganizationId { get; set; }
+
+        [JsonIgnore]
+        public Organization? Organization { get; set; }
 
 
         /// <summary>

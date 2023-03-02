@@ -16,11 +16,11 @@ public class ComponentsRepository : BaseRepository<Component>
 
     public List<Component> GetComponentsByCourseId(Guid courseId)
     {
-        return dbContext.Components.Where(o => o.Course.Equals(courseId)).ToList();
+        return dbContext.Components.Where(o => o.CourseId.Equals(courseId)).ToList();
     }
 
     public List<Component> GetComponentsByOrganizationId(Guid organizationId)
     {
-        return dbContext.Components.Where(o => o.Organization.Equals(organizationId)).ToList();
+        return dbContext.Components.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 }

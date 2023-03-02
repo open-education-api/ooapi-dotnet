@@ -47,9 +47,17 @@ public class OrganizationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Organizations), description: "OK")]
     public virtual IActionResult OrganizationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] OrganizationTypeEnum? organizationType, [FromQuery] string sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        if (!string.IsNullOrWhiteSpace(primaryCodeParam.primaryCode))
+        {
+            parameters.Filters.Add("primaryCode", primaryCodeParam.primaryCode);
+        }
+        if (!string.IsNullOrWhiteSpace(organizationType.ToString()))
+        {
+            parameters.Filters.Add("OrganizationType", organizationType);
+        }
         var service = new OrganizationsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse, organizationType);
+        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -158,17 +166,19 @@ public class OrganizationsController : BaseController
     /// </summary>
     /// <remarks>Get a single organization.</remarks>
     /// <param name="organizationId">Organization ID</param>
-    /// <param name="expand">Optional properties to expand, separated by a comma</param>
+    /// <param name="expand">Items Enum: "parent" "children" <br/>Optional properties to expand, separated by a comma</param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("organizations/{organizationId}")]
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Organization), description: "OK")]
-    public virtual IActionResult OrganizationsOrganizationIdGet([FromRoute][Required] Guid organizationId, [FromQuery] List<string> expand)
+    public virtual IActionResult OrganizationsOrganizationIdGet([FromRoute][Required] Guid organizationId, [FromQuery] List<string>? expand)
     {
+        DataRequestParameters parameters = new DataRequestParameters();
+        parameters.Expand = expand;
         var service = new OrganizationsService(DBContext, UserRequestContext);
-        var result = service.Get(organizationId, out ErrorResponse errorResponse);
+        var result = service.Get(organizationId, parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -283,7 +293,7 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdProgramsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
-    public virtual IActionResult OrganizationsOrganizationIdProgramsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string sort = "name")
+    public virtual IActionResult OrganizationsOrganizationIdProgramsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         var service = new ProgramsService(DBContext, UserRequestContext);

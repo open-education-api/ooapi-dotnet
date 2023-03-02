@@ -1,5 +1,7 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ooapi.v5.Attributes;
+using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -28,7 +30,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty(PropertyName = "primaryCode")]
         [NotMapped]
-        public IdentifierEntry primaryCode
+        public IdentifierEntry primaryCodeIdentifier
         {
             get
             {
@@ -62,25 +64,25 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name of this building</value>
         [JsonRequired]
-        [JsonProperty(PropertyName = "name")]
+        [JsonProperty("name")]
         [NotMapped]
+        [SortAllowed]
         public List<LanguageTypedString> name
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
-            }
-            set
-            {
-                if (value != null)
-                    Name = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
         [JsonIgnore]
-        [SortAllowed]
         [SortDefault]
-        public string Name { get; set; }
+        public List<Attribute> Attributes { get; set; }
 
         /// <summary>
         /// The description of this building.
@@ -93,18 +95,15 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
-            }
-            set
-            {
-                if (value != null)
-                    Description = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("description")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
-
-        [JsonIgnore]
-        public string Description { get; set; }
 
         /// <summary>
         /// Gets or Sets Address
@@ -130,11 +129,19 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty("consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         [NotMapped]
-        public List<dynamic>? Consumers { get; set; }
+        public List<JObject>? ConsumersList
+        {
+            get
+            {
+                if (Consumers != null && Consumers.Any())
+                    return ConsumerConverter.GetDynamicConsumers(Consumers);
+                return null;
+            }
+        }
 
-
-
+        [JsonIgnore]
+        public List<Consumer>? Consumers { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using ooapi.v5.core.Models;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Utility;
-using ooapi.v5.Enums;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services
@@ -30,11 +29,11 @@ namespace ooapi.v5.core.Services
             }
         }
 
-        public AcademicSession Get(Guid academicSessionId, out ErrorResponse errorResponse)
+        public AcademicSession Get(Guid academicSessionId, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
         {
             try
             {
-                var item = _repository.GetAcademicSession(academicSessionId);
+                var item = _repository.GetAcademicSession(academicSessionId, dataRequestParameters);
 
                 errorResponse = null;
                 return item;

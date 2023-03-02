@@ -1,5 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
@@ -20,6 +22,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>Unique id of this educationSpecification</value>
         [JsonRequired]
+        [SortAllowed]
         [JsonProperty("educationSpecificationId")]
         public Guid EducationSpecificationId { get; set; }
 
@@ -30,7 +33,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty(PropertyName = "primaryCode")]
         [NotMapped]
-        public IdentifierEntry primaryCode
+        public IdentifierEntry primaryCodeIdentifier
         {
             get
             {
@@ -48,6 +51,7 @@ namespace ooapi.v5.Models
         public string PrimaryCodeType { get; set; }
 
         [JsonIgnore]
+        [SortAllowed]
         public string PrimaryCode { get; set; }
 
 
@@ -71,7 +75,7 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The type of education specification   - program: HOOPLEIDING   - privateProgram: PARTICULIEREOPLEIDING   - programCluster: HOONDERWIJSEENHEDENCLUSTER   - course: HOONDERWIJSEENHEID </value>
         [JsonRequired]
-
+        [SortAllowed]
         [JsonProperty(PropertyName = "educationSpecificationType")]
         public EducationSpecificationTypeEnum? EducationSpecificationType { get; set; }
 
@@ -80,25 +84,25 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The name of this education specification</value>
         [JsonRequired]
-        [JsonProperty(PropertyName = "name")]
+        [JsonProperty("name")]
         [NotMapped]
         public List<LanguageTypedString> name
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
-            }
-            set
-            {
-                if (value != null)
-                    Name = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
-
         [JsonIgnore]
-        public string Name { get; set; }
-
+        [SortAllowed]
+        [SortDefault]
+        public List<Attribute> Attributes { get; set; }
 
 
         /// <summary>
@@ -120,18 +124,14 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
-            }
-            set
-            {
-                if (value != null)
-                    Description = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("description")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
-
-        [JsonIgnore]
-        public string? Description { get; set; }
-
 
 
         /// <summary>
@@ -237,20 +237,56 @@ namespace ooapi.v5.Models
         /// The educationSpecification that is the parent of this educationSpecification if it exists. [&#x60;expandable&#x60;](#tag/education_specification_model)
         /// </summary>
         /// <value>The educationSpecification that is the parent of this educationSpecification if it exists. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
-
         [JsonProperty(PropertyName = "parent")]
-        public OneOfEducationSpecification? Parent { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfEducationSpecification OneOfParent
+        {
+            get
+            {
+                if (ParentId == null) return null;
+                return new OneOfEducationSpecificationInstance(ParentId, Parent);
+            }
+        }
 
         [JsonIgnore]
         public Guid? ParentId { get; set; }
+
+        [JsonIgnore]
+        [NotMapped]
+        public EducationSpecification? Parent { get; set; }
 
         /// <summary>
         /// The EducationSpecifications that have this EducationSpecification as their parent. [&#x60;expandable&#x60;](#tag/education_specification_model)
         /// </summary>
         /// <value>The EducationSpecifications that have this EducationSpecification as their parent. [&#x60;expandable&#x60;](#tag/education_specification_model)</value>
+        [JsonProperty("children")]
+        [NotMapped]
+        [JsonConverter(typeof(ListOneOfConverter))]
+        public List<OneOfEducationSpecification>? ChildrenList
+        {
+            get
+            {
+                if (ChildrenIds == null || !ChildrenIds.Any()) return null;
+                List<OneOfEducationSpecification>? result = new List<OneOfEducationSpecification>();
+                foreach (var ChildId in ChildrenIds)
+                {
+                    result.Add(new OneOfEducationSpecificationInstance(ChildId, (Children != null) ? Children.FirstOrDefault(x => x.EducationSpecificationId.Equals(ChildId)) : null));
+                }
+                return result;
+            }
+        }
 
-        [JsonProperty(PropertyName = "children")]
-        public List<OneOfEducationSpecification>? Children { get; set; }
+
+        [JsonIgnore]
+        [NotMapped]
+        public List<Guid>? ChildrenIds { get; set; }
+
+
+        [JsonIgnore]
+        [NotMapped]
+        public List<EducationSpecification>? Children { get; set; }
+
 
         /// <summary>
         /// The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -258,10 +294,22 @@ namespace ooapi.v5.Models
         /// <value>The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [JsonProperty(PropertyName = "organization")]
-        public OneOfOrganization? Organization { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfOrganization OneOfOrganization
+        {
+            get
+            {
+                if (OrganizationId == null) return null;
+                return new OneOfOrganizationInstance(OrganizationId, Organization);
+            }
+        }
 
         [JsonIgnore]
         public Guid? OrganizationId { get; set; }
+
+        [JsonIgnore]
+        public Organization? Organization { get; set; }
 
 
         /// <summary>
@@ -269,9 +317,41 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty("consumers")]
+
+        /// <summary>
+        /// Gets or Sets PrimaryCode
+        /// </summary>
+        //[JsonProperty(PropertyName = "consumers")]
+        //[NotMapped]
+        //public List<Consumer> consumersList
+        //{
+        //    get
+        //    {
+        //        return new List<Consumer> { CodeType = PrimaryCodeType, Code = PrimaryCode };
+        //    }
+        //    set
+        //    {
+        //        PrimaryCode = value.Code;
+        //        PrimaryCodeType = value.CodeType;
+        //    }
+        //}
+
+        [JsonProperty(PropertyName = "consumers")]
         [NotMapped]
-        public List<dynamic>? Consumers { get; set; }
+        public List<JObject>? ConsumersList
+        {
+            get
+            {
+                if (Consumers != null && Consumers.Any())
+                    return ConsumerConverter.GetDynamicConsumers(Consumers);
+                return null;
+            }
+        }
+
+        [JsonIgnore]
+        public List<Consumer>? Consumers { get; set; }
+
+
 
 
         /// <summary>

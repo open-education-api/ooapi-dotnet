@@ -52,7 +52,7 @@ namespace ooapi.v5.Controllers
         public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string sort = "name")
         {
             DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-            var service = new CoursesService(DBContext, UserRequestContext);
+            var service = new ProgramsService(DBContext, UserRequestContext);
             var result = service.GetAll(parameters, out ErrorResponse errorResponse);
             if (result == null)
             {
@@ -99,7 +99,7 @@ namespace ooapi.v5.Controllers
         /// </summary>
         /// <remarks>Get a single program.</remarks>
         /// <param name="programId">Program ID</param>
-        /// <param name="expand">Optional properties to include, separated by a comma</param>
+        /// <param name="expand">Items Enum: "parent" "children" "coordinators" "organization" "educationSpecification" <br/>Optional properties to expand, separated by a comma</param>
         /// <param name="returnTimelineOverrides">Controls whether the attribute &#x60;timelineOverrides&#x60; is returned or not. The default is &#x60;false&#x60;, so this has to explicitly set to &#x60;true&#x60; if a client needs the timeline overrides. See [GET /education-specifications/{educationSpecificationId}](#tag/education-specifications/paths/~1education-specifications~1{educationSpecificationId}/get) for an example.</param>
         /// <response code="200">OK</response>
         [HttpGet]
@@ -109,8 +109,10 @@ namespace ooapi.v5.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Models.Program), description: "OK")]
         public virtual IActionResult ProgramsProgramIdGet([FromRoute][Required] Guid programId, [FromQuery] List<string> expand, [FromQuery] bool? returnTimelineOverrides)
         {
+            DataRequestParameters parameters = new DataRequestParameters();
+            parameters.Expand = expand;
             var service = new ProgramsService(DBContext, UserRequestContext);
-            var result = service.Get(programId, out ErrorResponse errorResponse);
+            var result = service.Get(programId, parameters, out ErrorResponse errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);

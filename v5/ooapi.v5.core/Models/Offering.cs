@@ -1,5 +1,7 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations;
@@ -29,7 +31,7 @@ namespace ooapi.v5.Models
         [JsonRequired]
         [JsonProperty(PropertyName = "primaryCode")]
         [NotMapped]
-        public IdentifierEntry primaryCode
+        public IdentifierEntry primaryCodeIdentifier
         {
             get
             {
@@ -66,7 +68,23 @@ namespace ooapi.v5.Models
         /// <value>The academicsession during which this offering takes place. [&#x60;expandable&#x60;](#tag/academic_session_model) By default only the &#x60;academicSessionId&#x60; (a string) is returned. If the client requested an expansion of &#x60;academicSession&#x60; the full academicsession object should be returned. </value>
         [JsonProperty(PropertyName = "academicSession")]
         [NotMapped]
-        public OneOfAcademicSession? AcademicSession { get; set; }
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfAcademicSession? OneOfAcademicSession
+        {
+            get
+            {
+                if (AcademicSessionId == null) return null;
+                return new OneOfAcademicSessionInstance(AcademicSessionId, AcademicSession);
+            }
+        }
+
+        [JsonIgnore]
+        public Guid? AcademicSessionId { get; set; }
+
+        [JsonIgnore]
+        public AcademicSession? AcademicSession { get; set; }
+
+
 
         //[JsonIgnore]
         //public Guid? AcademicSessionId { get; set; }
@@ -84,19 +102,19 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Name);
-            }
-            set
-            {
-                if (value != null)
-                    Name = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
-
         [JsonIgnore]
         [SortAllowed]
-        public string Name { get; set; }
+        [SortDefault]
+        public List<Attribute> Attributes { get; set; }
 
 
 
@@ -120,17 +138,15 @@ namespace ooapi.v5.Models
         {
             get
             {
-                return Helpers.JsonConverter.GetLanguageTypesStringList(Description);
-            }
-            set
-            {
-                if (value != null)
-                    Description = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("description")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
-        [JsonIgnore]
-        public string Description { get; set; }
 
         /// <summary>
         /// The (primary) teaching language in which this offering is given, should be a three-letter language code as specified by ISO 639-2.
@@ -273,9 +289,20 @@ namespace ooapi.v5.Models
         /// </summary>
         /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
 
-        [JsonProperty("consumers")]
+        [JsonProperty(PropertyName = "consumers")]
         [NotMapped]
-        public List<dynamic>? Consumers { get; set; }
+        public List<JObject>? ConsumersList
+        {
+            get
+            {
+                if (Consumers != null && Consumers.Any())
+                    return ConsumerConverter.GetDynamicConsumers(Consumers);
+                return null;
+            }
+        }
+
+        [JsonIgnore]
+        public List<Consumer>? Consumers { get; set; }
 
         /// <summary>
         /// The first day on which a student can enroll for this course.
@@ -317,10 +344,23 @@ namespace ooapi.v5.Models
         /// <value>The organization that manages this courseoffering. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
 
         [JsonProperty(PropertyName = "organization")]
-        public OneOfOrganization Organization { get; set; }
+        [NotMapped]
+        [JsonConverter(typeof(OneOfConverter))]
+        public OneOfOrganization OneOfOrganization
+        {
+            get
+            {
+                if (OrganizationId == null) return null;
+                return new OneOfOrganizationInstance(OrganizationId, Organization);
+            }
+        }
 
         [JsonIgnore]
         public Guid? OrganizationId { get; set; }
+
+        [JsonIgnore]
+        public Organization? Organization { get; set; }
+
 
         [JsonIgnore]
         public virtual ICollection<Address> Address { get; set; }

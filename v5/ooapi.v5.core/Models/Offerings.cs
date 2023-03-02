@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using ooapi.v5.core.Models.OneOfModels;
 
 namespace ooapi.v5.Models
 {

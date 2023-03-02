@@ -71,17 +71,19 @@ public class AcademicSessionsController : BaseController
     /// </summary>
     /// <remarks>Get a single academic session.</remarks>
     /// <param name="academicSessionId">Academic session ID</param>
-    /// <param name="expand">Optional properties to expand, separated by a comma <br/>Items Enum: "parent" "children" "year" </param>
+    /// <param name="expand">Items Enum: "parent" "children" "year" <br/> Optional properties to expand, separated by a comma </param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("academic-sessions/{academicSessionId}")]
     [ValidateModelState]
     [SwaggerOperation("AcademicSessionsAcademicSessionIdGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(AcademicSession), description: "OK")]
-    public virtual IActionResult AcademicSessionsAcademicSessionIdGet([FromRoute][Required] Guid academicSessionId, [FromQuery] string expand)
+    public virtual IActionResult AcademicSessionsAcademicSessionIdGet([FromRoute][Required] Guid academicSessionId, [FromQuery] List<string>? expand)
     {
+        DataRequestParameters parameters = new DataRequestParameters();
+        parameters.Expand = expand;
         var service = new AcademicSessionsService(DBContext, UserRequestContext);
-        var result = service.Get(academicSessionId, out ErrorResponse errorResponse);
+        var result = service.Get(academicSessionId, parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

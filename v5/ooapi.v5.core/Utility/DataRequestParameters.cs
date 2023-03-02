@@ -11,8 +11,10 @@ namespace ooapi.v5.core.Utility
         public Dictionary<string, object> Filters { get; set; } = new Dictionary<string, object>();
         public Dictionary<string, object> FiltersExt { get; set; } = new Dictionary<string, object>();
         public string Sort { get; set; }
+        public string SearchTerm { get; set; }
+        public string Consumer { get; set; }
         public string PrimaryCodeSearch { get; set; }
-        public string Expand { get; set; }
+        public List<string> Expand { get; set; } = new List<string>();
         public int Skip => (PageNumber - 1) * PageSize;
 
         public void Validate()
@@ -33,9 +35,24 @@ namespace ooapi.v5.core.Utility
         {
         }
 
-        public DataRequestParameters(FilterParams? filterParams = null, PagingParams? curPagingParams = null, string sort = null) : this(null, filterParams, curPagingParams, sort)
+        public DataRequestParameters(FilterParams? filterParams = null, PagingParams? curPagingParams = null, string sort = null)// : this(null, filterParams, curPagingParams, sort)
         {
+            Sort = sort;
+            if (filterParams != null)
+            {
+                SearchTerm = filterParams.q;
+                Consumer = filterParams.consumer;
+            }
+            if (curPagingParams != null)
+            {
+                PageNumber = curPagingParams.PageNumber;
+                SetPageSize(curPagingParams.PageSize);
+            }
         }
+
+        //public DataRequestParameters(PrimaryCodeParam? primaryCodeParam = null, FilterParams? filterParams = null, PagingParams? curPagingParams = null, string sort = null) : this(filterParams, curPagingParams, sort)
+        //{
+        //}
 
         public DataRequestParameters(PrimaryCodeParam? primaryCodeParam = null, FilterParams? filterParams = null, PagingParams? curPagingParams = null, string sort = null)
         {
@@ -48,7 +65,9 @@ namespace ooapi.v5.core.Utility
                 Sort = sort;
                 if (filterParams != null)
                 {
-                    PrimaryCodeSearch = filterParams.q;
+                    //PrimaryCodeSearch = filterParams.q;
+                    SearchTerm = filterParams.q;
+                    Consumer = filterParams.consumer;
                 }
                 if (curPagingParams != null)
                 {

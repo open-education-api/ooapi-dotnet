@@ -13,6 +13,9 @@ namespace ooapi.v5.Models
     public partial class Result : ModelBase
     {
 
+        [JsonIgnore]
+        public Guid? ResultId { get; set; }
+
         /// <summary>
         /// The state of this result
         /// </summary>

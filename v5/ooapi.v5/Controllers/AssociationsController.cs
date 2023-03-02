@@ -28,8 +28,7 @@ public class AssociationsController : BaseController
     /// </summary>
     /// <remarks>Get a single association.</remarks>
     /// <param name="associationId">Association ID</param>
-    /// <param name="expand">Items Enum: "person" "offering" <br/>
-    /// Optional properties to expand, separated by a comma</param>
+    /// <param name="expand">Items Enum: "person" "offering" <br/> Optional properties to expand, separated by a comma</param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("associations/{associationId}")]
