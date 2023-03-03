@@ -25,7 +25,7 @@ namespace ooapi.v5.core.Services
             }
             catch (Exception ex)
             {
-                errorResponse = new ErrorResponse(500,ex.Message);
+                errorResponse = new ErrorResponse(500);
                 return null;
             }
         }
