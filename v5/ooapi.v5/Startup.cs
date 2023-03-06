@@ -45,8 +45,11 @@ namespace ooapi.v5
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            // Allows EF bundle to work when applying migrations in the pipeline
+            var connectionString = Configuration.GetConnectionString("ooapiDB") ?? "";
+
             services.AddDbContext<CoreDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ooapiDB"),
+                options.UseSqlServer(connectionString,
                 x => x.MigrationsHistoryTable("__EFMigrationsHistory", "ooapiv5"))
             //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
