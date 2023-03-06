@@ -45,7 +45,7 @@ namespace ooapi.v5
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            // Allows EF bundle to work when applying migrations in the pipeline, it replaces to place holder connection string with the parameter value
+            // Allows EF bundle to work when applying migrations in the pipeline, it replaces to placeholder connection string with the parameter value
             var connectionString = Configuration.GetConnectionString("ooapiDB") ?? "Data Source=;Initial Catalog=;Integrated Security=True;Encrypt=False;";
 
             services.AddDbContext<CoreDBContext>(options =>
