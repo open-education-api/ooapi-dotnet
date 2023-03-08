@@ -180,10 +180,6 @@ public class EducationSpecificationsController : BaseController
         {
             parameters.Filters.Add("FieldsOfStudy", fieldsOfStudy);
         }
-        if (!string.IsNullOrWhiteSpace(fieldsOfStudy))
-        {
-            parameters.Filters.Add("FieldsOfStudy", fieldsOfStudy);
-        }
         if (!string.IsNullOrWhiteSpace(crohoCreboCode))
         {
             parameters.Filters.Add("PrimaryCode", crohoCreboCode);

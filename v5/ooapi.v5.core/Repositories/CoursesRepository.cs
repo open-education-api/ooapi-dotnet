@@ -1,4 +1,6 @@
-﻿using ooapi.v5.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Utility;
+using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
@@ -14,9 +16,15 @@ public class CoursesRepository : BaseRepository<Course>
         return dbContext.Courses.FirstOrDefault(x => x.CourseId.Equals(courseId));
     }
 
-    public List<Course> GetCoursesByEducationSpecificationId(Guid educationSpecificationId)
+    public Pagination<Course> GetCoursesByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
-        return dbContext.Courses.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).ToList();
+        IQueryable<Course> set = dbContext.CoursesNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
+        bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
+        if (includeConsumer)
+        {
+            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+        }
+        return GetAllOrderedBy(dataRequestParameters, set);
     }
 
     public List<Course> GetCoursesByOrganizationId(Guid organizationId)
