@@ -1,12 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Query;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
-using System.Collections;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 
 namespace ooapi.v5.core.Repositories;
 
@@ -92,17 +86,12 @@ public class ProgramsRepository : BaseRepository<Program>
             result.EducationSpecification.ChildrenIds = dbContext.EducationSpecificationsNoTracking.Where(x => x.ParentId.Equals(result.EducationSpecification.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToList();
         }
 
-
-
-
         return result;
     }
 
 
     public Pagination<Program> GetProgramsByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
-        //return dbContext.Programs.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).ToList();
-
         IQueryable<Program> set = dbContext.ProgramsNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
         bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
         if (includeConsumer)
@@ -110,8 +99,6 @@ public class ProgramsRepository : BaseRepository<Program>
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
         return GetAllOrderedBy(dataRequestParameters, set);
-
-
     }
 
     public List<Program> GetProgramsByOrganizationId(Guid organizationId)

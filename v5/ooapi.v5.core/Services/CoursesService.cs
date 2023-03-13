@@ -49,10 +49,9 @@ namespace ooapi.v5.core.Services
         {
             try
             {
-                var result = _repository.GetCoursesByEducationSpecificationId(educationSpecificationId);
-                var paginationResult = new Pagination<Course>(result.AsQueryable(), dataRequestParameters);
+                Pagination<Course> result = _repository.GetCoursesByEducationSpecificationId(educationSpecificationId, dataRequestParameters);
                 errorResponse = null;
-                return paginationResult;
+                return result;
             }
             catch (Exception ex)
             {
