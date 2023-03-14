@@ -43,7 +43,7 @@ public class RoomsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("RoomsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Rooms), description: "OK")]
-    public virtual IActionResult RoomsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? roomType, [FromQuery] string sort = "name")
+    public virtual IActionResult RoomsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? roomType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new RoomsService(DBContext, UserRequestContext);

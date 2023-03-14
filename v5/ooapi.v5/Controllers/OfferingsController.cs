@@ -45,7 +45,7 @@ public class OfferingsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OfferingsOfferingIdAssociationsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Associations), description: "OK")]
-    public virtual IActionResult OfferingsOfferingIdAssociationsGet([FromRoute][Required] Guid offeringId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? associationType, [FromQuery] string? role, [FromQuery] string? state, [FromQuery] string? resultState, [FromQuery] string sort = "associationId")
+    public virtual IActionResult OfferingsOfferingIdAssociationsGet([FromRoute][Required] Guid offeringId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? associationType, [FromQuery] string? role, [FromQuery] string? state, [FromQuery] string? resultState, [FromQuery] string? sort = "associationId")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20022));
@@ -134,7 +134,7 @@ public class OfferingsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OfferingsOfferingIdGroupsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
-    public virtual IActionResult OfferingsOfferingIdGroupsGet([FromRoute][Required] Guid offeringId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string sort = "name")
+    public virtual IActionResult OfferingsOfferingIdGroupsGet([FromRoute][Required] Guid offeringId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse2004));

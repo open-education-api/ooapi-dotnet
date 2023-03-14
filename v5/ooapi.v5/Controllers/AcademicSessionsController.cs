@@ -53,7 +53,7 @@ public class AcademicSessionsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("AcademicSessionsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(AcademicSessions), description: "OK")]
-    public virtual IActionResult AcademicSessionsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? academicSessionType, [FromQuery] Guid? parent, [FromQuery] Guid? year, [FromQuery] string sort = "startDate")
+    public virtual IActionResult AcademicSessionsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? academicSessionType, [FromQuery] Guid? parent, [FromQuery] Guid? year, [FromQuery] string? sort = "startDate")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new AcademicSessionsService(DBContext, UserRequestContext);
@@ -115,7 +115,7 @@ public class AcademicSessionsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("AcademicSessionsAcademicSessionIdOfferingsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Offerings), description: "OK")]
-    public virtual IActionResult AcademicSessionsAcademicSessionIdOfferingsGet([FromRoute][Required] Guid academicSessionId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? offeringType, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string sort = "startDate")
+    public virtual IActionResult AcademicSessionsAcademicSessionIdOfferingsGet([FromRoute][Required] Guid academicSessionId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? offeringType, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string? sort = "startDate")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         //var service = new OfferingsService(DBContext, UserRequestContext);
