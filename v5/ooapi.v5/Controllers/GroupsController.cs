@@ -44,7 +44,7 @@ public class GroupsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("GroupsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
-    public virtual IActionResult GroupsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string sort = "name")
+    public virtual IActionResult GroupsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new GroupsService(DBContext, UserRequestContext);
@@ -98,7 +98,7 @@ public class GroupsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("GroupsGroupIdPersonsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Persons), description: "OK")]
-    public virtual IActionResult GroupsGroupIdPersonsGet([FromRoute][Required] Guid groupId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string sort = "personId")
+    public virtual IActionResult GroupsGroupIdPersonsGet([FromRoute][Required] Guid groupId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string? sort = "personId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         var service = new PersonsService(DBContext, UserRequestContext);

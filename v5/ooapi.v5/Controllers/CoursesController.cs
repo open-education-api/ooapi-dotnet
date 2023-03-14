@@ -46,7 +46,7 @@ public class CoursesController : BaseController
     [ValidateModelState]
     [SwaggerOperation("CoursesCourseIdComponentsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Components), description: "OK")]
-    public virtual IActionResult CoursesCourseIdComponentsGet([FromRoute][Required] Guid courseId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? componentType, [FromQuery] string sort = "componentId")
+    public virtual IActionResult CoursesCourseIdComponentsGet([FromRoute][Required] Guid courseId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? componentType, [FromQuery] string? sort = "componentId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         var service = new ComponentsService(DBContext, UserRequestContext);
@@ -105,7 +105,7 @@ public class CoursesController : BaseController
     [ValidateModelState]
     [SwaggerOperation("CoursesCourseIdOfferingsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(CourseOfferings), description: "OK")]
-    public virtual IActionResult CoursesCourseIdOfferingsGet([FromRoute][Required] Guid courseId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] List<string>? modeOfDelivery, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string sort = "startDate")
+    public virtual IActionResult CoursesCourseIdOfferingsGet([FromRoute][Required] Guid courseId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] List<string>? modeOfDelivery, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string? sort = "startDate")
     {
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20018));
@@ -156,7 +156,7 @@ public class CoursesController : BaseController
     [SwaggerOperation("CoursesGet")]
     //[SwaggerResponse(statusCode: 200, type: typeof(MyPagination<Course>), description: "OK")]
     [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
-    public virtual IActionResult CoursesGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string sort = "name")
+    public virtual IActionResult CoursesGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new CoursesService(DBContext, UserRequestContext);

@@ -35,7 +35,7 @@ namespace ooapi.v5.core.Utility
         {
         }
 
-        public DataRequestParameters(FilterParams? filterParams = null, PagingParams? curPagingParams = null, string sort = null)// : this(null, filterParams, curPagingParams, sort)
+        public DataRequestParameters(FilterParams? filterParams = null, PagingParams? curPagingParams = null, string? sort = null)// : this(null, filterParams, curPagingParams, sort)
         {
             Sort = sort;
             if (filterParams != null)
@@ -54,7 +54,7 @@ namespace ooapi.v5.core.Utility
         //{
         //}
 
-        public DataRequestParameters(PrimaryCodeParam? primaryCodeParam = null, FilterParams? filterParams = null, PagingParams? curPagingParams = null, string sort = null)
+        public DataRequestParameters(PrimaryCodeParam? primaryCodeParam = null, FilterParams? filterParams = null, PagingParams? curPagingParams = null, string? sort = null)
         {
             if (primaryCodeParam != null && primaryCodeParam.primaryCode != null)
             {

@@ -44,7 +44,7 @@ public class NewsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("NewsFeedsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(NewsFeeds), description: "OK")]
-    public virtual IActionResult NewsFeedsGet([FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? newsFeedType, [FromQuery] string sort = "name")
+    public virtual IActionResult NewsFeedsGet([FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? newsFeedType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(null, filterParams, pagingParams, sort);
         var service = new NewsFeedsService(DBContext, UserRequestContext);
@@ -97,7 +97,7 @@ public class NewsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("NewsFeedsNewsFeedIdNewsItemsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(NewsItems), description: "OK")]
-    public virtual IActionResult NewsFeedsNewsFeedIdNewsItemsGet([FromRoute][Required] Guid newsFeedId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? author, [FromQuery] string sort = "newsItemId")
+    public virtual IActionResult NewsFeedsNewsFeedIdNewsItemsGet([FromRoute][Required] Guid newsFeedId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? author, [FromQuery] string? sort = "newsItemId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         var service = new NewsItemsService(DBContext, UserRequestContext);

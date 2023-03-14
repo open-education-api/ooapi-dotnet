@@ -98,7 +98,7 @@ public class BuildingsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("BuildingsBuildingIdRoomsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Rooms), description: "OK")]
-    public virtual IActionResult BuildingsBuildingIdRoomsGet([FromRoute][Required] Guid buildingId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? roomType, [FromQuery] string sort = "name")
+    public virtual IActionResult BuildingsBuildingIdRoomsGet([FromRoute][Required] Guid buildingId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? roomType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         var service = new RoomsService(DBContext, UserRequestContext);
@@ -153,7 +153,7 @@ public class BuildingsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("BuildingsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Buildings), description: "OK")]
-    public virtual IActionResult BuildingsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string sort = "name")
+    public virtual IActionResult BuildingsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         var service = new BuildingsService(DBContext, UserRequestContext);
