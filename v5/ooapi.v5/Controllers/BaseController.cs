@@ -21,7 +21,7 @@ using System;
 [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method not allowed")]
 [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too many requests")]
 [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-
+[Route("/")]
 public class BaseController : ControllerBase
 {
     public readonly IConfiguration Configuration;
