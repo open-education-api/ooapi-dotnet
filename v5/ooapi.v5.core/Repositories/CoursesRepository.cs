@@ -13,7 +13,7 @@ public class CoursesRepository : BaseRepository<Course>
 
     public Course GetCourse(Guid courseId)
     {
-        return dbContext.Courses.FirstOrDefault(x => x.CourseId.Equals(courseId));
+        return dbContext.Courses.Include(x => x.Attributes).FirstOrDefault(x => x.CourseId.Equals(courseId));
     }
 
     public Pagination<Course> GetCoursesByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
@@ -29,7 +29,7 @@ public class CoursesRepository : BaseRepository<Course>
 
     public List<Course> GetCoursesByOrganizationId(Guid organizationId)
     {
-        return dbContext.Courses.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
+        return dbContext.Courses.Include(x => x.Attributes).Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 
     public List<Course> GetCoursesByProgramId(Guid programId)

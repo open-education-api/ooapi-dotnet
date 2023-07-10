@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using ooapi.v5.Attributes;
 using ooapi.v5.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -51,24 +52,27 @@ namespace ooapi.v5.Models
         /// Further details like building name, suite, apartment number, etc.
         /// </summary>
         /// <value>Further details like building name, suite, apartment number, etc.</value>
-        [JsonProperty(PropertyName = "additional")]
+        [JsonRequired]
+        [JsonProperty("addition")]
         [NotMapped]
-        public List<LanguageTypedString>? addition
+        [SortAllowed]
+        public List<LanguageTypedString> addition
         {
             get
             {
-                return Helpers.LanguageTypedStringJsonConverter.GetLanguageTypesStringList(Additional);
-            }
-            set
-            {
-                if (value != null)
-                    Additional = JsonConvert.SerializeObject(value);
+                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                if (Attributes != null && Attributes.Any())
+                {
+                    result = Attributes.Where(x => x.PropertyName.Equals("additional")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                }
+                return result;
             }
         }
 
-
         [JsonIgnore]
-        public string? Additional { get; set; }
+        [SortDefault]
+        public List<Attribute> Attributes { get; set; }
+
 
         /// <summary>
         /// Postal code
