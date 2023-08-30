@@ -101,7 +101,7 @@ namespace ooapi.v5.Models
 
         [JsonIgnore]
         [SortAllowed]
-        [SortDefault]
+        //[SortDefault]
         public List<Attribute> Attributes { get; set; }
 
 
