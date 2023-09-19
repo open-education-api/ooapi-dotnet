@@ -45,5 +45,22 @@ namespace ooapi.v5.core.Services
             }
         }
 
+        //public Pagination<AcademicSession> GetByPrimaryCode(string primaryCode, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+        //{
+        //    try
+        //    {
+        //        var item = _repository.GetAcademicSession(primaryCode, dataRequestParameters);
+
+        //        errorResponse = null;
+        //        return item;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        errorResponse = new ErrorResponse(500);
+        //        return null;
+        //    }
+        //}
+
+
     }
 }

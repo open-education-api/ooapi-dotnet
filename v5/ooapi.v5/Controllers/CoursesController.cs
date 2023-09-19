@@ -107,31 +107,7 @@ public class CoursesController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(CourseOfferings), description: "OK")]
     public virtual IActionResult CoursesCourseIdOfferingsGet([FromRoute][Required] Guid courseId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] List<string>? modeOfDelivery, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string? sort = "startDate")
     {
-        //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(200, default(InlineResponse20018));
-
-        //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(400, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(401, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 403 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(403, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(404, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(405, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(429, default(InlineResponse400));
-
-        //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-        // return StatusCode(500, default(InlineResponse400));
-
-        return null;
+        return BadRequest(new ErrorResponse(400, "Not implemented yet."));
     }
 
     /// <summary>
