@@ -55,10 +55,14 @@ public class AcademicSessionsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(AcademicSessions), description: "OK")]
     public virtual IActionResult AcademicSessionsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? academicSessionType, [FromQuery] Guid? parent, [FromQuery] Guid? year, [FromQuery] string? sort = "startDate")
     {
-        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        Pagination<AcademicSession> result = null;
         var service = new AcademicSessionsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse, academicSessionType);
-        //var result = service.GetAll(parameters, out ErrorResponse errorResponse, academicTypeEnumParams.AcademicSessionType);
+
+        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        if (parent != null) parameters.Filters.Add("ParentId", parent);
+        if (year != null) parameters.Filters.Add("YearId", year);
+        result = service.GetAll(parameters, out ErrorResponse errorResponse, academicSessionType);
+
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -117,13 +121,6 @@ public class AcademicSessionsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Offerings), description: "OK")]
     public virtual IActionResult AcademicSessionsAcademicSessionIdOfferingsGet([FromRoute][Required] Guid academicSessionId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? offeringType, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string? sort = "startDate")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        //var service = new OfferingsService(DBContext, UserRequestContext);
-        //var result = service.GetAll(parameters, out ErrorResponse errorResponse);
-        //if (result == null)
-        //{
-        //    return BadRequest(errorResponse);
-        //}
-        return null;
+        return BadRequest(new ErrorResponse(400, "Not implemented yet."));
     }
 }

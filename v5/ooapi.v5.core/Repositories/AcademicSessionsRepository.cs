@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ooapi.v5.core.Utility;
+using ooapi.v5.Enums;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
@@ -11,12 +12,26 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         //
     }
 
-    public AcademicSession GetAcademicSession(Guid academicSessionId, DataRequestParameters dataRequestParameters)
+    internal AcademicSession GetAcademicSession(Guid academicSessionId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
-
-
         AcademicSession result = set.FirstOrDefault(x => x.AcademicSessionId.Equals(academicSessionId));
+        if (result == null) 
+            return null;
+        return GetAcademicSession(result, set, dataRequestParameters);
+    }
+
+    internal AcademicSession GetAcademicSession(string primaryCode, DataRequestParameters dataRequestParameters)
+    {
+        IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
+        AcademicSession result = set.FirstOrDefault(x => x.PrimaryCode.Equals(primaryCode));
+        if (result == null)
+            return null;
+        return GetAcademicSession(result, set, dataRequestParameters);
+    }
+
+    private AcademicSession GetAcademicSession(AcademicSession result, IQueryable<AcademicSession> set, DataRequestParameters dataRequestParameters)
+    {
         result.ChildrenIds = dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(result.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
 
         bool getParent = dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
@@ -57,7 +72,13 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         set = set.AsQueryable();
 
         if (academicSessionType != null)
-            set = set.Where(x => x.AcademicSessionType.Equals(academicSessionType));
+        {
+            academicSessionType = academicSessionType.Replace(" ", "_");
+            if (Enum.TryParse(academicSessionType, true, out AcademicSessionTypeEnum result))
+            {
+                set = set.Where(x => x.AcademicSessionType.Equals(result));
+            }
+        }
         return GetAllOrderedBy(dataRequestParameters, set);
     }
 

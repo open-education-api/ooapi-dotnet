@@ -5,20 +5,20 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services
 {
-    public class BuildingsService : ServiceBase
+    public class ProgramOfferingService : ServiceBase
     {
-        private readonly BuildingsRepository _repository;
+        private readonly ProgramOfferingsRepository _repository;
 
-        public BuildingsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+        public ProgramOfferingService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
         {
-            _repository = new BuildingsRepository(dbContext);
+            _repository = new ProgramOfferingsRepository(dbContext);
         }
 
-        public Pagination<Building> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+        public Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
         {
             try
             {
-                Pagination<Building> result = _repository.GetAllOrderedBy(dataRequestParameters);
+                Pagination<ProgramOffering> result = _repository.GetAllOrderedBy(dataRequestParameters);
 
                 errorResponse = null;
                 return result;
@@ -30,11 +30,11 @@ namespace ooapi.v5.core.Services
             }
         }
 
-        public Building Get(Guid buildingId, out ErrorResponse errorResponse)
+        public ProgramOffering Get(Guid programOfferingId, out ErrorResponse errorResponse)
         {
             try
             {
-                var item = _repository.GetBuilding(buildingId);
+                var item = _repository.GetProgramOffering(programOfferingId);
 
                 errorResponse = null;
                 return item;

@@ -36,6 +36,11 @@ namespace ooapi.v5.Models
                         Title = "Forbidden";
                         break;
                     }
+                case 404:
+                    {
+                        Title = "Not Found";
+                        break;
+                    }
                 case 405:
                     {
                         Title = "Method not allowed";

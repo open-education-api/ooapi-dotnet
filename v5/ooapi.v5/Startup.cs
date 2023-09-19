@@ -51,7 +51,7 @@ namespace ooapi.v5
             services.AddDbContext<CoreDBContext>(options =>
                 options.UseSqlServer(connectionString,
                 x => x.MigrationsHistoryTable("__EFMigrationsHistory", "ooapiv5"))
-            //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
 
             // Add framework services.
