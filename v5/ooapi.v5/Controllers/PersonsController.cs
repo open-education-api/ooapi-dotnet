@@ -45,7 +45,7 @@ public class PersonsController : BaseController
     [Route("persons")]
     [ValidateModelState]
     [SwaggerOperation("PersonsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Persons), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Person>), description: "OK")]
     public virtual IActionResult PersonsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string? sort = "personId")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
@@ -95,7 +95,7 @@ public class PersonsController : BaseController
     [Route("persons/{personId}/associations")]
     [ValidateModelState]
     [SwaggerOperation("PersonsPersonIdAssociationsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Associations), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Association>), description: "OK")]
     public virtual IActionResult PersonsPersonIdAssociationsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? associationType, [FromQuery] string? role, [FromQuery] string? state, [FromQuery] string? resultState, [FromQuery] string? sort = "associationId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
@@ -148,7 +148,7 @@ public class PersonsController : BaseController
     [Route("persons/{personId}/groups")]
     [ValidateModelState]
     [SwaggerOperation("PersonsPersonIdGroupsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Group>), description: "OK")]
     public virtual IActionResult PersonsPersonIdGroupsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);

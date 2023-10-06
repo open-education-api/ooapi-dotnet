@@ -7,14 +7,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+
 using Newtonsoft.Json.Serialization;
+
 using ooapi.v5.core.Repositories;
+using ooapi.v5.Models;
 using ooapi.v5.Security;
+
 using Swashbuckle.AspNetCore.SwaggerGen;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml.XPath;
 
 namespace ooapi.v5
@@ -111,7 +117,17 @@ namespace ooapi.v5
 
             services.ConfigureSwaggerGen(options =>
             {
-                options.CustomSchemaIds(x => x.Name);
+                options.CustomSchemaIds(type =>
+                {
+                    // Generate unique type name for generic Pagination<T> 
+                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Pagination<>))
+                    {
+                        Type genericArgument = type.GetGenericArguments()[0];
+                        return $"Pagination_{genericArgument.Name}";
+                    }
+                    return type.Name;
+                });
+
             });
         }
 

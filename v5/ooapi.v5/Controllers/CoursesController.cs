@@ -45,7 +45,7 @@ public class CoursesController : BaseController
     [Route("courses/{courseId}/components")]
     [ValidateModelState]
     [SwaggerOperation("CoursesCourseIdComponentsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Components), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Component>), description: "OK")]
     public virtual IActionResult CoursesCourseIdComponentsGet([FromRoute][Required] Guid courseId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? componentType, [FromQuery] string? sort = "componentId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
@@ -104,7 +104,7 @@ public class CoursesController : BaseController
     [Route("courses/{courseId}/offerings")]
     [ValidateModelState]
     [SwaggerOperation("CoursesCourseIdOfferingsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(CourseOfferings), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<CourseOffering>), description: "OK")]
     public virtual IActionResult CoursesCourseIdOfferingsGet([FromRoute][Required] Guid courseId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] List<string>? modeOfDelivery, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string? sort = "startDate")
     {
         return BadRequest(new ErrorResponse(400, "Not implemented yet."));
@@ -131,7 +131,7 @@ public class CoursesController : BaseController
     [ValidateModelState]
     [SwaggerOperation("CoursesGet")]
     //[SwaggerResponse(statusCode: 200, type: typeof(MyPagination<Course>), description: "OK")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Course>), description: "OK")]
     public virtual IActionResult CoursesGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);

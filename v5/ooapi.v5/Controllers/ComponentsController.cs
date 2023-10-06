@@ -68,7 +68,7 @@ public class ComponentsController : BaseController
     [Route("components/{componentId}/offerings")]
     [ValidateModelState]
     [SwaggerOperation("ComponentsComponentIdOfferingsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(ComponentOfferings), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<ComponentOffering>), description: "OK")]
     public virtual IActionResult ComponentsComponentIdOfferingsGet([FromRoute][Required] Guid componentId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string? sort = "startDateTime")
     {
         return BadRequest(new ErrorResponse(400, "Not implemented yet."));

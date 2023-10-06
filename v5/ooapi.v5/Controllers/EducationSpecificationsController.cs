@@ -46,7 +46,7 @@ public class EducationSpecificationsController : BaseController
     [Route("education-specifications/{educationSpecificationId}/courses")]
     [ValidateModelState]
     [SwaggerOperation("EducationSpecificationsEducationSpecificationIdCoursesGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Course>), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdCoursesGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "courseId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
@@ -89,7 +89,7 @@ public class EducationSpecificationsController : BaseController
     [Route("education-specifications/{educationSpecificationId}/education-specifications")]
     [ValidateModelState]
     [SwaggerOperation("EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<EducationSpecification>), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? sort = "educationSpecificationId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
@@ -152,7 +152,7 @@ public class EducationSpecificationsController : BaseController
     [Route("education-specifications/{educationSpecificationId}/programs")]
     [ValidateModelState]
     [SwaggerOperation("EducationSpecificationsEducationSpecificationIdProgramsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Models.Program>), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdProgramsGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? crohoCreboCode, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
@@ -211,7 +211,7 @@ public class EducationSpecificationsController : BaseController
     [Route("education-specifications")]
     [ValidateModelState]
     [SwaggerOperation("EducationSpecificationsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<EducationSpecification>), description: "OK")]
     public virtual IActionResult EducationSpecificationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? educationSpecificationType = "", [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);

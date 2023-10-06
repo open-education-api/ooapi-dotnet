@@ -48,7 +48,7 @@ namespace ooapi.v5.Controllers
         [Route("programs")]
         [ValidateModelState]
         [SwaggerOperation("ProgramsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Models.Program>), description: "OK")]
         public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
         {
             DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
@@ -81,7 +81,7 @@ namespace ooapi.v5.Controllers
         [Route("programs/{programId}/courses")]
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdCoursesGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Course>), description: "OK")]
         public virtual IActionResult ProgramsProgramIdCoursesGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "courseId")
         {
             DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
@@ -142,7 +142,7 @@ namespace ooapi.v5.Controllers
         [Route("programs/{programId}/offerings")]
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdOfferingsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(ProgramOfferings), description: "OK")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Pagination<ProgramOffering>), description: "OK")]
         public virtual IActionResult ProgramsProgramIdOfferingsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? modeOfStudy, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string? sort = "startDate")
         {
             DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
@@ -179,7 +179,7 @@ namespace ooapi.v5.Controllers
         [Route("programs/{programId}/programs")]
         [ValidateModelState]
         [SwaggerOperation("ProgramsProgramIdProgramsGet")]
-        [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Models.Program>), description: "OK")]
         public virtual IActionResult ProgramsProgramIdProgramsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
         {
             DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);

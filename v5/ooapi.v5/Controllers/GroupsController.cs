@@ -43,7 +43,7 @@ public class GroupsController : BaseController
     [Route("groups")]
     [ValidateModelState]
     [SwaggerOperation("GroupsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Group>), description: "OK")]
     public virtual IActionResult GroupsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
@@ -97,7 +97,7 @@ public class GroupsController : BaseController
     [Route("groups/{groupId}/persons")]
     [ValidateModelState]
     [SwaggerOperation("GroupsGroupIdPersonsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Persons), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Person>), description: "OK")]
     public virtual IActionResult GroupsGroupIdPersonsGet([FromRoute][Required] Guid groupId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string? sort = "personId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);

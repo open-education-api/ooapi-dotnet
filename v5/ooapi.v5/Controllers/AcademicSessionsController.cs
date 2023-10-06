@@ -52,7 +52,7 @@ public class AcademicSessionsController : BaseController
     [Route("academic-sessions")]
     [ValidateModelState]
     [SwaggerOperation("AcademicSessionsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(AcademicSessions), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<AcademicSession>), description: "OK")]
     public virtual IActionResult AcademicSessionsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? academicSessionType, [FromQuery] Guid? parent, [FromQuery] Guid? year, [FromQuery] string? sort = "startDate")
     {
         Pagination<AcademicSession> result = null;
@@ -118,7 +118,7 @@ public class AcademicSessionsController : BaseController
     [Route("academic-sessions/{academicSessionId}/offerings")]
     [ValidateModelState]
     [SwaggerOperation("AcademicSessionsAcademicSessionIdOfferingsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Offerings), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Offering>), description: "OK")]
     public virtual IActionResult AcademicSessionsAcademicSessionIdOfferingsGet([FromRoute][Required] Guid academicSessionId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? offeringType, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string? sort = "startDate")
     {
         return BadRequest(new ErrorResponse(400, "Not implemented yet."));

@@ -44,7 +44,7 @@ public class OrganizationsController : BaseController
     [Route("organizations")]
     [ValidateModelState]
     [SwaggerOperation("OrganizationsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Organizations), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Organization>), description: "OK")]
     public virtual IActionResult OrganizationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] OrganizationTypeEnum? organizationType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
@@ -84,7 +84,7 @@ public class OrganizationsController : BaseController
     [Route("organizations/{organizationId}/components")]
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdComponentsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Components), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Component>), description: "OK")]
     public virtual IActionResult OrganizationsOrganizationIdComponentsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? componentType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
@@ -117,7 +117,7 @@ public class OrganizationsController : BaseController
     [Route("organizations/{organizationId}/courses")]
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdCoursesGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Course>), description: "OK")]
     public virtual IActionResult OrganizationsOrganizationIdCoursesGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
@@ -148,7 +148,7 @@ public class OrganizationsController : BaseController
     [Route("organizations/{organizationId}/education-specifications")]
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdEducationSpecificationsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<EducationSpecification>), description: "OK")]
     public virtual IActionResult OrganizationsOrganizationIdEducationSpecificationsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? educationSpecificationType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
@@ -204,7 +204,7 @@ public class OrganizationsController : BaseController
     [Route("organizations/{organizationId}/groups")]
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdGroupsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Group>), description: "OK")]
     public virtual IActionResult OrganizationsOrganizationIdGroupsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
@@ -239,7 +239,7 @@ public class OrganizationsController : BaseController
     [Route("organizations/{organizationId}/offerings")]
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdOfferingsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Offerings), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Offering>), description: "OK")]
     public virtual IActionResult OrganizationsOrganizationIdOfferingsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? offeringType, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string? sort = "startDate")
     {
         return BadRequest(new ErrorResponse(400, "Not implemented yet."));
@@ -268,7 +268,7 @@ public class OrganizationsController : BaseController
     [Route("organizations/{organizationId}/programs")]
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdProgramsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Models.Program>), description: "OK")]
     public virtual IActionResult OrganizationsOrganizationIdProgramsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);

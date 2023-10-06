@@ -46,7 +46,7 @@ public class OfferingsController : BaseController
     [Route("offerings/{offeringId}/associations")]
     [ValidateModelState]
     [SwaggerOperation("OfferingsOfferingIdAssociationsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Associations), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Association>), description: "OK")]
     public virtual IActionResult OfferingsOfferingIdAssociationsGet([FromRoute][Required] Guid offeringId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? associationType, [FromQuery] string? role, [FromQuery] string? state, [FromQuery] string? resultState, [FromQuery] string? sort = "associationId")
     {
         return BadRequest(new ErrorResponse(400, "Not implemented yet."));
@@ -107,7 +107,7 @@ public class OfferingsController : BaseController
     [Route("offerings/{offeringId}/groups")]
     [ValidateModelState]
     [SwaggerOperation("OfferingsOfferingIdGroupsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<Group>), description: "OK")]
     public virtual IActionResult OfferingsOfferingIdGroupsGet([FromRoute][Required] Guid offeringId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
         return BadRequest(new ErrorResponse(400,"Not implemented yet."));

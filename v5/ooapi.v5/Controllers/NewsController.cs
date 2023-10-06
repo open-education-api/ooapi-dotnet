@@ -43,7 +43,7 @@ public class NewsController : BaseController
     [Route("news-feeds")]
     [ValidateModelState]
     [SwaggerOperation("NewsFeedsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(NewsFeeds), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<NewsFeed>), description: "OK")]
     public virtual IActionResult NewsFeedsGet([FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? newsFeedType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(null, filterParams, pagingParams, sort);
@@ -96,7 +96,7 @@ public class NewsController : BaseController
     [Route("news-feeds/{newsFeedId}/news-items")]
     [ValidateModelState]
     [SwaggerOperation("NewsFeedsNewsFeedIdNewsItemsGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(NewsItems), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Pagination<NewsItem>), description: "OK")]
     public virtual IActionResult NewsFeedsNewsFeedIdNewsItemsGet([FromRoute][Required] Guid newsFeedId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? author, [FromQuery] string? sort = "newsItemId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
