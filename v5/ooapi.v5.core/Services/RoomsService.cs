@@ -1,11 +1,12 @@
 ﻿using ooapi.v5.core.Models;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services
 {
-    public class RoomsService : ServiceBase
+    public class RoomsService : ServiceBase, IRoomsService
     {
         private readonly RoomsRepository _repository;
 
@@ -61,6 +62,19 @@ namespace ooapi.v5.core.Services
             }
         }
 
+        public override bool Equals(object? obj)
+        {
+            return base.Equals(obj);
+        }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string? ToString()
+        {
+            return base.ToString();
+        }
     }
 }

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using ooapi.v5.Attributes;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -21,8 +22,15 @@ namespace ooapi.v5.Controllers
     [ApiController]
     public class ProgramsController : BaseController
     {
-        public ProgramsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+        private readonly IProgramsService _programsService;
+        private readonly ICoursesService _coursesService;
+        private readonly IProgramOfferingService _programOfferingService;
+
+        public ProgramsController(IProgramsService programsService, ICoursesService coursesService, IProgramOfferingService programOfferingService)
         {
+            _programsService = programsService;
+            _coursesService = coursesService;
+            _programOfferingService = programOfferingService;   
         }
 
         /// <summary>
@@ -52,8 +60,7 @@ namespace ooapi.v5.Controllers
         public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
         {
             DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-            var service = new ProgramsService(DBContext, UserRequestContext);
-            var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+            var result = _programsService.GetAll(parameters, out ErrorResponse errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);
@@ -85,8 +92,7 @@ namespace ooapi.v5.Controllers
         public virtual IActionResult ProgramsProgramIdCoursesGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "courseId")
         {
             DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-            var service = new CoursesService(DBContext, UserRequestContext);
-            var result = service.GetCoursesByProgramId(parameters, programId, out ErrorResponse errorResponse);
+            var result = _coursesService.GetCoursesByProgramId(parameters, programId, out ErrorResponse errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);
@@ -111,8 +117,7 @@ namespace ooapi.v5.Controllers
         {
             DataRequestParameters parameters = new DataRequestParameters();
             parameters.Expand = expand;
-            var service = new ProgramsService(DBContext, UserRequestContext);
-            var result = service.Get(programId, parameters, out ErrorResponse errorResponse);
+            var result = _programsService.Get(programId, parameters, out ErrorResponse errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);
@@ -147,8 +152,7 @@ namespace ooapi.v5.Controllers
         {
             DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
             parameters.Filters.Add("programId",programId);
-            var service = new ProgramOfferingService(DBContext, UserRequestContext);
-            var result = service.GetAll( parameters, out ErrorResponse errorResponse);
+            var result = _programOfferingService.GetAll( parameters, out ErrorResponse errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);
@@ -183,8 +187,7 @@ namespace ooapi.v5.Controllers
         public virtual IActionResult ProgramsProgramIdProgramsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
         {
             DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-            var service = new ProgramsService(DBContext, UserRequestContext);
-            var result = service.GetProgramsByProgramId(parameters, programId, out ErrorResponse errorResponse);
+            var result = _programsService.GetProgramsByProgramId(parameters, programId, out ErrorResponse errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);

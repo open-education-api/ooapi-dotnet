@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Enums;
 using ooapi.v5.Models;
@@ -22,8 +21,21 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class OrganizationsController : BaseController
 {
-    public OrganizationsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    private readonly IOrganizationsService _organizationsService;
+    private readonly IComponentsService _componentsService;
+    private readonly ICoursesService _coursesService;
+    private readonly IEducationSpecificationsService _educationSpecificationsService;
+    private readonly IGroupsService _groupsService;
+    private readonly IProgramsService _programsService;
+
+    public OrganizationsController(IOrganizationsService organizationsService, IComponentsService componentsService, ICoursesService coursesService, IEducationSpecificationsService educationSpecificationsService, IGroupsService groupsService, IProgramsService programsService)
     {
+        _organizationsService = organizationsService;
+        _componentsService = componentsService;
+        _coursesService = coursesService;
+        _educationSpecificationsService = educationSpecificationsService;
+        _groupsService = groupsService;
+        _programsService = programsService;
     }
 
     /// <summary>
@@ -56,8 +68,7 @@ public class OrganizationsController : BaseController
         {
             parameters.Filters.Add("OrganizationType", organizationType);
         }
-        var service = new OrganizationsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        var result = _organizationsService.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -88,8 +99,7 @@ public class OrganizationsController : BaseController
     public virtual IActionResult OrganizationsOrganizationIdComponentsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? componentType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new ComponentsService(DBContext, UserRequestContext);
-        var result = service.GetComponentsByOrganizationId(parameters, organizationId, out ErrorResponse errorResponse);
+        var result = _componentsService.GetComponentsByOrganizationId(parameters, organizationId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -121,8 +131,7 @@ public class OrganizationsController : BaseController
     public virtual IActionResult OrganizationsOrganizationIdCoursesGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new CoursesService(DBContext, UserRequestContext);
-        var result = service.GetCoursesByOrganizationId(parameters, organizationId, out ErrorResponse errorResponse);
+        var result = _coursesService.GetCoursesByOrganizationId(parameters, organizationId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -152,8 +161,7 @@ public class OrganizationsController : BaseController
     public virtual IActionResult OrganizationsOrganizationIdEducationSpecificationsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? educationSpecificationType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new EducationSpecificationsService(DBContext, UserRequestContext);
-        var result = service.GetEducationSpecificationsByOrganizationId(parameters, organizationId, out ErrorResponse errorResponse);
+        var result = _educationSpecificationsService.GetEducationSpecificationsByOrganizationId(parameters, organizationId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -177,8 +185,7 @@ public class OrganizationsController : BaseController
     {
         DataRequestParameters parameters = new DataRequestParameters();
         parameters.Expand = expand;
-        var service = new OrganizationsService(DBContext, UserRequestContext);
-        var result = service.Get(organizationId, parameters, out ErrorResponse errorResponse);
+        var result = _organizationsService.Get(organizationId, parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -208,8 +215,7 @@ public class OrganizationsController : BaseController
     public virtual IActionResult OrganizationsOrganizationIdGroupsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new GroupsService(DBContext, UserRequestContext);
-        var result = service.GetGroupsByOrganizationId(parameters, organizationId, out ErrorResponse errorResponse);
+        var result = _groupsService.GetGroupsByOrganizationId(parameters, organizationId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -272,8 +278,7 @@ public class OrganizationsController : BaseController
     public virtual IActionResult OrganizationsOrganizationIdProgramsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new ProgramsService(DBContext, UserRequestContext);
-        var result = service.GetProgramsByOrganizationId(parameters, organizationId, out ErrorResponse errorResponse);
+        var result = _programsService.GetProgramsByOrganizationId(parameters, organizationId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

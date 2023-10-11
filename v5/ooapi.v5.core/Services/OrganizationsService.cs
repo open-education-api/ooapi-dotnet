@@ -1,11 +1,12 @@
 ﻿using ooapi.v5.core.Models;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services
 {
-    public class OrganizationsService : ServiceBase
+    public class OrganizationsService : ServiceBase, IOrganizationsService
     {
         private readonly OrganizationsRepository _repository;
 
@@ -35,7 +36,7 @@ namespace ooapi.v5.core.Services
 
         private void SetAddresses(Organization item)
         {
-            if (item.Address!= null)
+            if (item.Address != null)
             {
                 item.Addresses = new List<Address>();
                 item.Addresses.AddRange(item.Address);

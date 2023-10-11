@@ -1,11 +1,12 @@
 ﻿using ooapi.v5.core.Models;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services
 {
-    public class AcademicSessionsService : ServiceBase
+    internal class AcademicSessionsService : ServiceBase, IAcademicSessionsService
     {
         private readonly AcademicSessionsRepository _repository;
 

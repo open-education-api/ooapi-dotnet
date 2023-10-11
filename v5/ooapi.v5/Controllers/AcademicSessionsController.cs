@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using ooapi.v5.Attributes;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -20,9 +21,11 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class AcademicSessionsController : BaseController
 {
+    private readonly IAcademicSessionsService _academicSessionsService;
 
-    public AcademicSessionsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    public AcademicSessionsController(IAcademicSessionsService academicSessionsService)
     {
+        _academicSessionsService = academicSessionsService;
     }
 
     /// <summary>
@@ -55,13 +58,10 @@ public class AcademicSessionsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(AcademicSessions), description: "OK")]
     public virtual IActionResult AcademicSessionsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? academicSessionType, [FromQuery] Guid? parent, [FromQuery] Guid? year, [FromQuery] string? sort = "startDate")
     {
-        Pagination<AcademicSession> result = null;
-        var service = new AcademicSessionsService(DBContext, UserRequestContext);
-
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         if (parent != null) parameters.Filters.Add("ParentId", parent);
         if (year != null) parameters.Filters.Add("YearId", year);
-        result = service.GetAll(parameters, out ErrorResponse errorResponse, academicSessionType);
+        Pagination<AcademicSession>? result = _academicSessionsService.GetAll(parameters, out ErrorResponse errorResponse, academicSessionType);
 
         if (result == null)
         {
@@ -86,8 +86,7 @@ public class AcademicSessionsController : BaseController
     {
         DataRequestParameters parameters = new DataRequestParameters();
         parameters.Expand = expand;
-        var service = new AcademicSessionsService(DBContext, UserRequestContext);
-        var result = service.Get(academicSessionId, parameters, out ErrorResponse errorResponse);
+        var result = _academicSessionsService.Get(academicSessionId, parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

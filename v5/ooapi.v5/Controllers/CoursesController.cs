@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
 using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -21,9 +21,13 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class CoursesController : BaseController
 {
+    private readonly IComponentsService _componentsService;
+    private readonly ICoursesService _coursesService;
 
-    public CoursesController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    public CoursesController(IComponentsService componentsService, ICoursesService coursesService = null)
     {
+        _componentsService = componentsService;
+        _coursesService = coursesService;
     }
 
     /// <summary>
@@ -49,8 +53,7 @@ public class CoursesController : BaseController
     public virtual IActionResult CoursesCourseIdComponentsGet([FromRoute][Required] Guid courseId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? componentType, [FromQuery] string? sort = "componentId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new ComponentsService(DBContext, UserRequestContext);
-        var result = service.GetComponentsByCourseId(parameters, courseId, out ErrorResponse errorResponse);
+        var result = _componentsService.GetComponentsByCourseId(parameters, courseId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -73,8 +76,7 @@ public class CoursesController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Course), description: "OK")]
     public virtual IActionResult CoursesCourseIdGet([FromRoute][Required] Guid courseId, [FromQuery] List<string> expand, [FromQuery] bool? returnTimelineOverrides)
     {
-        var service = new CoursesService(DBContext, UserRequestContext);
-        var result = service.Get(courseId, out ErrorResponse errorResponse);
+        var result = _coursesService.Get(courseId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -135,8 +137,7 @@ public class CoursesController : BaseController
     public virtual IActionResult CoursesGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var service = new CoursesService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        var result = _coursesService.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

@@ -1,12 +1,12 @@
 ﻿using ooapi.v5.core.Models;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Utility;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services
 {
-    public class OfferingsService : ServiceBase
+    public class OfferingsService : ServiceBase, IOfferingsService
     {
         private readonly ProgramOfferingsRepository _programOfferingsRepository;
         private readonly CourseOfferingsRepository _courseOfferingsRepository;
@@ -47,7 +47,7 @@ namespace ooapi.v5.core.Services
 
                     }
                 }
-                errorResponse = new ErrorResponse(404,$"No offering found for id {offeringId}");
+                errorResponse = new ErrorResponse(404, $"No offering found for id {offeringId}");
                 return result;
             }
             catch (Exception ex)

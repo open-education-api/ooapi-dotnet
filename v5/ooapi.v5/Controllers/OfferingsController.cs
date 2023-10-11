@@ -5,6 +5,7 @@ using ooapi.v5.Attributes;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -21,8 +22,11 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class OfferingsController : BaseController
 {
-    public OfferingsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    private readonly IOfferingsService _offeringsService;
+
+    public OfferingsController(IOfferingsService offeringsService)
     {
+        _offeringsService = offeringsService;
     }
 
     /// <summary>
@@ -69,8 +73,7 @@ public class OfferingsController : BaseController
         DataRequestParameters parameters = new DataRequestParameters();
         parameters.Expand = expand;
 
-        var service = new OfferingsService(DBContext, UserRequestContext);
-        OneOfOfferingInstance result = service.Get(offeringId, out ErrorResponse errorResponse);
+        OneOfOfferingInstance result = _offeringsService.Get(offeringId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

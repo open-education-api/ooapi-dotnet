@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ooapi.v5.core.Models;
+﻿using ooapi.v5.core.Models;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services
 {
-    public class ProgramsService : ServiceBase
+    public class ProgramsService : ServiceBase, IProgramsService
     {
         private readonly ProgramsRepository _repository;
 

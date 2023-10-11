@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -19,8 +17,13 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class BuildingsController : BaseController
 {
-    public BuildingsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    private readonly IBuildingsService _buildingsService;
+    private readonly IRoomsService _roomsService;
+
+    public BuildingsController(IBuildingsService buildingsService, IRoomsService roomsService)
     {
+        _buildingsService = buildingsService;
+        _roomsService = roomsService;
     }
 
     /// <summary>
@@ -36,8 +39,7 @@ public class BuildingsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Building), description: "OK")]
     public virtual IActionResult BuildingsBuildingIdGet([FromRoute][Required] Guid buildingId)
     {
-        var service = new BuildingsService(DBContext, UserRequestContext);
-        var result = service.Get(buildingId, out ErrorResponse errorResponse);
+        var result = _buildingsService.Get(buildingId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -101,8 +103,7 @@ public class BuildingsController : BaseController
     public virtual IActionResult BuildingsBuildingIdRoomsGet([FromRoute][Required] Guid buildingId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? roomType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new RoomsService(DBContext, UserRequestContext);
-        var result = service.GetRoomsByBuildingId(parameters, buildingId, out ErrorResponse errorResponse);
+        var result = _roomsService.GetRoomsByBuildingId(parameters, buildingId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -131,8 +132,7 @@ public class BuildingsController : BaseController
     public virtual IActionResult BuildingsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var service = new BuildingsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        var result = _buildingsService.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

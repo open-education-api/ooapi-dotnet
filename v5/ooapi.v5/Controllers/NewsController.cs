@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -21,9 +19,13 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class NewsController : BaseController
 {
+    private readonly INewsFeedsService _newsFeedsService;
+    private readonly INewsItemsService _newsItemsService;
 
-    public NewsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    public NewsController(INewsFeedsService newsFeedsService, INewsItemsService newsItemsService)
     {
+        _newsFeedsService = newsFeedsService;
+        _newsItemsService = newsItemsService;
     }
 
     /// <summary>
@@ -47,8 +49,7 @@ public class NewsController : BaseController
     public virtual IActionResult NewsFeedsGet([FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? newsFeedType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(null, filterParams, pagingParams, sort);
-        var service = new NewsFeedsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        var result = _newsFeedsService.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -69,8 +70,7 @@ public class NewsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(NewsFeed), description: "OK")]
     public virtual IActionResult NewsFeedsNewsFeedIdGet([FromRoute][Required] Guid newsFeedId)
     {
-        var service = new NewsFeedsService(DBContext, UserRequestContext);
-        var result = service.Get(newsFeedId, out ErrorResponse errorResponse);
+        var result = _newsFeedsService.Get(newsFeedId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -100,8 +100,7 @@ public class NewsController : BaseController
     public virtual IActionResult NewsFeedsNewsFeedIdNewsItemsGet([FromRoute][Required] Guid newsFeedId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? author, [FromQuery] string? sort = "newsItemId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new NewsItemsService(DBContext, UserRequestContext);
-        var result = service.GetNewsItemsByNewsFeedId(parameters, newsFeedId, out ErrorResponse errorResponse);
+        var result = _newsItemsService.GetNewsItemsByNewsFeedId(parameters, newsFeedId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -123,8 +122,7 @@ public class NewsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(NewsItem), description: "OK")]
     public virtual IActionResult NewsItemsNewsItemIdGet([FromRoute][Required] Guid newsItemId, [FromQuery] List<string> expand)
     {
-        var service = new NewsItemsService(DBContext, UserRequestContext);
-        var result = service.Get(newsItemId, out ErrorResponse errorResponse);
+        var result = _newsItemsService.Get(newsItemId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

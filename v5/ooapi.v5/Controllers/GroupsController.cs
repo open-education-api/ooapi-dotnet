@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -20,9 +18,13 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class GroupsController : BaseController
 {
+    private readonly IGroupsService _groupsService;
+    private readonly IPersonsService _personsService;
 
-    public GroupsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    public GroupsController(IGroupsService groupsService, IPersonsService personsService)
     {
+        _groupsService = groupsService;
+        _personsService = personsService;
     }
 
     /// <summary>
@@ -47,8 +49,7 @@ public class GroupsController : BaseController
     public virtual IActionResult GroupsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
         DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var service = new GroupsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        var result = _groupsService.GetAll(parameters, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -70,8 +71,7 @@ public class GroupsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Group), description: "OK")]
     public virtual IActionResult GroupsGroupIdGet([FromRoute][Required] Guid groupId, [FromQuery] List<string> expand)
     {
-        var service = new GroupsService(DBContext, UserRequestContext);
-        var result = service.Get(groupId, out ErrorResponse errorResponse);
+        var result = _groupsService.Get(groupId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -101,8 +101,7 @@ public class GroupsController : BaseController
     public virtual IActionResult GroupsGroupIdPersonsGet([FromRoute][Required] Guid groupId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string? sort = "personId")
     {
         DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new PersonsService(DBContext, UserRequestContext);
-        var result = service.GetPersonsByGroupId(parameters, groupId, out ErrorResponse errorResponse);
+        var result = _personsService.GetPersonsByGroupId(parameters, groupId, out ErrorResponse errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
