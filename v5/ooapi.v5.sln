@@ -5,7 +5,14 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5", "ooapi.v5\ooapi.v5.csproj", "{EA5049C6-DF4F-4A79-AEAF-C9FD3B1244B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ooapi.v5.core", "ooapi.v5.core\ooapi.v5.core.csproj", "{17F78369-11CB-4318-8047-E1F8580B8687}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5.core", "ooapi.v5.core\ooapi.v5.core.csproj", "{17F78369-11CB-4318-8047-E1F8580B8687}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{D4C8F2A3-CE03-499D-A059-EDCDAF6BCF61}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
