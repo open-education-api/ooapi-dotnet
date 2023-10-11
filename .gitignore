@@ -370,8 +370,8 @@ FodyWeavers.xsd
 #Ignore local appsettings
 */local.appsettings.json
 */local.settings.json
-*/appsettings.json
-*/appsettings.*.json
+*appsettings.json
+*appsettings.*.json
 
 #Ignore local coverage files
 */coverage.json
