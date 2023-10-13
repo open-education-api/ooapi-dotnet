@@ -1,7 +1,4 @@
-using AutoFixture;
-using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using NSubstitute;
 using ooapi.v5.Controllers;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.core.Services.Interfaces;
