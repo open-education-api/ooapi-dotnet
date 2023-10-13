@@ -24,7 +24,7 @@ public class CoursesController : BaseController
     private readonly IComponentsService _componentsService;
     private readonly ICoursesService _coursesService;
 
-    public CoursesController(IComponentsService componentsService, ICoursesService coursesService = null)
+    public CoursesController(IComponentsService componentsService, ICoursesService coursesService)
     {
         _componentsService = componentsService;
         _coursesService = coursesService;

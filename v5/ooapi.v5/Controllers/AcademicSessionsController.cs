@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
@@ -23,6 +20,10 @@ public class AcademicSessionsController : BaseController
 {
     private readonly IAcademicSessionsService _academicSessionsService;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="academicSessionsService"></param>
     public AcademicSessionsController(IAcademicSessionsService academicSessionsService)
     {
         _academicSessionsService = academicSessionsService;

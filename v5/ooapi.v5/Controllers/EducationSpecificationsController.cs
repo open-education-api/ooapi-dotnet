@@ -220,7 +220,7 @@ public class EducationSpecificationsController : BaseController
         {
             parameters.Filters.Add("PrimaryCode", primaryCodeParam.primaryCode);
         }
-        if (!string.IsNullOrWhiteSpace(educationSpecificationType.ToString()))
+        if (!string.IsNullOrWhiteSpace(educationSpecificationType))
         {
             parameters.Filters.Add("EducationSpecificationType", educationSpecificationType);
         }
