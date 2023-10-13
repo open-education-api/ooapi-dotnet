@@ -9,6 +9,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.settings*.json
+*.vscode
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -23,6 +25,7 @@ mono_crash.*
 [Rr]eleases/
 x64/
 x86/
+[Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
@@ -61,6 +64,9 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
 # StyleCop
 StyleCopReport.xml
 
@@ -92,8 +98,6 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
-
-*.bin
 
 # Chutzpah Test files
 _Chutzpah*
@@ -138,6 +142,11 @@ _TeamCity*
 # AxoCover is a Code Coverage Tool
 .axoCover/*
 !.axoCover/settings.json
+
+# Coverlet is a free, cross platform Code Coverage Tool
+coverage*.json
+coverage*.xml
+coverage*.info
 
 # Visual Studio code coverage results
 *.coverage
@@ -350,3 +359,23 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Fody - auto-generated XML schema
+FodyWeavers.xsd
+
+#Ignore NCrunch
+*.ncrunchproject
+*.ncrunchsolution
+
+#Ignore local appsettings
+*/local.appsettings.json
+*/local.settings.json
+*appsettings.json
+*appsettings.*.json
+
+#Ignore local coverage files
+*/coverage.json
+
+# JetBrains Rider
+.idea/
+*.sln.iml
