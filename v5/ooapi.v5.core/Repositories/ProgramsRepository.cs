@@ -7,7 +7,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class ProgramsRepository : BaseRepository<Program>
 {
-    public ProgramsRepository(CoreDBContext dbContext) : base(dbContext)
+    public ProgramsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
         //
     }

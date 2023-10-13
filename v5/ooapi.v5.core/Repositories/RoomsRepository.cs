@@ -4,7 +4,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class RoomsRepository : BaseRepository<Room>
 {
-    public RoomsRepository(CoreDBContext dbContext) : base(dbContext)
+    public RoomsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
         //
     }

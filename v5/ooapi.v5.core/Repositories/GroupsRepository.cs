@@ -4,7 +4,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class GroupsRepository : BaseRepository<Group>
 {
-    public GroupsRepository(CoreDBContext dbContext) : base(dbContext)
+    public GroupsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
         //
     }

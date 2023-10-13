@@ -10,7 +10,7 @@ using System.Reflection.Emit;
 using System.Xml;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-public class CoreDBContext : DbContext
+public class CoreDBContext : DbContext, ICoreDbContext
 {
     public CoreDBContext(DbContextOptions<CoreDBContext> options) : base(options)
 

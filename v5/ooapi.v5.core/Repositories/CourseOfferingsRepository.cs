@@ -6,7 +6,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class CourseOfferingsRepository : BaseRepository<CourseOffering>
 {
-    public CourseOfferingsRepository(CoreDBContext dbContext) : base(dbContext)
+    public CourseOfferingsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
         //
     }

@@ -6,7 +6,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class ProgramOfferingsRepository : BaseRepository<ProgramOffering>
 {
-    public ProgramOfferingsRepository(CoreDBContext dbContext) : base(dbContext)
+    public ProgramOfferingsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
         //
     }

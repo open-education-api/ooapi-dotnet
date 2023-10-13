@@ -4,7 +4,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class NewsItemsRepository : BaseRepository<NewsItem>
 {
-    public NewsItemsRepository(CoreDBContext dbContext) : base(dbContext)
+    public NewsItemsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
         //
     }
