@@ -1,80 +1,80 @@
 ﻿using ooapi.v5.core.Models;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services
+namespace ooapi.v5.core.Services;
+
+public class EducationSpecificationsService : ServiceBase, IEducationSpecificationsService
 {
-    public class EducationSpecificationsService : ServiceBase
+    private readonly EducationSpecificationsRepository _repository;
+
+    public EducationSpecificationsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        private readonly EducationSpecificationsRepository _repository;
+        _repository = new EducationSpecificationsRepository(dbContext);
+    }
 
-        public EducationSpecificationsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public Pagination<EducationSpecification> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    {
+        try
         {
-            _repository = new EducationSpecificationsRepository(dbContext);
+            Pagination<EducationSpecification> result = _repository.GetAllOrderedBy(dataRequestParameters);
+            errorResponse = null;
+            return result;
         }
-
-        public Pagination<EducationSpecification> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+        catch (Exception ex)
         {
-            try
-            {
-                Pagination<EducationSpecification> result = _repository.GetAllOrderedBy(dataRequestParameters);
-                errorResponse = null;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
+            errorResponse = new ErrorResponse(500);
+            return null;
         }
+    }
 
-        public EducationSpecification Get(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    public EducationSpecification Get(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    {
+        try
         {
-            try
-            {
-                var item = _repository.GetEducationSpecification(educationSpecificationId, dataRequestParameters);
+            var item = _repository.GetEducationSpecification(educationSpecificationId, dataRequestParameters);
 
-                errorResponse = null;
-                return item;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
+            errorResponse = null;
+            return item;
         }
-
-        public Pagination<EducationSpecification> GetEducationSpecificationsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, out ErrorResponse errorResponse)
+        catch (Exception ex)
         {
-            try
-            {
-                var result = _repository.GetEducationSpecificationsByEducationSpecificationId(educationSpecificationId);
-                var paginationResult = new Pagination<EducationSpecification>(result.AsQueryable(), dataRequestParameters);
-                errorResponse = null;
-                return paginationResult;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
+            errorResponse = new ErrorResponse(500);
+            return null;
         }
+    }
 
-        public Pagination<EducationSpecification> GetEducationSpecificationsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse errorResponse)
+    public Pagination<EducationSpecification> GetEducationSpecificationsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, out ErrorResponse errorResponse)
+    {
+        try
         {
-            try
-            {
-                var result = _repository.GetEducationSpecificationsByOrganizationId(organizationId);
-                var paginationResult = new Pagination<EducationSpecification>(result.AsQueryable(), dataRequestParameters);
-                errorResponse = null;
-                return paginationResult;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
+            var result = _repository.GetEducationSpecificationsByEducationSpecificationId(educationSpecificationId);
+            var paginationResult = new Pagination<EducationSpecification>(result.AsQueryable(), dataRequestParameters);
+            errorResponse = null;
+            return paginationResult;
+        }
+        catch (Exception ex)
+        {
+            errorResponse = new ErrorResponse(500);
+            return null;
+        }
+    }
+
+    public Pagination<EducationSpecification> GetEducationSpecificationsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse errorResponse)
+    {
+        try
+        {
+            var result = _repository.GetEducationSpecificationsByOrganizationId(organizationId);
+            var paginationResult = new Pagination<EducationSpecification>(result.AsQueryable(), dataRequestParameters);
+            errorResponse = null;
+            return paginationResult;
+        }
+        catch (Exception ex)
+        {
+            errorResponse = new ErrorResponse(500);
+            return null;
         }
     }
 }

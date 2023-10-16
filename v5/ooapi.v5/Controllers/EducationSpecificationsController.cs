@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -21,9 +19,15 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class EducationSpecificationsController : BaseController
 {
+    private readonly ICoursesService _coursesService;
+    private readonly IEducationSpecificationsService _educationSpecificationsService;
+    private readonly IProgramsService _programsService;
 
-    public EducationSpecificationsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    public EducationSpecificationsController(IEducationSpecificationsService educationSpecificationsService, ICoursesService coursesService, IProgramsService programsService)
     {
+        _educationSpecificationsService = educationSpecificationsService;
+        _coursesService = coursesService;
+        _programsService = programsService;
     }
 
     /// <summary>
@@ -49,7 +53,7 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdCoursesGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "courseId")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         if (!string.IsNullOrWhiteSpace(teachingLanguage))
         {
             parameters.Filters.Add("TeachingLanguage", teachingLanguage);
@@ -62,8 +66,7 @@ public class EducationSpecificationsController : BaseController
         {
             parameters.Filters.Add("ModeOfDelivery", modeOfDelivery);
         }
-        var service = new CoursesService(DBContext, UserRequestContext);
-        var result = service.GetCoursesByEducationSpecificationId(parameters, educationSpecificationId, out ErrorResponse errorResponse);
+        var result = _coursesService.GetCoursesByEducationSpecificationId(parameters, educationSpecificationId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -92,9 +95,8 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? sort = "educationSpecificationId")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new EducationSpecificationsService(DBContext, UserRequestContext);
-        var result = service.GetEducationSpecificationsByEducationSpecificationId(parameters, educationSpecificationId, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var result = _educationSpecificationsService.GetEducationSpecificationsByEducationSpecificationId(parameters, educationSpecificationId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -117,10 +119,9 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecification), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] bool? returnTimelineOverrides, [FromQuery] List<string>? expand)
     {
-        DataRequestParameters parameters = new DataRequestParameters();
+        var parameters = new DataRequestParameters();
         parameters.Expand = expand;
-        var service = new EducationSpecificationsService(DBContext, UserRequestContext);
-        var result = service.Get(educationSpecificationId, parameters, out ErrorResponse errorResponse);
+        var result = _educationSpecificationsService.Get(educationSpecificationId, parameters, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -155,7 +156,7 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdProgramsGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? crohoCreboCode, [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         if (!string.IsNullOrWhiteSpace(teachingLanguage))
         {
             parameters.Filters.Add("TeachingLanguage", teachingLanguage);
@@ -184,8 +185,8 @@ public class EducationSpecificationsController : BaseController
         {
             parameters.Filters.Add("PrimaryCode", crohoCreboCode);
         }
-        var service = new ProgramsService(DBContext, UserRequestContext);
-        var result = service.GetProgramsByEducationSpecificationId(parameters, educationSpecificationId, out ErrorResponse errorResponse);
+
+        var result = _programsService.GetProgramsByEducationSpecificationId(parameters, educationSpecificationId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -212,19 +213,18 @@ public class EducationSpecificationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("EducationSpecificationsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
-    public virtual IActionResult EducationSpecificationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? educationSpecificationType = "", [FromQuery] string? sort = "name")
+    public virtual IActionResult EducationSpecificationsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? educationSpecificationType = "", [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        if (!string.IsNullOrWhiteSpace(primaryCodeParam.primaryCode))
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        if (!string.IsNullOrWhiteSpace(primaryCodeParam?.primaryCode))
         {
             parameters.Filters.Add("PrimaryCode", primaryCodeParam.primaryCode);
         }
-        if (!string.IsNullOrWhiteSpace(educationSpecificationType.ToString()))
+        if (!string.IsNullOrWhiteSpace(educationSpecificationType))
         {
             parameters.Filters.Add("EducationSpecificationType", educationSpecificationType);
         }
-        var service = new EducationSpecificationsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        var result = _educationSpecificationsService.GetAll(parameters, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5", "ooapi.v5\ooapi.v5.csproj", "{EA5049C6-DF4F-4A79-AEAF-C9FD3B1244B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5.core", "ooapi.v5.core\ooapi.v5.core.csproj", "{DA740EB9-B8ED-4C8B-8D4E-40A8FF39DC1B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5.core", "ooapi.v5.core\ooapi.v5.core.csproj", "{17F78369-11CB-4318-8047-E1F8580B8687}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5", "ooapi.v5\ooapi.v5.csproj", "{7FCCC4BE-72D0-4187-8224-2B7B8DEFC308}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5.core.UnitTests", "ooapi.v5.core.UnitTests\ooapi.v5.core.UnitTests.csproj", "{413B5FB5-6619-4BB0-A431-48F8BF369B8E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5.UnitTests", "ooapi.v5.UnitTests\ooapi.v5.UnitTests.csproj", "{C3CC6DE9-4F7F-4EB1-AEE2-F367CAF5EADD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{D4C8F2A3-CE03-499D-A059-EDCDAF6BCF61}"
 	ProjectSection(SolutionItems) = preProject
@@ -20,14 +24,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EA5049C6-DF4F-4A79-AEAF-C9FD3B1244B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA5049C6-DF4F-4A79-AEAF-C9FD3B1244B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA5049C6-DF4F-4A79-AEAF-C9FD3B1244B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA5049C6-DF4F-4A79-AEAF-C9FD3B1244B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{17F78369-11CB-4318-8047-E1F8580B8687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17F78369-11CB-4318-8047-E1F8580B8687}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17F78369-11CB-4318-8047-E1F8580B8687}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17F78369-11CB-4318-8047-E1F8580B8687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA740EB9-B8ED-4C8B-8D4E-40A8FF39DC1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA740EB9-B8ED-4C8B-8D4E-40A8FF39DC1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA740EB9-B8ED-4C8B-8D4E-40A8FF39DC1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA740EB9-B8ED-4C8B-8D4E-40A8FF39DC1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FCCC4BE-72D0-4187-8224-2B7B8DEFC308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FCCC4BE-72D0-4187-8224-2B7B8DEFC308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FCCC4BE-72D0-4187-8224-2B7B8DEFC308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FCCC4BE-72D0-4187-8224-2B7B8DEFC308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{413B5FB5-6619-4BB0-A431-48F8BF369B8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{413B5FB5-6619-4BB0-A431-48F8BF369B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{413B5FB5-6619-4BB0-A431-48F8BF369B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{413B5FB5-6619-4BB0-A431-48F8BF369B8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3CC6DE9-4F7F-4EB1-AEE2-F367CAF5EADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3CC6DE9-4F7F-4EB1-AEE2-F367CAF5EADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3CC6DE9-4F7F-4EB1-AEE2-F367CAF5EADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3CC6DE9-4F7F-4EB1-AEE2-F367CAF5EADD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
