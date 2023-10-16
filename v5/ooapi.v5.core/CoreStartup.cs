@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Services;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ooapi.v5.core;
 
@@ -20,22 +21,22 @@ public static class CoreStartup
 
     private static IServiceCollection AddServices(this IServiceCollection builder)
     {
-        builder.AddScoped<IAcademicSessionsService, AcademicSessionsService>();
-        builder.AddScoped<IAssociationsService, AssociationsService>();
-        builder.AddScoped<IBuildingsService, BuildingsService>();
-        builder.AddScoped<IComponentsService, ComponentsService>();
-        builder.AddScoped<ICoursesService, CoursesService>();
-        builder.AddScoped<IEducationSpecificationsService, EducationSpecificationsService>();
-        builder.AddScoped<IGroupsService, GroupsService>();
-        builder.AddScoped<INewsFeedsService, NewsFeedsService>();
-        builder.AddScoped<INewsItemsService, NewsItemsService>();
-        builder.AddScoped<IOfferingsService, OfferingsService>();
-        builder.AddScoped<IOrganizationsService, OrganizationsService>();
-        builder.AddScoped<IPersonsService, PersonsService>();
-        builder.AddScoped<IProgramOfferingService, ProgramOfferingService>();
-        builder.AddScoped<IProgramsService, ProgramsService>();
-        builder.AddScoped<IRoomsService, RoomsService>();
-        builder.AddScoped<IServiceMetadataService, ServiceMetadataService>();
+        builder.TryAddScoped<IAssociationsService, AssociationsService>();
+        builder.TryAddScoped<IBuildingsService, BuildingsService>();
+        builder.TryAddScoped<IComponentsService, ComponentsService>();
+        builder.TryAddScoped<ICoursesService, CoursesService>();
+        builder.TryAddScoped<IEducationSpecificationsService, EducationSpecificationsService>();
+        builder.TryAddScoped<IGroupsService, GroupsService>();
+        builder.TryAddScoped<INewsFeedsService, NewsFeedsService>();
+        builder.TryAddScoped<INewsItemsService, NewsItemsService>();
+        builder.TryAddScoped<IOfferingsService, OfferingsService>();
+        builder.TryAddScoped<IOrganizationsService, OrganizationsService>();
+        builder.TryAddScoped<IPersonsService, PersonsService>();
+        builder.TryAddScoped<IProgramOfferingService, ProgramOfferingService>();
+        builder.TryAddScoped<IProgramsService, ProgramsService>();
+        builder.TryAddScoped<IRoomsService, RoomsService>();
+        builder.TryAddScoped<IServiceMetadataService, ServiceMetadataService>();
+        builder.TryAddScoped<IAcademicSessionsService, AcademicSessionsService>();
 
         return builder;
     }

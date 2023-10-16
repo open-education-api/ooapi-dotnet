@@ -46,10 +46,10 @@ public class GroupsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("GroupsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
-    public virtual IActionResult GroupsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
+    public virtual IActionResult GroupsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var result = _groupsService.GetAll(parameters, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        var result = _groupsService.GetAll(parameters, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -71,7 +71,7 @@ public class GroupsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Group), description: "OK")]
     public virtual IActionResult GroupsGroupIdGet([FromRoute][Required] Guid groupId, [FromQuery] List<string> expand)
     {
-        var result = _groupsService.Get(groupId, out ErrorResponse errorResponse);
+        var result = _groupsService.Get(groupId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -100,8 +100,8 @@ public class GroupsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Persons), description: "OK")]
     public virtual IActionResult GroupsGroupIdPersonsGet([FromRoute][Required] Guid groupId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string? sort = "personId")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _personsService.GetPersonsByGroupId(parameters, groupId, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var result = _personsService.GetPersonsByGroupId(parameters, groupId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

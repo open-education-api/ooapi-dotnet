@@ -54,7 +54,7 @@ namespace ooapi.v5.Controllers
         [ValidateModelState]
         [SwaggerOperation("ProgramsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
-        public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
+        public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
         {
             var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
             var result = _programsService.GetAll(parameters, out var errorResponse);
