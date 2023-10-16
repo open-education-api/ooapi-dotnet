@@ -21,7 +21,7 @@ public class GroupsRepository : BaseRepository<Group>
 
     public List<Group> GetGroupsByPersonId(Guid personId)
     {
-        return null;
+        throw new NotImplementedException();
         //return dbContext.Groups.Where(o => o.PersonId.Equals(personId)).ToList();
     }
 

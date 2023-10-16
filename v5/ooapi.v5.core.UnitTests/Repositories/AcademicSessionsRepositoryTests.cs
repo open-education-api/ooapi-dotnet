@@ -1,10 +1,14 @@
 using AutoFixture;
+using Microsoft.EntityFrameworkCore;
 using NSubstitute;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Enums;
 using ooapi.v5.Models;
-using Microsoft.EntityFrameworkCore;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.UnitTests.Repositories.Helpers;
+using ooapi.v5.Models.Params;
+
+namespace ooapi.v5.core.UnitTests.Repositories;
 
 [TestFixture]
 public class AcademicSessionsRepositoryTests
@@ -15,12 +19,8 @@ public class AcademicSessionsRepositoryTests
     public void GetAcademicSession_WithValidId_ReturnsAcademicSession()
     {
         // Arrange
+        var set = CreateAcademicSessions();
         var dbContext = Substitute.For<ICoreDbContext>();
-        var set = new List<AcademicSession>()
-        {
-            _fixture.Create<AcademicSession>(),
-            _fixture.Create<AcademicSession>()
-        }.AsQueryable();
         dbContext.AcademicSessionsNoTracking.Returns(set);
         var repository = new AcademicSessionsRepository(dbContext);
 
@@ -29,133 +29,199 @@ public class AcademicSessionsRepositoryTests
 
         // Assert
         Assert.IsInstanceOf<AcademicSession>(result);
+        Assert.That(result.AcademicSessionId, Is.EqualTo(set.First().AcademicSessionId));
     }
 
-    // [Test]
-    // public void GetAcademicSession_WithInvalidId_ReturnsNull()
-    // {
-    //     // Arrange
-    //     var academicSessionId = Guid.NewGuid();
-    //     var dataRequestParameters = _fixture.Create<DataRequestParameters>();
-    //     var set = Substitute.For<IQueryable<AcademicSession>>();
-    //     _dbContext.AcademicSessionsNoTracking.Returns(set);
-    //     set.Include(Arg.Any<System.Linq.Expressions.Expression<Func<AcademicSession, object>>>()).Returns(set);
-    //     set.FirstOrDefault(Arg.Any<System.Linq.Expressions.Expression<Func<AcademicSession, bool>>>()).Returns((AcademicSession)null);
-    //
-    //     // Act
-    //     var result = _repository.GetAcademicSession(academicSessionId, dataRequestParameters);
-    //
-    //     // Assert
-    //     // _dbContext.Received(1).AcademicSessionsNoTracking;
-    //     set.Received(1).Include(x => x.Attributes);
-    //     set.Received(1).FirstOrDefault(x => x.AcademicSessionId.Equals(academicSessionId));
-    //     Assert.IsNull(result);
-    // }
-    //
-    // [Test]
-    // public void GetAcademicSession_WithValidPrimaryCode_ReturnsAcademicSession()
-    // {
-    //     // Arrange
-    //     var primaryCode = _fixture.Create<string>();
-    //     var dataRequestParameters = _fixture.Create<DataRequestParameters>();
-    //     var academicSession = _fixture.Create<AcademicSession>();
-    //     academicSession.PrimaryCode = primaryCode;
-    //     var set = Substitute.For<IQueryable<AcademicSession>>();
-    //     _dbContext.AcademicSessionsNoTracking.Returns(set);
-    //     set.Include(Arg.Any<System.Linq.Expressions.Expression<Func<AcademicSession, object>>>()).Returns(set);
-    //     set.FirstOrDefault(Arg.Any<System.Linq.Expressions.Expression<Func<AcademicSession, bool>>>()).Returns(academicSession);
-    //
-    //     // Act
-    //     var result = _repository.GetAcademicSession(primaryCode, dataRequestParameters);
-    //
-    //     // Assert
-    //     // _dbContext.Received(1).AcademicSessionsNoTracking;
-    //     set.Received(1).Include(x => x.Attributes);
-    //     set.Received(1).FirstOrDefault(x => x.PrimaryCode.Equals(primaryCode));
-    //     Assert.IsNotNull(result);
-    //     Assert.AreEqual(academicSession, result);
-    // }
-    //
-    // [Test]
-    // public void GetAcademicSession_WithInvalidPrimaryCode_ReturnsNull()
-    // {
-    //     // Arrange
-    //     var primaryCode = _fixture.Create<string>();
-    //     var dataRequestParameters = _fixture.Create<DataRequestParameters>();
-    //     var set = Substitute.For<IQueryable<AcademicSession>>();
-    //     _dbContext.AcademicSessionsNoTracking.Returns(set);
-    //     set.Include(Arg.Any<System.Linq.Expressions.Expression<Func<AcademicSession, object>>>()).Returns(set);
-    //     set.FirstOrDefault(Arg.Any<System.Linq.Expressions.Expression<Func<AcademicSession, bool>>>()).Returns((AcademicSession)null);
-    //
-    //     // Act
-    //     var result = _repository.GetAcademicSession(primaryCode, dataRequestParameters);
-    //
-    //     // Assert
-    //     // _dbContext.Received(1).AcademicSessionsNoTracking;
-    //     set.Received(1).Include(x => x.Attributes);
-    //     set.Received(1).FirstOrDefault(x => x.PrimaryCode.Equals(primaryCode));
-    //     Assert.IsNull(result);
-    // }
-    //
-    // [Test]
-    // public void GetAllOrderedBy_WithAcademicSessionType_ReturnsFilteredSet()
-    // {
-    //     // Arrange
-    //     var academicSessionType = _fixture.Create<AcademicSessionTypeEnum>();
-    //     var dataRequestParameters = _fixture.Create<DataRequestParameters>();
-    //     var set = Substitute.For<IQueryable<AcademicSession>>();
-    //     _dbContext.AcademicSessionsNoTracking.Returns(set);
-    //     set.Include(Arg.Any<System.Linq.Expressions.Expression<Func<AcademicSession, object>>>()).Returns(set);
-    //     set.Where(Arg.Any<System.Linq.Expressions.Expression<Func<AcademicSession, bool>>>()).Returns(set);
-    //
-    //     // Act
-    //     var result = _repository.GetAllOrderedBy(dataRequestParameters, academicSessionType.ToString());
-    //
-    //     // Assert
-    //     // _dbContext.Received(1).AcademicSessionsNoTracking;
-    //     set.Received(1).Include(x => x.Attributes);
-    //     set.Received(1).Where(x => x.AcademicSessionType.Equals(academicSessionType));
-    //     Assert.IsInstanceOf<Pagination<AcademicSession>>(result);
-    // }
-    //
+    [Test]
+    public void GetAcademicSession_WithInvalidId_ReturnsNull()
+    {
+        // Arrange
+        var set = CreateAcademicSessions();
+        var dbContext = Substitute.For<ICoreDbContext>();
+        dbContext.AcademicSessionsNoTracking.Returns(set);
+        var repository = new AcademicSessionsRepository(dbContext);
+
+        // Act
+        var result = repository.GetAcademicSession(Guid.NewGuid(), new DataRequestParameters());
+
+        // Assert
+        Assert.IsNull(result);
+    }
+
+    [Test]
+    public void GetAcademicSession_WithValidPrimaryCode_ReturnsAcademicSession()
+    {
+        // Arrange
+        var set = CreateAcademicSessions();
+        var dbContext = Substitute.For<ICoreDbContext>();
+        dbContext.AcademicSessionsNoTracking.Returns(set);
+        var repository = new AcademicSessionsRepository(dbContext);
+
+        // Act
+        var result = repository.GetAcademicSession(set.First().PrimaryCode!, new DataRequestParameters());
+
+        // Assert
+        Assert.IsInstanceOf<AcademicSession>(result);
+        Assert.That(result.PrimaryCode, Is.EqualTo(set.First().PrimaryCode));
+    }
+
+    [Test]
+    public void GetAcademicSession_WithInvalidPrimaryCode_ReturnsNull()
+    {
+        // Arrange
+        var set = CreateAcademicSessions();
+        var dbContext = Substitute.For<ICoreDbContext>();
+        dbContext.AcademicSessionsNoTracking.Returns(set);
+        var repository = new AcademicSessionsRepository(dbContext);
+
+        // Act
+        var result = repository.GetAcademicSession("custom_primary_code_for_test", new DataRequestParameters());
+
+        // Assert
+        Assert.IsNull(result);
+    }
+
+    [Test]
+    public void GetAllOrderedBy_WithAcademicSessionType_ReturnsFilteredSet()
+    {
+        // Arrange
+        var academicSessionType = AcademicSessionTypeEnum.semester;
+        var set = new List<AcademicSession>()
+        {
+            // Children, Parent and Year need to be empty they otherwise introduce a circular reference
+            // ProgramOfferings, CourseOfferings and ComponentOfferings aren't needed
+            _fixture.Build<AcademicSession>()
+                .With(a => a.AcademicSessionType, academicSessionType)
+                .Without(a => a.Children)
+                .Without(a => a.Parent)
+                .Without(a => a.Year)
+                .Without(a => a.ProgramOfferings)
+                .Without(a => a.CourseOfferings)
+                .Without(a => a.ComponentOfferings)
+                .Create(),
+            _fixture.Build<AcademicSession>()
+                .With(a => a.AcademicSessionType, academicSessionType)
+                .Without(a => a.Children)
+                .Without(a => a.Parent)
+                .Without(a => a.Year)
+                .Without(a => a.ProgramOfferings)
+                .Without(a => a.CourseOfferings)
+                .Without(a => a.ComponentOfferings)
+                .Create(),
+            _fixture.Build<AcademicSession>()
+                .With(a => a.AcademicSessionType, AcademicSessionTypeEnum.quarter)
+                .Without(a => a.Children)
+                .Without(a => a.Parent)
+                .Without(a => a.Year)
+                .Without(a => a.ProgramOfferings)
+                .Without(a => a.CourseOfferings)
+                .Without(a => a.ComponentOfferings)
+                .Create()
+        }.AsQueryable();
+        var dbContext = Substitute.For<ICoreDbContext>();
+        dbContext.AcademicSessionsNoTracking.Returns(set);
+        var repository = new AcademicSessionsRepository(dbContext);
+
+        // Act
+        var result = repository.GetAllOrderedBy(new DataRequestParameters(), academicSessionType.ToString());
+
+        // Assert
+        Assert.IsInstanceOf<Pagination<AcademicSession>>(result);
+        Assert.That(result.Items.TrueForAll(a => a.AcademicSessionType == academicSessionType));
+        Assert.That(result.Items.Count, Is.EqualTo(2));
+    }
+
+    // Code to filter by consumers doesn't seem to work
     // [Test]
     // public void GetAllOrderedBy_WithConsumer_ReturnsFilteredSet()
     // {
     //     // Arrange
-    //     var consumer = _fixture.Create<string>();
-    //     var dataRequestParameters = _fixture.Create<DataRequestParameters>();
-    //     dataRequestParameters.Consumer = consumer;
-    //     var set = Substitute.For<IQueryable<AcademicSession>>();
-    //     _dbContext.AcademicSessionsNoTracking.Returns(set);
-    //     set.Include(Arg.Any<System.Linq.Expressions.Expression<Func<AcademicSession, object>>>()).Returns(set);
-    //     set.Include(Arg.Any<System.Linq.Expressions.Expression<Func<AcademicSession, IEnumerable<Consumer>>>>()).Returns(set);
+    //     var consumer = "TestConsumer";
+    //     var filterParams = new FilterParams() { consumer = consumer };
+    //     var dataRequestParameters = new DataRequestParameters(filterParams, new PagingParams(), null);
+    //     var academicSessions = new List<AcademicSession>()
+    //     {
+    //         _fixture.Build<AcademicSession>()
+    //             .With(a => a.Consumers, new List<Consumer>()
+    //             {
+    //                 _fixture.Build<Consumer>()
+    //                     .With(c => c.ConsumerKey, consumer)
+    //                     .Create()
+    //             })
+    //             .Without(a => a.Children)
+    //             .Without(a => a.Parent)
+    //             .Without(a => a.Year)
+    //             .Without(a => a.ProgramOfferings)
+    //             .Without(a => a.CourseOfferings)
+    //             .Without(a => a.ComponentOfferings)
+    //             .Create(),
+    //         _fixture.Build<AcademicSession>()
+    //             .With(a => a.Consumers, new List<Consumer>()
+    //             {
+    //                 _fixture.Build<Consumer>()
+    //                     .With(c => c.ConsumerKey, consumer)
+    //                     .Create()
+    //             })
+    //             .Without(a => a.Children)
+    //             .Without(a => a.Parent)
+    //             .Without(a => a.Year)
+    //             .Without(a => a.ProgramOfferings)
+    //             .Without(a => a.CourseOfferings)
+    //             .Without(a => a.ComponentOfferings)
+    //             .Create(),
+    //         _fixture.Build<AcademicSession>()
+    //             .With(a => a.Consumers, new List<Consumer>()
+    //             {
+    //                 _fixture.Build<Consumer>()
+    //                     .With(c => c.ConsumerKey, "AnotherConsumer")
+    //                     .Create()
+    //             })
+    //             .Without(a => a.Children)
+    //             .Without(a => a.Parent)
+    //             .Without(a => a.Year)
+    //             .Without(a => a.ProgramOfferings)
+    //             .Without(a => a.CourseOfferings)
+    //             .Without(a => a.ComponentOfferings)
+    //             .Create()
+    //     }.AsQueryable();
+    //
+    //     var db = Substitute.For<DbSet<AcademicSession>, IQueryable<AcademicSession>>();
+    //     DbMockHelper.InitDb(db, academicSessions);
+    //     var dbContext = Substitute.For<ICoreDbContext>();
+    //     dbContext.AcademicSessionsNoTracking.Returns(db);
+    //     var academicSessionsRepository = new AcademicSessionsRepository(dbContext);
     //
     //     // Act
-    //     var result = _repository.GetAllOrderedBy(dataRequestParameters);
+    //     var result = academicSessionsRepository.GetAllOrderedBy(dataRequestParameters);
     //
     //     // Assert
-    //     // _dbContext.Received(1).AcademicSessionsNoTracking;
-    //     set.Received(1).Include(x => x.Attributes);
-    //     set.Received(1).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(consumer)));
     //     Assert.IsInstanceOf<Pagination<AcademicSession>>(result);
+    //     Assert.That(result.Items.FindAll(a => a.Consumers!.Count > 0).TrueForAll(b => b.Consumers!.TrueForAll(c => c.ConsumerKey == consumer)), Is.True);
+    //     Assert.That(result.Items.Count, Is.EqualTo(2));
     // }
-}
 
-public class Foo
-{
-    public string PrimaryCodeType { get; set; }
-    public string PrimaryCode { get; set; }
-
-    public IdentifierEntry primaryCodeIdentifier
+    private IQueryable<AcademicSession> CreateAcademicSessions()
     {
-        get
+        return new List<AcademicSession>()
         {
-            return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
-        }
-        set
-        {
-            PrimaryCode = value.Code;
-            PrimaryCodeType = value.CodeType;
-        }
+            // Children, Parent and Year need to be empty they otherwise introduce a circular reference
+            // ProgramOfferings, CourseOfferings and ComponentOfferings aren't needed
+            _fixture.Build<AcademicSession>()
+                .Without(a => a.Children)
+                .Without(a => a.Parent)
+                .Without(a => a.Year)
+                .Without(a => a.ProgramOfferings)
+                .Without(a => a.CourseOfferings)
+                .Without(a => a.ComponentOfferings)
+                .Create(),
+            _fixture.Build<AcademicSession>()
+                .Without(a => a.Children)
+                .Without(a => a.Parent)
+                .Without(a => a.Year)
+                .Without(a => a.ProgramOfferings)
+                .Without(a => a.CourseOfferings)
+                .Without(a => a.ComponentOfferings)
+                .Create()
+        }.AsQueryable();
     }
 }

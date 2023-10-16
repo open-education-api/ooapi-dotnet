@@ -23,6 +23,8 @@ public class CoursesRepository : BaseRepository<Course>
         if (includeConsumer)
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+            // Shouldn't it be this?:
+            // set = set.Where(x => x.Consumers.Any(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
         return GetAllOrderedBy(dataRequestParameters, set);
     }
@@ -34,7 +36,7 @@ public class CoursesRepository : BaseRepository<Course>
 
     public List<Course> GetCoursesByProgramId(Guid programId)
     {
-        return null;
+        throw new NotImplementedException();
         //return dbContext.Courses.Where(o => o.Programs.Equals(programId)).ToList();
     }
 }

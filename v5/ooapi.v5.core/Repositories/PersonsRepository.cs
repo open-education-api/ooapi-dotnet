@@ -16,7 +16,7 @@ public class PersonsRepository : BaseRepository<Person>
 
     public List<Person> GetPersonsByGroupId(Guid groupId)
     {
-        return null;
+        throw new NotImplementedException();
         //TODO return dbContext.Persons.Where(o => o.GroupId.Equals(groupId)).ToList();
     }
 }

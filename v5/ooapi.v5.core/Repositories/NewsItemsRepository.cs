@@ -16,7 +16,7 @@ public class NewsItemsRepository : BaseRepository<NewsItem>
 
     public List<NewsItem> GetNewsItemsByNewsFeedId(Guid newsfeedId)
     {
-        return null;
+        throw new NotImplementedException();
         //TODO return dbContext.NewsItems.Where(o => o.NewsFeed.Equals(newsfeedId)).ToList();
     }
 }
