@@ -21,8 +21,4 @@ using System;
 [Route("/")]
 public class BaseController : ControllerBase
 {
-    [Route("/error")]
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public IActionResult HandleError() => Problem();
-
 }
