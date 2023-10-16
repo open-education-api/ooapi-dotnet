@@ -1,5 +1,5 @@
-﻿using ooapi.v5.core.Models;
-using ooapi.v5.core.Repositories;
+﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
@@ -10,7 +10,7 @@ public class ProgramOfferingService : ServiceBase, IProgramOfferingService
 {
     private readonly ProgramOfferingsRepository _repository;
 
-    public ProgramOfferingService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public ProgramOfferingService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new ProgramOfferingsRepository(dbContext);
     }

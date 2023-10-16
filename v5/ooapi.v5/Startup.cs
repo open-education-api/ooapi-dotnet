@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using ooapi.v5.core;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.Security;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -66,8 +67,9 @@ namespace ooapi.v5
                     opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     opts.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
                     opts.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-                })
-                .AddXmlSerializerFormatters();
+                });
+                //.AddXmlSerializerFormatters();
+
 
 
             services.AddAuthentication(BearerAuthenticationHandler.SchemeName)
@@ -113,6 +115,10 @@ namespace ooapi.v5
             {
                 options.CustomSchemaIds(x => x.Name);
             });
+
+            services.AddHttpContextAccessor();
+
+            CoreStartup.Startup(services);
         }
 
         /// <summary>
@@ -149,6 +155,7 @@ namespace ooapi.v5
             {
                 endpoints.MapControllers();
             });
+
 
             if (env.IsDevelopment())
             {
