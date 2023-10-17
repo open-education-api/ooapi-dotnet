@@ -10,28 +10,24 @@ public class UserRequestContext : IUserRequestContext
         var request = httpContextAccessor.HttpContext!.Request;
         var curHeaders = request.Headers;
 
-        if (curHeaders.TryGetValue("userId", out var headerUserId))
+        if (curHeaders.TryGetValue("userId", out var headerUserId) && headerUserId.Count > 0)
         {
-            if (headerUserId.Count > 0)
-                UserID = headerUserId[0].ToString();
+            UserID = headerUserId[0].ToString();
         }
 
-        if (curHeaders.TryGetValue("isStudent", out var headerIsStudent))
+        if (curHeaders.TryGetValue("isStudent", out var headerIsStudent) && headerIsStudent.Count > 0)
         {
-            if (headerIsStudent.Count > 0)
-                IsStudent = Convert.ToBoolean(headerIsStudent[0].ToString());
+            IsStudent = Convert.ToBoolean(headerIsStudent[0].ToString());
         }
 
-        if (curHeaders.TryGetValue("IsEmployee", out var headerIsEmployee))
+        if (curHeaders.TryGetValue("IsEmployee", out var headerIsEmployee) && headerIsEmployee.Count > 0)
         {
-            if (headerIsEmployee.Count > 0)
-                IsEmployee = Convert.ToBoolean(headerIsEmployee[0].ToString());
+            IsEmployee = Convert.ToBoolean(headerIsEmployee[0].ToString());
         }
 
-        if (curHeaders.TryGetValue("Bivv", out var headerBivv))
+        if (curHeaders.TryGetValue("Bivv", out var headerBivv) && headerBivv.Count > 0 && !string.IsNullOrEmpty(headerBivv[0].ToString()))
         {
-            if (headerBivv.Count > 0)
-                Bivv = String.IsNullOrEmpty(headerBivv[0].ToString()) ? headerBivv[0].ToString() : "laag";
+            Bivv =  headerBivv[0].ToString();
         }
 
         IsLocal = request.Host.Host.ToLower().Equals("localhost");
@@ -40,7 +36,7 @@ public class UserRequestContext : IUserRequestContext
     public string UserID { get; set; }
     public bool IsStudent { get; set; }
     public bool IsEmployee { get; set; }
-    public string Bivv { get; set; }
+    public string Bivv { get; set; } = "laag";
     public string CurOrganisation { get; set; }
     public bool IsLocal { get; set; }
 }

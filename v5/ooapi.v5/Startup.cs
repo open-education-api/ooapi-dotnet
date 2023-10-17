@@ -68,7 +68,6 @@ namespace ooapi.v5
                     opts.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
                     opts.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 });
-                //.AddXmlSerializerFormatters();
 
 
 
