@@ -1,10 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
@@ -54,10 +51,10 @@ public class PersonsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("PersonsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Persons), description: "OK")]
-    public virtual IActionResult PersonsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string? sort = "personId")
+    public virtual IActionResult PersonsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string? sort = "personId")
     {
-        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var result = _personsService.GetAll(parameters, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        var result = _personsService.GetAll(parameters, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -105,8 +102,8 @@ public class PersonsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Associations), description: "OK")]
     public virtual IActionResult PersonsPersonIdAssociationsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? associationType, [FromQuery] string? role, [FromQuery] string? state, [FromQuery] string? resultState, [FromQuery] string? sort = "associationId")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _associationsService.GetAssociationsByPersonId(parameters, personId, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var result = _associationsService.GetAssociationsByPersonId(parameters, personId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -127,7 +124,7 @@ public class PersonsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Person), description: "OK")]
     public virtual IActionResult PersonsPersonIdGet([FromRoute][Required] Guid personId)
     {
-        var result = _personsService.Get(personId, out ErrorResponse errorResponse);
+        var result = _personsService.Get(personId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -156,8 +153,8 @@ public class PersonsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
     public virtual IActionResult PersonsPersonIdGroupsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _groupsService.GetGroupsByPersonId(parameters, personId, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var result = _groupsService.GetGroupsByPersonId(parameters, personId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
@@ -30,7 +27,7 @@ namespace ooapi.v5.Controllers
         {
             _programsService = programsService;
             _coursesService = coursesService;
-            _programOfferingService = programOfferingService;   
+            _programOfferingService = programOfferingService;
         }
 
         /// <summary>
@@ -57,10 +54,10 @@ namespace ooapi.v5.Controllers
         [ValidateModelState]
         [SwaggerOperation("ProgramsGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
-        public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
+        public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
         {
-            DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-            var result = _programsService.GetAll(parameters, out ErrorResponse errorResponse);
+            var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+            var result = _programsService.GetAll(parameters, out var errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);
@@ -91,8 +88,8 @@ namespace ooapi.v5.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
         public virtual IActionResult ProgramsProgramIdCoursesGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "courseId")
         {
-            DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-            var result = _coursesService.GetCoursesByProgramId(parameters, programId, out ErrorResponse errorResponse);
+            var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+            var result = _coursesService.GetCoursesByProgramId(parameters, programId, out var errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);
@@ -115,9 +112,9 @@ namespace ooapi.v5.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Models.Program), description: "OK")]
         public virtual IActionResult ProgramsProgramIdGet([FromRoute][Required] Guid programId, [FromQuery] List<string> expand, [FromQuery] bool? returnTimelineOverrides)
         {
-            DataRequestParameters parameters = new DataRequestParameters();
+            var parameters = new DataRequestParameters();
             parameters.Expand = expand;
-            var result = _programsService.Get(programId, parameters, out ErrorResponse errorResponse);
+            var result = _programsService.Get(programId, parameters, out var errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);
@@ -150,15 +147,15 @@ namespace ooapi.v5.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(ProgramOfferings), description: "OK")]
         public virtual IActionResult ProgramsProgramIdOfferingsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? modeOfStudy, [FromQuery] bool? resultExpected, [FromQuery] DateTime? since, [FromQuery] DateTime? until, [FromQuery] string? sort = "startDate")
         {
-            DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-            parameters.Filters.Add("programId",programId);
-            var result = _programOfferingService.GetAll( parameters, out ErrorResponse errorResponse);
+            var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+            parameters.Filters.Add("programId", programId);
+            var result = _programOfferingService.GetAll(parameters, out var errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);
             }
             return Ok(result);
-         }
+        }
 
         /// <summary>
         /// GET /programs/{programId}/programs
@@ -186,8 +183,8 @@ namespace ooapi.v5.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
         public virtual IActionResult ProgramsProgramIdProgramsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
         {
-            DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-            var result = _programsService.GetProgramsByProgramId(parameters, programId, out ErrorResponse errorResponse);
+            var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+            var result = _programsService.GetProgramsByProgramId(parameters, programId, out var errorResponse);
             if (result == null)
             {
                 return BadRequest(errorResponse);

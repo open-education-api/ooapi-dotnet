@@ -39,7 +39,7 @@ public class BuildingsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Building), description: "OK")]
     public virtual IActionResult BuildingsBuildingIdGet([FromRoute][Required] Guid buildingId)
     {
-        var result = _buildingsService.Get(buildingId, out ErrorResponse errorResponse);
+        var result = _buildingsService.Get(buildingId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -102,8 +102,8 @@ public class BuildingsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Rooms), description: "OK")]
     public virtual IActionResult BuildingsBuildingIdRoomsGet([FromRoute][Required] Guid buildingId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? roomType, [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _roomsService.GetRoomsByBuildingId(parameters, buildingId, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var result = _roomsService.GetRoomsByBuildingId(parameters, buildingId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -129,10 +129,10 @@ public class BuildingsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("BuildingsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Buildings), description: "OK")]
-    public virtual IActionResult BuildingsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? sort = "name")
+    public virtual IActionResult BuildingsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var result = _buildingsService.GetAll(parameters, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        var result = _buildingsService.GetAll(parameters, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

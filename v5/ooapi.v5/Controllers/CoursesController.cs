@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
@@ -24,7 +22,7 @@ public class CoursesController : BaseController
     private readonly IComponentsService _componentsService;
     private readonly ICoursesService _coursesService;
 
-    public CoursesController(IComponentsService componentsService, ICoursesService coursesService = null)
+    public CoursesController(IComponentsService componentsService, ICoursesService coursesService)
     {
         _componentsService = componentsService;
         _coursesService = coursesService;
@@ -52,8 +50,8 @@ public class CoursesController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Components), description: "OK")]
     public virtual IActionResult CoursesCourseIdComponentsGet([FromRoute][Required] Guid courseId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? componentType, [FromQuery] string? sort = "componentId")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _componentsService.GetComponentsByCourseId(parameters, courseId, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var result = _componentsService.GetComponentsByCourseId(parameters, courseId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -76,7 +74,7 @@ public class CoursesController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Course), description: "OK")]
     public virtual IActionResult CoursesCourseIdGet([FromRoute][Required] Guid courseId, [FromQuery] List<string> expand, [FromQuery] bool? returnTimelineOverrides)
     {
-        var result = _coursesService.Get(courseId, out ErrorResponse errorResponse);
+        var result = _coursesService.Get(courseId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -134,10 +132,10 @@ public class CoursesController : BaseController
     [SwaggerOperation("CoursesGet")]
     //[SwaggerResponse(statusCode: 200, type: typeof(MyPagination<Course>), description: "OK")]
     [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
-    public virtual IActionResult CoursesGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "name")
+    public virtual IActionResult CoursesGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var result = _coursesService.GetAll(parameters, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        var result = _coursesService.GetAll(parameters, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

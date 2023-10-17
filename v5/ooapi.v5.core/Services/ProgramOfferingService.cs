@@ -1,52 +1,51 @@
-﻿using ooapi.v5.core.Models;
-using ooapi.v5.core.Repositories;
+﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services
+namespace ooapi.v5.core.Services;
+
+public class ProgramOfferingService : ServiceBase, IProgramOfferingService
 {
-    public class ProgramOfferingService : ServiceBase, IProgramOfferingService
+    private readonly ProgramOfferingsRepository _repository;
+
+    public ProgramOfferingService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        private readonly ProgramOfferingsRepository _repository;
+        _repository = new ProgramOfferingsRepository(dbContext);
+    }
 
-        public ProgramOfferingService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    {
+        try
         {
-            _repository = new ProgramOfferingsRepository(dbContext);
+            Pagination<ProgramOffering> result = _repository.GetAllOrderedBy(dataRequestParameters);
+
+            errorResponse = null;
+            return result;
         }
-
-        public Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+        catch (Exception ex)
         {
-            try
-            {
-                Pagination<ProgramOffering> result = _repository.GetAllOrderedBy(dataRequestParameters);
-
-                errorResponse = null;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
+            errorResponse = new ErrorResponse(500);
+            return null;
         }
+    }
 
-        public ProgramOffering Get(Guid programOfferingId, out ErrorResponse errorResponse)
+    public ProgramOffering Get(Guid programOfferingId, out ErrorResponse errorResponse)
+    {
+        try
         {
-            try
-            {
-                var item = _repository.GetProgramOffering(programOfferingId);
+            var item = _repository.GetProgramOffering(programOfferingId);
 
-                errorResponse = null;
-                return item;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
-
+            errorResponse = null;
+            return item;
+        }
+        catch (Exception ex)
+        {
+            errorResponse = new ErrorResponse(500);
+            return null;
         }
 
     }
+
 }

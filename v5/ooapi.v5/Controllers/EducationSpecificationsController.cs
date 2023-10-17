@@ -53,7 +53,7 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Courses), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdCoursesGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "courseId")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         if (!string.IsNullOrWhiteSpace(teachingLanguage))
         {
             parameters.Filters.Add("TeachingLanguage", teachingLanguage);
@@ -66,7 +66,7 @@ public class EducationSpecificationsController : BaseController
         {
             parameters.Filters.Add("ModeOfDelivery", modeOfDelivery);
         }
-        var result = _coursesService.GetCoursesByEducationSpecificationId(parameters, educationSpecificationId, out ErrorResponse errorResponse);
+        var result = _coursesService.GetCoursesByEducationSpecificationId(parameters, educationSpecificationId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -95,8 +95,8 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? sort = "educationSpecificationId")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _educationSpecificationsService.GetEducationSpecificationsByEducationSpecificationId(parameters, educationSpecificationId, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var result = _educationSpecificationsService.GetEducationSpecificationsByEducationSpecificationId(parameters, educationSpecificationId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -119,9 +119,9 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecification), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] bool? returnTimelineOverrides, [FromQuery] List<string>? expand)
     {
-        DataRequestParameters parameters = new DataRequestParameters();
+        var parameters = new DataRequestParameters();
         parameters.Expand = expand;
-        var result = _educationSpecificationsService.Get(educationSpecificationId, parameters, out ErrorResponse errorResponse);
+        var result = _educationSpecificationsService.Get(educationSpecificationId, parameters, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -156,7 +156,7 @@ public class EducationSpecificationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Programs), description: "OK")]
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdProgramsGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? crohoCreboCode, [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         if (!string.IsNullOrWhiteSpace(teachingLanguage))
         {
             parameters.Filters.Add("TeachingLanguage", teachingLanguage);
@@ -186,7 +186,7 @@ public class EducationSpecificationsController : BaseController
             parameters.Filters.Add("PrimaryCode", crohoCreboCode);
         }
 
-        var result = _programsService.GetProgramsByEducationSpecificationId(parameters, educationSpecificationId, out ErrorResponse errorResponse);
+        var result = _programsService.GetProgramsByEducationSpecificationId(parameters, educationSpecificationId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -213,18 +213,18 @@ public class EducationSpecificationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("EducationSpecificationsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecifications), description: "OK")]
-    public virtual IActionResult EducationSpecificationsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? educationSpecificationType = "", [FromQuery] string? sort = "name")
+    public virtual IActionResult EducationSpecificationsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? educationSpecificationType = "", [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        if (!string.IsNullOrWhiteSpace(primaryCodeParam.primaryCode))
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        if (!string.IsNullOrWhiteSpace(primaryCodeParam?.primaryCode))
         {
             parameters.Filters.Add("PrimaryCode", primaryCodeParam.primaryCode);
         }
-        if (!string.IsNullOrWhiteSpace(educationSpecificationType.ToString()))
+        if (!string.IsNullOrWhiteSpace(educationSpecificationType))
         {
             parameters.Filters.Add("EducationSpecificationType", educationSpecificationType);
         }
-        var result = _educationSpecificationsService.GetAll(parameters, out ErrorResponse errorResponse);
+        var result = _educationSpecificationsService.GetAll(parameters, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
