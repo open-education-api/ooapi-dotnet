@@ -5,10 +5,10 @@ namespace ooapi.v5.core.Services.Interfaces
 {
     public interface IProgramsService
     {
-        Program Get(Guid programId, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse);
-        Pagination<Program> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse);
-        Pagination<Program> GetProgramsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, out ErrorResponse errorResponse);
-        Pagination<Program> GetProgramsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse errorResponse);
-        Pagination<Program> GetProgramsByProgramId(DataRequestParameters dataRequestParameters, Guid programId, out ErrorResponse errorResponse);
+        Program? Get(Guid programId, DataRequestParameters dataRequestParameters);
+        Pagination<Program> GetAll(DataRequestParameters dataRequestParameters);
+        Pagination<Program> GetProgramsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId);
+        Pagination<Program> GetProgramsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId);
+        Pagination<Program> GetProgramsByProgramId(DataRequestParameters dataRequestParameters, Guid programId);
     }
 }

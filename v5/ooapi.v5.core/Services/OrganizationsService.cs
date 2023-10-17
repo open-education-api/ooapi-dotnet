@@ -6,7 +6,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-public class OrganizationsService : ServiceBase, IOrganizationsService
+internal class OrganizationsService : ServiceBase, IOrganizationsService
 {
     private readonly OrganizationsRepository _repository;
 
@@ -15,23 +15,14 @@ public class OrganizationsService : ServiceBase, IOrganizationsService
         _repository = new OrganizationsRepository(dbContext);
     }
 
-    public Pagination<Organization> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    public Pagination<Organization> GetAll(DataRequestParameters dataRequestParameters)
     {
-        try
+        Pagination<Organization> result = _repository.GetAllOrderedBy(dataRequestParameters);
+        foreach (var item in result.Items)
         {
-            Pagination<Organization> result = _repository.GetAllOrderedBy(dataRequestParameters);
-            foreach (var item in result.Items)
-            {
-                SetAddresses(item);
-            }
-            errorResponse = null;
-            return result;
+            SetAddresses(item);
         }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return result;
     }
 
     private void SetAddresses(Organization item)
@@ -43,20 +34,9 @@ public class OrganizationsService : ServiceBase, IOrganizationsService
         }
     }
 
-    public Organization Get(Guid organizationId, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    public Organization? Get(Guid organizationId, DataRequestParameters dataRequestParameters)
     {
-        try
-        {
-            var item = _repository.GetOrganization(organizationId, dataRequestParameters);
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetOrganization(organizationId, dataRequestParameters);
     }
 
 }

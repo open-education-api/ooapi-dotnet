@@ -5,6 +5,6 @@ namespace ooapi.v5.core.Services.Interfaces
 {
     public interface IOfferingsService
     {
-        OneOfOfferingInstance Get(Guid offeringId, out ErrorResponse errorResponse);
+        OneOfOfferingInstance? Get(Guid offeringId);
     }
 }

@@ -5,7 +5,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-public class ServiceMetadataService : ServiceBase, IServiceMetadataService
+internal class ServiceMetadataService : ServiceBase, IServiceMetadataService
 {
     private readonly ServiceMetadataRepository _repository;
 
@@ -14,20 +14,9 @@ public class ServiceMetadataService : ServiceBase, IServiceMetadataService
         _repository = new ServiceMetadataRepository(dbContext);
     }
 
-    public Service Get(out ErrorResponse errorResponse)
+    public Service Get()
     {
-        try
-        {
-            var item = _repository.GetServiceMetadata();
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetServiceMetadata();
     }
 
 }

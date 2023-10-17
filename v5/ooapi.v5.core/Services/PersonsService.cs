@@ -6,7 +6,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-public class PersonsService : ServiceBase, IPersonsService
+internal class PersonsService : ServiceBase, IPersonsService
 {
     private readonly PersonsRepository _repository;
 
@@ -15,50 +15,19 @@ public class PersonsService : ServiceBase, IPersonsService
         _repository = new PersonsRepository(dbContext);
     }
 
-    public Pagination<Person> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    public Pagination<Person> GetAll(DataRequestParameters dataRequestParameters)
     {
-        try
-        {
-            Pagination<Person> result = _repository.GetAllOrderedBy(dataRequestParameters);
-            errorResponse = null;
-            return result;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetAllOrderedBy(dataRequestParameters);
     }
 
-    public Person Get(Guid personId, out ErrorResponse errorResponse)
+    public Person? Get(Guid personId)
     {
-        try
-        {
-            var item = _repository.GetPerson(personId);
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetPerson(personId);
     }
 
-    public Pagination<Person> GetPersonsByGroupId(DataRequestParameters dataRequestParameters, Guid groupId, out ErrorResponse errorResponse)
+    public Pagination<Person> GetPersonsByGroupId(DataRequestParameters dataRequestParameters, Guid groupId)
     {
-        try
-        {
-            var result = _repository.GetPersonsByGroupId(groupId);
-            var paginationResult = new Pagination<Person>(result.AsQueryable(), dataRequestParameters);
-            errorResponse = null;
-            return paginationResult;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        var result = _repository.GetPersonsByGroupId(groupId);
+        return new Pagination<Person>(result.AsQueryable(), dataRequestParameters);
     }
 }

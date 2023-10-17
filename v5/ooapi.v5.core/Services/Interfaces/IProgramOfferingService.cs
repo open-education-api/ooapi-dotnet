@@ -5,7 +5,7 @@ namespace ooapi.v5.core.Services.Interfaces
 {
     public interface IProgramOfferingService
     {
-        ProgramOffering Get(Guid programOfferingId, out ErrorResponse errorResponse);
-        Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse);
+        ProgramOffering? Get(Guid programOfferingId);
+        Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters);
     }
 }

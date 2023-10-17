@@ -6,7 +6,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-public class NewsFeedsService : ServiceBase, INewsFeedsService
+internal class NewsFeedsService : ServiceBase, INewsFeedsService
 {
     private readonly NewsFeedsRepository _repository;
 
@@ -15,35 +15,13 @@ public class NewsFeedsService : ServiceBase, INewsFeedsService
         _repository = new NewsFeedsRepository(dbContext);
     }
 
-    public Pagination<NewsFeed> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    public Pagination<NewsFeed> GetAll(DataRequestParameters dataRequestParameters)
     {
-        try
-        {
-            Pagination<NewsFeed> result = _repository.GetAllOrderedBy(dataRequestParameters);
-            errorResponse = null;
-            return result;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetAllOrderedBy(dataRequestParameters);
     }
 
-    public NewsFeed Get(Guid newsfeedId, out ErrorResponse errorResponse)
-    {
-        try
-        {
-            var item = _repository.GetNewsFeed(newsfeedId);
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+    public NewsFeed? Get(Guid newsfeedId)
+{
+        return _repository.GetNewsFeed(newsfeedId);
     }
-
 }
