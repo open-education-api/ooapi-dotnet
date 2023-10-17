@@ -129,7 +129,7 @@ public class ComponentsRepositoryTests
 
     }
 
-        [Test]
+    [Test]
     public void GetComponentsByOrganizationId_ReturnsComponent_WhenComponentWithOrganizationIdExists()
     {
         // Arrange

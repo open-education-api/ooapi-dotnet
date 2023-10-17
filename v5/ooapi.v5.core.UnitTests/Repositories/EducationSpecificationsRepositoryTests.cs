@@ -289,7 +289,7 @@ public class EducationSpecificationsRepositoryTests
         Assert.That(result.Children.Contains(secondChildEducationSpecification), Is.True);
     }
 
-        [Test]
+    [Test]
     public void GetEducationSpecification_ReturnsEducationSpecificationAndOrganization_WhenExpandOrganizationRequestedViaRequestParameters()
     {
         // Arrange

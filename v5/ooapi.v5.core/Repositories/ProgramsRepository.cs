@@ -37,16 +37,13 @@ public class ProgramsRepository : BaseRepository<Program>
         //    set = set.Include(x => x.EducationSpecification);
         //}
 
-
-
         Program result = set.FirstOrDefault(x => x.ProgramId.Equals(programId));
-        result.ChildrenIds = dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).Select(x => x.ProgramId).ToList();
         result.ChildrenIds = dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).Select(x => x.ProgramId).ToList();
 
         bool getParent = dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
         if (getParent && result.ParentId != null)
         {
-            result.Parent = dbContext.ProgramsNoTracking.FirstOrDefault(x => x.OrganizationId.Equals(result.ParentId));
+            result.Parent = dbContext.ProgramsNoTracking.FirstOrDefault(x => x.ProgramId.Equals(result.ParentId));
             result.Parent.ChildrenIds = set.Where(x => x.ParentId.Equals(result.Parent.ProgramId)).Select(x => x.ProgramId).ToList();
         }
 
@@ -81,7 +78,6 @@ public class ProgramsRepository : BaseRepository<Program>
                     .Where(x => x.EducationSpecificationId.Equals(result.EducationSpecification.ParentId))
                     .Select(x => x.EducationSpecificationId)
                     .FirstOrDefault();
-
 
             result.EducationSpecification.ChildrenIds = dbContext.EducationSpecificationsNoTracking.Where(x => x.ParentId.Equals(result.EducationSpecification.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToList();
         }
