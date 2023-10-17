@@ -144,67 +144,6 @@ public class CoursesRepositoryTests
         Assert.That(result.Items.Count, Is.EqualTo(0));
     }
 
-    // Code to filter by consumers doesn't seem to work
-    // [Test]
-    // public void GetCourseByEducationSpecificationId_IncludesConsumers_WhenDataRequestParametersHasConsumer()
-    // {
-    //     // Arrange
-    //     var educationSpecificationId = _fixture.Create<Guid>();
-    //     var consumer = "TestConsumer";
-    //     var filterParams = new FilterParams() { consumer = consumer };
-    //     var dataRequestParameters = new DataRequestParameters(filterParams, new PagingParams(), null);
-    //     var courses = new List<Course>()
-    //     {
-    //         _fixture.Build<Course>()
-    //             .With(a => a.Consumers, new List<Consumer>()
-    //             {
-    //                 _fixture.Build<Consumer>()
-    //                     .With(c => c.ConsumerKey, consumer)
-    //                     .Create()
-    //             })
-    //             .With(x => x.EducationSpecificationId, educationSpecificationId)
-    //             .Without(x => x.Organization)
-    //             .Without(x => x.Address)
-    //             .Create(),
-    //         _fixture.Build<Course>()
-    //             .With(a => a.Consumers, new List<Consumer>()
-    //             {
-    //                 _fixture.Build<Consumer>()
-    //                     .With(c => c.ConsumerKey, consumer)
-    //                     .Create()
-    //             })
-    //             .With(x => x.EducationSpecificationId, educationSpecificationId)
-    //             .Without(x => x.Organization)
-    //             .Without(x => x.Address)
-    //             .Create(),
-    //         _fixture.Build<Course>()
-    //             .With(a => a.Consumers, new List<Consumer>()
-    //             {
-    //                 _fixture.Build<Consumer>()
-    //                     .With(c => c.ConsumerKey, "AnotherConsumer")
-    //                     .Create()
-    //             })
-    //             .With(x => x.EducationSpecificationId, educationSpecificationId)
-    //             .Without(x => x.Organization)
-    //             .Without(x => x.Address)
-    //             .Create(),
-    //     }.AsQueryable();
-    //
-    //     var db = Substitute.For<DbSet<Course>, IQueryable<Course>>();
-    //     DbMockHelper.InitDb(db, courses);
-    //     var dbContext = Substitute.For<ICoreDbContext>();
-    //     dbContext.CoursesNoTracking.Returns(db);
-    //     var coursesRepository = new CoursesRepository(dbContext);
-    //
-    //     // Act
-    //     var result = coursesRepository.GetCoursesByEducationSpecificationId(educationSpecificationId, dataRequestParameters);
-    //
-    //     // Assert
-    //     Assert.IsInstanceOf<Pagination<Course>>(result);
-    //     Assert.That(result.Items.FindAll(a => a.Consumers!.Count > 0).TrueForAll(b => b.Consumers!.TrueForAll(c => c.ConsumerKey == consumer)), Is.True);
-    //     Assert.That(result.Items.Count, Is.EqualTo(2));
-    // }
-
     [Test]
     public void GetCoursesByOrganizationId_ReturnsCourses_WhenCoursesExist()
     {

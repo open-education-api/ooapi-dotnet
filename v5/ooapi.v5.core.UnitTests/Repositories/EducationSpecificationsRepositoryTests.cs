@@ -52,68 +52,6 @@ public class EducationSpecificationsRepositoryTests
         Assert.That(result.Items.Count, Is.EqualTo(3));
     }
 
-    // Code to filter by consumers doesn't seem to work
-    // [Test] public void GetAllOrderedBy_IncludesConsumers_WhenDataRequestParametersHasConsumer()
-    // {
-    //     // Arrange
-    //     var consumer = "TestConsumer";
-    //     var filterParams = new FilterParams() { consumer = consumer };
-    //     var dataRequestParameters = new DataRequestParameters(filterParams, new PagingParams(), null);
-    //     var educationSpecifications = new List<EducationSpecification>()
-    //     {
-    //         _fixture.Build<EducationSpecification>()
-    //             .With(a => a.Consumers, new List<Consumer>()
-    //             {
-    //                 _fixture.Build<Consumer>()
-    //                     .With(c => c.ConsumerKey, consumer)
-    //                     .Create()
-    //             })
-    //             .Without(x => x.LearningOutcomes)
-    //             .Without(x => x.Parent)
-    //             .Without(x => x.Children)
-    //             .Without(x => x.Organization)
-    //             .Create(),
-    //         _fixture.Build<EducationSpecification>()
-    //             .With(a => a.Consumers, new List<Consumer>()
-    //             {
-    //                 _fixture.Build<Consumer>()
-    //                     .With(c => c.ConsumerKey, consumer)
-    //                     .Create()
-    //             })
-    //             .Without(x => x.LearningOutcomes)
-    //             .Without(x => x.Parent)
-    //             .Without(x => x.Children)
-    //             .Without(x => x.Organization)
-    //             .Create(),
-    //         _fixture.Build<EducationSpecification>()
-    //             .With(a => a.Consumers, new List<Consumer>()
-    //             {
-    //                 _fixture.Build<Consumer>()
-    //                     .With(c => c.ConsumerKey, "AnotherConsumer")
-    //                     .Create()
-    //             })
-    //             .Without(x => x.LearningOutcomes)
-    //             .Without(x => x.Parent)
-    //             .Without(x => x.Children)
-    //             .Without(x => x.Organization)
-    //             .Create(),
-    //     }.AsQueryable();
-    //
-    //     var db = Substitute.For<DbSet<EducationSpecification>, IQueryable<EducationSpecification>>();
-    //     DbMockHelper.InitDb(db, educationSpecifications);
-    //     var dbContext = Substitute.For<ICoreDbContext>();
-    //     dbContext.EducationSpecificationsNoTracking.Returns(db);
-    //     var educationSpecificationsRepository = new EducationSpecificationsRepository(dbContext);
-    //
-    //     // Act
-    //     var result = educationSpecificationsRepository.GetAllOrderedBy(dataRequestParameters);
-    //
-    //     // Assert
-    //     Assert.IsInstanceOf<Pagination<EducationSpecification>>(result);
-    //     Assert.That(result.Items.FindAll(a => a.Consumers!.Count > 0).TrueForAll(b => b.Consumers!.TrueForAll(c => c.ConsumerKey == consumer)), Is.True);
-    //     Assert.That(result.Items.Count, Is.EqualTo(2));
-    // }
-
     [Test]
     public void GetEducationSpecificationsByEducationSpecificationId_ReturnsEducationSpecifications_WhenEducationSpecificationsExist()
     {

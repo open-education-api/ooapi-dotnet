@@ -5,7 +5,6 @@ using ooapi.v5.core.Repositories;
 using ooapi.v5.core.UnitTests.Repositories.Helpers;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
-using ooapi.v5.Models.Params;
 
 namespace ooapi.v5.core.UnitTests.Repositories;
 
@@ -52,68 +51,6 @@ public class OrganizationsRepositoryTests
         Assert.IsInstanceOf<Pagination<Organization>>(result);
         Assert.That(result.Items.Count, Is.EqualTo(3));
     }
-
-    // Code to filter by consumers doesn't seem to work
-    // [Test] public void GetAllOrderedBy_IncludesConsumers_WhenDataRequestParametersHasConsumer()
-    // {
-    //     // Arrange
-    //     var consumer = "TestConsumer";
-    //     var filterParams = new FilterParams() { consumer = consumer };
-    //     var dataRequestParameters = new DataRequestParameters(filterParams, new PagingParams(), null);
-    //     var organizations = new List<Organization>()
-    //     {
-    //         _fixture.Build<Organization>()
-    //             .With(a => a.Consumers, new List<Consumer>()
-    //             {
-    //                 _fixture.Build<Consumer>()
-    //                     .With(c => c.ConsumerKey, consumer)
-    //                     .Create()
-    //             })
-    //             .Without(x => x.Addresses)
-    //             .Without(x => x.Address)
-    //             .Without(x => x.Parent)
-    //             .Without(x => x.Children)
-    //             .Create(),
-    //         _fixture.Build<Organization>()
-    //             .With(a => a.Consumers, new List<Consumer>()
-    //             {
-    //                 _fixture.Build<Consumer>()
-    //                     .With(c => c.ConsumerKey, consumer)
-    //                     .Create()
-    //             })
-    //             .Without(x => x.Addresses)
-    //             .Without(x => x.Address)
-    //             .Without(x => x.Parent)
-    //             .Without(x => x.Children)
-    //             .Create(),
-    //         _fixture.Build<Organization>()
-    //             .With(a => a.Consumers, new List<Consumer>()
-    //             {
-    //                 _fixture.Build<Consumer>()
-    //                     .With(c => c.ConsumerKey, "AnotherConsumer")
-    //                     .Create()
-    //             })
-    //             .Without(x => x.Addresses)
-    //             .Without(x => x.Address)
-    //             .Without(x => x.Parent)
-    //             .Without(x => x.Children)
-    //             .Create(),
-    //     }.AsQueryable();
-    //
-    //     var db = Substitute.For<DbSet<Organization>, IQueryable<Organization>>();
-    //     DbMockHelper.InitDb(db, organizations);
-    //     var dbContext = Substitute.For<ICoreDbContext>();
-    //     dbContext.OrganizationsNoTracking.Returns(db);
-    //     var organizationsRepository = new OrganizationsRepository(dbContext);
-    //
-    //     // Act
-    //     var result = organizationsRepository.GetAllOrderedBy(dataRequestParameters);
-    //
-    //     // Assert
-    //     Assert.IsInstanceOf<Pagination<Organization>>(result);
-    //     Assert.That(result.Items.FindAll(a => a.Consumers!.Count > 0).TrueForAll(b => b.Consumers!.TrueForAll(c => c.ConsumerKey == consumer)), Is.True);
-    //     Assert.That(result.Items.Count, Is.EqualTo(2));
-    // }
 
     [Test]
     public void GetOrganization_ReturnsOrganization_WhenOrganizationExist()

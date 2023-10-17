@@ -67,8 +67,6 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         if (includeConsumer)
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-            // Shouldn't it be this?:
-            // set = set.Where(x => x.Consumers.Any(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
         set = set.AsQueryable();
