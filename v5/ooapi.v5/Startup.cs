@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using ooapi.v5.core;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.Middleware;
 using ooapi.v5.Security;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
@@ -116,6 +117,7 @@ namespace ooapi.v5
             });
 
             services.AddHttpContextAccessor();
+            services.AddTransient<ExceptionHandlingMiddleware>();
 
             CoreStartup.Startup(services);
         }
@@ -150,6 +152,8 @@ namespace ooapi.v5
             //TODO: Use Https Redirection
             // app.UseHttpsRedirection();
 
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -162,9 +166,6 @@ namespace ooapi.v5
             }
             else
             {
-                //TODO: Enable production exception handling (https://docs.microsoft.com/en-us/aspnet/core/fundamentals/error-handling)
-                app.UseExceptionHandler("/Error");
-
                 app.UseHsts();
             }
         }
