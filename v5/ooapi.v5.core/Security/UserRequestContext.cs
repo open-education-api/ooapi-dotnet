@@ -12,7 +12,7 @@ public class UserRequestContext : IUserRequestContext
 
         if (curHeaders.TryGetValue("userId", out var headerUserId) && headerUserId.Count > 0)
         {
-            UserID = headerUserId[0].ToString();
+            UserId = headerUserId[0].ToString();
         }
 
         if (curHeaders.TryGetValue("isStudent", out var headerIsStudent) && headerIsStudent.Count > 0)
@@ -33,10 +33,10 @@ public class UserRequestContext : IUserRequestContext
         IsLocal = request.Host.Host.ToLower().Equals("localhost");
     }
 
-    public string UserID { get; set; }
+    public string UserId { get; set; }
     public bool IsStudent { get; set; }
     public bool IsEmployee { get; set; }
     public string Bivv { get; set; } = "laag";
-    public string CurOrganisation { get; set; }
+    public string CurrentOrganisation { get; set; }
     public bool IsLocal { get; set; }
 }

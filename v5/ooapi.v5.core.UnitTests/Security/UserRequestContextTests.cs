@@ -19,7 +19,7 @@ public class UserRequestContextTests
         var sut = CreateSutWithHeader(new(nameof(userId), userId));
 
         // Act
-        var result = sut.UserID;
+        var result = sut.UserId;
 
         // Assert
         result.Should().Be(userId);

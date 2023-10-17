@@ -20,7 +20,7 @@ public abstract class ServiceBase
     {
         bool showBiv_V_Hoog = false;
         bool showBiv_V_Middel = false;
-        string curUser = userRequestContext.UserID;
+        string curUser = userRequestContext.UserId;
 
         if (userRequestContext.Bivv == "hoog" || userRequestContext.IsLocal)
             showBiv_V_Hoog = true;
