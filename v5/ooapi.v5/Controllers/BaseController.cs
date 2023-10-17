@@ -21,35 +21,4 @@ using System;
 [Route("/")]
 public class BaseController : ControllerBase
 {
-    public UserRequestContext UserRequestContext
-    {
-        get
-        {
-            var result = new UserRequestContext();
-            var curHeaders = HttpContext.Request.Headers;
-
-            if (curHeaders.TryGetValue("userId", out var headerUserId))
-            {
-                if (headerUserId.Count > 0)
-                    result.UserID = headerUserId[0].ToString();
-            }
-            if (curHeaders.TryGetValue("isStudent", out var headerIsStudent))
-            {
-                if (headerIsStudent.Count > 0)
-                    result.IsStudent = Convert.ToBoolean(headerIsStudent[0].ToString());
-            }
-            if (curHeaders.TryGetValue("IsEmployee", out var headerIsEmployee))
-            {
-                if (headerIsEmployee.Count > 0)
-                    result.IsEmployee = Convert.ToBoolean(headerIsEmployee[0].ToString());
-            }
-            if (curHeaders.TryGetValue("Bivv", out var headerBivv))
-            {
-                if (headerBivv.Count > 0)
-                    result.Bivv = String.IsNullOrEmpty(headerBivv[0].ToString()) ? headerBivv[0].ToString() : "laag";
-            }
-            result.IsLocal = (HttpContext.Request.Host.Host.ToLower().Equals("localhost"));
-            return result;
-        }
-    }
 }
