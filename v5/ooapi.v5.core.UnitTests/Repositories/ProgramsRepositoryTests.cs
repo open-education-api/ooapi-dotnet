@@ -293,7 +293,7 @@ public class ProgramsRepositoryTests
     }
 
     [Test]
-    public void GetProgram_ReturnsProgramAndParent_WhenExpandParentRequestedViaRequestParameters()
+    public void GetProgram_WhenExpandParentRequestedViaRequestParameters_ReturnsProgramAndParent()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
@@ -347,7 +347,7 @@ public class ProgramsRepositoryTests
     }
 
     [Test]
-    public void GetProgram_ReturnsProgramAndChildren_WhenExpandChildrenRequestedViaRequestParameters()
+    public void GetProgram_WhenExpandChildrenRequestedViaRequestParameters_ReturnsProgramAndChildren()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
@@ -419,7 +419,7 @@ public class ProgramsRepositoryTests
 
 
     [Test]
-    public void GetProgram_ReturnsProgramAndOrganization_WhenExpandOrganizationRequestedViaRequestParameters()
+    public void GetProgram_WhenExpandOrganizationRequestedViaRequestParameters_ReturnsProgramAndOrganization()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
@@ -470,7 +470,7 @@ public class ProgramsRepositoryTests
     }
 
         [Test]
-    public void GetProgram_ReturnsProgramAndEducationSpecification_WhenExpandEducationSpecificationRequestedViaRequestParameters()
+    public void GetProgram_WhenExpandEducationSpecificationRequestedViaRequestParameters_ReturnsProgramAndEducationSpecification()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();

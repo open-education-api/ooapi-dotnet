@@ -13,7 +13,7 @@ public class ServiceMetadataRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetServiceMetadata_ReturnsService_WhenServiceExists()
+    public void GetServiceMetadata_WhenServiceExists_ReturnsService()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();

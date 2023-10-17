@@ -14,7 +14,7 @@ public class ComponentOfferingsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-     public void GetComponentOffering_ReturnsComponentOffering_WhenComponentOfferingExists()
+     public void GetComponentOffering_WhenComponentOfferingExists_ReturnsComponentOffering()
     {
         // Arrange
         var courseOfferingId = _fixture.Create<Guid>();
@@ -44,7 +44,7 @@ public class ComponentOfferingsRepositoryTests
     }
 
     [Test]
-    public void GetComponentOffering_ReturnsNull_WhenComponentOfferingDoesNotExist()
+    public void GetComponentOffering_WhenComponentOfferingDoesNotExist_ReturnsNull()
     {
         // Arrange
         var courseOfferingId = _fixture.Create<Guid>();
@@ -64,7 +64,7 @@ public class ComponentOfferingsRepositoryTests
     }
 
     [Test]
-    public void GetComponentOfferingByProgramId_ReturnsComponentOfferings_WhenComponentOfferingsExist()
+    public void GetComponentOfferingByProgramId_WhenComponentOfferingsExist_ReturnsComponentOfferings()
     {
         // Arrange
         var componentId = _fixture.Create<Guid>();
@@ -95,7 +95,7 @@ public class ComponentOfferingsRepositoryTests
     }
 
     [Test]
-    public void GetComponentOfferingByProgramId_ReturnsEmptyList_WhenComponentOfferingsDoNotExist()
+    public void GetComponentOfferingByProgramId_WhenComponentOfferingsDoNotExist_ReturnsEmptyList()
     {
         // Arrange
         var componentId = _fixture.Create<Guid>();

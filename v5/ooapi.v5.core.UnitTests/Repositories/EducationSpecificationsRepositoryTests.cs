@@ -53,7 +53,7 @@ public class EducationSpecificationsRepositoryTests
     }
 
     [Test]
-    public void GetEducationSpecificationsByEducationSpecificationId_ReturnsEducationSpecifications_WhenEducationSpecificationsExist()
+    public void GetEducationSpecificationsByEducationSpecificationId_WhenEducationSpecificationsExist_ReturnsEducationSpecifications()
     {
         // Arrange
         var educationSpecificationId = _fixture.Create<Guid>();
@@ -82,7 +82,7 @@ public class EducationSpecificationsRepositoryTests
     }
 
     [Test]
-    public void GetEducationSpecificationsByEducationSpecificationId_ReturnsEmptyList_WhenEducationSpecificationsNotFound()
+    public void GetEducationSpecificationsByEducationSpecificationId_WhenEducationSpecificationsNotFound_ReturnsEmptyList()
     {
         // Arrange
         var educationSpecificationId = _fixture.Create<Guid>();
@@ -110,7 +110,7 @@ public class EducationSpecificationsRepositoryTests
     }
 
     [Test]
-    public void GetEducationSpecificationsByOrganizationId_ReturnsEducationSpecifications_WhenEducationSpecificationsExist()
+    public void GetEducationSpecificationsByOrganizationId_WhenEducationSpecificationsExist_ReturnsEducationSpecifications()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -139,7 +139,7 @@ public class EducationSpecificationsRepositoryTests
     }
 
     [Test]
-    public void GetEducationSpecificationsByOrganizationId_ReturnsEmptyList_WhenEducationSpecificationsNotFound()
+    public void GetEducationSpecificationsByOrganizationId_WhenEducationSpecificationsNotFound_ReturnsEmptyList()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -167,7 +167,7 @@ public class EducationSpecificationsRepositoryTests
     }
 
     [Test]
-    public void GetEducationSpecification_ReturnsEducationSpecification_WhenEducationSpecificationExist()
+    public void GetEducationSpecification_WhenEducationSpecificationExist_ReturnsEducationSpecification()
     {
         // Arrange
         var educationSpecificationId = _fixture.Create<Guid>();
@@ -195,7 +195,7 @@ public class EducationSpecificationsRepositoryTests
     }
 
     [Test]
-    public void GetEducationSpecification_ReturnsEducationSpecificationAndParent_WhenExpandParentRequestedViaRequestParameters()
+    public void GetEducationSpecification_WhenExpandParentRequestedViaRequestParameters_ReturnsEducationSpecificationAndParent()
     {
         // Arrange
         var educationSpecificationId = _fixture.Create<Guid>();
@@ -237,7 +237,7 @@ public class EducationSpecificationsRepositoryTests
     }
 
     [Test]
-    public void GetEducationSpecification_ReturnsEducationSpecificationAndChildren_WhenExpandChildrenRequestedViaRequestParameters()
+    public void GetEducationSpecification_WhenExpandChildrenRequestedViaRequestParameters_ReturnsEducationSpecificationAndChildren()
     {
         // Arrange
         var educationSpecificationId = _fixture.Create<Guid>();
@@ -290,7 +290,7 @@ public class EducationSpecificationsRepositoryTests
     }
 
     [Test]
-    public void GetEducationSpecification_ReturnsEducationSpecificationAndOrganization_WhenExpandOrganizationRequestedViaRequestParameters()
+    public void GetEducationSpecification_WhenExpandOrganizationRequestedViaRequestParameters_ReturnsEducationSpecificationAndOrganization()
     {
         // Arrange
         var educationSpecificationId = _fixture.Create<Guid>();

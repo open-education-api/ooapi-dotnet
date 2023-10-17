@@ -13,7 +13,7 @@ public class ComponentsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetComponent_ReturnsComponent_WhenComponentExists()
+    public void GetComponent_WhenComponentExists_ReturnsComponent()
     {
         // Arrange
         var componentId = _fixture.Create<Guid>();
@@ -42,7 +42,7 @@ public class ComponentsRepositoryTests
     }
 
     [Test]
-    public void GetComponent_ReturnsNull_WhenComponentNotFound()
+    public void GetComponent_WhenComponentNotFound_ReturnsNull()
     {
         // Arrange
         var componentId = _fixture.Create<Guid>();
@@ -71,7 +71,7 @@ public class ComponentsRepositoryTests
     }
 
     [Test]
-    public void GetComponentsByCourseId_ReturnsComponent_WhenComponentWithCourseIdExists()
+    public void GetComponentsByCourseId_WhenComponentWithCourseIdExists_ReturnsComponent()
     {
         // Arrange
         var courseId = _fixture.Create<Guid>();
@@ -100,7 +100,7 @@ public class ComponentsRepositoryTests
     }
 
     [Test]
-    public void GetComponentsByCourseId_ReturnsEmptyList_WhenComponentWithCourseNotFound()
+    public void GetComponentsByCourseId_WhenComponentWithCourseNotFound_ReturnsEmptyList()
     {
         // Arrange
         var courseId = _fixture.Create<Guid>();
@@ -130,7 +130,7 @@ public class ComponentsRepositoryTests
     }
 
     [Test]
-    public void GetComponentsByOrganizationId_ReturnsComponent_WhenComponentWithOrganizationIdExists()
+    public void GetComponentsByOrganizationId_WhenComponentWithOrganizationIdExists_ReturnsComponent()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -159,7 +159,7 @@ public class ComponentsRepositoryTests
     }
 
     [Test]
-    public void GetComponentsByOrganizationId_ReturnsEmptyList_WhenComponentWithOrganizationIdNotfound()
+    public void GetComponentsByOrganizationId_WhenComponentWithOrganizationIdNotfound_ReturnsEmptyList()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();

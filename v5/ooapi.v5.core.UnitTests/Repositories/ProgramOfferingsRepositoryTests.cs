@@ -14,7 +14,7 @@ public class ProgramOfferingsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-     public void GetProgramOffering_ReturnsProgramOffering_WhenProgramOfferingExists()
+     public void GetProgramOffering_WhenProgramOfferingExists_ReturnsProgramOffering()
     {
         // Arrange
         var programOfferingId = _fixture.Create<Guid>();
@@ -43,7 +43,7 @@ public class ProgramOfferingsRepositoryTests
     }
 
     [Test]
-    public void GetProgramOffering_ReturnsNull_WhenProgramOfferingDoesNotExist()
+    public void GetProgramOffering_WhenProgramOfferingDoesNotExist_ReturnsNull()
     {
         // Arrange
         var programOfferingId = _fixture.Create<Guid>();
@@ -63,7 +63,7 @@ public class ProgramOfferingsRepositoryTests
     }
 
     [Test]
-    public void GetProgramOfferingByProgramId_ReturnsProgramOfferings_WhenProgramOfferingsExist()
+    public void GetProgramOfferingByProgramId_WhenProgramOfferingsExist_ReturnsProgramOfferings()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
@@ -94,7 +94,7 @@ public class ProgramOfferingsRepositoryTests
     }
 
     [Test]
-    public void GetProgramOfferingByProgramId_ReturnsEmptyList_WhenProgramOfferingsDoNotExist()
+    public void GetProgramOfferingByProgramId_WhenProgramOfferingsDoNotExist_ReturnsEmptyList()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();

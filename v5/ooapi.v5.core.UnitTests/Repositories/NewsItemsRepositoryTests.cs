@@ -13,7 +13,7 @@ public class NewsFeedsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-     public void GetNewsFeed_ReturnsNewsFeed_WhenNewsFeedExists()
+     public void GetNewsFeed_WhenNewsFeedExists_ReturnsNewsFeed()
     {
         // Arrange
         var newsFeedId = _fixture.Create<Guid>();
@@ -37,7 +37,7 @@ public class NewsFeedsRepositoryTests
     }
 
     [Test]
-    public void GetNewsFeed_ReturnsNull_WhenNewsFeedDoesNotFound()
+    public void GetNewsFeed_WhenNewsFeedDoesNotFound_ReturnsNull()
     {
         // Arrange
         var newsFeedId = _fixture.Create<Guid>();

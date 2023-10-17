@@ -13,7 +13,7 @@ public class PersonsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-     public void GetPerson_ReturnsPerson_WhenPersonExists()
+     public void GetPerson_WhenPersonExists_ReturnsPerson()
     {
         // Arrange
         var personId = _fixture.Create<Guid>();
@@ -38,7 +38,7 @@ public class PersonsRepositoryTests
     }
 
     [Test]
-    public void GetPerson_ReturnsNull_WhenPersonDoesNotFound()
+    public void GetPerson_WhenPersonNotFound_ReturnsNull()
     {
         // Arrange
         var personId = _fixture.Create<Guid>();

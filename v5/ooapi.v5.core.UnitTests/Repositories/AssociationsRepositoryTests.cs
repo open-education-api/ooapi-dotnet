@@ -13,7 +13,7 @@ public class AssociationsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAssociation_ReturnsAssociation_WhenAssociationExists()
+    public void GetAssociation_WhenAssociationExists_ReturnsAssociation()
     {
         // Arrange
         var associationId = _fixture.Create<Guid>();
@@ -39,7 +39,7 @@ public class AssociationsRepositoryTests
     }
 
     [Test]
-    public void GetAssociation_ReturnsNull_WhenAssociationDoesNotExist()
+    public void GetAssociation_WhenAssociationDoesNotExist_ReturnsNull()
     {
         // Arrange
         var associationId = _fixture.Create<Guid>();
@@ -58,7 +58,7 @@ public class AssociationsRepositoryTests
     }
 
     [Test]
-    public void GetAssociationsByPersonId_ReturnsAssociations_WhenAssociationsExist()
+    public void GetAssociationsByPersonId_WhenAssociationsExist_ReturnsAssociations()
     {
         // Arrange
         var personId = _fixture.Create<Guid>();
@@ -84,7 +84,7 @@ public class AssociationsRepositoryTests
     }
 
     [Test]
-    public void GetAssociationsByPersonId_ReturnsEmptyList_WhenAssociationsDoNotExist()
+    public void GetAssociationsByPersonId_WhenAssociationsDoNotExist_ReturnsEmptyList()
     {
         // Arrange
         var personId = _fixture.Create<Guid>();

@@ -14,7 +14,7 @@ public class CoursesRepositoryTests
     private readonly IFixture _fixture = new Fixture();
     
     [Test]
-     public void GetCourse_ReturnsCourse_WhenCourseExists()
+     public void GetCourse_WhenCourseExists_ReturnsCourse()
     {
         // Arrange
         var courseId = _fixture.Create<Guid>();
@@ -46,7 +46,7 @@ public class CoursesRepositoryTests
     }
 
     [Test]
-    public void GetCourse_ReturnsNull_WhenCourseDoesNotFound()
+    public void GetCourse_WhenCourseDoesNotFound_ReturnsNull()
     {
         // Arrange
         var courseId = _fixture.Create<Guid>();
@@ -78,7 +78,7 @@ public class CoursesRepositoryTests
     }
 
     [Test]
-    public void GetCourseByEducationSpecificationId_ReturnsCourses_WhenCoursesExist()
+    public void GetCourseByEducationSpecificationId_WhenCoursesExist_ReturnsCourses()
     {
         // Arrange
         var educationSpecificationId = _fixture.Create<Guid>();
@@ -112,7 +112,7 @@ public class CoursesRepositoryTests
     }
 
     [Test]
-    public void GetCourseByEducationSpecificationId_ReturnsEmptyList_WhenCoursesNotFound()
+    public void GetCourseByEducationSpecificationId_WhenCoursesNotFound_ReturnsEmptyList()
     {
         // Arrange
         var educationSpecificationId = _fixture.Create<Guid>();
@@ -145,7 +145,7 @@ public class CoursesRepositoryTests
     }
 
     [Test]
-    public void GetCoursesByOrganizationId_ReturnsCourses_WhenCoursesExist()
+    public void GetCoursesByOrganizationId_WhenCoursesExist_ReturnsCourses()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -179,7 +179,7 @@ public class CoursesRepositoryTests
     }
 
     [Test]
-    public void GetCoursesByOrganizationId_ReturnsEmptyList_WhenCoursesNotFound()
+    public void GetCoursesByOrganizationId_WhenCoursesNotFound_ReturnsEmptyList()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();

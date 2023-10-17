@@ -15,7 +15,7 @@ public class BuildingsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetBuilding_ReturnsBuilding_WhenBuildingExists()
+    public void GetBuilding_WhenBuildingExists_ReturnsBuilding()
     {
         // Arrange
         var buildingId = _fixture.Create<Guid>();
@@ -38,7 +38,7 @@ public class BuildingsRepositoryTests
     }
 
     [Test]
-    public void GetBuilding_ReturnsNull_WhenBuildingDoesNotExist()
+    public void GetBuilding_WhenBuildingDoesNotExist_ReturnsNull()
     {
         // Arrange
         var buildingId = _fixture.Create<Guid>();

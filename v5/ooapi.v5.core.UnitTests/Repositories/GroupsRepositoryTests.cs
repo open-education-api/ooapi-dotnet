@@ -63,7 +63,7 @@ public class GroupsRepositoryTests
     }
 
     [Test]
-    public void GetGroupByOrganizationId_ReturnsGroups_WhenGroupsExist()
+    public void GetGroupByOrganizationId_WhenGroupsExist_ReturnsGroups()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -90,7 +90,7 @@ public class GroupsRepositoryTests
     }
 
     [Test]
-    public void GetGroupByOrganizationId_ReturnsEmptyList_WhenGroupsNotFound()
+    public void GetGroupByOrganizationId_WhenGroupsNotFound_ReturnsEmptyList()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();

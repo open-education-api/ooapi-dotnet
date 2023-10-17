@@ -13,7 +13,7 @@ public class RoomsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetRoom_ReturnsRoom_WhenRoomExists()
+    public void GetRoom_WhenRoomExists_ReturnsRoom()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -37,7 +37,7 @@ public class RoomsRepositoryTests
     }
 
     [Test]
-    public void GetRoom_ReturnsNull_WhenRoomDoesNotExist()
+    public void GetRoom_WhenRoomDoesNotExist_ReturnsNull()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -61,7 +61,7 @@ public class RoomsRepositoryTests
     }
 
     [Test]
-    public void GetRoomsByPersonId_ReturnsRooms_WhenRoomsExist()
+    public void GetRoomsByPersonId_WhenRoomsExist_ReturnsRooms()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -85,7 +85,7 @@ public class RoomsRepositoryTests
     }
 
     [Test]
-    public void GetRoomsByPersonId_ReturnsEmptyList_WhenRoomsDoNotExist()
+    public void GetRoomsByPersonId_WhenRoomsDoNotExist_ReturnsEmptyList()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();

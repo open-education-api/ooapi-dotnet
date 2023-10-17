@@ -53,7 +53,7 @@ public class OrganizationsRepositoryTests
     }
 
     [Test]
-    public void GetOrganization_ReturnsOrganization_WhenOrganizationExist()
+    public void GetOrganization_WhenOrganizationExist_ReturnsOrganization()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -81,7 +81,7 @@ public class OrganizationsRepositoryTests
     }
 
     [Test]
-    public void GetOrganization_ReturnsOrganizationWithParent_WhenParentRequestedViaRequestParams()
+    public void GetOrganization_WhenParentRequestedViaRequestParams_ReturnsOrganizationWithParent()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -122,7 +122,7 @@ public class OrganizationsRepositoryTests
     }
 
     [Test]
-    public void GetOrganization_ReturnsOrganizationWithChildren_WhenChildrenRequestedViaRequestParams()
+    public void GetOrganization_WhenChildrenRequestedViaRequestParams_ReturnsOrganizationWithChildren()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();

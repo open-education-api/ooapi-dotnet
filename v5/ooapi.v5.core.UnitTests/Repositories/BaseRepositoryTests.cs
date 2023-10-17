@@ -99,23 +99,23 @@ public class BaseRepositoryTests
 
         return new BaseRepository<T>(dbContext);
     }
-}
 
-public class Foo
-{
-    public string PrimaryCodeType { get; set; }
-    public string PrimaryCode { get; set; }
-
-    public IdentifierEntry primaryCodeIdentifier
+    public class Foo
     {
-        get
+        public string PrimaryCodeType { get; set; }
+        public string PrimaryCode { get; set; }
+
+        public IdentifierEntry primaryCodeIdentifier
         {
-            return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
-        }
-        set
-        {
-            PrimaryCode = value.Code;
-            PrimaryCodeType = value.CodeType;
+            get
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+            set
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
         }
     }
 }

@@ -145,24 +145,14 @@ public class AcademicSessionsRepositoryTests
 
     private IQueryable<AcademicSession> CreateDefaultAcademicSessions()
     {
-        return new List<AcademicSession>()
-        {
-            _fixture.Build<AcademicSession>()
-                .Without(a => a.Children)
-                .Without(a => a.Parent)
-                .Without(a => a.Year)
-                .Without(a => a.ProgramOfferings)
-                .Without(a => a.CourseOfferings)
-                .Without(a => a.ComponentOfferings)
-                .Create(),
-            _fixture.Build<AcademicSession>()
-                .Without(a => a.Children)
-                .Without(a => a.Parent)
-                .Without(a => a.Year)
-                .Without(a => a.ProgramOfferings)
-                .Without(a => a.CourseOfferings)
-                .Without(a => a.ComponentOfferings)
-                .Create()
-        }.AsQueryable();
+        return _fixture.Build<AcademicSession>()
+            .Without(a => a.Children)
+            .Without(a => a.Parent)
+            .Without(a => a.Year)
+            .Without(a => a.ProgramOfferings)
+            .Without(a => a.CourseOfferings)
+            .Without(a => a.ComponentOfferings)
+            .CreateMany(2)
+            .AsQueryable();
     }
 }
