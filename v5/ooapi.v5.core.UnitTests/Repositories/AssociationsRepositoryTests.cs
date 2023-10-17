@@ -16,8 +16,6 @@ public class AssociationsRepositoryTests
     public void GetAssociation_ReturnsAssociation_WhenAssociationExists()
     {
         // Arrange
-        var dbContext = Substitute.For<ICoreDbContext>();
-        var associationsRepository = new AssociationsRepository(dbContext);
         var associationId = _fixture.Create<Guid>();
         var association = _fixture.Build<Association>()
             .With(x => x.AssociationId, associationId)
@@ -26,9 +24,12 @@ public class AssociationsRepositoryTests
             .Without(x => x.CourseOffering)
             .Without(x => x.ComponentOffering)
             .Create();
+
         var db = Substitute.For<DbSet<Association>, IQueryable<Association>>();
         DbMockHelper.InitDb(db, new List<Association> { association }.AsQueryable());
+        var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Associations.Returns(db);
+        var associationsRepository = new AssociationsRepository(dbContext);
 
         // Act
         var result = associationsRepository.GetAssociation(associationId);
@@ -41,12 +42,13 @@ public class AssociationsRepositoryTests
     public void GetAssociation_ReturnsNull_WhenAssociationDoesNotExist()
     {
         // Arrange
-        var dbContext = Substitute.For<ICoreDbContext>();
-        var associationsRepository = new AssociationsRepository(dbContext);
         var associationId = _fixture.Create<Guid>();
+
         var db = Substitute.For<DbSet<Association>, IQueryable<Association>>();
         DbMockHelper.InitDb(db, new List<Association> { }.AsQueryable());
+        var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Associations.Returns(db);
+        var associationsRepository = new AssociationsRepository(dbContext);
 
         // Act
         var result = associationsRepository.GetAssociation(associationId);
@@ -59,8 +61,6 @@ public class AssociationsRepositoryTests
     public void GetAssociationsByPersonId_ReturnsAssociations_WhenAssociationsExist()
     {
         // Arrange
-        var dbContext = Substitute.For<ICoreDbContext>();
-        var associationsRepository = new AssociationsRepository(dbContext);
         var personId = _fixture.Create<Guid>();
         var associations = _fixture.Build<Association>()
             .With(x => x.PersonId, personId)
@@ -69,9 +69,12 @@ public class AssociationsRepositoryTests
             .Without(x => x.CourseOffering)
             .Without(x => x.ComponentOffering)
             .CreateMany(5);
+
         var db = Substitute.For<DbSet<Association>, IQueryable<Association>>();
         DbMockHelper.InitDb(db, associations.AsQueryable());
+        var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Associations.Returns(db);
+        var associationsRepository = new AssociationsRepository(dbContext);
 
         // Act
         var result = associationsRepository.GetAssociationsByPersonId(personId);
@@ -84,12 +87,13 @@ public class AssociationsRepositoryTests
     public void GetAssociationsByPersonId_ReturnsEmptyList_WhenAssociationsDoNotExist()
     {
         // Arrange
-        var dbContext = Substitute.For<ICoreDbContext>();
-        var associationsRepository = new AssociationsRepository(dbContext);
         var personId = _fixture.Create<Guid>();
+
         var db = Substitute.For<DbSet<Association>, IQueryable<Association>>();
         DbMockHelper.InitDb(db, new List<Association>().AsQueryable());
+        var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Associations.Returns(db);
+        var associationsRepository = new AssociationsRepository(dbContext);
 
         // Act
         var result = associationsRepository.GetAssociationsByPersonId(personId);

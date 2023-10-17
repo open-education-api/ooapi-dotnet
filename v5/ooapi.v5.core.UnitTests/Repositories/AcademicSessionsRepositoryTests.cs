@@ -6,7 +6,6 @@ using ooapi.v5.Enums;
 using ooapi.v5.Models;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.UnitTests.Repositories.Helpers;
-using ooapi.v5.Models.Params;
 
 namespace ooapi.v5.core.UnitTests.Repositories;
 
@@ -19,30 +18,36 @@ public class AcademicSessionsRepositoryTests
     public void GetAcademicSession_WithValidId_ReturnsAcademicSession()
     {
         // Arrange
-        var set = CreateAcademicSessions();
+        var academicSessions = CreateDefaultAcademicSessions();
+
+        var db = Substitute.For<DbSet<AcademicSession>, IQueryable<AcademicSession>>();
+        DbMockHelper.InitDb(db, academicSessions);
         var dbContext = Substitute.For<ICoreDbContext>();
-        dbContext.AcademicSessionsNoTracking.Returns(set);
-        var repository = new AcademicSessionsRepository(dbContext);
+        dbContext.AcademicSessionsNoTracking.Returns(db);
+        var academicSessionsRepository = new AcademicSessionsRepository(dbContext);
 
         // Act
-        var result = repository.GetAcademicSession(set.First().AcademicSessionId, new DataRequestParameters());
+        var result = academicSessionsRepository.GetAcademicSession(academicSessions.First().AcademicSessionId, new DataRequestParameters());
 
         // Assert
         Assert.IsInstanceOf<AcademicSession>(result);
-        Assert.That(result.AcademicSessionId, Is.EqualTo(set.First().AcademicSessionId));
+        Assert.That(result.AcademicSessionId, Is.EqualTo(academicSessions.First().AcademicSessionId));
     }
 
     [Test]
     public void GetAcademicSession_WithInvalidId_ReturnsNull()
     {
         // Arrange
-        var set = CreateAcademicSessions();
+        var academicSessions = CreateDefaultAcademicSessions();
+
+        var db = Substitute.For<DbSet<AcademicSession>, IQueryable<AcademicSession>>();
+        DbMockHelper.InitDb(db, academicSessions);
         var dbContext = Substitute.For<ICoreDbContext>();
-        dbContext.AcademicSessionsNoTracking.Returns(set);
-        var repository = new AcademicSessionsRepository(dbContext);
+        dbContext.AcademicSessionsNoTracking.Returns(db);
+        var academicSessionsRepository = new AcademicSessionsRepository(dbContext);
 
         // Act
-        var result = repository.GetAcademicSession(Guid.NewGuid(), new DataRequestParameters());
+        var result = academicSessionsRepository.GetAcademicSession(Guid.NewGuid(), new DataRequestParameters());
 
         // Assert
         Assert.IsNull(result);
@@ -52,30 +57,36 @@ public class AcademicSessionsRepositoryTests
     public void GetAcademicSession_WithValidPrimaryCode_ReturnsAcademicSession()
     {
         // Arrange
-        var set = CreateAcademicSessions();
+        var academicSessions = CreateDefaultAcademicSessions();
+
+        var db = Substitute.For<DbSet<AcademicSession>, IQueryable<AcademicSession>>();
+        DbMockHelper.InitDb(db, academicSessions);
         var dbContext = Substitute.For<ICoreDbContext>();
-        dbContext.AcademicSessionsNoTracking.Returns(set);
-        var repository = new AcademicSessionsRepository(dbContext);
+        dbContext.AcademicSessionsNoTracking.Returns(db);
+        var academicSessionsRepository = new AcademicSessionsRepository(dbContext);
 
         // Act
-        var result = repository.GetAcademicSession(set.First().PrimaryCode!, new DataRequestParameters());
+        var result = academicSessionsRepository.GetAcademicSession(academicSessions.First().PrimaryCode!, new DataRequestParameters());
 
         // Assert
         Assert.IsInstanceOf<AcademicSession>(result);
-        Assert.That(result.PrimaryCode, Is.EqualTo(set.First().PrimaryCode));
+        Assert.That(result.PrimaryCode, Is.EqualTo(academicSessions.First().PrimaryCode));
     }
 
     [Test]
     public void GetAcademicSession_WithInvalidPrimaryCode_ReturnsNull()
     {
         // Arrange
-        var set = CreateAcademicSessions();
+        var academicSessions = CreateDefaultAcademicSessions();
+
+        var db = Substitute.For<DbSet<AcademicSession>, IQueryable<AcademicSession>>();
+        DbMockHelper.InitDb(db, academicSessions);
         var dbContext = Substitute.For<ICoreDbContext>();
-        dbContext.AcademicSessionsNoTracking.Returns(set);
-        var repository = new AcademicSessionsRepository(dbContext);
+        dbContext.AcademicSessionsNoTracking.Returns(db);
+        var academicSessionsRepository = new AcademicSessionsRepository(dbContext);
 
         // Act
-        var result = repository.GetAcademicSession("custom_primary_code_for_test", new DataRequestParameters());
+        var result = academicSessionsRepository.GetAcademicSession("custom_primary_code_for_test", new DataRequestParameters());
 
         // Assert
         Assert.IsNull(result);
@@ -86,10 +97,8 @@ public class AcademicSessionsRepositoryTests
     {
         // Arrange
         var academicSessionType = AcademicSessionTypeEnum.semester;
-        var set = new List<AcademicSession>()
+        var academicSessions = new List<AcademicSession>()
         {
-            // Children, Parent and Year need to be empty they otherwise introduce a circular reference
-            // ProgramOfferings, CourseOfferings and ComponentOfferings aren't needed
             _fixture.Build<AcademicSession>()
                 .With(a => a.AcademicSessionType, academicSessionType)
                 .Without(a => a.Children)
@@ -118,12 +127,15 @@ public class AcademicSessionsRepositoryTests
                 .Without(a => a.ComponentOfferings)
                 .Create()
         }.AsQueryable();
+
+        var db = Substitute.For<DbSet<AcademicSession>, IQueryable<AcademicSession>>();
+        DbMockHelper.InitDb(db, academicSessions);
         var dbContext = Substitute.For<ICoreDbContext>();
-        dbContext.AcademicSessionsNoTracking.Returns(set);
-        var repository = new AcademicSessionsRepository(dbContext);
+        dbContext.AcademicSessionsNoTracking.Returns(db);
+        var academicSessionsRepository = new AcademicSessionsRepository(dbContext);
 
         // Act
-        var result = repository.GetAllOrderedBy(new DataRequestParameters(), academicSessionType.ToString());
+        var result = academicSessionsRepository.GetAllOrderedBy(new DataRequestParameters(), academicSessionType.ToString());
 
         // Assert
         Assert.IsInstanceOf<Pagination<AcademicSession>>(result);
@@ -131,12 +143,10 @@ public class AcademicSessionsRepositoryTests
         Assert.That(result.Items.Count, Is.EqualTo(2));
     }
 
-    private IQueryable<AcademicSession> CreateAcademicSessions()
+    private IQueryable<AcademicSession> CreateDefaultAcademicSessions()
     {
         return new List<AcademicSession>()
         {
-            // Children, Parent and Year need to be empty they otherwise introduce a circular reference
-            // ProgramOfferings, CourseOfferings and ComponentOfferings aren't needed
             _fixture.Build<AcademicSession>()
                 .Without(a => a.Children)
                 .Without(a => a.Parent)
