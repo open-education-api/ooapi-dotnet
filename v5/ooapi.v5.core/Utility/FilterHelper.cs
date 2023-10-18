@@ -33,9 +33,7 @@ public static class FilterHelper
         return result;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="filter"></param>
     /// <param name="noneFilterablePropertyNames"></param>
     /// <returns></returns>

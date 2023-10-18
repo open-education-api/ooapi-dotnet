@@ -49,15 +49,11 @@ public class Person : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? PrimaryCode { get; set; }
 
@@ -154,9 +150,7 @@ public class Person : ModelBase
     [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
     public DateTime? DateOfNationality { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string Affiliations { get; set; } = default!;
 
@@ -310,9 +304,7 @@ public class Person : ModelBase
     [JsonProperty(PropertyName = "ICERelation")]
     public ICERelation? ICERelation { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public List<LanguageOfChoice> LanguageOfChoice { get; set; } = default!;
 
@@ -350,15 +342,11 @@ public class Person : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public virtual ICollection<Group> Groups { get; set; } = default!;
 }

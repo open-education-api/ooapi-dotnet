@@ -16,9 +16,7 @@ public class NewsItemsService : ServiceBase, INewsItemsService
         _repository = new NewsItemsRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="newsitemId"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -38,9 +36,7 @@ public class NewsItemsService : ServiceBase, INewsItemsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="newsfeedId"></param>
     /// <param name="errorResponse"></param>

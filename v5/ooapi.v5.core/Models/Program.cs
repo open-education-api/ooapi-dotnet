@@ -90,9 +90,7 @@ public partial class Program : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [SortAllowed]
     [SortDefault]
@@ -519,16 +517,12 @@ public partial class Program : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [NotMapped]
     public List<Guid> ChildrenIds { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [NotMapped]
     public List<Program> Children { get; set; } = default!;

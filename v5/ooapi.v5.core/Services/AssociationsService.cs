@@ -16,9 +16,7 @@ public class AssociationsService : ServiceBase, IAssociationsService
         _repository = new AssociationsRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="associationId"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -38,9 +36,7 @@ public class AssociationsService : ServiceBase, IAssociationsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="personId"></param>
     /// <param name="errorResponse"></param>

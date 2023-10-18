@@ -49,15 +49,11 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [SortAllowed]
     public string? PrimaryCode { get; set; }
@@ -98,9 +94,7 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [SortAllowed]
     //[SortDefault]
@@ -208,15 +202,11 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? StudyLoadUnit { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public int StudyLoadValue { get; set; }
 
@@ -257,15 +247,11 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? ParentId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [NotMapped]
     public EducationSpecification? Parent { get; set; }
@@ -295,16 +281,12 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [NotMapped]
     public List<Guid> ChildrenIds { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [NotMapped]
     public List<EducationSpecification> Children { get; set; } = default!;
@@ -330,15 +312,11 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? OrganizationId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Organization? Organization { get; set; }
 
@@ -361,9 +339,7 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
 

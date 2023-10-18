@@ -16,9 +16,7 @@ public class OrganizationsService : ServiceBase, IOrganizationsService
         _repository = new OrganizationsRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -50,9 +48,7 @@ public class OrganizationsService : ServiceBase, IOrganizationsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="organizationId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>

@@ -16,9 +16,7 @@ public class RoomsService : ServiceBase, IRoomsService
         _repository = new RoomsRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -37,9 +35,7 @@ public class RoomsService : ServiceBase, IRoomsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="roomId"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -59,9 +55,7 @@ public class RoomsService : ServiceBase, IRoomsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="buildingId"></param>
     /// <param name="errorResponse"></param>

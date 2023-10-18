@@ -22,9 +22,7 @@ public class PersonsController : BaseController
     private readonly IAssociationsService _associationsService;
     private readonly IGroupsService _groupsService;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="personsService"></param>
     /// <param name="associationsService"></param>
     /// <param name="groupsService"></param>

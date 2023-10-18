@@ -8,9 +8,7 @@ namespace ooapi.v5.Helpers;
 
 public static class ConsumerConverter
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="consumers"></param>
     /// <returns></returns>
     public static List<JObject> GetDynamicConsumers(List<Consumer> consumers)
@@ -64,9 +62,7 @@ public static class ConsumerConverter
         return result;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="propertyType"></param>
     /// <param name="propertyValue"></param>
     /// <returns></returns>

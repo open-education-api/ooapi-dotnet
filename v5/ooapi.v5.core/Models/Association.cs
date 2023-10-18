@@ -75,9 +75,7 @@ public partial class Association : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
 

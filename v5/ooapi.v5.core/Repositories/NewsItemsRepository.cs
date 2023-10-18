@@ -5,17 +5,13 @@ namespace ooapi.v5.core.Repositories;
 
 public class NewsItemsRepository : BaseRepository<NewsItem>
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dbContext"></param>
     public NewsItemsRepository(CoreDBContext dbContext) : base(dbContext)
     {
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="newsitemId"></param>
     /// <returns></returns>
     public NewsItem? GetNewsItem(Guid newsitemId)
@@ -23,9 +19,7 @@ public class NewsItemsRepository : BaseRepository<NewsItem>
         return dbContext.NewsItems.FirstOrDefault(x => x.NewsItemId.Equals(newsitemId));
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="newsfeedId"></param>
     /// <returns></returns>
     public List<NewsItem> GetNewsItemsByNewsFeedId(Guid newsfeedId)

@@ -253,9 +253,7 @@ public class Course : ModelBase
     [NotMapped]
     public List<LearningOutcomes> learningOutcomes { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string LearningOutcomes { get; set; } = default!;
 
@@ -332,9 +330,7 @@ public class Course : ModelBase
     [NotMapped]
     public List<string> resources { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string Resources { get; set; } = default!;
 

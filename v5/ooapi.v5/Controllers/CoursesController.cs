@@ -20,9 +20,7 @@ public class CoursesController : BaseController
     private readonly IComponentsService _componentsService;
     private readonly ICoursesService _coursesService;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="componentsService"></param>
     /// <param name="coursesService"></param>
     public CoursesController(IComponentsService componentsService, ICoursesService coursesService)

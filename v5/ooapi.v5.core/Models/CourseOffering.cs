@@ -36,9 +36,7 @@ public class CourseOffering : OfferingShared
     [JsonIgnore]
     public Guid? CourseId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Course? Course { get; set; } = default!;
 
@@ -60,15 +58,11 @@ public class CourseOffering : OfferingShared
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? ProgramOfferingId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public ProgramOffering? ProgramOffering { get; set; }
 }

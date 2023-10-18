@@ -9,15 +9,11 @@ namespace ooapi.v5.Models;
 [DataContract]
 public class ModelBase
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? Extension { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonProperty(PropertyName = "ext")]
     [NotMapped]
     public dynamic? Ext

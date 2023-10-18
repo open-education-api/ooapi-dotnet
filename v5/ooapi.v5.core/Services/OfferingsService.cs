@@ -20,9 +20,7 @@ public class OfferingsService : ServiceBase, IOfferingsService
         _componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="offeringId"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>

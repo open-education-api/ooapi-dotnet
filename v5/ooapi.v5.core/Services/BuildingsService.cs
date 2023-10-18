@@ -11,9 +11,7 @@ public class BuildingsService : ServiceBase, IBuildingsService
 {
     private readonly BuildingsRepository _repository;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dbContext"></param>
     /// <param name="userRequestContext"></param>
     public BuildingsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
@@ -21,9 +19,7 @@ public class BuildingsService : ServiceBase, IBuildingsService
         _repository = new BuildingsRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -43,9 +39,7 @@ public class BuildingsService : ServiceBase, IBuildingsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="buildingId"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>

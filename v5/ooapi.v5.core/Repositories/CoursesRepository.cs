@@ -7,17 +7,13 @@ namespace ooapi.v5.core.Repositories;
 
 public class CoursesRepository : BaseRepository<Course>
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dbContext"></param>
     public CoursesRepository(CoreDBContext dbContext) : base(dbContext)
     {
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="courseId"></param>
     /// <returns></returns>
     public Course? GetCourse(Guid courseId)
@@ -25,9 +21,7 @@ public class CoursesRepository : BaseRepository<Course>
         return dbContext.Courses.Include(x => x.Attributes).FirstOrDefault(x => x.CourseId.Equals(courseId));
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="educationSpecificationId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <returns></returns>
@@ -43,9 +37,7 @@ public class CoursesRepository : BaseRepository<Course>
         return new Pagination<Course>();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="organizationId"></param>
     /// <returns></returns>
     public List<Course> GetCoursesByOrganizationId(Guid organizationId)
@@ -53,9 +45,7 @@ public class CoursesRepository : BaseRepository<Course>
         return dbContext.Courses.Include(x => x.Attributes).Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="programId"></param>
     /// <returns></returns>
     public List<Course> GetCoursesByProgramId(Guid programId)

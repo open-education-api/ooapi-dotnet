@@ -16,9 +16,7 @@ public class ProgramOfferingService : ServiceBase, IProgramOfferingService
         _repository = new ProgramOfferingsRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -38,9 +36,7 @@ public class ProgramOfferingService : ServiceBase, IProgramOfferingService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="programOfferingId"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>

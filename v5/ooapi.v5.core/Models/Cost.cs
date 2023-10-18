@@ -80,9 +80,7 @@ public class Cost : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string DisplayAmount { get; set; } = default!;
 

@@ -45,15 +45,11 @@ public class ProgramResult : Result
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? StudyLoadUnit { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public int StudyLoadValue { get; set; }
 }

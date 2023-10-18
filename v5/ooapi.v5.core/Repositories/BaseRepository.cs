@@ -7,23 +7,17 @@ namespace ooapi.v5.core.Repositories;
 /// <typeparam name="T"></typeparam>
 public class BaseRepository<T> where T : class
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     protected readonly CoreDBContext dbContext;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dbContext"></param>
     public BaseRepository(CoreDBContext dbContext)
     {
         this.dbContext = dbContext;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="set"></param>
     /// <returns></returns>

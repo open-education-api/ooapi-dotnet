@@ -7,17 +7,13 @@ namespace ooapi.v5.Models;
 
 public class Pagination<T> : ModelBase
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     public Pagination()
     {
 
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="collection"></param>
     /// <param name="dataRequestParameters"></param>
     public Pagination(IQueryable<T> collection, DataRequestParameters dataRequestParameters)
@@ -89,27 +85,19 @@ public class Pagination<T> : ModelBase
     [JsonProperty(PropertyName = "totalPages")]
     public int TotalPages { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public int TotalItems { get; set; } = 0;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public int CurrentPageSize { get; set; } = 0;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     protected List<T> _items { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonProperty(PropertyName = "items")]
     public virtual List<T> Items
     {
@@ -123,9 +111,7 @@ public class Pagination<T> : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     public void SetExtendedAttributes()
     {
         var extendedObject = new JObject(
@@ -135,9 +121,7 @@ public class Pagination<T> : ModelBase
         Extension = JsonConvert.SerializeObject(extendedObject);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="items"></param>
     /// <param name="paginationItems"></param>
     protected void AddItems(List<T> items, IEnumerable<T> paginationItems)

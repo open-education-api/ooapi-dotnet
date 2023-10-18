@@ -52,15 +52,11 @@ public partial class Component : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? PrimaryCode { get; set; }
 
@@ -95,9 +91,7 @@ public partial class Component : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [SortAllowed]
     [SortDefault]
@@ -112,9 +106,7 @@ public partial class Component : ModelBase
     [JsonProperty(PropertyName = "abbreviation")]
     public string Abbreviation { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? ModeOfDelivery { get; set; }
 
@@ -294,15 +286,11 @@ public partial class Component : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? CourseId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Course? Course { get; set; }
 
@@ -327,15 +315,11 @@ public partial class Component : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? OrganizationId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Organization? Organization { get; set; }
 

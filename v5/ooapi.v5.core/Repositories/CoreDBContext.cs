@@ -6,9 +6,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class CoreDBContext : DbContext
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="options"></param>
     public CoreDBContext(DbContextOptions<CoreDBContext> options) : base(options)
     {
@@ -93,9 +91,7 @@ public class CoreDBContext : DbContext
     public DbSet<v5.Models.Attribute> Attributes { get; set; }
     public IQueryable<v5.Models.Attribute> AttributesNoTracking { get => Attributes.AsNoTracking(); }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

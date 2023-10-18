@@ -30,15 +30,11 @@ public partial class ProgramOffering : OfferingShared
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? ProgramId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Program? Program { get; set; }
 }

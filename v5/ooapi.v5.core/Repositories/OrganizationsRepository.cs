@@ -7,17 +7,13 @@ namespace ooapi.v5.core.Repositories;
 
 public class OrganizationsRepository : BaseRepository<Organization>
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dbContext"></param>
     public OrganizationsRepository(CoreDBContext dbContext) : base(dbContext)
     {
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="organizationId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <returns></returns>

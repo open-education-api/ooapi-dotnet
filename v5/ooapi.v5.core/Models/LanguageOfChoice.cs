@@ -14,8 +14,6 @@ public class LanguageOfChoice
     [JsonIgnore]
     public Guid LanguageOfChoiceId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     public string Value { get; set; } = default!;
 }

@@ -62,15 +62,11 @@ public class AcademicSession : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? PrimaryCode { get; set; }
 
@@ -94,9 +90,7 @@ public class AcademicSession : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [SortAllowed]
     public List<Attribute> Attributes { get; set; } = default!;
@@ -142,15 +136,11 @@ public class AcademicSession : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? ParentId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [NotMapped]
     public AcademicSession? Parent { get; set; }
@@ -181,16 +171,12 @@ public class AcademicSession : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [NotMapped]
     public List<Guid> ChildrenIds { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [NotMapped]
     public List<AcademicSession> Children { get; set; } = default!;
@@ -214,15 +200,11 @@ public class AcademicSession : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? YearId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [NotMapped]
     public AcademicSession? Year { get; set; }
@@ -255,27 +237,19 @@ public class AcademicSession : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public virtual ICollection<ProgramOffering> ProgramOfferings { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public virtual ICollection<CourseOffering> CourseOfferings { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public virtual ICollection<ComponentOffering> ComponentOfferings { get; set; } = default!;
 }

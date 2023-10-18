@@ -25,9 +25,7 @@ public class OrganizationsController : BaseController
     private readonly IGroupsService _groupsService;
     private readonly IProgramsService _programsService;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="organizationsService"></param>
     /// <param name="componentsService"></param>
     /// <param name="coursesService"></param>

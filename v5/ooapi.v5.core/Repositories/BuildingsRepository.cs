@@ -7,17 +7,13 @@ namespace ooapi.v5.core.Repositories;
 
 public class BuildingsRepository : BaseRepository<Building>
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dbContext"></param>
     public BuildingsRepository(CoreDBContext dbContext) : base(dbContext)
     {
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="buildingId"></param>
     /// <returns></returns>
     public Building? GetBuilding(Guid buildingId)
@@ -25,9 +21,7 @@ public class BuildingsRepository : BaseRepository<Building>
         return dbContext.Buildings.Include(x => x.Address).Include(x => x.Attributes).FirstOrDefault(x => x.BuildingId.Equals(buildingId));
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <returns></returns>
     public Pagination<Building> GetAllOrderedBy(DataRequestParameters dataRequestParameters)

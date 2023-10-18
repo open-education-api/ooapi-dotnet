@@ -9,17 +9,13 @@ namespace ooapi.v5.Models;
 [DataContract]
 public class ErrorResponse
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     public ErrorResponse()
     {
 
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="statusCode"></param>
     /// <param name="detail"></param>
     public ErrorResponse(int statusCode, string detail = "")

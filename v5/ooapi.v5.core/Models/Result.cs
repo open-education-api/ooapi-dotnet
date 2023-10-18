@@ -11,9 +11,7 @@ namespace ooapi.v5.Models;
 [DataContract]
 public partial class Result : ModelBase
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? ResultId { get; set; }
 

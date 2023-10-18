@@ -127,9 +127,7 @@ public partial class Building : ModelBase
     [JsonProperty(PropertyName = "address")]
     public Address Address { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? AddressId { get; set; }
 

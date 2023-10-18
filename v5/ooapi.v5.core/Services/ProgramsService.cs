@@ -16,9 +16,7 @@ public class ProgramsService : ServiceBase, IProgramsService
         _repository = new ProgramsRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -37,9 +35,7 @@ public class ProgramsService : ServiceBase, IProgramsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="programId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
@@ -60,9 +56,7 @@ public class ProgramsService : ServiceBase, IProgramsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="educationSpecificationId"></param>
     /// <param name="errorResponse"></param>
@@ -82,9 +76,7 @@ public class ProgramsService : ServiceBase, IProgramsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="organizationId"></param>
     /// <param name="errorResponse"></param>
@@ -105,9 +97,7 @@ public class ProgramsService : ServiceBase, IProgramsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="programId"></param>
     /// <param name="errorResponse"></param>

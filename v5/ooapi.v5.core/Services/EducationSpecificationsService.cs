@@ -16,9 +16,7 @@ public class EducationSpecificationsService : ServiceBase, IEducationSpecificati
         _repository = new EducationSpecificationsRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -37,9 +35,7 @@ public class EducationSpecificationsService : ServiceBase, IEducationSpecificati
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="educationSpecificationId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
@@ -60,9 +56,7 @@ public class EducationSpecificationsService : ServiceBase, IEducationSpecificati
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="educationSpecificationId"></param>
     /// <param name="errorResponse"></param>
@@ -83,9 +77,7 @@ public class EducationSpecificationsService : ServiceBase, IEducationSpecificati
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="organizationId"></param>
     /// <param name="errorResponse"></param>

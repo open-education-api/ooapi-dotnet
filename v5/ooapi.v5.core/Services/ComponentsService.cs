@@ -16,9 +16,7 @@ public class ComponentsService : ServiceBase, IComponentsService
         _repository = new ComponentsRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="componentId"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -38,9 +36,7 @@ public class ComponentsService : ServiceBase, IComponentsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="courseId"></param>
     /// <param name="errorResponse"></param>

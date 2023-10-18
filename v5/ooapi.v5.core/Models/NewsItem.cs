@@ -61,9 +61,7 @@ public partial class NewsItem : ModelBase
     [SortDefault]
     public List<Attribute> Attributes { get; set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string Authors { get; set; } = default!;
 

@@ -8,9 +8,7 @@ namespace ooapi.v5.core.Utility;
 /// <typeparam name="T"></typeparam>
 public class FilterToLinq<T> : IFilterToDataAccess<T>
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="filterExpression"></param>
     public FilterToLinq(string filterExpression)
     {
@@ -19,9 +17,7 @@ public class FilterToLinq<T> : IFilterToDataAccess<T>
 
     private string FilterExpression { get; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="collection"></param>
     /// <returns></returns>
     public IQueryable<T> Parse(IQueryable<T> collection)

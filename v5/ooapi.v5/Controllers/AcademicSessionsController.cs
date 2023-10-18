@@ -18,9 +18,7 @@ public class AcademicSessionsController : BaseController
 {
     private readonly IAcademicSessionsService _academicSessionsService;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="academicSessionsService"></param>
     public AcademicSessionsController(IAcademicSessionsService academicSessionsService)
     {

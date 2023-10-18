@@ -32,9 +32,7 @@ public partial class PostResponse
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string Message { get; set; } = default!;
 

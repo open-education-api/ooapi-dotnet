@@ -19,9 +19,7 @@ public class OfferingsController : BaseController
 {
     private readonly IOfferingsService _offeringsService;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="offeringsService"></param>
     public OfferingsController(IOfferingsService offeringsService)
     {

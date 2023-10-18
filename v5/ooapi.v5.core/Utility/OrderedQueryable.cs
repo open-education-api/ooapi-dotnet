@@ -8,9 +8,7 @@ namespace ooapi.v5.core.Utility;
 
 public static class OrderedQueryable
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="source"></param>
     /// <returns></returns>
@@ -19,9 +17,7 @@ public static class OrderedQueryable
         return OrderBy(source, string.Empty);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="source"></param>
     /// <param name="orderByValues"></param>
@@ -121,9 +117,7 @@ public static class OrderedQueryable
         return returnValue;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="source"></param>
     /// <param name="filters"></param>
@@ -186,9 +180,7 @@ public static class OrderedQueryable
         return returnValue;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="source"></param>
     /// <param name="searchTerm"></param>

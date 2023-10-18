@@ -6,17 +6,13 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IProgramOfferingService
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="programOfferingId"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
     ProgramOffering? Get(Guid programOfferingId, out ErrorResponse? errorResponse);
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>

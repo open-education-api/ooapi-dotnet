@@ -21,9 +21,7 @@ public class EducationSpecificationsController : BaseController
     private readonly IEducationSpecificationsService _educationSpecificationsService;
     private readonly IProgramsService _programsService;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="educationSpecificationsService"></param>
     /// <param name="coursesService"></param>
     /// <param name="programsService"></param>

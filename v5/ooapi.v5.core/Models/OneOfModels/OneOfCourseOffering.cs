@@ -14,19 +14,13 @@ public abstract class OneOfCourseOffering { }
 
 public class OneOfCourseOfferingInstance : OneOfCourseOffering
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     public Guid? Id { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     public CourseOffering? CourseOffering { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="id"></param>
     /// <param name="courseOffering"></param>
     public OneOfCourseOfferingInstance(Guid? id, CourseOffering? courseOffering)

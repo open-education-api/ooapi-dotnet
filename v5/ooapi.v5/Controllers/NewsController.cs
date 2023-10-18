@@ -20,9 +20,7 @@ public class NewsController : BaseController
     private readonly INewsFeedsService _newsFeedsService;
     private readonly INewsItemsService _newsItemsService;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="newsFeedsService"></param>
     /// <param name="newsItemsService"></param>
     public NewsController(INewsFeedsService newsFeedsService, INewsItemsService newsItemsService)

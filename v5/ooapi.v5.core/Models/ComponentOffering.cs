@@ -12,9 +12,7 @@ namespace ooapi.v5.Models;
 [DataContract]
 public partial class ComponentOffering : Offering
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     [Range(0, 100)]
     [JsonProperty(PropertyName = "resultWeight")]
     public int? ResultWeight { get; set; }
@@ -45,15 +43,11 @@ public partial class ComponentOffering : Offering
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? ComponentId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Component? Component { get; set; }
 
@@ -76,15 +70,11 @@ public partial class ComponentOffering : Offering
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? CourseId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Course? Course { get; set; }
 

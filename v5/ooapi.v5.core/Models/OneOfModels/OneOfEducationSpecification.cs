@@ -15,19 +15,13 @@ public abstract class OneOfEducationSpecification { }
 
 public class OneOfEducationSpecificationInstance : OneOfEducationSpecification
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     public Guid? Id { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     public EducationSpecification? EducationSpecification { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="educationSpecificationId"></param>
     /// <param name="educationSpecificationInstance"></param>
     public OneOfEducationSpecificationInstance(Guid? educationSpecificationId, EducationSpecification? educationSpecificationInstance)

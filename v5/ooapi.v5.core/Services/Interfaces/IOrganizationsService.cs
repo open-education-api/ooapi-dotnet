@@ -6,18 +6,14 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IOrganizationsService
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="organizationId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
     Organization? Get(Guid organizationId, DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse);
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>

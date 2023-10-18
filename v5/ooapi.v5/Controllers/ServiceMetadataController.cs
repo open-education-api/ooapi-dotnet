@@ -12,9 +12,7 @@ public class ServiceMetadataController : BaseController
 {
     private readonly IServiceMetadataService _serviceMetadataService;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="serviceMetadataService"></param>
     public ServiceMetadataController(IServiceMetadataService serviceMetadataService)
     {

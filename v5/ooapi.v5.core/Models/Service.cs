@@ -69,9 +69,7 @@ public partial class Service : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
 }

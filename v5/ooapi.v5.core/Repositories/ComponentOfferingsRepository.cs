@@ -7,17 +7,13 @@ namespace ooapi.v5.core.Repositories;
 
 public class ComponentOfferingsRepository : BaseRepository<ComponentOffering>
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dbContext"></param>
     public ComponentOfferingsRepository(CoreDBContext dbContext) : base(dbContext)
     {
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="courseOfferingId"></param>
     /// <returns></returns>
     public ComponentOffering? GetComponentOffering(Guid courseOfferingId)
@@ -25,9 +21,7 @@ public class ComponentOfferingsRepository : BaseRepository<ComponentOffering>
         return dbContext.ComponentOfferings.Include(x => x.Attributes).FirstOrDefault(x => x.OfferingId.Equals(courseOfferingId));
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="componentId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <returns></returns>

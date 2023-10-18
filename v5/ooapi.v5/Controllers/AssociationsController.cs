@@ -16,9 +16,7 @@ public class AssociationsController : BaseController
 {
     private readonly IAssociationsService _associationsService;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="associationsService"></param>
     public AssociationsController(IAssociationsService associationsService)
     {

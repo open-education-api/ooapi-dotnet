@@ -18,9 +18,7 @@ public class RoomsController : BaseController
 {
     private readonly IRoomsService _roomsService;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="roomsService"></param>
     public RoomsController(IRoomsService roomsService)
     {

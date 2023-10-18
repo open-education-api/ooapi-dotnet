@@ -17,9 +17,7 @@ public class ComponentsController : BaseController
 {
     private readonly IComponentsService _componentsService;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="componentsService"></param>
     public ComponentsController(IComponentsService componentsService)
     {

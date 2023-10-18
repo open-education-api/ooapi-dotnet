@@ -53,15 +53,11 @@ public class Room : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public string? PrimaryCode { get; set; }
 
@@ -106,9 +102,7 @@ public class Room : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [SortAllowed]
     [SortDefault]
@@ -198,17 +192,13 @@ public class Room : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [Column(TypeName = "decimal(8, 6)")]
     [Precision(8, 6)]
     public decimal? Latitude { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     [Column(TypeName = "decimal(8, 6)")]
     [Precision(8, 6)]
@@ -243,15 +233,11 @@ public class Room : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Guid? BuildingId { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public Building? Building { get; set; }
 
@@ -274,9 +260,7 @@ public class Room : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
 }

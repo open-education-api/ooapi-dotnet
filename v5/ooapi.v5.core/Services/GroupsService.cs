@@ -16,9 +16,7 @@ public class GroupsService : ServiceBase, IGroupsService
         _repository = new GroupsRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -37,9 +35,7 @@ public class GroupsService : ServiceBase, IGroupsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="groupId"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -59,9 +55,7 @@ public class GroupsService : ServiceBase, IGroupsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="organizationId"></param>
     /// <param name="errorResponse"></param>
@@ -82,9 +76,7 @@ public class GroupsService : ServiceBase, IGroupsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="personId"></param>
     /// <param name="errorResponse"></param>

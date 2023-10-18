@@ -15,9 +15,7 @@ public class ServiceMetadataService : ServiceBase, IServiceMetadataService
         _repository = new ServiceMetadataRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="errorResponse"></param>
     /// <returns></returns>
     public Service? Get(out ErrorResponse? errorResponse)

@@ -6,9 +6,7 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IOfferingsService
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="offeringId"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>

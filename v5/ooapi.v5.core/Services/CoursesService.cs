@@ -16,9 +16,7 @@ public class CoursesService : ServiceBase, ICoursesService
         _repository = new CoursesRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -37,9 +35,7 @@ public class CoursesService : ServiceBase, ICoursesService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="courseId"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -59,9 +55,7 @@ public class CoursesService : ServiceBase, ICoursesService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="educationSpecificationId"></param>
     /// <param name="errorResponse"></param>
@@ -81,9 +75,7 @@ public class CoursesService : ServiceBase, ICoursesService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="organizationId"></param>
     /// <param name="errorResponse"></param>
@@ -104,9 +96,7 @@ public class CoursesService : ServiceBase, ICoursesService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="programId"></param>
     /// <param name="errorResponse"></param>

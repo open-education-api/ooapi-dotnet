@@ -7,9 +7,7 @@ namespace ooapi.v5.Helpers;
 
 public class ListOneOfConverter : JsonConverter
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="writer"></param>
     /// <param name="value"></param>
     /// <param name="serializer"></param>
@@ -79,9 +77,7 @@ public class ListOneOfConverter : JsonConverter
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="objectType"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
@@ -90,9 +86,7 @@ public class ListOneOfConverter : JsonConverter
         throw new NotImplementedException();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="reader"></param>
     /// <param name="objectType"></param>
     /// <param name="existingValue"></param>

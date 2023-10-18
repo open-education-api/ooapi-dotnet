@@ -7,17 +7,13 @@ namespace ooapi.v5.core.Repositories;
 
 public class ProgramsRepository : BaseRepository<Program>
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dbContext"></param>
     public ProgramsRepository(CoreDBContext dbContext) : base(dbContext)
     {
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <returns></returns>
     public Pagination<Program> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
@@ -32,9 +28,7 @@ public class ProgramsRepository : BaseRepository<Program>
         return new Pagination<Program>();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="programId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <returns></returns>
@@ -96,9 +90,7 @@ public class ProgramsRepository : BaseRepository<Program>
         return result;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="educationSpecificationId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <returns></returns>
@@ -115,9 +107,7 @@ public class ProgramsRepository : BaseRepository<Program>
         return new Pagination<Program>();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="organizationId"></param>
     /// <returns></returns>
     public List<Program> GetProgramsByOrganizationId(Guid organizationId)
@@ -125,9 +115,7 @@ public class ProgramsRepository : BaseRepository<Program>
         return dbContext.Programs.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="programId"></param>
     /// <returns></returns>
     public List<Program> GetProgramsByProgramId(Guid programId)

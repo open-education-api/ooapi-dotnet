@@ -16,9 +16,7 @@ public class PersonsService : ServiceBase, IPersonsService
         _repository = new PersonsRepository(dbContext);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -37,9 +35,7 @@ public class PersonsService : ServiceBase, IPersonsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="personId"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
@@ -59,9 +55,7 @@ public class PersonsService : ServiceBase, IPersonsService
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dataRequestParameters"></param>
     /// <param name="groupId"></param>
     /// <param name="errorResponse"></param>

@@ -11,9 +11,7 @@ public abstract class ServiceBase
     internal readonly IUserRequestContext userRequestContext;
     internal readonly CoreDBContext dataContext;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="dbContext"></param>
     /// <param name="userRequestContext"></param>
     protected ServiceBase(CoreDBContext dbContext, IUserRequestContext userRequestContext)
@@ -22,9 +20,7 @@ public abstract class ServiceBase
         this.userRequestContext = userRequestContext;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="item"></param>
     /// <param name="userRequestContext"></param>
     public void HideAttributesBasedOnBivLevel(object item, UserRequestContext userRequestContext)
