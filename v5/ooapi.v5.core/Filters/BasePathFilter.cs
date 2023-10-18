@@ -36,7 +36,7 @@ public class BasePathFilter : IDocumentFilter
         var pathsToModify = swaggerDoc.Paths.Where(p => p.Key.StartsWith(BasePath)).ToList();
         foreach (var path in pathsToModify.Where(path => path.Key.StartsWith(BasePath)))
         {
-            var newKey = Regex.Replace(path.Key, $"^{BasePath}", string.Empty);
+            var newKey = Regex.Replace(path.Key, $"^{BasePath}", string.Empty, RegexOptions.None, TimeSpan.FromSeconds(2));
             swaggerDoc.Paths.Remove(path.Key);
             swaggerDoc.Paths.Add(newKey, path.Value);
         }

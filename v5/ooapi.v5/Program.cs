@@ -15,7 +15,6 @@ public static class Program
     /// <param name="args"></param>
     public static void Main(string[] args)
     {
-        AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromSeconds(3));
         CreateHostBuilder(args).Build().Run();
     }
 
