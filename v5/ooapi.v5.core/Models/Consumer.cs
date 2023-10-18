@@ -12,18 +12,18 @@ public class Consumer
     public Guid Id { get; set; }
 
     [JsonIgnore]
-    public string ModelTypeName { get; set; }
+    public string ModelTypeName { get; set; } = default!;
 
     [JsonRequired]
     [JsonProperty(PropertyName = "consumerKey")]
-    public string ConsumerKey { get; set; }
+    public string ConsumerKey { get; set; } = default!;
 
     [JsonIgnore]
     public ConsumerPropertyType PropertyType { get; set; } = 0;
 
     [JsonProperty(PropertyName = "propertyName")]
-    public string PropertyName { get; set; }
+    public string PropertyName { get; set; } = default!;
 
     [JsonProperty(PropertyName = "propertyValue")]
-    public string PropertyValue { get; set; }
+    public string PropertyValue { get; set; } = default!;
 }

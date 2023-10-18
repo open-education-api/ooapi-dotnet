@@ -13,6 +13,11 @@ public class BuildingsService : ServiceBase, IBuildingsService
 {
     private readonly BuildingsRepository _repository;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
+    /// <param name="userRequestContext"></param>
     public BuildingsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new BuildingsRepository(dbContext);
@@ -24,7 +29,7 @@ public class BuildingsService : ServiceBase, IBuildingsService
     /// <param name="dataRequestParameters"></param>
     /// <param name="errorResponse"></param>
     /// <returns></returns>
-    public Pagination<Building>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
+    public Pagination<Building> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -36,10 +41,16 @@ public class BuildingsService : ServiceBase, IBuildingsService
         catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
-            return null;
+            return new Pagination<Building>();
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="buildingId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
     public Building? Get(Guid buildingId, out ErrorResponse? errorResponse)
     {
         try

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -28,7 +27,7 @@ public class ProgramResult : Result
             try
             {
 
-                StudyLoadDescriptor result = new StudyLoadDescriptor();
+                var result = new StudyLoadDescriptor();
                 result.StudyLoadUnit = StudyLoadUnit;
                 result.Value = StudyLoadValue;
                 return result;

@@ -17,7 +17,7 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
     {
     }
 
-    internal Pagination<EducationSpecification>? GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    internal Pagination<EducationSpecification> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
         IQueryable<EducationSpecification> set = dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes);
         if (dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer))
@@ -26,7 +26,7 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
             return GetAllOrderedBy(dataRequestParameters, set);
         }
 
-        return null;
+        return new Pagination<EducationSpecification>();
     }
 
     /// <summary>

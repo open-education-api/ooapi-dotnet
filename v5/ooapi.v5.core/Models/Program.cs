@@ -28,19 +28,26 @@ public partial class Program : ModelBase
     /// <summary>
     /// Gets or Sets PrimaryCode
     /// </summary>
-    [JsonRequired]
     [JsonProperty(PropertyName = "primaryCode")]
     [NotMapped]
-    public IdentifierEntry primaryCodeIdentifier
+    public IdentifierEntry? PrimaryCodeIdentifier
     {
         get
         {
-            return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            if (PrimaryCodeType is not null && PrimaryCode is not null)
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+
+            return null;
         }
         set
         {
-            PrimaryCode = value.Code;
-            PrimaryCodeType = value.CodeType;
+            if (value is not null)
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
         }
     }
 
@@ -48,15 +55,14 @@ public partial class Program : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public string PrimaryCodeType { get; set; } = default!;
+    public string? PrimaryCodeType { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
     [SortAllowed]
-    public string PrimaryCode { get; set; } = default!;
-
+    public string? PrimaryCode { get; set; }
 
     /// <summary>
     /// The type of this program - program: opleiding - minor: minor - honours: honours - specialization: specialisatie - track: track 
@@ -86,7 +92,6 @@ public partial class Program : ModelBase
         }
     }
 
-
     /// <summary>
     /// 
     /// </summary>
@@ -95,14 +100,11 @@ public partial class Program : ModelBase
     [SortDefault]
     public List<Attribute> Attributes { get; set; } = default!;
 
-
-
     /// <summary>
     /// The abbreviation of this program
     /// </summary>
     /// <value>The abbreviation of this program</value>
     [JsonRequired]
-
     [MaxLength(256)]
     [JsonProperty(PropertyName = "abbreviation")]
     public string Abbreviation { get; set; } = default!;
@@ -147,7 +149,10 @@ public partial class Program : ModelBase
         get
         {
             if (string.IsNullOrEmpty(StudyLoadUnit) || StudyLoadValue == 0)
+            {
                 return null;
+            }
+
             try
             {
 
@@ -165,8 +170,11 @@ public partial class Program : ModelBase
         }
         set
         {
-            StudyLoadUnit = value.StudyLoadUnit;
-            StudyLoadValue = value.Value;
+            if (value is not null)
+            {
+                StudyLoadUnit = value.StudyLoadUnit;
+                StudyLoadValue = value.Value;
+            }
         }
     }
 
@@ -181,9 +189,6 @@ public partial class Program : ModelBase
     /// </summary>
     [JsonIgnore]
     public int StudyLoadValue { get; set; }
-
-
-
 
     /// <summary>
     /// Type of qualificaton that can be obtained on finishing the program
@@ -459,7 +464,7 @@ public partial class Program : ModelBase
     /// <value>Addresses for this offering</value>
     [JsonProperty(PropertyName = "addresses")]
     [NotMapped]
-    public List<Address>? Addresses { get; set; }
+    public List<Address> Addresses { get; set; } = default!;
 
     /// <summary>
     /// Parent program of which the current program is a child. This object is [&#x60;expandable&#x60;](#tag/program_model)
@@ -501,13 +506,13 @@ public partial class Program : ModelBase
     [JsonProperty("children")]
     [NotMapped]
     [JsonConverter(typeof(OneOfConverter))]
-    public List<OneOfProgram>? ChildrenList
+    public List<OneOfProgram> ChildrenList
     {
         get
         {
             if (ChildrenIds == null || !ChildrenIds.Any())
             {
-                return null;
+                return new List<OneOfProgram>();
             }
 
             var result = new List<OneOfProgram>();
@@ -524,14 +529,14 @@ public partial class Program : ModelBase
     /// </summary>
     [JsonIgnore]
     [NotMapped]
-    public List<Guid>? ChildrenIds { get; set; }
+    public List<Guid> ChildrenIds { get; set; } = default!;
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
     [NotMapped]
-    public List<Program>? Children { get; set; }
+    public List<Program> Children { get; set; } = default!;
 
     /// <summary>
     /// The person(s) responsible for this program. This object is [&#x60;expandable&#x60;](#tag/person_model)
@@ -580,7 +585,7 @@ public partial class Program : ModelBase
 
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
@@ -589,7 +594,7 @@ public partial class Program : ModelBase
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
 
-            return null;
+            return new List<JObject>();
         }
     }
 

@@ -26,17 +26,22 @@ public partial class PostResponse
         set
         {
             if (value != null)
+            {
                 Message = JsonConvert.SerializeObject(value);
+            }
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
-    public string Message { get; set; }
+    public string Message { get; set; } = default!;
 
     /// <summary>
     /// URL where additional information can be found e.g. by use of deeplink
     /// </summary>
     /// <value>URL where additional information can be found e.g. by use of deeplink</value>
     [JsonProperty(PropertyName = "redirect")]
-    public string Redirect { get; set; }
+    public string Redirect { get; set; } = default!;
 }

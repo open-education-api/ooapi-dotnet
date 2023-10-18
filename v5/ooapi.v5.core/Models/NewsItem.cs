@@ -53,15 +53,19 @@ public partial class NewsItem : ModelBase
         }
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
     [SortAllowed]
     [SortDefault]
     public List<Attribute> Attributes { get; set; } = default!;
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
-    public string Authors { get; set; }
+    public string Authors { get; set; } = default!;
 
     /// <summary>
     /// The authors of the article with this news item
@@ -70,7 +74,7 @@ public partial class NewsItem : ModelBase
 
     [DataMember(Name = "authors")]
     [NotMapped]
-    public List<string>? authors { get; set; }
+    public List<string> authors { get; set; } = default!;
 
     /// <summary>
     /// The url containing the address of the image belonging to this news item
@@ -78,7 +82,7 @@ public partial class NewsItem : ModelBase
     /// <value>The url containing the address of the image belonging to this news item</value>
     [MaxLength(2048)]
     [JsonProperty(PropertyName = "image")]
-    public string Image { get; set; }
+    public string Image { get; set; } = default!;
 
     /// <summary>
     /// The url containing the address of the article belonging to this news item
@@ -115,7 +119,7 @@ public partial class NewsItem : ModelBase
     /// <value>The newsFeeds where this item can be found. [&#x60;expandable&#x60;](#tag/news_feed_model)</value>
     [JsonProperty(PropertyName = "newsFeeds")]
     [NotMapped]
-    public List<OneOfNewsFeed>? OneOfNewsFeeds { get; set; }
+    public List<OneOfNewsFeed> OneOfNewsFeeds { get; set; } = default!;
 
     /// <summary>
     /// The moment from which this news item is valid, RFC3339 (date-time)
@@ -147,13 +151,16 @@ public partial class NewsItem : ModelBase
     /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
             if (Consumers != null && Consumers.Any())
+            {
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
-            return null;
+            }
+
+            return new List<JObject>();
         }
     }
 

@@ -32,5 +32,5 @@ public partial class TimelineOverrideCourse
     /// </summary>
     [JsonRequired]
     [JsonProperty(PropertyName = "course")]
-    public Course Course { get; set; }
+    public Course Course { get; set; } = default!;
 }

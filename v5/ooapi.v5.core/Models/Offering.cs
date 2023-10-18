@@ -27,19 +27,26 @@ public class Offering : ModelBase
     /// <summary>
     /// Gets or Sets PrimaryCode
     /// </summary>
-    [JsonRequired]
     [JsonProperty(PropertyName = "primaryCode")]
     [NotMapped]
-    public IdentifierEntry primaryCodeIdentifier
+    public IdentifierEntry? PrimaryCodeIdentifier
     {
         get
         {
-            return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            if (PrimaryCodeType is not null && PrimaryCode is not null)
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+
+            return null;
         }
         set
         {
-            PrimaryCode = value.Code;
-            PrimaryCodeType = value.CodeType;
+            if (value is not null)
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
         }
     }
 
@@ -47,13 +54,13 @@ public class Offering : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public string PrimaryCodeType { get; set; } = default!;
+    public string? PrimaryCodeType { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
-    public string PrimaryCode { get; set; } = default!;
+    public string? PrimaryCode { get; set; }
 
     /// <summary>
     /// The type of this offering
@@ -62,7 +69,6 @@ public class Offering : ModelBase
     [JsonRequired]
     [JsonProperty(PropertyName = "offeringType")]
     public OfferingType? OfferingType { get; set; }
-
 
     /// <summary>
     /// The academicsession during which this ffering takes place. [&#x60;expandable&#x60;](#tag/academic_session_model) By default only the &#x60;academicSessionId&#x60; (a string) is returned. If the client requested an expansion of &#x60;academicSession&#x60; the full academicsession object should be returned. 
@@ -75,7 +81,11 @@ public class Offering : ModelBase
     {
         get
         {
-            if (AcademicSessionId == null) return null;
+            if (AcademicSessionId == null)
+            {
+                return null;
+            }
+
             return new OneOfAcademicSessionInstance(AcademicSessionId, AcademicSession);
         }
     }
@@ -274,7 +284,7 @@ public class Offering : ModelBase
     /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
     [JsonProperty(PropertyName = "otherCodes")]
-    public List<OtherCodes>? OtherCodes { get; set; }
+    public List<OtherCodes> OtherCodes { get; set; } = default!;
 
     /// <summary>
     /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
@@ -282,7 +292,7 @@ public class Offering : ModelBase
     /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
@@ -291,7 +301,7 @@ public class Offering : ModelBase
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
 
-            return null;
+            return new List<JObject>();
         }
     }
 
@@ -325,11 +335,15 @@ public class Offering : ModelBase
     [JsonProperty(PropertyName = "organization")]
     [NotMapped]
     [JsonConverter(typeof(OneOfConverter))]
-    public OneOfOrganization OneOfOrganization
+    public OneOfOrganization? OneOfOrganization
     {
         get
         {
-            if (OrganizationId == null) return null;
+            if (OrganizationId == null)
+            {
+                return null;
+            }
+
             return new OneOfOrganizationInstance(OrganizationId, Organization);
         }
     }

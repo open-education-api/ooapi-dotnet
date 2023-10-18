@@ -30,7 +30,7 @@ public class GroupsRepository : BaseRepository<Group>
     /// </summary>
     /// <param name="organizationId"></param>
     /// <returns></returns>
-    public List<Group>? GetGroupsByOrganizationId(Guid organizationId)
+    public List<Group> GetGroupsByOrganizationId(Guid organizationId)
     {
         return dbContext.Groups.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
@@ -40,9 +40,9 @@ public class GroupsRepository : BaseRepository<Group>
     /// </summary>
     /// <param name="personId"></param>
     /// <returns></returns>
-    public List<Group>? GetGroupsByPersonId(Guid personId)
+    public List<Group> GetGroupsByPersonId(Guid personId)
     {
-        return null;
+        return new List<Group>();
         // TODO
     }
 }

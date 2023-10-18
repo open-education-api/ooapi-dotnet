@@ -33,6 +33,5 @@ public class PersonsRepository : BaseRepository<Person>
     public List<Person> GetPersonsByGroupId(Guid groupId)
     {
         return new List<Person>();
-        //TODO return dbContext.Persons.Where(o => o.GroupId.Equals(groupId)).ToList();
     }
 }

@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
@@ -39,7 +38,7 @@ public partial class Result : ModelBase
     /// </summary>
     /// <value>The comment on this result</value>
     [JsonProperty(PropertyName = "comment")]
-    public string Comment { get; set; }
+    public string Comment { get; set; } = default!;
 
     /// <summary>
     /// The score of this program/course/component association (based on resultValueType in offering)
@@ -47,7 +46,7 @@ public partial class Result : ModelBase
     /// <value>The score of this program/course/component association (based on resultValueType in offering)</value>
 
     [JsonProperty(PropertyName = "score")]
-    public string Score { get; set; }
+    public string Score { get; set; } = default!;
 
     /// <summary>
     /// The date this result has been published, RFC3339 (full-date)

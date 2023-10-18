@@ -87,7 +87,7 @@ public partial class NewsFeed : ModelBase
     /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
@@ -95,8 +95,7 @@ public partial class NewsFeed : ModelBase
             {
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
-
-            return null;
+            return new List<JObject>();
         }
     }
 
@@ -104,7 +103,7 @@ public partial class NewsFeed : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public List<Consumer>? Consumers { get; set; } = default!;
+    public List<Consumer> Consumers { get; set; } = default!;
 
     /// <summary>
     /// 

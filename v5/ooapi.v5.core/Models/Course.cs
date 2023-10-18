@@ -28,28 +28,40 @@ public class Course : ModelBase
     /// <summary>
     /// Gets or Sets PrimaryCode
     /// </summary>
-    [JsonRequired]
     [JsonProperty(PropertyName = "primaryCode")]
     [NotMapped]
-    public IdentifierEntry primaryCodeIdentifier
+    public IdentifierEntry? PrimaryCodeIdentifier
     {
         get
         {
-            return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            if (PrimaryCodeType is not null && PrimaryCode is not null)
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+
+            return null;
         }
         set
         {
-            PrimaryCode = value.Code;
-            PrimaryCodeType = value.CodeType;
+            if (value is not null)
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
         }
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
-    public string PrimaryCodeType { get; set; }
+    public string? PrimaryCodeType { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
-    public string PrimaryCode { get; set; }
+    public string? PrimaryCode { get; set; }
 
     /// <summary>
     /// The name of this course (ECTS-title)
@@ -86,7 +98,7 @@ public class Course : ModelBase
     [JsonRequired]
     [MaxLength(256)]
     [JsonProperty(PropertyName = "abbreviation")]
-    public string Abbreviation { get; set; }
+    public string Abbreviation { get; set; } = default!;
 
     /// <summary>
     /// Gets or Sets StudyLoad
@@ -98,7 +110,10 @@ public class Course : ModelBase
         get
         {
             if (string.IsNullOrEmpty(StudyLoadUnit) || StudyLoadValue == 0)
+            {
                 return null;
+            }
+
             try
             {
 
@@ -116,8 +131,11 @@ public class Course : ModelBase
         }
         set
         {
-            StudyLoadUnit = value.StudyLoadUnit;
-            StudyLoadValue = value.Value;
+            if (value is not null)
+            {
+                StudyLoadUnit = value.StudyLoadUnit;
+                StudyLoadValue = value.Value;
+            }
         }
     }
 
@@ -137,7 +155,7 @@ public class Course : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public string ModeOfDelivery { get; set; }
+    public string ModeOfDelivery { get; set; } = default!;
 
     /// <summary>
     /// The mode of delivery of the component (ECTS-mode of delivery) - distance-learning: afstandsleren - on campus: op de campus - online: online - hybrid: hybride - situated: op locatie 
@@ -198,7 +216,7 @@ public class Course : ModelBase
     /// <value>The duration of this course. The duration format is from the ISO 8601 ABNF as given in Appendix A of RFC 3339.</value>
     [RegularExpression("/^(-?)P(?=\\d|T\\d)(?:(\\d+)Y)?(?:(\\d+)M)?(?:(\\d+)([DW]))?(?:T(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+(?:\\.\\d+)?)S)?)?$/")]
     [JsonProperty(PropertyName = "duration")]
-    public string? Duration { get; set; }
+    public string Duration { get; set; } = default!;
 
     /// <summary>
     /// The date when participants can follow this course for the first time.
@@ -229,7 +247,6 @@ public class Course : ModelBase
         }
     }
 
-
     /// <summary>
     /// The (primary) teaching language in which this course is given, should be a three-letter language code as specified by ISO 639-2.
     /// </summary>
@@ -246,7 +263,7 @@ public class Course : ModelBase
     /// <value>Field(s) of study (e.g. ISCED-F) (http://uis.unesco.org/sites/default/files/documents/isced-fields-of-education-and-training-2013-en.pdf.</value>
     [MaxLength(4)]
     [JsonProperty(PropertyName = "fieldsOfStudy")]
-    public string? FieldsOfStudy { get; set; }
+    public string FieldsOfStudy { get; set; } = default!;
 
     /// <summary>
     /// Statements that describe the knowledge or skills students should acquire by the end of a particular course (ECTS-learningoutcome).
@@ -254,19 +271,21 @@ public class Course : ModelBase
     /// <value>Statements that describe the knowledge or skills students should acquire by the end of a particular course (ECTS-learningoutcome).</value>
     [JsonProperty(PropertyName = "learningOutcomes")]
     [NotMapped]
-    public List<LearningOutcomes>? learningOutcomes { get; set; }
+    public List<LearningOutcomes> learningOutcomes { get; set; } = default!;
 
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
-    public string? LearningOutcomes { get; set; }
+    public string LearningOutcomes { get; set; } = default!;
 
     /// <summary>
     /// This information may be given at an institutional level and/or at the level of individual programmes. Make sure that it is clear whether the information applies to fee-paying students (national and/or international) or to exchange students.
     /// </summary>
     /// <value>This information may be given at an institutional level and/or at the level of individual programmes. Make sure that it is clear whether the information applies to fee-paying students (national and/or international) or to exchange students.</value>
-
     [JsonProperty(PropertyName = "admissionRequirements")]
     [NotMapped]
-    public List<LanguageTypedString>? admissionRequirements
+    public List<LanguageTypedString> admissionRequirements
     {
         get
         {
@@ -278,7 +297,6 @@ public class Course : ModelBase
             return result;
         }
     }
-
 
     /// <summary>
     /// Normally, students will receive a diploma when they have completed the (official) study program and have obtained the required number of credits. If there are any other specific requirements that students need to have fulfilled, mention them here.
@@ -303,7 +321,6 @@ public class Course : ModelBase
     /// The level of this course (ECTS-year of study if applicable) - secondary vocational education: mbo - secondary vocational education 1: mbo 1, corresponds to levelOfQualification 1 - secondary vocational education 2: mbo 2, corresponds to levelOfQualification 2 - secondary vocational education 3: mbo 3, corresponds to levelOfQualification 3 - secondary vocational education 4: mbo 4, corresponds to levelOfQualification 4 - associate degree: associate degree, corresponds to levelOfQualification 5 - bachelor: bachelor, corresponds to levelOfQualification 6 - master: master, corresponds to levelOfQualification 7 - doctoral: doctoraal, corresponds to levelOfQualification 8 - undefined: onbepaald - undivided: ongedeeld - nt2-1: NT2 niveau 1 - nt2-2: NT2 niveau 2 
     /// </summary>
     /// <value>The level of this course (ECTS-year of study if applicable) - secondary vocational education: mbo - secondary vocational education 1: mbo 1, corresponds to levelOfQualification 1 - secondary vocational education 2: mbo 2, corresponds to levelOfQualification 2 - secondary vocational education 3: mbo 3, corresponds to levelOfQualification 3 - secondary vocational education 4: mbo 4, corresponds to levelOfQualification 4 - associate degree: associate degree, corresponds to levelOfQualification 5 - bachelor: bachelor, corresponds to levelOfQualification 6 - master: master, corresponds to levelOfQualification 7 - doctoral: doctoraal, corresponds to levelOfQualification 8 - undefined: onbepaald - undivided: ongedeeld - nt2-1: NT2 niveau 1 - nt2-2: NT2 niveau 2 </value>
-    [JsonRequired]
     [JsonProperty(PropertyName = "level")]
     public Level? Level { get; set; }
 
@@ -407,7 +424,7 @@ public class Course : ModelBase
     /// <value>Addresses for this course</value>
     [JsonProperty(PropertyName = "addresses")]
     [NotMapped]
-    public List<Address>? Addresses { get; set; }
+    public List<Address> Addresses { get; set; } = default!;
 
     /// <summary>
     /// An array of additional human readable codes/identifiers for the entity being described.
@@ -423,7 +440,7 @@ public class Course : ModelBase
 
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
@@ -432,7 +449,7 @@ public class Course : ModelBase
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
 
-            return null;
+            return new List<JObject>();
         }
     }
 

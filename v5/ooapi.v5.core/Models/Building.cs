@@ -27,28 +27,41 @@ namespace ooapi.v5.Models
         /// <summary>
         /// Gets or Sets PrimaryCode
         /// </summary>
-        [JsonRequired]
         [JsonProperty(PropertyName = "primaryCode")]
         [NotMapped]
-        public IdentifierEntry primaryCodeIdentifier
+        public IdentifierEntry? PrimaryCodeIdentifier
         {
             get
             {
-                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+                if (PrimaryCodeType is not null && PrimaryCode is not null)
+                {
+                    return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+                }
+
+                return null;
             }
             set
             {
-                PrimaryCode = value.Code;
-                PrimaryCodeType = value.CodeType;
+                if (value is not null)
+                {
+                    PrimaryCode = value.Code;
+                    PrimaryCodeType = value.CodeType;
+                }
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
 
         [JsonIgnore]
-        public string PrimaryCodeType { get; set; }
+        public string? PrimaryCodeType { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonIgnore]
-        public string PrimaryCode { get; set; }
+        public string? PrimaryCode { get; set; }
 
         /// <summary>
         /// The abbreviation of the name of this building
@@ -57,7 +70,7 @@ namespace ooapi.v5.Models
 
         [MaxLength(256)]
         [JsonProperty(PropertyName = "abbreviation")]
-        public string Abbreviation { get; set; }
+        public string Abbreviation { get; set; } = default!;
 
         /// <summary>
         /// The name of this building
@@ -80,9 +93,12 @@ namespace ooapi.v5.Models
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonIgnore]
         [SortDefault]
-        public List<Attribute> Attributes { get; set; }
+        public List<Attribute> Attributes { get; set; } = default!;
 
         /// <summary>
         /// The description of this building.
@@ -109,10 +125,12 @@ namespace ooapi.v5.Models
         /// Gets or Sets Address
         /// </summary>
         [JsonRequired]
-
         [JsonProperty(PropertyName = "address")]
-        public Address Address { get; set; }
+        public Address Address { get; set; } = default!;
 
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonIgnore]
         public Guid? AddressId { get; set; }
 
@@ -122,7 +140,7 @@ namespace ooapi.v5.Models
         /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
         [JsonProperty(PropertyName = "otherCodes")]
-        public List<OtherCodes> OtherCodes { get; set; }
+        public List<OtherCodes> OtherCodes { get; set; } = default!;
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
@@ -131,17 +149,23 @@ namespace ooapi.v5.Models
 
         [JsonProperty(PropertyName = "consumers")]
         [NotMapped]
-        public List<JObject>? ConsumersList
+        public List<JObject> ConsumersList
         {
             get
             {
                 if (Consumers != null && Consumers.Any())
+                {
                     return ConsumerConverter.GetDynamicConsumers(Consumers);
-                return null;
+                }
+
+                return new List<JObject>();
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonIgnore]
-        public List<Consumer>? Consumers { get; set; }
+        public List<Consumer> Consumers { get; set; } = default!;
     }
 }

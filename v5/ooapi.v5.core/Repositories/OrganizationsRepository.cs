@@ -50,7 +50,7 @@ public class OrganizationsRepository : BaseRepository<Organization>
         return result;
     }
 
-    internal Pagination<Organization>? GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    internal Pagination<Organization> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
         IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes);
 
@@ -60,6 +60,6 @@ public class OrganizationsRepository : BaseRepository<Organization>
             return GetAllOrderedBy(dataRequestParameters, set);
         }
 
-        return null;
+        return new Pagination<Organization>();
     }
 }

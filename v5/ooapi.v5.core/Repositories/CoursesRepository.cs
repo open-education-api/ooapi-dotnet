@@ -33,16 +33,16 @@ public class CoursesRepository : BaseRepository<Course>
     /// <param name="educationSpecificationId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <returns></returns>
-    public Pagination<Course>? GetCoursesByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
+    public Pagination<Course> GetCoursesByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<Course> set = dbContext.CoursesNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
-        if (dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer))
+        if (dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer))
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
             return GetAllOrderedBy(dataRequestParameters, set);
         }
 
-        return null;
+        return new Pagination<Course>();
     }
 
     /// <summary>
@@ -63,6 +63,5 @@ public class CoursesRepository : BaseRepository<Course>
     public List<Course> GetCoursesByProgramId(Guid programId)
     {
         return new List<Course>();
-        //return dbContext.Courses.Where(o => o.Programs.Equals(programId)).ToList();
     }
 }

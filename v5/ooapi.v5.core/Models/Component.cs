@@ -24,24 +24,31 @@ public partial class Component : ModelBase
     [JsonProperty(PropertyName = "componentId")]
     [SortAllowed]
     [SortDefault]
-    public Guid? ComponentId { get; set; }
+    public Guid ComponentId { get; set; }
 
     /// <summary>
     /// Gets or Sets PrimaryCode
     /// </summary>
-    [JsonRequired]
     [JsonProperty(PropertyName = "primaryCode")]
     [NotMapped]
-    public IdentifierEntry primaryCodeIdentifier
+    public IdentifierEntry? PrimaryCodeIdentifier
     {
         get
         {
-            return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            if (PrimaryCodeType is not null && PrimaryCode is not null)
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+
+            return null;
         }
         set
         {
-            PrimaryCode = value.Code;
-            PrimaryCodeType = value.CodeType;
+            if (value is not null)
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
         }
     }
 
@@ -49,13 +56,13 @@ public partial class Component : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public string PrimaryCodeType { get; set; } = default!;
+    public string? PrimaryCodeType { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
-    public string PrimaryCode { get; set; } = default!;
+    public string? PrimaryCode { get; set; }
 
 
     /// <summary>
@@ -171,7 +178,7 @@ public partial class Component : ModelBase
     /// <value>The duration of this component. The duration format is from the ISO 8601 ABNF as given in Appendix A of RFC 3339.</value>
     [RegularExpression("/^(-?)P(?=\\d|T\\d)(?:(\\d+)Y)?(?:(\\d+)M)?(?:(\\d+)([DW]))?(?:T(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+(?:\\.\\d+)?)S)?)?$/")]
     [JsonProperty(PropertyName = "duration")]
-    public string? Duration { get; set; }
+    public string Duration { get; set; } = default!;
 
     /// <summary>
     /// The description of this component.
@@ -231,23 +238,10 @@ public partial class Component : ModelBase
         }
     }
 
-    ////[JsonIgnore]
-    ////public List<string> Resources { get; set; }
-
-    /////// <summary>
-    /////// An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)
-    /////// </summary>
-    /////// <value>An overview of the literature and other resources that is used in this course (ECTS-recommended reading and other sources)</value>
-
-    ////[JsonProperty(PropertyName = "resources")]
-    ////[NotMapped]
-    ////public List<Resource> resources { get; set; }
-
     /// <summary>
     /// A description of the way exams for this course are taken (ECTS-assessment method and criteria).
     /// </summary>
     /// <value>A description of the way exams for this course are taken (ECTS-assessment method and criteria).</value>
-
     [JsonProperty(PropertyName = "assessment")]
     [NotMapped]
     public List<LanguageTypedString> assessment
@@ -269,7 +263,7 @@ public partial class Component : ModelBase
     /// <value>Addresses for this component</value>
     [JsonProperty(PropertyName = "addresses")]
     [NotMapped]
-    public List<Address>? Addresses { get; set; }
+    public List<Address> Addresses { get; set; } = default!;
 
 
     /// <summary>
@@ -320,11 +314,15 @@ public partial class Component : ModelBase
     [JsonProperty(PropertyName = "organization")]
     [NotMapped]
     [JsonConverter(typeof(OneOfConverter))]
-    public OneOfOrganization OneOfOrganization
+    public OneOfOrganization? OneOfOrganization
     {
         get
         {
-            if (OrganizationId == null) return null;
+            if (OrganizationId == null)
+            {
+                return null;
+            }
+
             return new OneOfOrganizationInstance(OrganizationId, Organization);
         }
     }
@@ -347,13 +345,15 @@ public partial class Component : ModelBase
     /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
             if (Consumers != null && Consumers.Any())
+            {
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
-            return null;
+            }
+            return new List<JObject>();
         }
     }
 
@@ -361,7 +361,7 @@ public partial class Component : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public List<Consumer>? Consumers { get; set; }
+    public List<Consumer> Consumers { get; set; } = default!;
 
     /// <summary>
     /// 

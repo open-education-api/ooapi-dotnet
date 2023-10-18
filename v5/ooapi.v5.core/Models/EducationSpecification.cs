@@ -28,19 +28,26 @@ public partial class EducationSpecification : ModelBase
     /// <summary>
     /// Gets or Sets PrimaryCode
     /// </summary>
-    [JsonRequired]
     [JsonProperty(PropertyName = "primaryCode")]
     [NotMapped]
-    public IdentifierEntry primaryCodeIdentifier
+    public IdentifierEntry? PrimaryCodeIdentifier
     {
         get
         {
-            return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            if (PrimaryCodeType is not null && PrimaryCode is not null)
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+
+            return null;
         }
         set
         {
-            PrimaryCode = value.Code;
-            PrimaryCodeType = value.CodeType;
+            if (value is not null)
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
         }
     }
 
@@ -48,21 +55,21 @@ public partial class EducationSpecification : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public string PrimaryCodeType { get; set; } = default!;
+    public string? PrimaryCodeType { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
     [SortAllowed]
-    public string PrimaryCode { get; set; } = default!;
+    public string? PrimaryCode { get; set; }
 
     /// <summary>
     /// An array of additional human readable codes/identifiers for the entity being described.
     /// </summary>
     /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
     [JsonProperty(PropertyName = "otherCodes")]
-    public List<OtherCodes>? OtherCodes { get; set; }
+    public List<OtherCodes> OtherCodes { get; set; } = default!;
 
     /// <summary>
     /// The type of education specification   - program: HOOPLEIDING   - privateProgram: PARTICULIEREOPLEIDING   - programCluster: HOONDERWIJSEENHEDENCLUSTER   - course: HOONDERWIJSEENHEID 
@@ -116,7 +123,7 @@ public partial class EducationSpecification : ModelBase
     /// <value>The description of this program. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.</value>
     [JsonProperty(PropertyName = "description")]
     [NotMapped]
-    public List<LanguageTypedString>? description
+    public List<LanguageTypedString> description
     {
         get
         {
@@ -143,12 +150,10 @@ public partial class EducationSpecification : ModelBase
     [JsonProperty(PropertyName = "level")]
     public Level? Level { get; set; }
 
-
     /// <summary>
     /// The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs 
     /// </summary>
     /// <value>The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs </value>
-
     [JsonProperty(PropertyName = "sector")]
     public ProgramSector? Sector { get; set; }
 
@@ -156,7 +161,6 @@ public partial class EducationSpecification : ModelBase
     /// Level of qualification according to the Dutch National Qualification Framework and the European Qualifications Framework, see [this overview](https://nlqf.nl/images/downloads/English2018/Schematic_overview_NLQF_2020.pdf) for more information.
     /// </summary>
     /// <value>Level of qualification according to the Dutch National Qualification Framework and the European Qualifications Framework, see [this overview](https://nlqf.nl/images/downloads/English2018/Schematic_overview_NLQF_2020.pdf) for more information.</value>
-
     [JsonProperty(PropertyName = "levelOfQualification")]
     public LevelOfQualification? LevelOfQualification { get; set; }
 
@@ -198,8 +202,11 @@ public partial class EducationSpecification : ModelBase
         }
         set
         {
-            StudyLoadUnit = value.StudyLoadUnit;
-            StudyLoadValue = value.Value;
+            if (value is not null)
+            {
+                StudyLoadUnit = value.StudyLoadUnit;
+                StudyLoadValue = value.Value;
+            }
         }
     }
 
@@ -221,7 +228,7 @@ public partial class EducationSpecification : ModelBase
     /// <value>Statements that describe the knowledge or skills students should acquire by the end of a particular course or program (ECTS-learningoutcome).</value>
     [JsonProperty(PropertyName = "learningOutcomes")]
     [NotMapped]
-    public List<List<LanguageTypedString>>? LearningOutcomes { get; set; }
+    public List<List<LanguageTypedString>> LearningOutcomes { get; set; } = default!;
 
     /// <summary>
     /// URL of the program&#x27;s website
@@ -239,11 +246,15 @@ public partial class EducationSpecification : ModelBase
     [JsonProperty(PropertyName = "parent")]
     [NotMapped]
     [JsonConverter(typeof(OneOfConverter))]
-    public OneOfEducationSpecification OneOfParent
+    public OneOfEducationSpecification? OneOfParent
     {
         get
         {
-            if (ParentId == null) return null;
+            if (ParentId == null)
+            {
+                return null;
+            }
+
             return new OneOfEducationSpecificationInstance(ParentId, Parent);
         }
     }
@@ -268,11 +279,15 @@ public partial class EducationSpecification : ModelBase
     [JsonProperty("children")]
     [NotMapped]
     [JsonConverter(typeof(ListOneOfConverter))]
-    public List<OneOfEducationSpecification>? ChildrenList
+    public List<OneOfEducationSpecification> ChildrenList
     {
         get
         {
-            if (ChildrenIds == null || !ChildrenIds.Any()) return null;
+            if (ChildrenIds == null || !ChildrenIds.Any())
+            {
+                return new List<OneOfEducationSpecification>();
+            }
+
             var result = new List<OneOfEducationSpecification>();
             foreach (var ChildId in ChildrenIds)
             {
@@ -287,14 +302,14 @@ public partial class EducationSpecification : ModelBase
     /// </summary>
     [JsonIgnore]
     [NotMapped]
-    public List<Guid>? ChildrenIds { get; set; }
+    public List<Guid> ChildrenIds { get; set; } = default!;
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
     [NotMapped]
-    public List<EducationSpecification>? Children { get; set; }
+    public List<EducationSpecification> Children { get; set; } = default!;
 
     /// <summary>
     /// The organization that manages this group. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -304,11 +319,15 @@ public partial class EducationSpecification : ModelBase
     [JsonProperty(PropertyName = "organization")]
     [NotMapped]
     [JsonConverter(typeof(OneOfConverter))]
-    public OneOfOrganization OneOfOrganization
+    public OneOfOrganization? OneOfOrganization
     {
         get
         {
-            if (OrganizationId == null) return null;
+            if (OrganizationId == null)
+            {
+                return null;
+            }
+
             return new OneOfOrganizationInstance(OrganizationId, Organization);
         }
     }
@@ -331,7 +350,7 @@ public partial class EducationSpecification : ModelBase
     /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
@@ -340,7 +359,7 @@ public partial class EducationSpecification : ModelBase
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
 
-            return null;
+            return new List<JObject>();
         }
     }
 

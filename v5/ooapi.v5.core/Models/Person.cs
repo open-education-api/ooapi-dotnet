@@ -13,7 +13,7 @@ namespace ooapi.v5.Models;
 /// 
 /// </summary>
 [DataContract]
-public partial class Person : ModelBase
+public class Person : ModelBase
 {
     /// <summary>
     /// Unique id of this person
@@ -28,19 +28,26 @@ public partial class Person : ModelBase
     /// <summary>
     /// Gets or Sets PrimaryCode
     /// </summary>
-    [JsonRequired]
     [JsonProperty(PropertyName = "primaryCode")]
     [NotMapped]
-    public IdentifierEntry primaryCodeIdentifier
+    public IdentifierEntry? PrimaryCodeIdentifier
     {
         get
         {
-            return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            if (PrimaryCodeType is not null && PrimaryCode is not null)
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+
+            return null;
         }
         set
         {
-            PrimaryCode = value.Code;
-            PrimaryCodeType = value.CodeType;
+            if (value is not null)
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
         }
     }
 
@@ -48,13 +55,13 @@ public partial class Person : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public string PrimaryCodeType { get; set; } = default!;
+    public string? PrimaryCodeType { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
-    public string PrimaryCode { get; set; } = default!;
+    public string? PrimaryCode { get; set; }
 
 
     /// <summary>
@@ -66,14 +73,14 @@ public partial class Person : ModelBase
     [MaxLength(256)]
     [JsonProperty(PropertyName = "givenName")]
     [SortAllowed]
-    public string GivenName { get; set; }
+    public string GivenName { get; set; } = default!;
 
     /// <summary>
     /// The prefix of the family name of this person
     /// </summary>
     /// <value>The prefix of the family name of this person</value>
     [JsonProperty(PropertyName = "surnamePrefix")]
-    public string SurnamePrefix { get; set; }
+    public string SurnamePrefix { get; set; } = default!;
 
     /// <summary>
     /// The family name of this person
@@ -84,7 +91,7 @@ public partial class Person : ModelBase
     [MaxLength(256)]
     [JsonProperty(PropertyName = "surname")]
     [SortAllowed]
-    public string Surname { get; set; }
+    public string Surname { get; set; } = default!;
 
     /// <summary>
     /// The name of this person which will be displayed
@@ -95,14 +102,14 @@ public partial class Person : ModelBase
     [MaxLength(256)]
     [JsonProperty(PropertyName = "displayName")]
     [SortAllowed]
-    public string DisplayName { get; set; }
+    public string DisplayName { get; set; } = default!;
 
     /// <summary>
     /// The initials of this person
     /// </summary>
     /// <value>The initials of this person</value>
     [JsonProperty(PropertyName = "initials")]
-    public string Initials { get; set; }
+    public string Initials { get; set; } = default!;
 
     /// <summary>
     /// Whether this person has an active enrollment.
@@ -125,35 +132,35 @@ public partial class Person : ModelBase
     /// </summary>
     /// <value>The city of birth of this person</value>
     [JsonProperty(PropertyName = "cityOfBirth")]
-    public string CityOfBirth { get; set; }
+    public string CityOfBirth { get; set; } = default!;
 
     /// <summary>
     /// The country of birth of this person the country code according to [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
     /// </summary>
     /// <value>The country of birth of this person the country code according to [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)</value>
     [JsonProperty(PropertyName = "countryOfBirth")]
-    public string CountryOfBirth { get; set; }
+    public string CountryOfBirth { get; set; } = default!;
 
     /// <summary>
     /// The nationality of this person the nationality according to https://gist.github.com/zspine/2365808
     /// </summary>
     /// <value>The nationality of this person the nationality according to https://gist.github.com/zspine/2365808</value>
-
     [JsonProperty(PropertyName = "nationality")]
-    public string Nationality { get; set; }
+    public string Nationality { get; set; } = default!;
 
     /// <summary>
     /// The date of nationality of this person, RFC3339 (full-date)
     /// </summary>
     /// <value>The date of nationality of this person, RFC3339 (full-date)</value>
-
     [JsonProperty(PropertyName = "dateOfNationality")]
     [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
     public DateTime? DateOfNationality { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
-    public string Affiliations { get; set; }
-
+    public string Affiliations { get; set; } = default!;
 
     /// <summary>
     /// The affiliations of this person, the relations a person has with the organization providing this endpoint - student: student - employee: medewerker - guest: gast 
@@ -212,7 +219,7 @@ public partial class Person : ModelBase
     /// </summary>
     /// <value>The secondary e-mailaddress of this person</value>
     [JsonProperty(PropertyName = "secondaryMail")]
-    public string SecondaryMail { get; set; }
+    public string SecondaryMail { get; set; } = default!;
 
     /// <summary>
     /// The telephone number of this person
@@ -220,7 +227,7 @@ public partial class Person : ModelBase
     /// <value>The telephone number of this person</value>
     [MaxLength(256)]
     [JsonProperty(PropertyName = "telephoneNumber")]
-    public string TelephoneNumber { get; set; }
+    public string TelephoneNumber { get; set; } = default!;
 
     /// <summary>
     /// The mobile number of this person
@@ -229,7 +236,7 @@ public partial class Person : ModelBase
 
     [MaxLength(256)]
     [JsonProperty(PropertyName = "mobileNumber")]
-    public string MobileNumber { get; set; }
+    public string MobileNumber { get; set; } = default!;
 
     /// <summary>
     /// The url of the informal picture of this person
@@ -237,7 +244,7 @@ public partial class Person : ModelBase
     /// <value>The url of the informal picture of this person</value>
     [MaxLength(2048)]
     [JsonProperty(PropertyName = "photoSocial")]
-    public string PhotoSocial { get; set; }
+    public string PhotoSocial { get; set; } = default!;
 
     /// <summary>
     /// The url of the official picture of this person
@@ -246,7 +253,7 @@ public partial class Person : ModelBase
 
     [MaxLength(2048)]
     [JsonProperty(PropertyName = "photoOfficial")]
-    public string PhotoOfficial { get; set; }
+    public string PhotoOfficial { get; set; } = default!;
 
     /// <summary>
     /// The gender of this person
@@ -260,27 +267,27 @@ public partial class Person : ModelBase
     /// </summary>
     /// <value>A title prefix to be used for this person</value>
     [JsonProperty(PropertyName = "titlePrefix")]
-    public string TitlePrefix { get; set; }
+    public string TitlePrefix { get; set; } = default!;
 
     /// <summary>
     /// A title suffix to be used for this person
     /// </summary>
     /// <value>A title suffix to be used for this person</value>
     [JsonProperty(PropertyName = "titleSuffix")]
-    public string TitleSuffix { get; set; }
+    public string TitleSuffix { get; set; } = default!;
 
     /// <summary>
     /// The name of the office where this person is located
     /// </summary>
     /// <value>The name of the office where this person is located</value>
     [JsonProperty(PropertyName = "office")]
-    public string Office { get; set; }
+    public string Office { get; set; } = default!;
 
     /// <summary>
     /// Gets or Sets Address
     /// </summary>
     [JsonProperty(PropertyName = "address")]
-    public Address Address { get; set; }
+    public Address Address { get; set; } = default!;
 
     /// <summary>
     /// Full name of In Case of Emergency contact
@@ -288,7 +295,7 @@ public partial class Person : ModelBase
     /// <value>Full name of In Case of Emergency contact</value>
     [MaxLength(256)]
     [JsonProperty(PropertyName = "ICEName")]
-    public string ICEName { get; set; }
+    public string ICEName { get; set; } = default!;
 
     /// <summary>
     /// Phone number of In Case of Emergency contact
@@ -296,7 +303,7 @@ public partial class Person : ModelBase
     /// <value>Phone number of In Case of Emergency contact</value>
     [MaxLength(256)]
     [JsonProperty(PropertyName = "ICEPhoneNumber")]
-    public string ICEPhoneNumber { get; set; }
+    public string ICEPhoneNumber { get; set; } = default!;
 
     /// <summary>
     /// Type of relation between person and In Case of Emergency contact
@@ -332,7 +339,7 @@ public partial class Person : ModelBase
     /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
@@ -341,7 +348,7 @@ public partial class Person : ModelBase
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
 
-            return null;
+            return new List<JObject>();
         }
     }
 
@@ -349,7 +356,7 @@ public partial class Person : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public List<Consumer>? Consumers { get; set; } = default!;
+    public List<Consumer> Consumers { get; set; } = default!;
 
     /// <summary>
     /// 

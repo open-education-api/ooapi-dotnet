@@ -9,11 +9,11 @@ namespace ooapi.v5.Helpers;
 /// </summary>
 public static class LanguageTypedStringJsonConverter
 {
-    internal static List<LanguageTypedString>? GetLanguageTypesStringList(string? languageTypedStringValue)
+    internal static List<LanguageTypedString> GetLanguageTypesStringList(string? languageTypedStringValue)
     {
         if (string.IsNullOrEmpty(languageTypedStringValue))
         {
-            return null;
+            return new List<LanguageTypedString>();
         }
 
         try
@@ -22,7 +22,7 @@ public static class LanguageTypedStringJsonConverter
             var jArray = JsonConvert.DeserializeObject<JArray>(languageTypedStringValue);
             if (jArray == null)
             {
-                return null;
+                return new List<LanguageTypedString>();
             }
 
             foreach (var item in jArray)
@@ -39,7 +39,7 @@ public static class LanguageTypedStringJsonConverter
         }
         catch (Exception)
         {
-            return null;
+            return new List<LanguageTypedString>();
         }
     }
 }

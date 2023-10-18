@@ -33,7 +33,7 @@ public class ProgramOfferingsRepository : BaseRepository<ProgramOffering>
     /// <param name="programId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <returns></returns>
-    public Pagination<ProgramOffering>? GetProgramOfferingByProgramId(Guid programId, DataRequestParameters dataRequestParameters)
+    public Pagination<ProgramOffering> GetProgramOfferingByProgramId(Guid programId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<ProgramOffering> set = dbContext.ProgramOfferingsNoTracking.Where(o => o.ProgramId.Equals(programId)).Include(x => x.Attributes);
         if (dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer))
@@ -42,7 +42,7 @@ public class ProgramOfferingsRepository : BaseRepository<ProgramOffering>
             return GetAllOrderedBy(dataRequestParameters, set);
         }
 
-        return null;
+        return new Pagination<ProgramOffering>();
     }
 
 }

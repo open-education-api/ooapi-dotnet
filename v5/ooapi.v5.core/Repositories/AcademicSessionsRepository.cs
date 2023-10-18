@@ -46,15 +46,13 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
     {
         result.ChildrenIds = dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(result.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
 
-        var getParent = dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
-        if (getParent && result.ParentId != null)
+        if (dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase) && result.ParentId != null)
         {
             result.Parent = set.FirstOrDefault(x => x.AcademicSessionId.Equals(result.ParentId));
             result.Parent.ChildrenIds = set.Where(x => x.ParentId.Equals(result.Parent.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
         }
 
-        var getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
-        if (getChildren)
+        if (dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase))
         {
             result.Children = set.Where(x => x.ParentId.Equals(result.AcademicSessionId)).ToList();
             foreach (var item in result.Children)
@@ -63,8 +61,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
             }
         }
 
-        var getYear = dataRequestParameters.Expand.Contains("year", StringComparer.InvariantCultureIgnoreCase);
-        if (getYear && result.YearId != null)
+        if (dataRequestParameters.Expand.Contains("year", StringComparer.InvariantCultureIgnoreCase) && result.YearId != null)
         {
             result.Year = set.FirstOrDefault(x => x.AcademicSessionId.Equals(result.YearId));
         }
@@ -78,18 +75,19 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         if (dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer))
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+            set = set.AsQueryable();
 
-        set = set.AsQueryable();
-
-        if (academicSessionType != null)
-        {
-            academicSessionType = academicSessionType.Replace(" ", "_");
-            if (Enum.TryParse(academicSessionType, true, out AcademicSessionType result))
+            if (academicSessionType != null)
             {
-                set = set.Where(x => x.AcademicSessionType.Equals(result));
+                academicSessionType = academicSessionType.Replace(" ", "_");
+                if (Enum.TryParse(academicSessionType, true, out AcademicSessionType result))
+                {
+                    set = set.Where(x => x.AcademicSessionType.Equals(result));
+                }
             }
+            return GetAllOrderedBy(dataRequestParameters, set);
         }
-        return GetAllOrderedBy(dataRequestParameters, set);
+
+        return new Pagination<AcademicSession>();
     }
 }

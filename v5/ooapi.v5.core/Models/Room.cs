@@ -30,28 +30,40 @@ public class Room : ModelBase
     /// <summary>
     /// Gets or Sets PrimaryCode
     /// </summary>
-    [JsonRequired]
     [JsonProperty(PropertyName = "primaryCode")]
     [NotMapped]
-    public IdentifierEntry primaryCodeIdentifier
+    public IdentifierEntry? PrimaryCodeIdentifier
     {
         get
         {
-            return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            if (PrimaryCodeType is not null && PrimaryCode is not null)
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+
+            return null;
         }
         set
         {
-            PrimaryCode = value.Code;
-            PrimaryCodeType = value.CodeType;
+            if (value is not null)
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
         }
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
-    public string PrimaryCodeType { get; set; } = default!;
+    public string? PrimaryCodeType { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
-    public string PrimaryCode { get; set; } = default!;
+    public string? PrimaryCode { get; set; }
 
 
     /// <summary>
@@ -70,7 +82,7 @@ public class Room : ModelBase
 
     [MaxLength(256)]
     [JsonProperty(PropertyName = "abbreviation")]
-    public string Abbreviation { get; set; }
+    public string Abbreviation { get; set; } = default!;
 
     /// <summary>
     /// The name of this room
@@ -100,7 +112,7 @@ public class Room : ModelBase
     [JsonIgnore]
     [SortAllowed]
     [SortDefault]
-    public string Name { get; set; }
+    public string Name { get; set; } = default!;
 
     /// <summary>
     /// The description of this room. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.
@@ -124,7 +136,7 @@ public class Room : ModelBase
     }
 
     [JsonIgnore]
-    public string Description { get; set; }
+    public string Description { get; set; } = default!;
 
     /// <summary>
     /// The total number of seats located in the room
@@ -150,7 +162,7 @@ public class Room : ModelBase
     /// <value>The floor on which this room is located</value>
 
     [JsonProperty(PropertyName = "floor")]
-    public string Floor { get; set; }
+    public string Floor { get; set; } = default!;
 
     /// <summary>
     /// The wing in which this room is located
@@ -158,7 +170,7 @@ public class Room : ModelBase
     /// <value>The wing in which this room is located</value>
 
     [JsonProperty(PropertyName = "wing")]
-    public string Wing { get; set; }
+    public string Wing { get; set; } = default!;
 
     /// <summary>
     /// Geolocation of the entrance of this room (WGS84 coordinate reference system)
@@ -186,13 +198,17 @@ public class Room : ModelBase
         }
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
     [Column(TypeName = "decimal(8, 6)")]
     [Precision(8, 6)]
     public decimal? Latitude { get; set; }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
     [Column(TypeName = "decimal(8, 6)")]
     [Precision(8, 6)]
@@ -204,7 +220,7 @@ public class Room : ModelBase
     /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
     [JsonProperty(PropertyName = "otherCodes")]
-    public List<OtherCodes> OtherCodes { get; set; }
+    public List<OtherCodes> OtherCodes { get; set; } = default!;
 
     /// <summary>
     /// The building in which the room is located. [&#x60;expandable&#x60;](#tag/building_model) By default only the &#x60;buildingId&#x60; (a string) is returned. If the client requested an expansion of &#x60;building&#x60; the full building object should be returned. 
@@ -227,9 +243,15 @@ public class Room : ModelBase
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
     public Guid? BuildingId { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
     public Building? Building { get; set; }
 
@@ -240,7 +262,7 @@ public class Room : ModelBase
 
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
@@ -248,8 +270,7 @@ public class Room : ModelBase
             {
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
-
-            return null;
+            return new List<JObject>();
         }
     }
 

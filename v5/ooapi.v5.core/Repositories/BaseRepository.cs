@@ -35,7 +35,10 @@ public class BaseRepository<T> where T : class
 
         set ??= dbContext.Set<T>().AsQueryable();
 
-        if (!string.IsNullOrEmpty(dataRequestParameters.PrimaryCodeSearch)) { dataRequestParameters.Filters.Add("primaryCode", dataRequestParameters.PrimaryCodeSearch); }
+        if (!string.IsNullOrEmpty(dataRequestParameters.PrimaryCodeSearch)) 
+        { 
+            dataRequestParameters.Filters.Add("primaryCode", dataRequestParameters.PrimaryCodeSearch); 
+        }
 
         var searchedSet = !string.IsNullOrWhiteSpace(dataRequestParameters.SearchTerm) ? OrderedQueryable.SearchBy<T>(set, dataRequestParameters.SearchTerm) : set;
         var filteredSet = (dataRequestParameters.Filters != null && dataRequestParameters.Filters.Count > 0) ? OrderedQueryable.FilterBy<T>(searchedSet, dataRequestParameters.Filters) : searchedSet;

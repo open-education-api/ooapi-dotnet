@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
@@ -17,7 +16,7 @@ public partial class Problem
     [JsonRequired]
 
     [JsonProperty(PropertyName = "status")]
-    public string Status { get; set; }
+    public string Status { get; set; } = default!;
 
     /// <summary>
     /// A short, human-readable summary of the problem type
@@ -26,7 +25,7 @@ public partial class Problem
     [JsonRequired]
 
     [JsonProperty(PropertyName = "title")]
-    public string Title { get; set; }
+    public string Title { get; set; } = default!;
 
     /// <summary>
     /// A human-readable explanation specific to this occurrence of the problem
@@ -34,5 +33,5 @@ public partial class Problem
     /// <value>A human-readable explanation specific to this occurrence of the problem</value>
 
     [JsonProperty(PropertyName = "detail")]
-    public string Detail { get; set; }
+    public string Detail { get; set; } = default!;
 }

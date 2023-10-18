@@ -20,7 +20,6 @@ public class Group : ModelBase
     /// </summary>
     /// <value>Unique id for this group</value>
     [JsonRequired]
-
     [JsonProperty(PropertyName = "groupId")]
     [SortAllowed]
     public Guid GroupId { get; set; }
@@ -28,19 +27,26 @@ public class Group : ModelBase
     /// <summary>
     /// Gets or Sets PrimaryCode
     /// </summary>
-    [JsonRequired]
     [JsonProperty(PropertyName = "primaryCode")]
     [NotMapped]
-    public IdentifierEntry primaryCodeIdentifier
+    public IdentifierEntry? PrimaryCodeIdentifier
     {
         get
         {
-            return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            if (PrimaryCodeType is not null && PrimaryCode is not null)
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+
+            return null;
         }
         set
         {
-            PrimaryCode = value.Code;
-            PrimaryCodeType = value.CodeType;
+            if (value is not null)
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
         }
     }
 
@@ -48,13 +54,13 @@ public class Group : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public string PrimaryCodeType { get; set; } = default!;
+    public string? PrimaryCodeType { get; set; } = default!;
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
-    public string PrimaryCode { get; set; } = default!;
+    public string? PrimaryCode { get; set; } = default!;
 
     /// <summary>
     /// The type of this group - learning group: A collection of participants carrying out common learning activities - class: A collection of participants carrying out jointly scheduled educational activities - team: A collection of members of a team, either students, employees or mixed. 
@@ -153,7 +159,7 @@ public class Group : ModelBase
 
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
@@ -162,7 +168,7 @@ public class Group : ModelBase
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
 
-            return null;
+            return new List<JObject>();
         }
     }
 
@@ -170,7 +176,7 @@ public class Group : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public List<Consumer>? Consumers { get; set; }
+    public List<Consumer> Consumers { get; set; } = default!;
 
     /// <summary>
     /// The organization that manages this group. [&#x60;expandable&#x60;](.#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 

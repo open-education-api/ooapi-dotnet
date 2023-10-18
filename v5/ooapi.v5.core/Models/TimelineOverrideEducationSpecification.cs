@@ -34,5 +34,5 @@ public partial class TimelineOverrideEducationSpecification
     [JsonRequired]
 
     [JsonProperty(PropertyName = "educationSpecification")]
-    public EducationSpecification EducationSpecification { get; set; }
+    public EducationSpecification EducationSpecification { get; set; } = default!;
 }

@@ -13,7 +13,12 @@ public abstract class ServiceBase
     internal readonly IUserRequestContext userRequestContext;
     internal readonly CoreDBContext dataContext;
 
-    public ServiceBase(CoreDBContext dbContext, IUserRequestContext userRequestContext)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
+    /// <param name="userRequestContext"></param>
+    protected ServiceBase(CoreDBContext dbContext, IUserRequestContext userRequestContext)
     {
         dataContext = dbContext;
         this.userRequestContext = userRequestContext;
@@ -26,14 +31,18 @@ public abstract class ServiceBase
     /// <param name="userRequestContext"></param>
     public void HideAttributesBasedOnBivLevel(object item, UserRequestContext userRequestContext)
     {
-        bool showBiv_V_Hoog = false;
-        bool showBiv_V_Middel = false;
-        string curUser = userRequestContext.UserId;
+        var showBiv_V_Hoog = false;
+        var showBiv_V_Middel = false;
 
         if (userRequestContext.Bivv == "hoog" || userRequestContext.IsLocal)
+        {
             showBiv_V_Hoog = true;
+        }
+
         if (userRequestContext.Bivv == "middel")
+        {
             showBiv_V_Middel = true;
+        }
 
         //Show property when:
         // --> (showBiv_V_Hoog == true)
@@ -50,7 +59,7 @@ public abstract class ServiceBase
                 var BivVAttribuut = property.GetCustomAttribute<BivVAttribute>();
                 if (BivVAttribuut != null)
                 {
-                    if (property.GetCustomAttribute<BivVAttribute>().Laag)
+                    if (BivVAttribuut.Laag)
                     {
                         // property is public
                         hideProperty = false;
@@ -62,7 +71,7 @@ public abstract class ServiceBase
                             // property is accessible for everyone with with 'hoog' (high) access
                             hideProperty = false;
                         }
-                        if (showBiv_V_Middel && property.GetCustomAttribute<BivVAttribute>().Middel)
+                        if (showBiv_V_Middel && BivVAttribuut.Middel)
                         {
                             // all properties with 'middel' attribute are accessible for everyone with 'middel' (middle) access
                             hideProperty = false;

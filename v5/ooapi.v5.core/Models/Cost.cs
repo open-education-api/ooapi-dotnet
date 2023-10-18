@@ -26,7 +26,7 @@ public class Cost : ModelBase
     [JsonRequired]
 
     [JsonProperty(PropertyName = "costType")]
-    public string CostType { get; set; }
+    public string CostType { get; set; } = default!;
 
     /// <summary>
     /// The total amount of the cost as a string. Use a &#x27;.&#x27; (dot) as an optional separator. The numbers before the separator signify the major units of the currency, after the dot the minor units. Only a single separator is allowed. Do not use a comma.
@@ -34,7 +34,7 @@ public class Cost : ModelBase
     /// <value>The total amount of the cost as a string. Use a &#x27;.&#x27; (dot) as an optional separator. The numbers before the separator signify the major units of the currency, after the dot the minor units. Only a single separator is allowed. Do not use a comma.</value>
     [RegularExpression("/^\\d+(?:\\.\\d+)?$/")]
     [JsonProperty(PropertyName = "amount")]
-    public string Amount { get; set; }
+    public string Amount { get; set; } = default!;
 
     /// <summary>
     /// The part of the cost that is VAT, as a string. Use a &#x27;.&#x27; (dot) as an optional separator. The numbers before the separator signify the major units of the currency, after the dot the minor units. Only a single separator is allowed. Do not use a comma.
@@ -42,7 +42,7 @@ public class Cost : ModelBase
     /// <value>The part of the cost that is VAT, as a string. Use a &#x27;.&#x27; (dot) as an optional separator. The numbers before the separator signify the major units of the currency, after the dot the minor units. Only a single separator is allowed. Do not use a comma.</value>
     [RegularExpression("/^\\d+(?:\\.\\d+)?$/")]
     [JsonProperty(PropertyName = "vatAmount")]
-    public string VatAmount { get; set; }
+    public string VatAmount { get; set; } = default!;
 
     /// <summary>
     /// The part of the cost that is non-VAT. as a string. Use a &#x27;.&#x27; (dot) as an optional separator. The numbers before the separator signify the major units of the currency, after the dot the minor units. Only a single separator is allowed. Do not use a comma.
@@ -50,7 +50,7 @@ public class Cost : ModelBase
     /// <value>The part of the cost that is non-VAT. as a string. Use a &#x27;.&#x27; (dot) as an optional separator. The numbers before the separator signify the major units of the currency, after the dot the minor units. Only a single separator is allowed. Do not use a comma.</value>
     [RegularExpression("/^\\d+(?:\\.\\d+)?$/")]
     [JsonProperty(PropertyName = "amountWithoutVat")]
-    public string AmountWithoutVat { get; set; }
+    public string AmountWithoutVat { get; set; } = default!;
 
     /// <summary>
     /// The currency this cost is in. Should correspond to one of the currency codes from ISO 4217.
@@ -58,7 +58,7 @@ public class Cost : ModelBase
     /// <value>The currency this cost is in. Should correspond to one of the currency codes from ISO 4217.</value>
 
     [JsonProperty(PropertyName = "currency")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = default!;
 
     /// <summary>
     /// An array of optional pre-formatted strings in different locales. Clients can choose to use this string instead of rendering their own based on the current locale of the user.
@@ -67,7 +67,7 @@ public class Cost : ModelBase
 
     [JsonProperty(PropertyName = "displayAmount")]
     [NotMapped]
-    public List<LanguageTypedString>? displayAmount
+    public List<LanguageTypedString> displayAmount
     {
         get
         {
@@ -86,7 +86,7 @@ public class Cost : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public string DisplayAmount { get; set; }
+    public string DisplayAmount { get; set; } = default!;
 
     /// <summary>
     /// 

@@ -28,7 +28,7 @@ public partial class Service : ModelBase
 
     [MaxLength(256)]
     [JsonProperty(PropertyName = "contactEmail")]
-    public string ContactEmail { get; set; }
+    public string ContactEmail { get; set; } = default!;
 
     /// <summary>
     /// URL of the API specification (YAML or JSON, compliant with [Open API Specification v3](https://github.com/OAI/OpenAPI-Specification/))
@@ -38,7 +38,7 @@ public partial class Service : ModelBase
 
     [MaxLength(2048)]
     [JsonProperty(PropertyName = "specification")]
-    public string Specification { get; set; }
+    public string Specification { get; set; } = default!;
 
     /// <summary>
     /// URL of the API documentation, including general terms and privacy statement
@@ -48,7 +48,7 @@ public partial class Service : ModelBase
 
     [MaxLength(2048)]
     [JsonProperty(PropertyName = "documentation")]
-    public string Documentation { get; set; }
+    public string Documentation { get; set; } = default!;
 
     /// <summary>
     /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
@@ -57,7 +57,7 @@ public partial class Service : ModelBase
 
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
@@ -65,8 +65,7 @@ public partial class Service : ModelBase
             {
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
-
-            return null;
+            return new List<JObject>();
         }
     }
 

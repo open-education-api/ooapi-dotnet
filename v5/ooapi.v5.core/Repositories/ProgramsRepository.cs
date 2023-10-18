@@ -25,12 +25,13 @@ public class ProgramsRepository : BaseRepository<Program>
     public Pagination<Program> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
         IQueryable<Program> set = dbContext.ProgramsNoTracking.Include(x => x.Attributes);
-        var includeConsumer = dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer);
-        if (includeConsumer)
+        if (dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer))
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+            return GetAllOrderedBy(dataRequestParameters, set);
         }
-        return GetAllOrderedBy(dataRequestParameters, set);
+
+        return new Pagination<Program>();
     }
 
     /// <summary>
@@ -103,7 +104,7 @@ public class ProgramsRepository : BaseRepository<Program>
     /// <param name="educationSpecificationId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <returns></returns>
-    public Pagination<Program>? GetProgramsByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
+    public Pagination<Program> GetProgramsByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<Program> set = dbContext.ProgramsNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
 
@@ -113,7 +114,7 @@ public class ProgramsRepository : BaseRepository<Program>
             return GetAllOrderedBy(dataRequestParameters, set);
         }
 
-        return null;
+        return new Pagination<Program>();
     }
 
     /// <summary>

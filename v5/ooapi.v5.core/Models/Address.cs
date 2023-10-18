@@ -34,14 +34,14 @@ public partial class Address : ModelBase
     /// </summary>
     /// <value>The street name</value>
     [JsonProperty(PropertyName = "street")]
-    public string Street { get; set; }
+    public string Street { get; set; } = default!;
 
     /// <summary>
     /// The street number
     /// </summary>
     /// <value>The street number</value>
     [JsonProperty(PropertyName = "streetNumber")]
-    public string StreetNumber { get; set; }
+    public string StreetNumber { get; set; } = default!;
 
     /// <summary>
     /// Further details like building name, suite, apartment number, etc.
@@ -76,21 +76,21 @@ public partial class Address : ModelBase
     /// </summary>
     /// <value>Postal code</value>
     [JsonProperty(PropertyName = "postalCode")]
-    public string PostalCode { get; set; }
+    public string PostalCode { get; set; } = default!;
 
     /// <summary>
     /// name of the city / locality
     /// </summary>
     /// <value>name of the city / locality</value>
     [JsonProperty(PropertyName = "city")]
-    public string City { get; set; }
+    public string City { get; set; } = default!;
 
     /// <summary>
     /// the country code according to [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
     /// </summary>
     /// <value>the country code according to [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)</value>
     [JsonProperty(PropertyName = "countryCode")]
-    public string CountryCode { get; set; }
+    public string CountryCode { get; set; } = default!;
 
     /// <summary>
     /// Geolocation of the entrance of this address (WGS84 coordinate reference system)

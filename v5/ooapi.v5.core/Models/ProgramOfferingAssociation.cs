@@ -14,5 +14,5 @@ public partial class ProgramOfferingAssociation
     /// </summary>
 
     [JsonProperty(PropertyName = "result")]
-    public Object Result { get; set; }
+    public object Result { get; set; } = default!;
 }

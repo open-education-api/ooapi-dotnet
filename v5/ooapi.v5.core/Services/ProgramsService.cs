@@ -13,7 +13,7 @@ public class ProgramsService : ServiceBase, IProgramsService
 {
     private readonly ProgramsRepository _repository;
 
-    public ProgramsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public ProgramsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new ProgramsRepository(dbContext);
     }

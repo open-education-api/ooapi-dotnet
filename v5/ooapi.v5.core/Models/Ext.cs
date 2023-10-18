@@ -27,7 +27,10 @@ public class ModelBase
         get
         {
             if (string.IsNullOrEmpty(Extension))
+            {
                 return null;
+            }
+
             try
             {
                 return JsonConvert.DeserializeObject<JObject>(Extension);

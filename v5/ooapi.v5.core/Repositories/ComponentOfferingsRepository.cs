@@ -33,7 +33,7 @@ public class ComponentOfferingsRepository : BaseRepository<ComponentOffering>
     /// <param name="componentId"></param>
     /// <param name="dataRequestParameters"></param>
     /// <returns></returns>
-    public Pagination<ComponentOffering>? GetComponentOfferingByProgramId(Guid componentId, DataRequestParameters dataRequestParameters)
+    public Pagination<ComponentOffering> GetComponentOfferingByProgramId(Guid componentId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<ComponentOffering> set = dbContext.ComponentOfferingsNoTracking.Where(o => o.Component.Equals(componentId)).Include(x => x.Attributes);
 
@@ -41,9 +41,8 @@ public class ComponentOfferingsRepository : BaseRepository<ComponentOffering>
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
             return GetAllOrderedBy(dataRequestParameters, set);
-
         }
 
-        return null;
+        return new Pagination<ComponentOffering>();
     }
 }

@@ -57,7 +57,7 @@ public partial class ComponentOffering : Offering
     /// 
     /// </summary>
     [JsonIgnore]
-    public Component Component { get; set; } = default!;
+    public Component? Component { get; set; }
 
     /// <summary>
     /// The courseoffering where this componentoffering is related to. [&#x60;expandable&#x60;](#tag/course_offering_model) By default only the &#x60;courseOfferingId&#x60; (a string) is returned. If the client requested an expansion of &#x60;courseOffering&#x60; the full courseOffering object should be returned. 

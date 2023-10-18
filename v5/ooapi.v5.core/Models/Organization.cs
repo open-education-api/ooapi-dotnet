@@ -28,19 +28,26 @@ public partial class Organization : ModelBase
     /// <summary>
     /// Gets or Sets PrimaryCode
     /// </summary>
-    [JsonRequired]
     [JsonProperty(PropertyName = "primaryCode")]
     [NotMapped]
-    public IdentifierEntry primaryCodeIdentifier
+    public IdentifierEntry? PrimaryCodeIdentifier
     {
         get
         {
-            return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            if (PrimaryCodeType is not null && PrimaryCode is not null)
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+
+            return null;
         }
         set
         {
-            PrimaryCode = value.Code;
-            PrimaryCodeType = value.CodeType;
+            if (value is not null)
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
         }
     }
 
@@ -48,13 +55,13 @@ public partial class Organization : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public string PrimaryCodeType { get; set; } = default!;
+    public string? PrimaryCodeType { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
-    public string PrimaryCode { get; set; } = default!;
+    public string? PrimaryCode { get; set; }
 
     /// <summary>
     /// The type of this organization. Each OOAPI endpoint should have a single organization with type &#x60;root&#x60;, describing the root organization. - root: the root of this organization, representing the Educational Institution itself - institute: instituut - department: departement - faculty: faculteit - branch: vestiging - academy: academie - school: school 
@@ -108,7 +115,7 @@ public partial class Organization : ModelBase
     /// <value>Any general description of the organization should clearly mention the type of higher education organization, especially in the case of a binary system. In Dutch; universiteit (university) or hogeschool (university of applied sciences).</value>
     [JsonProperty(PropertyName = "description")]
     [NotMapped]
-    public List<LanguageTypedString>? description
+    public List<LanguageTypedString> description
     {
         get
         {
@@ -126,17 +133,15 @@ public partial class Organization : ModelBase
     /// Addresses of this organization
     /// </summary>
     /// <value>Addresses of this organization</value>
-
     [JsonProperty(PropertyName = "addresses")]
     [NotMapped]
-    public List<Address>? Addresses { get; set; }
+    public List<Address> Addresses { get; set; } = default!;
 
 
     /// <summary>
     /// URL of the organization&#x27;s website
     /// </summary>
     /// <value>URL of the organization&#x27;s website</value>
-
     [MaxLength(2048)]
     [JsonProperty(PropertyName = "link")]
     public string? Link { get; set; }
@@ -145,7 +150,6 @@ public partial class Organization : ModelBase
     /// Logo of this organization
     /// </summary>
     /// <value>Logo of this organization</value>
-
     [MaxLength(2048)]
     [JsonProperty(PropertyName = "logo")]
     public string? Logo { get; set; }
@@ -154,15 +158,13 @@ public partial class Organization : ModelBase
     /// An array of additional human readable codes/identifiers for the entity being described.
     /// </summary>
     /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
-
     [JsonProperty(PropertyName = "otherCodes")]
-    public List<OtherCodes>? OtherCodes { get; set; }
+    public List<OtherCodes> OtherCodes { get; set; } = default!;
 
     /// <summary>
     /// The organizational unit which is the parent of this organization. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
     /// </summary>
     /// <value>The organizational unit which is the parent of this organization. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. </value>
-
     [JsonProperty(PropertyName = "parent")]
     [NotMapped]
     [JsonConverter(typeof(OneOfConverter))]
@@ -175,13 +177,18 @@ public partial class Organization : ModelBase
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
     public Guid? ParentId { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [JsonIgnore]
     [NotMapped]
     public Organization? Parent { get; set; }
-
 
     /// <summary>
     /// All the organizational units for which this organization is the parent. [&#x60;expandable&#x60;](#tag/organization_model) By default only the &#x60;organizationId&#x60; (a string) is returned. If the client requested an expansion of &#x60;organization&#x60; the full organization object should be returned. 
@@ -191,11 +198,15 @@ public partial class Organization : ModelBase
     [JsonProperty("children")]
     [NotMapped]
     [JsonConverter(typeof(ListOneOfConverter))]
-    public List<OneOfOrganization>? ChildrenList
+    public List<OneOfOrganization> ChildrenList
     {
         get
         {
-            if (ChildrenIds == null || !ChildrenIds.Any()) return null;
+            if (ChildrenIds == null || !ChildrenIds.Any())
+            {
+                return new List<OneOfOrganization>();
+            }
+
             var result = new List<OneOfOrganization>();
             foreach (var ChildId in ChildrenIds)
             {
@@ -210,23 +221,22 @@ public partial class Organization : ModelBase
     /// </summary>
     [JsonIgnore]
     [NotMapped]
-    public List<Guid>? ChildrenIds { get; set; }
+    public List<Guid> ChildrenIds { get; set; } = default!;
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
     [NotMapped]
-    public List<Organization>? Children { get; set; }
+    public List<Organization> Children { get; set; } = default!;
 
     /// <summary>
     /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
     /// </summary>
     /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
-
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
@@ -235,7 +245,7 @@ public partial class Organization : ModelBase
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
 
-            return null;
+            return new List<JObject>();
         }
     }
 

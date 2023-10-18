@@ -39,19 +39,26 @@ public class AcademicSession : ModelBase
     /// <summary>
     /// Gets or Sets PrimaryCode
     /// </summary>
-    [JsonRequired]
     [JsonProperty(PropertyName = "primaryCode")]
     [NotMapped]
-    public IdentifierEntry PrimaryCodeIdentifier
+    public IdentifierEntry? PrimaryCodeIdentifier
     {
         get
         {
-            return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            if (PrimaryCodeType is not null && PrimaryCode is not null)
+            {
+                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+            }
+
+            return null;
         }
         set
         {
-            PrimaryCode = value.Code;
-            PrimaryCodeType = value.CodeType;
+            if (value is not null)
+            {
+                PrimaryCode = value.Code;
+                PrimaryCodeType = value.CodeType;
+            }
         }
     }
 
@@ -92,7 +99,7 @@ public class AcademicSession : ModelBase
     /// </summary>
     [JsonIgnore]
     [SortAllowed]
-    public List<Attribute>? Attributes { get; set; }
+    public List<Attribute> Attributes { get; set; } = default!;
 
     /// <summary>
     /// The day on which this academic session starts, RFC3339 (full-date)
@@ -126,7 +133,11 @@ public class AcademicSession : ModelBase
     {
         get
         {
-            if (ParentId == null) return null;
+            if (ParentId == null)
+            {
+                return null;
+            }
+
             return new OneOfAcademicSessionInstance(ParentId, Parent);
         }
     }
@@ -152,13 +163,13 @@ public class AcademicSession : ModelBase
     [JsonProperty("children")]
     [NotMapped]
     [JsonConverter(typeof(ListOneOfConverter))]
-    public List<OneOfAcademicSession>? ChildrenList
+    public List<OneOfAcademicSession> ChildrenList
     {
         get
         {
             if (ChildrenIds == null || !ChildrenIds.Any())
             {
-                return null;
+                return new List<OneOfAcademicSession>();
             }
 
             var result = new List<OneOfAcademicSession>();
@@ -175,14 +186,14 @@ public class AcademicSession : ModelBase
     /// </summary>
     [JsonIgnore]
     [NotMapped]
-    public List<Guid>? ChildrenIds { get; set; }
+    public List<Guid> ChildrenIds { get; set; } = default!;
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
     [NotMapped]
-    public List<AcademicSession>? Children { get; set; }
+    public List<AcademicSession> Children { get; set; } = default!;
 
     /// <summary>
     /// The top level year of this session (e.g. 20xx where the current session is a week 40 of a semester). This object is [&#x60;expandable&#x60;](#tag/academic_sessions_model)
@@ -222,7 +233,7 @@ public class AcademicSession : ModelBase
     /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
 
     [JsonProperty("otherCodes")]
-    public List<OtherCodes>? OtherCodes { get; set; }
+    public List<OtherCodes> OtherCodes { get; set; } = default!;
 
     /// <summary>
     /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
@@ -231,13 +242,16 @@ public class AcademicSession : ModelBase
 
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject>? ConsumersList
+    public List<JObject> ConsumersList
     {
         get
         {
             if (Consumers != null && Consumers.Any())
+            {
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
-            return null;
+            }
+
+            return new List<JObject>();
         }
     }
 
@@ -251,17 +265,17 @@ public class AcademicSession : ModelBase
     /// 
     /// </summary>
     [JsonIgnore]
-    public virtual ICollection<ProgramOffering>? ProgramOfferings { get; set; }
+    public virtual ICollection<ProgramOffering> ProgramOfferings { get; set; } = default!;
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
-    public virtual ICollection<CourseOffering>? CourseOfferings { get; set; }
+    public virtual ICollection<CourseOffering> CourseOfferings { get; set; } = default!;
 
     /// <summary>
     /// 
     /// </summary>
     [JsonIgnore]
-    public virtual ICollection<ComponentOffering>? ComponentOfferings { get; set; }
+    public virtual ICollection<ComponentOffering> ComponentOfferings { get; set; } = default!;
 }

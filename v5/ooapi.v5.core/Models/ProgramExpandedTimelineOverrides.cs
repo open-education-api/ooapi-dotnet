@@ -33,7 +33,6 @@ public partial class ProgramExpandedTimelineOverrides
     /// Gets or Sets Program
     /// </summary>
     [JsonRequired]
-
     [JsonProperty(PropertyName = "program")]
-    public Program Program { get; set; }
+    public Program Program { get; set; } = default!;
 }

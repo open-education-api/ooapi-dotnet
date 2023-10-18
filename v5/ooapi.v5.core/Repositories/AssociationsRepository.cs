@@ -30,7 +30,7 @@ public class AssociationsRepository : BaseRepository<Association>
     /// </summary>
     /// <param name="personId"></param>
     /// <returns></returns>
-    public List<Association>? GetAssociationsByPersonId(Guid personId)
+    public List<Association> GetAssociationsByPersonId(Guid personId)
     {
         return dbContext.Associations.Where(o => o.PersonId.Equals(personId)).ToList();
     }
