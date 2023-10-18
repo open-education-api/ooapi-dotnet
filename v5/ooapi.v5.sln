@@ -17,6 +17,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ooapi.v5.UnitTests", "ooapi.v5.UnitTests\ooapi.v5.UnitTests.csproj", "{77C9B463-E06B-472D-934C-DDF2606E9D48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ooapi.v5.core.UnitTests", "ooapi.v5.core.UnitTests\ooapi.v5.core.UnitTests.csproj", "{7448434C-CE41-47BE-B402-F79401F85A63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

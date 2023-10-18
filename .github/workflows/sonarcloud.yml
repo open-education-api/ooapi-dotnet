@@ -43,6 +43,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+
+      - name: dotnet restore
+        run: dotnet restore ./v5/ooapi.v5.sln
+
+      - name: dotnet build
+        run: dotnet build ./v5/ooapi.v5.sln --no-restore
+
+      - name: dotnet test
+        run: dotnet test ./v5 --no-build
+        
+
       - name: Analyze with SonarCloud
 
         # You can pin the exact commit or the version.
