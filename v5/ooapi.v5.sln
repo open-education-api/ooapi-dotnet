@@ -9,9 +9,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{D4C8F2A3-CE03-499D-A059-EDCDAF6BCF61}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
-		..\.sonarcloud.properties = ..\.sonarcloud.properties
 		..\LICENSE = ..\LICENSE
 		..\README.md = ..\README.md
+		..\sonarcloud.properties = ..\sonarcloud.properties
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5.UnitTests", "ooapi.v5.UnitTests\ooapi.v5.UnitTests.csproj", "{77C9B463-E06B-472D-934C-DDF2606E9D48}"
