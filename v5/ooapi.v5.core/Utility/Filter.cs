@@ -2,7 +2,6 @@
 
 namespace ooapi.v5.core.Utility;
 
-
 internal class Filter
 {
     public string PropertyName { get; set; } = default!;
@@ -28,7 +27,7 @@ internal class Filter
             Type t when t == typeof(int) => int.Parse(inputAsString),
             Type t when t == typeof(int?) => input as int?,
             Type t when t == typeof(short) => short.Parse(inputAsString),
-            Type t when t == typeof(short?) =>input as short?,
+            Type t when t == typeof(short?) => input as short?,
             Type t when t == typeof(DateTime) => DateTime.Parse(inputAsString, DateTimeFormatInfo.InvariantInfo),
             Type t when t == typeof(DateTime?) => IsNull(input) ? null : DateTime.Parse(inputAsString, DateTimeFormatInfo.InvariantInfo),
             Type t when t == typeof(Guid) => Guid.Parse(inputAsString),

@@ -57,13 +57,13 @@ public class ProgramsRepository : BaseRepository<Program>
         result.ChildrenIds = dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).Select(x => x.ProgramId).ToList();
         result.ChildrenIds = dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).Select(x => x.ProgramId).ToList();
 
-        if (dataRequestParameters?.Expand?.Contains("parent", StringComparer.InvariantCultureIgnoreCase) == true && result.ParentId != null)
+        if (dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase) && result.ParentId != null)
         {
             result.Parent = dbContext.ProgramsNoTracking.First(x => x.OrganizationId.Equals(result.ParentId));
             result.Parent.ChildrenIds = set.Where(x => x.ParentId.Equals(result.Parent.ProgramId)).Select(x => x.ProgramId).ToList();
         }
 
-        if (dataRequestParameters?.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase) == true)
+        if (dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase))
         {
             result.Children = dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).ToList();
             foreach (var item in result.Children)
@@ -72,14 +72,14 @@ public class ProgramsRepository : BaseRepository<Program>
             }
         }
 
-        if (dataRequestParameters?.Expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase) == true)
+        if (dataRequestParameters.Expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase))
         {
             result.Organization = dbContext.OrganizationsNoTracking.Include(x => x.Attributes).First(x => x.OrganizationId.Equals(result.OrganizationId));
             result.Organization.Parent = dbContext.OrganizationsNoTracking.FirstOrDefault(x => x.OrganizationId.Equals(result.Organization.ParentId));
             result.Organization.ChildrenIds = dbContext.OrganizationsNoTracking.Where(x => x.ParentId.Equals(result.Organization.OrganizationId)).Select(x => x.OrganizationId).ToList();
         }
 
-        if (dataRequestParameters?.Expand.Contains("educationspecification", StringComparer.InvariantCultureIgnoreCase) == true)
+        if (dataRequestParameters.Expand.Contains("educationspecification", StringComparer.InvariantCultureIgnoreCase))
         {
             result.EducationSpecification = dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes).First(x => x.EducationSpecificationId.Equals(result.EducationSpecificationId));
             Guid? educationSpecificationParentId = dbContext.EducationSpecificationsNoTracking
