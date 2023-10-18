@@ -59,7 +59,12 @@ jobs:
 
       - name: dotnet build,test and sonar analyze
         run: |
-            dotnet sonarscanner begin -d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+            dotnet sonarscanner begin \
+            -k:"open-education-api_ooapi-dotnet" \
+            -o:"open-education-api" \
+            -d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+            -d:sonar.host.url="https://sonarcloud.io/" \
+            -d:sonar.exclusions="./v5/ooapi.v5.core/Migrations/**"
             dotnet build ./v5/ooapi.v5.sln --no-restore
             dotnet test ./v5 --no-build --collect "Code Coverage"
             dotnet sonarscanner end -d:sonar.token="${{ secrets.SONAR_TOKEN }}"
