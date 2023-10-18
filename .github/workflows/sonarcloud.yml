@@ -75,7 +75,7 @@ jobs:
             -d:sonar.exclusions="./v5/ooapi.v5.core/Migrations/**" \
             -d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
             dotnet build ./v5/ooapi.v5.sln --no-restore
-            dotnet-coverage collect -s "coverage.runsetting.xml" -f xml -o "coverage.xml" "dotnet test ./v5 --no-build"
+            dotnet-coverage collect -s "coverage.runsettings.xml" -f xml -o "coverage.xml" "dotnet test ./v5 --no-build"
             dotnet sonarscanner end -d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       # - name: Analyze with SonarCloud
