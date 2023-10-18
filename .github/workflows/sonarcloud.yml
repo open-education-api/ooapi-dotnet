@@ -59,6 +59,9 @@ jobs:
       - name: Install dotnet-sonarscanner
         run: dotnet tool install --global dotnet-sonarscanner
 
+      - name: install dotnet-coverage
+        run: dotnet tool install --global dotnet-coverage
+
       - name: dotnet restore
         run: dotnet restore ./v5/ooapi.v5.sln
 
@@ -69,9 +72,10 @@ jobs:
             -o:"open-education-api" \
             -d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
             -d:sonar.host.url="https://sonarcloud.io/" \
-            -d:sonar.exclusions="./v5/ooapi.v5.core/Migrations/**"
+            -d:sonar.exclusions="./v5/ooapi.v5.core/Migrations/**" \
+            -d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
             dotnet build ./v5/ooapi.v5.sln --no-restore
-            dotnet test ./v5 --no-build --collect "Code Coverage"
+            dotnet-coverage collect "dotnet test ./v5 --no-build" -f xml -o "coverage.xml"
             dotnet sonarscanner end -d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       # - name: Analyze with SonarCloud
