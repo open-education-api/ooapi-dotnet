@@ -28,11 +28,11 @@ internal class ExceptionHandlingMiddleware : IMiddleware
         {
             _logger.LogError(ex, ex.Message);
 
-            await HandleExceptionAsync(context, ex);
+            await HandleExceptionAsync(context);
         }
     }
 
-    private async Task HandleExceptionAsync(HttpContext context, Exception ex)
+    private async Task HandleExceptionAsync(HttpContext context)
     {
         context.Response.ContentType = MediaTypeNames.Application.Json;
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
