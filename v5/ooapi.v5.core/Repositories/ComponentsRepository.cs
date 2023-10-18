@@ -2,9 +2,7 @@
 
 namespace ooapi.v5.core.Repositories;
 
-/// <summary>
-/// 
-/// </summary>
+
 public class ComponentsRepository : BaseRepository<Component>
 {
     /// <summary>

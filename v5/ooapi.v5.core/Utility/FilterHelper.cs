@@ -3,9 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace ooapi.v5.core.Utility;
 
-/// <summary>
-/// 
-/// </summary>
+
 public static class FilterHelper
 {
     internal static IEnumerable<FilterNode> ToFilterNodeCollection(this string filter)

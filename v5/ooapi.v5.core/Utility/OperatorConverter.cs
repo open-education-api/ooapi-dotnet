@@ -1,8 +1,6 @@
 ﻿namespace ooapi.v5.core.Utility;
 
-/// <summary>
-/// 
-/// </summary>
+
 public static class OperatorConverter
 {
     internal static Operator ToLogicalOperator(this string input)

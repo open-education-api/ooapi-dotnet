@@ -6,9 +6,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-/// <summary>
-/// 
-/// </summary>
+
 public class NewsItemsService : ServiceBase, INewsItemsService
 {
     private readonly NewsItemsRepository _repository;

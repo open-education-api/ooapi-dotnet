@@ -4,9 +4,7 @@ using System.Reflection;
 
 namespace ooapi.v5.core.Utility;
 
-/// <summary>
-/// 
-/// </summary>
+
 /// <typeparam name="T"></typeparam>
 public class FilterToLinq<T> : IFilterToDataAccess<T>
 {

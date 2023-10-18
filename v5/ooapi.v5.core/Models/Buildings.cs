@@ -2,9 +2,7 @@ using Newtonsoft.Json;
 
 namespace ooapi.v5.Models;
 
-/// <summary>
-/// 
-/// </summary>
+
 public class Buildings : Pagination<Building>
 {
     /// <summary>

@@ -1,8 +1,6 @@
 ﻿namespace ooapi.v5.Models;
 
-/// <summary>
-/// 
-/// </summary>
+
 /// <typeparam name="T"></typeparam>
 public interface IPagination<T>
 {

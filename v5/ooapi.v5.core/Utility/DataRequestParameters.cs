@@ -3,9 +3,7 @@ using ooapi.v5.Models.Params;
 
 namespace ooapi.v5.core.Utility;
 
-/// <summary>
-/// 
-/// </summary>
+
 public class DataRequestParameters
 {
     /// <summary>

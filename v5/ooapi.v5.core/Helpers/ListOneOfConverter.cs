@@ -4,9 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ooapi.v5.Helpers;
 
-/// <summary>
-/// 
-/// </summary>
+
 public class ListOneOfConverter : JsonConverter
 {
     /// <summary>

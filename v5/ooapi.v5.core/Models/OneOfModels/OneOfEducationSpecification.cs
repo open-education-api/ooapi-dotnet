@@ -5,18 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ooapi.v5.core.Models.OneOfModels;
 
-/// <summary>
-/// 
-/// </summary>
+
 [SwaggerDiscriminator("resultType")]
 [SwaggerSubType(typeof(Guid), DiscriminatorValue = "identifier")]
 [SwaggerSubType(typeof(EducationSpecification), DiscriminatorValue = "educationSpecification")]
 [NotMapped]
 public abstract class OneOfEducationSpecification { }
 
-/// <summary>
-/// 
-/// </summary>
+
 public class OneOfEducationSpecificationInstance : OneOfEducationSpecification
 {
     /// <summary>

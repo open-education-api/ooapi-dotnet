@@ -5,9 +5,7 @@ using System.Reflection;
 
 namespace ooapi.v5.core.Services;
 
-/// <summary>
-/// 
-/// </summary>
+
 public abstract class ServiceBase
 {
     internal readonly IUserRequestContext userRequestContext;

@@ -2,9 +2,7 @@
 
 namespace ooapi.v5.core.Services.Interfaces;
 
-/// <summary>
-/// 
-/// </summary>
+
 public interface IServiceMetadataService
 {
     /// <summary>

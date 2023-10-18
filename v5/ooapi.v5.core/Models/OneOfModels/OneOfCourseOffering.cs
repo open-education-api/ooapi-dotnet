@@ -4,18 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ooapi.v5.core.Models.OneOfModels;
 
-/// <summary>
-/// 
-/// </summary>
+
 [SwaggerDiscriminator("resultType")]
 [SwaggerSubType(typeof(Guid), DiscriminatorValue = "identifier")]
 [SwaggerSubType(typeof(CourseOffering), DiscriminatorValue = "courseOffering")]
 [NotMapped]
 public abstract class OneOfCourseOffering { }
 
-/// <summary>
-/// 
-/// </summary>
+
 public class OneOfCourseOfferingInstance : OneOfCourseOffering
 {
     /// <summary>

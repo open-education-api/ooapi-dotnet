@@ -13,9 +13,7 @@ using System.Linq;
 
 namespace ooapi.v5.Controllers;
 
-/// <summary>
-/// 
-/// </summary>
+
 [ApiController]
 public class EducationSpecificationsController : BaseController
 {

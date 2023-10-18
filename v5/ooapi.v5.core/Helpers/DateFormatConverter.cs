@@ -2,9 +2,7 @@
 
 namespace ooapi.v5.Helpers;
 
-/// <summary>
-/// 
-/// </summary>
+
 public class DateFormatConverter : IsoDateTimeConverter
 {
     /// <summary>

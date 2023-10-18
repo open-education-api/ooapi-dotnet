@@ -8,9 +8,7 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-/// <summary>
-/// 
-/// </summary>
+
 [DataContract]
 //[SwaggerDiscriminator("resultType")]
 //[SwaggerSubType(typeof(ProgramResult), DiscriminatorValue = "programResult")]

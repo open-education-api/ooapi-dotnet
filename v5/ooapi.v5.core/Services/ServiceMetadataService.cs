@@ -5,9 +5,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-/// <summary>
-/// 
-/// </summary>
+
 public class ServiceMetadataService : ServiceBase, IServiceMetadataService
 {
     private readonly ServiceMetadataRepository _repository;

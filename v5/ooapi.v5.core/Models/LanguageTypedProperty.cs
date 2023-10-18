@@ -1,8 +1,6 @@
 namespace ooapi.v5.Models;
 
-/// <summary>
-/// 
-/// </summary>
+
 public class LanguageTypedProperty
 {
     /// <summary>

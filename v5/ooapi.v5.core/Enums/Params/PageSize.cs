@@ -1,8 +1,6 @@
 ﻿namespace ooapi.v5.Enums.Params;
 
-/// <summary>
-/// 
-/// </summary>
+
 public enum PageSize
 {
     /// <summary>

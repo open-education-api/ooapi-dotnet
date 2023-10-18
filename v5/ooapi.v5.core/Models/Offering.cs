@@ -9,9 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ooapi.v5.Models;
 
-/// <summary>
-/// 
-/// </summary>
+
 //[DataContract]
 public class Offering : ModelBase
 {

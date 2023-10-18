@@ -4,9 +4,7 @@ using System.ComponentModel;
 
 namespace ooapi.v5.Models.Params;
 
-/// <summary>
-/// 
-/// </summary>
+
 public class PagingParams
 {
     /// <summary>

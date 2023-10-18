@@ -9,9 +9,7 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-/// <summary>
-/// 
-/// </summary>
+
 [DataContract]
 public class Person : ModelBase
 {

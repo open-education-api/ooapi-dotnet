@@ -11,9 +11,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Controllers;
 
-/// <summary>
-/// 
-/// </summary>
+
 [ApiController]
 public class BuildingsController : BaseController
 {

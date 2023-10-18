@@ -5,9 +5,7 @@ using System.Reflection;
 
 namespace ooapi.v5.core.Utility;
 
-/// <summary>
-/// 
-/// </summary>
+
 public static class OrderedQueryable
 {
     /// <summary>

@@ -3,9 +3,7 @@
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
-/// <summary>
-/// 
-/// </summary>
+
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 public enum ConsumerPropertyType
 {

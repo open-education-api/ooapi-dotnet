@@ -6,9 +6,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ooapi.v5.Controllers;
 
-/// <summary>
-/// 
-/// </summary>
+
 [ApiController]
 public class ServiceMetadataController : BaseController
 {

@@ -5,9 +5,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-/// <summary>
-/// 
-/// </summary>
+
 public class AcademicSessionsRepository : BaseRepository<AcademicSession>
 {
     /// <summary>

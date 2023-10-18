@@ -3,9 +3,7 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-/// <summary>
-/// 
-/// </summary>
+
 [DataContract]
 public partial class CourseExpanded
 {

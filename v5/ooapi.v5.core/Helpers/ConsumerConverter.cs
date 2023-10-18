@@ -5,9 +5,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.Helpers;
 
-/// <summary>
-/// 
-/// </summary>
+
 public static class ConsumerConverter
 {
     /// <summary>
