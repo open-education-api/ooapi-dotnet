@@ -5,7 +5,7 @@ namespace ooapi.v5.core.Services.Interfaces
 {
     public interface INewsFeedsService
     {
-        NewsFeed Get(Guid newsfeedId, out ErrorResponse errorResponse);
-        Pagination<NewsFeed> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse);
+        NewsFeed? Get(Guid newsfeedId);
+        Pagination<NewsFeed> GetAll(DataRequestParameters dataRequestParameters);
     }
 }

@@ -39,11 +39,12 @@ public class BuildingsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Building), description: "OK")]
     public virtual IActionResult BuildingsBuildingIdGet([FromRoute][Required] Guid buildingId)
     {
-        var result = _buildingsService.Get(buildingId, out var errorResponse);
+        var result = _buildingsService.Get(buildingId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
+
         return Ok(result);
 
         //var service = new BuildingsService(DBContext, userRequestContext);
@@ -103,11 +104,7 @@ public class BuildingsController : BaseController
     public virtual IActionResult BuildingsBuildingIdRoomsGet([FromRoute][Required] Guid buildingId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? roomType, [FromQuery] string? sort = "name")
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _roomsService.GetRoomsByBuildingId(parameters, buildingId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _roomsService.GetRoomsByBuildingId(parameters, buildingId);
         return Ok(result);
     }
 
@@ -132,11 +129,7 @@ public class BuildingsController : BaseController
     public virtual IActionResult BuildingsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? sort = "name")
     {
         var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var result = _buildingsService.GetAll(parameters, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _buildingsService.GetAll(parameters);
         return Ok(result);
     }
 }

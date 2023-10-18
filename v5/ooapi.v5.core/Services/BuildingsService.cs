@@ -6,7 +6,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-public class BuildingsService : ServiceBase, IBuildingsService
+internal class BuildingsService : ServiceBase, IBuildingsService
 {
     private readonly BuildingsRepository _repository;
 
@@ -15,37 +15,13 @@ public class BuildingsService : ServiceBase, IBuildingsService
         _repository = new BuildingsRepository(dbContext);
     }
 
-    public Pagination<Building> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    public Pagination<Building> GetAll(DataRequestParameters dataRequestParameters)
     {
-        try
-        {
-            Pagination<Building> result = _repository.GetAllOrderedBy(dataRequestParameters);
-
-            errorResponse = null;
-            return result;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetAllOrderedBy(dataRequestParameters);
     }
 
-    public Building Get(Guid buildingId, out ErrorResponse errorResponse)
+    public Building? Get(Guid buildingId)
     {
-        try
-        {
-            var item = _repository.GetBuilding(buildingId);
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
-
+        return _repository.GetBuilding(buildingId);
     }
-
 }

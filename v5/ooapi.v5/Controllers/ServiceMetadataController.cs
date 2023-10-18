@@ -31,10 +31,10 @@ public class ServiceMetadataController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Service), description: "OK")]
     public virtual IActionResult RootGet()
     {
-        var result = _serviceMetadataService.Get(out var errorResponse);
+        var result = _serviceMetadataService.Get();
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
         return Ok(result);
     }

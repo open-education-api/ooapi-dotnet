@@ -5,9 +5,9 @@ namespace ooapi.v5.core.Services.Interfaces
 {
     public interface IEducationSpecificationsService
     {
-        EducationSpecification Get(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse);
-        Pagination<EducationSpecification> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse);
-        Pagination<EducationSpecification> GetEducationSpecificationsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, out ErrorResponse errorResponse);
-        Pagination<EducationSpecification> GetEducationSpecificationsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse errorResponse);
+        EducationSpecification? Get(Guid educationSpecificationId, DataRequestParameters dataRequestParameters);
+        Pagination<EducationSpecification> GetAll(DataRequestParameters dataRequestParameters);
+        Pagination<EducationSpecification> GetEducationSpecificationsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId);
+        Pagination<EducationSpecification> GetEducationSpecificationsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId);
     }
 }

@@ -15,7 +15,7 @@ public class ServiceMetadataControllerTests
 
         var response = new Service();
 
-        serviceMetadataService.Get(out var errorResponse).Returns(response);
+        serviceMetadataService.Get().Returns(response);
 
         //act
         var result = sut.RootGet() as OkObjectResult;
@@ -23,8 +23,6 @@ public class ServiceMetadataControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var service = result.Value as Service;
         service.Should().NotBeNull();

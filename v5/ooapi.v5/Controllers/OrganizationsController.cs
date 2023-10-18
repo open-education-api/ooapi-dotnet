@@ -67,11 +67,7 @@ public class OrganizationsController : BaseController
         {
             parameters.Filters.Add("OrganizationType", organizationType);
         }
-        var result = _organizationsService.GetAll(parameters, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _organizationsService.GetAll(parameters);
         return Ok(result);
     }
 
@@ -98,11 +94,7 @@ public class OrganizationsController : BaseController
     public virtual IActionResult OrganizationsOrganizationIdComponentsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? componentType, [FromQuery] string? sort = "name")
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _componentsService.GetComponentsByOrganizationId(parameters, organizationId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _componentsService.GetComponentsByOrganizationId(parameters, organizationId);
         return Ok(result);
     }
 
@@ -130,11 +122,7 @@ public class OrganizationsController : BaseController
     public virtual IActionResult OrganizationsOrganizationIdCoursesGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "name")
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _coursesService.GetCoursesByOrganizationId(parameters, organizationId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _coursesService.GetCoursesByOrganizationId(parameters, organizationId);
         return Ok(result);
     }
 
@@ -160,11 +148,7 @@ public class OrganizationsController : BaseController
     public virtual IActionResult OrganizationsOrganizationIdEducationSpecificationsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? educationSpecificationType, [FromQuery] string? sort = "name")
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _educationSpecificationsService.GetEducationSpecificationsByOrganizationId(parameters, organizationId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _educationSpecificationsService.GetEducationSpecificationsByOrganizationId(parameters, organizationId);
         return Ok(result);
     }
 
@@ -184,10 +168,10 @@ public class OrganizationsController : BaseController
     {
         var parameters = new DataRequestParameters();
         parameters.Expand = expand;
-        var result = _organizationsService.Get(organizationId, parameters, out var errorResponse);
+        var result = _organizationsService.Get(organizationId, parameters);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
         return Ok(result);
     }
@@ -214,11 +198,7 @@ public class OrganizationsController : BaseController
     public virtual IActionResult OrganizationsOrganizationIdGroupsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _groupsService.GetGroupsByOrganizationId(parameters, organizationId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _groupsService.GetGroupsByOrganizationId(parameters, organizationId);
         return Ok(result);
     }
 
@@ -277,11 +257,7 @@ public class OrganizationsController : BaseController
     public virtual IActionResult OrganizationsOrganizationIdProgramsGet([FromRoute][Required] Guid organizationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _programsService.GetProgramsByOrganizationId(parameters, organizationId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _programsService.GetProgramsByOrganizationId(parameters, organizationId);
         return Ok(result);
     }
 }

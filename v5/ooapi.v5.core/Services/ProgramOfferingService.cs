@@ -6,7 +6,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-public class ProgramOfferingService : ServiceBase, IProgramOfferingService
+internal class ProgramOfferingService : ServiceBase, IProgramOfferingService
 {
     private readonly ProgramOfferingsRepository _repository;
 
@@ -15,37 +15,14 @@ public class ProgramOfferingService : ServiceBase, IProgramOfferingService
         _repository = new ProgramOfferingsRepository(dbContext);
     }
 
-    public Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    public Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters)
     {
-        try
-        {
-            Pagination<ProgramOffering> result = _repository.GetAllOrderedBy(dataRequestParameters);
-
-            errorResponse = null;
-            return result;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetAllOrderedBy(dataRequestParameters);
     }
 
-    public ProgramOffering Get(Guid programOfferingId, out ErrorResponse errorResponse)
+    public ProgramOffering? Get(Guid programOfferingId)
     {
-        try
-        {
-            var item = _repository.GetProgramOffering(programOfferingId);
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
-
+        return _repository.GetProgramOffering(programOfferingId);
     }
 
 }

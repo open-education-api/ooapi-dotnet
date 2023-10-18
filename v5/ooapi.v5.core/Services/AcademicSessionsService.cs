@@ -15,52 +15,18 @@ internal class AcademicSessionsService : ServiceBase, IAcademicSessionsService
         _repository = new AcademicSessionsRepository(dbContext);
     }
 
-    public Pagination<AcademicSession> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse, string? academicSessionType)
+    public Pagination<AcademicSession> GetAll(DataRequestParameters dataRequestParameters, string? academicSessionType)
     {
-        try
-        {
-            Pagination<AcademicSession> result = _repository.GetAllOrderedBy(dataRequestParameters, academicSessionType);
-            errorResponse = null;
-            return result;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetAllOrderedBy(dataRequestParameters, academicSessionType);
     }
 
-    public AcademicSession Get(Guid academicSessionId, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    public AcademicSession? Get(Guid academicSessionId, DataRequestParameters dataRequestParameters)
     {
-        try
-        {
-            var item = _repository.GetAcademicSession(academicSessionId, dataRequestParameters);
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception ex)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetAcademicSession(academicSessionId, dataRequestParameters);
     }
 
-    //public Pagination<AcademicSession> GetByPrimaryCode(string primaryCode, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    //public Pagination<AcademicSession> GetByPrimaryCode(string primaryCode, DataRequestParameters dataRequestParameters)
     //{
-    //    try
-    //    {
-    //        var item = _repository.GetAcademicSession(primaryCode, dataRequestParameters);
-
-    //        errorResponse = null;
-    //        return item;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        errorResponse = new ErrorResponse(500);
-    //        return null;
-    //    }
+    //        return _repository.GetAcademicSession(primaryCode, dataRequestParameters);
     //}
-
-
 }

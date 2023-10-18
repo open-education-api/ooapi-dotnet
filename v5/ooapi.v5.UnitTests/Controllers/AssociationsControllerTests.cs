@@ -19,7 +19,7 @@ public class AssociationsControllerTests
 
         var response = new Association();
 
-        associationsService.Get(associationId, out var errorResponse).Returns(response);
+        associationsService.Get(associationId).Returns(response);
 
         //act
         var result = sut.AssociationsAssociationIdGet(associationId, expand) as OkObjectResult;
@@ -27,8 +27,6 @@ public class AssociationsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var association = result.Value as Association;
         association.Should().NotBeNull();
