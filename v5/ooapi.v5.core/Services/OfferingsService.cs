@@ -1,6 +1,6 @@
-﻿using ooapi.v5.core.Models;
-using ooapi.v5.core.Models.OneOfModels;
+﻿using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.Models;
 
@@ -15,12 +15,7 @@ public class OfferingsService : ServiceBase, IOfferingsService
     private readonly CourseOfferingsRepository _courseOfferingsRepository;
     private readonly ComponentOfferingsRepository _componentOfferingsRepository;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="dbContext"></param>
-    /// <param name="userRequestContext"></param>
-    public OfferingsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public OfferingsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _programOfferingsRepository = new ProgramOfferingsRepository(dbContext);
         _courseOfferingsRepository = new CourseOfferingsRepository(dbContext);

@@ -1,6 +1,6 @@
 ﻿using ooapi.v5.Attributes;
-using ooapi.v5.core.Models;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Security;
 using System.Reflection;
 
 namespace ooapi.v5.core.Services;
@@ -10,18 +10,13 @@ namespace ooapi.v5.core.Services;
 /// </summary>
 public abstract class ServiceBase
 {
-    internal readonly UserRequestContext userRequestContext;
+    internal readonly IUserRequestContext userRequestContext;
     internal readonly CoreDBContext dataContext;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="dbContext"></param>
-    /// <param name="userRequestContext"></param>
-    protected ServiceBase(CoreDBContext dbContext, UserRequestContext userRequestContext)
+    public ServiceBase(CoreDBContext dbContext, IUserRequestContext userRequestContext)
     {
         dataContext = dbContext;
-        this.userRequestContext = userRequestContext ?? new UserRequestContext();
+        this.userRequestContext = userRequestContext;
     }
 
     /// <summary>
@@ -31,8 +26,9 @@ public abstract class ServiceBase
     /// <param name="userRequestContext"></param>
     public void HideAttributesBasedOnBivLevel(object item, UserRequestContext userRequestContext)
     {
-        var showBiv_V_Hoog = false;
-        var showBiv_V_Middel = false;
+        bool showBiv_V_Hoog = false;
+        bool showBiv_V_Middel = false;
+        string curUser = userRequestContext.UserId;
 
         if (userRequestContext.Bivv == "hoog" || userRequestContext.IsLocal)
             showBiv_V_Hoog = true;

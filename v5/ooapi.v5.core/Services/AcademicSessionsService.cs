@@ -1,5 +1,5 @@
-﻿using ooapi.v5.core.Models;
-using ooapi.v5.core.Repositories;
+﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
@@ -10,7 +10,7 @@ internal class AcademicSessionsService : ServiceBase, IAcademicSessionsService
 {
     private readonly AcademicSessionsRepository _repository;
 
-    public AcademicSessionsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public AcademicSessionsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new AcademicSessionsRepository(dbContext);
     }

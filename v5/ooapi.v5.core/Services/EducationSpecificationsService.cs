@@ -1,5 +1,5 @@
-﻿using ooapi.v5.core.Models;
-using ooapi.v5.core.Repositories;
+﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
@@ -13,12 +13,7 @@ public class EducationSpecificationsService : ServiceBase, IEducationSpecificati
 {
     private readonly EducationSpecificationsRepository _repository;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="dbContext"></param>
-    /// <param name="userRequestContext"></param>
-    public EducationSpecificationsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public EducationSpecificationsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new EducationSpecificationsRepository(dbContext);
     }

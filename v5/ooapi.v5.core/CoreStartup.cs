@@ -2,6 +2,7 @@
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using ooapi.v5.core.Security;
 
 namespace ooapi.v5.core;
 
@@ -19,6 +20,9 @@ public static class CoreStartup
         AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromSeconds(3));
 
         servicesCollection.AddServices();
+
+        servicesCollection.TryAddScoped<IUserRequestContext, UserRequestContext>();
+
     }
 
     private static IServiceCollection AddServices(this IServiceCollection builder)
