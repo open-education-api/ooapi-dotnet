@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Enums;
@@ -8,6 +9,7 @@ namespace ooapi.v5.Enums;
 /// </summary>
 /// <value>Type of relation between person and In Case of Emergency contact</value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+[SuppressMessage("Sonarcloud", "S2342", Justification = "Naming according to specification")]
 public enum ICERelation
 {
     /// <summary>

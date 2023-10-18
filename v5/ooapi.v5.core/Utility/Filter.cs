@@ -2,6 +2,7 @@
 
 namespace ooapi.v5.core.Utility;
 
+
 internal class Filter
 {
     public string PropertyName { get; set; } = default!;
@@ -19,83 +20,27 @@ internal class Filter
             return null;
         }
 
-        if (type == typeof(string))
+        return type switch
         {
-            return inputAsString;
-        }
-        else if (type == typeof(long))
-        {
-            return long.Parse(inputAsString);
-        }
-        else if (type == typeof(long?))
-        {
-            if (IsNull(input)) { return null; }
-            return input as long?;
-        }
-        else if (type == typeof(int))
-        {
-            return int.Parse(inputAsString);
-        }
-        else if (type == typeof(int?))
-        {
-            if (IsNull(input)) { return null; }
-            return input as int?;
-        }
-        else if (type == typeof(short))
-        {
-            return short.Parse(inputAsString);
-        }
-        else if (type == typeof(short?))
-        {
-            if (IsNull(input)) { return null; }
-            return input as short?;
-        }
-        else if (type == typeof(DateTime))
-        {
-            return DateTime.Parse(inputAsString, DateTimeFormatInfo.InvariantInfo);
-        }
-        else if (type == typeof(DateTime?))
-        {
-            if (IsNull(input)) { return null; }
-            return DateTime.Parse(inputAsString, DateTimeFormatInfo.InvariantInfo);
-        }
-        else if (type == typeof(Guid))
-        {
-            return Guid.Parse(inputAsString);
-        }
-        else if (type == typeof(Guid?))
-        {
-            if (IsNull(input)) { return null; }
-            return Guid.Parse(inputAsString);
-        }
-        else if (type == typeof(bool))
-        {
-            return bool.Parse(inputAsString);
-        }
-        else if (type == typeof(bool?))
-        {
-            if (IsNull(input)) { return null; }
-            return bool.Parse(inputAsString);
-        }
-        else if (type == typeof(double))
-        {
-            return double.Parse(inputAsString);
-        }
-        else if (type == typeof(double?))
-        {
-            if (IsNull(input)) { return null; }
-            return double.Parse(inputAsString);
-        }
-        else if (type == typeof(float))
-        {
-            return float.Parse(inputAsString);
-        }
-        else if (type == typeof(float?))
-        {
-            if (IsNull(input)) { return null; }
-            return float.Parse(inputAsString);
-        }
-        return inputAsString;
+            Type t when t == typeof(string) => inputAsString,
+            Type t when t == typeof(long) => long.Parse(inputAsString),
+            Type t when t == typeof(long?) => IsNull(input) ? null : input as long?,
+            Type t when t == typeof(int) => int.Parse(inputAsString),
+            Type t when t == typeof(int?) => IsNull(input) ? null : input as int?,
+            Type t when t == typeof(short) => short.Parse(inputAsString),
+            Type t when t == typeof(short?) => IsNull(input) ? null : input as short?,
+            Type t when t == typeof(DateTime) => DateTime.Parse(inputAsString, DateTimeFormatInfo.InvariantInfo),
+            Type t when t == typeof(DateTime?) => IsNull(input) ? null : DateTime.Parse(inputAsString, DateTimeFormatInfo.InvariantInfo),
+            Type t when t == typeof(Guid) => Guid.Parse(inputAsString),
+            Type t when t == typeof(Guid?) => IsNull(input) ? null : Guid.Parse(inputAsString),
+            Type t when t == typeof(bool) => bool.Parse(inputAsString),
+            Type t when t == typeof(bool?) => IsNull(input) ? null : bool.Parse(inputAsString),
+            Type t when t == typeof(double) => double.Parse(inputAsString),
+            Type t when t == typeof(double?) => IsNull(input) ? null : double.Parse(inputAsString),
+            Type t when t == typeof(float) => float.Parse(inputAsString),
+            Type t when t == typeof(float?) => IsNull(input) ? null : float.Parse(inputAsString),
+            _ => inputAsString
+        };
     }
 
     private static bool IsNull(object input)
