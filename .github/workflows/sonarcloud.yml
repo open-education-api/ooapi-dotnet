@@ -58,7 +58,7 @@ jobs:
         run: dotnet build ./v5/ooapi.v5.sln --no-restore
 
       - name: dotnet test
-        run: dotnet test ./v5 --no-build
+        run: dotnet test ./v5 --no-build --collect "Code Coverage"
         
 
       - name: Analyze with SonarCloud
