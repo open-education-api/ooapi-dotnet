@@ -1,21 +1,21 @@
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
 
-namespace ooapi.v5.Models
+namespace ooapi.v5.Models;
+
+/// <summary>
+/// 
+/// </summary>
+public class Attribute : LanguageTypedProperty
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    [JsonIgnore]
+    public Guid Id { get; set; }
 
-    public class Attribute : LanguageTypedProperty
-    {
-
-        [JsonIgnore]
-        public Guid Id { get; set; }
-
-        [JsonIgnore]
-        public string ModelTypeName { get; set; }
-
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    [JsonIgnore]
+    public string ModelTypeName { get; set; } = default!;
 }

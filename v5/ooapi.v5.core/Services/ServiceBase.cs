@@ -5,22 +5,34 @@ using System.Reflection;
 
 namespace ooapi.v5.core.Services;
 
+/// <summary>
+/// 
+/// </summary>
 public abstract class ServiceBase
 {
     internal readonly UserRequestContext userRequestContext;
     internal readonly CoreDBContext dataContext;
 
-    public ServiceBase(CoreDBContext dbContext, UserRequestContext userRequestContext)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
+    /// <param name="userRequestContext"></param>
+    protected ServiceBase(CoreDBContext dbContext, UserRequestContext userRequestContext)
     {
         dataContext = dbContext;
         this.userRequestContext = userRequestContext ?? new UserRequestContext();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="userRequestContext"></param>
     public void HideAttributesBasedOnBivLevel(object item, UserRequestContext userRequestContext)
     {
-        bool showBiv_V_Hoog = false;
-        bool showBiv_V_Middel = false;
-        string curUser = userRequestContext.UserID;
+        var showBiv_V_Hoog = false;
+        var showBiv_V_Middel = false;
 
         if (userRequestContext.Bivv == "hoog" || userRequestContext.IsLocal)
             showBiv_V_Hoog = true;
@@ -35,10 +47,10 @@ public abstract class ServiceBase
 
         if (item != null)
         {
-            PropertyInfo[] properties = item.GetType().GetProperties();
+            var properties = item.GetType().GetProperties();
             foreach (var property in properties)
             {
-                bool hideProperty = true;
+                var hideProperty = true;
                 var BivVAttribuut = property.GetCustomAttribute<BivVAttribute>();
                 if (BivVAttribuut != null)
                 {
@@ -49,12 +61,12 @@ public abstract class ServiceBase
                     }
                     else
                     {
-                        if (showBiv_V_Hoog == true)
+                        if (showBiv_V_Hoog)
                         {
                             // property is accessible for everyone with with 'hoog' (high) access
                             hideProperty = false;
                         }
-                        if (showBiv_V_Middel == true && property.GetCustomAttribute<BivVAttribute>().Middel == true)
+                        if (showBiv_V_Middel && property.GetCustomAttribute<BivVAttribute>().Middel)
                         {
                             // all properties with 'middel' attribute are accessible for everyone with 'middel' (middle) access
                             hideProperty = false;

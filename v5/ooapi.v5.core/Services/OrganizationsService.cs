@@ -6,20 +6,34 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
+/// <summary>
+/// 
+/// </summary>
 public class OrganizationsService : ServiceBase, IOrganizationsService
 {
     private readonly OrganizationsRepository _repository;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
+    /// <param name="userRequestContext"></param>
     public OrganizationsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new OrganizationsRepository(dbContext);
     }
 
-    public Pagination<Organization> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Pagination<Organization>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
     {
         try
         {
-            Pagination<Organization> result = _repository.GetAllOrderedBy(dataRequestParameters);
+            var result = _repository.GetAllOrderedBy(dataRequestParameters);
             foreach (var item in result.Items)
             {
                 SetAddresses(item);
@@ -27,14 +41,14 @@ public class OrganizationsService : ServiceBase, IOrganizationsService
             errorResponse = null;
             return result;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    private void SetAddresses(Organization item)
+    private static void SetAddresses(Organization item)
     {
         if (item.Address != null)
         {
@@ -43,7 +57,14 @@ public class OrganizationsService : ServiceBase, IOrganizationsService
         }
     }
 
-    public Organization Get(Guid organizationId, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="organizationId"></param>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Organization? Get(Guid organizationId, DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -52,11 +73,10 @@ public class OrganizationsService : ServiceBase, IOrganizationsService
             errorResponse = null;
             return item;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
-
 }

@@ -33,7 +33,7 @@ namespace ooapi.v5.Models
         /// <value>The type of this association</value>
         [JsonRequired]
         [JsonProperty(PropertyName = "associationType")]
-        public AssociationTypeEnum AssociationType { get; set; }
+        public AssociationType AssociationType { get; set; }
 
 
 
@@ -43,7 +43,7 @@ namespace ooapi.v5.Models
         /// <value>The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coördinator   - guest: gast </value>
         [JsonRequired]
         [JsonProperty(PropertyName = "role")]
-        public AssociationRoleEnum Role { get; set; }
+        public AssociationRole Role { get; set; }
 
         /// <summary>
         /// The state of this association
@@ -51,7 +51,7 @@ namespace ooapi.v5.Models
         /// <value>The state of this association</value>
         [JsonRequired]
         [JsonProperty(PropertyName = "state")]
-        public AssociationStateEnum State { get; set; }
+        public AssociationState State { get; set; }
 
         /// <summary>
         /// The state of this association for the institution performing the request.
@@ -59,7 +59,7 @@ namespace ooapi.v5.Models
         /// <value>The state of this association for the institution performing the request.</value>
 
         [JsonProperty(PropertyName = "remoteState")]
-        public RemoteStateEnum? RemoteState { get; set; }
+        public RemoteState? RemoteState { get; set; }
 
         /// <summary>
         /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.

@@ -23,6 +23,12 @@ namespace ooapi.v5.Controllers
         private readonly ICoursesService _coursesService;
         private readonly IProgramOfferingService _programOfferingService;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="programsService"></param>
+        /// <param name="coursesService"></param>
+        /// <param name="programOfferingService"></param>
         public ProgramsController(IProgramsService programsService, ICoursesService coursesService, IProgramOfferingService programOfferingService)
         {
             _programsService = programsService;
@@ -112,8 +118,10 @@ namespace ooapi.v5.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Models.Program), description: "OK")]
         public virtual IActionResult ProgramsProgramIdGet([FromRoute][Required] Guid programId, [FromQuery] List<string> expand, [FromQuery] bool? returnTimelineOverrides)
         {
-            var parameters = new DataRequestParameters();
-            parameters.Expand = expand;
+            var parameters = new DataRequestParameters
+            {
+                Expand = expand
+            };
             var result = _programsService.Get(programId, parameters, out var errorResponse);
             if (result == null)
             {

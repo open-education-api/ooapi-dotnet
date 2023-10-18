@@ -2,23 +2,37 @@
 
 namespace ooapi.v5.Attributes
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class BivVAttribute : Attribute
     {
-        private bool _laag = false;
-        private bool _middel = false;
+        private readonly bool _laag = false;
+        private readonly bool _middel = false;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="middel"></param>
+        /// <param name="laag"></param>
         public BivVAttribute(bool middel = false, bool laag = false)
         {
-            this._middel = middel;
-            this._laag = laag;
+            _middel = middel;
+            _laag = laag;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual bool Middel
         {
             get { return _middel; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual bool Laag
         {
             get { return _laag; }

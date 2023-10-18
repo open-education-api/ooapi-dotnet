@@ -1,14 +1,14 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
+
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// The type of this program - program: opleiding - minor: minor - honours: honours - specialization: specialisatie - track: track 
 /// </summary>
 /// <value>The type of this program - program: opleiding - minor: minor - honours: honours - specialization: specialisatie - track: track </value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum ProgramTypeEnum
+public enum ProgramType
 {
     /// <summary>
     /// Enum ProgramEnum for program

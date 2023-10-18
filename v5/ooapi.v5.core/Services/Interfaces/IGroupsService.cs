@@ -1,13 +1,44 @@
 ﻿using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services.Interfaces
+namespace ooapi.v5.core.Services.Interfaces;
+
+/// <summary>
+/// 
+/// </summary>
+public interface IGroupsService
 {
-    public interface IGroupsService
-    {
-        Group Get(Guid groupId, out ErrorResponse errorResponse);
-        Pagination<Group> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse);
-        Pagination<Group> GetGroupsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse errorResponse);
-        Pagination<Group> GetGroupsByPersonId(DataRequestParameters dataRequestParameters, Guid personId, out ErrorResponse errorResponse);
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="groupId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    Group? Get(Guid groupId, out ErrorResponse? errorResponse);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    Pagination<Group>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="organizationId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    Pagination<Group>? GetGroupsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse? errorResponse);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="personId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    Pagination<Group>? GetGroupsByPersonId(DataRequestParameters dataRequestParameters, Guid personId, out ErrorResponse? errorResponse);
 }

@@ -1,15 +1,14 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// The state of this association
 /// </summary>
 /// <value>The state of this association</value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum AssociationStateEnum
+public enum AssociationState
 {
     /// <summary>
     /// Enum PendingEnum for pending

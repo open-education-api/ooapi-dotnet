@@ -1,14 +1,14 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
+
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// The gender of this person
 /// </summary>
 /// <value>The gender of this person</value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum GenderEnum
+public enum Gender
 {
     /// <summary>
     /// Enum MEnum for M

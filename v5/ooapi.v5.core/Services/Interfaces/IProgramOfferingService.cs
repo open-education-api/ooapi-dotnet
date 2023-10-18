@@ -1,11 +1,26 @@
 ﻿using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services.Interfaces
+namespace ooapi.v5.core.Services.Interfaces;
+
+/// <summary>
+/// 
+/// </summary>
+public interface IProgramOfferingService
 {
-    public interface IProgramOfferingService
-    {
-        ProgramOffering Get(Guid programOfferingId, out ErrorResponse errorResponse);
-        Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse);
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="programOfferingId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    ProgramOffering? Get(Guid programOfferingId, out ErrorResponse? errorResponse);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    Pagination<ProgramOffering>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse);
 }

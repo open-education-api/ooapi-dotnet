@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace ooapi.v5.Controllers;
 
 /// <summary>
@@ -25,6 +24,12 @@ public class PersonsController : BaseController
     private readonly IAssociationsService _associationsService;
     private readonly IGroupsService _groupsService;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="personsService"></param>
+    /// <param name="associationsService"></param>
+    /// <param name="groupsService"></param>
     public PersonsController(IPersonsService personsService, IAssociationsService associationsService, IGroupsService groupsService)
     {
         _personsService = personsService;
@@ -161,33 +166,4 @@ public class PersonsController : BaseController
         }
         return Ok(result);
     }
-
-    ///// <summary>
-    ///// POST /persons
-    ///// </summary>
-    ///// <remarks>POST a single person.</remarks>
-    ///// <param name="body"></param>
-    ///// <response code="201">CREATED</response>
-    ///// <response code="400">Bad request</response>
-    //[HttpPost]
-    //[Route("persons")]
-    //[ValidateModelState]
-    //[SwaggerOperation("PersonsPost")]
-    //[SwaggerResponse(statusCode: 201, type: typeof(List<Person>), description: "CREATED")]
-    //[SwaggerResponse(statusCode: 400, type: typeof(InlineResponse400), description: "Bad request")]
-    //public virtual IActionResult PersonsPost([FromBody] PersonsBody body)
-    //{
-    //    //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-    //    // return StatusCode(201, default(InlineResponse201));
-
-    //    //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-    //    // return StatusCode(400, default(InlineResponse400));
-    //    string exampleJson = null;
-    //    exampleJson = "\"\"";
-
-    //    var example = exampleJson != null
-    //    ? JsonConvert.DeserializeObject<InlineResponse201>(exampleJson)
-    //    : default(InlineResponse201);            //TODO: Change the data returned
-    //    return new ObjectResult(example);
-    //}
 }

@@ -6,31 +6,51 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
+/// <summary>
+/// 
+/// </summary>
 public class GroupsService : ServiceBase, IGroupsService
 {
     private readonly GroupsRepository _repository;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
+    /// <param name="userRequestContext"></param>
     public GroupsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new GroupsRepository(dbContext);
     }
 
-    public Pagination<Group> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Pagination<Group>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
     {
         try
         {
-            Pagination<Group> result = _repository.GetAllOrderedBy(dataRequestParameters);
+            var result = _repository.GetAllOrderedBy(dataRequestParameters);
             errorResponse = null;
             return result;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    public Group Get(Guid groupId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="groupId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Group? Get(Guid groupId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -39,14 +59,21 @@ public class GroupsService : ServiceBase, IGroupsService
             errorResponse = null;
             return item;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    public Pagination<Group> GetGroupsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="organizationId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Pagination<Group>? GetGroupsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -55,14 +82,21 @@ public class GroupsService : ServiceBase, IGroupsService
             errorResponse = null;
             return paginationResult;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    public Pagination<Group> GetGroupsByPersonId(DataRequestParameters dataRequestParameters, Guid personId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="personId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Pagination<Group>? GetGroupsByPersonId(DataRequestParameters dataRequestParameters, Guid personId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -71,11 +105,10 @@ public class GroupsService : ServiceBase, IGroupsService
             errorResponse = null;
             return paginationResult;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
-
 }

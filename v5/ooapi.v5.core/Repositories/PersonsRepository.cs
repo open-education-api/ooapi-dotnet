@@ -2,21 +2,37 @@
 
 namespace ooapi.v5.core.Repositories;
 
+/// <summary>
+/// 
+/// </summary>
 public class PersonsRepository : BaseRepository<Person>
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
     public PersonsRepository(CoreDBContext dbContext) : base(dbContext)
     {
-        //
     }
 
-    public Person GetPerson(Guid personId)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="personId"></param>
+    /// <returns></returns>
+    public Person? GetPerson(Guid personId)
     {
         return dbContext.Persons.FirstOrDefault(x => x.PersonId.Equals(personId));
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="groupId"></param>
+    /// <returns></returns>
     public List<Person> GetPersonsByGroupId(Guid groupId)
     {
-        return null;
+        return new List<Person>();
         //TODO return dbContext.Persons.Where(o => o.GroupId.Equals(groupId)).ToList();
     }
 }

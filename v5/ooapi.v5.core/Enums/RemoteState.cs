@@ -1,15 +1,14 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// The state of this association for the institution performing the request.
 /// </summary>
 /// <value>The state of this association for the institution performing the request.</value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum RemoteStateEnum
+public enum RemoteState
 {
     /// <summary>
     /// Enum PendingEnum for pending

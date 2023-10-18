@@ -2,16 +2,26 @@
 
 namespace ooapi.v5.Attributes
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class FallBackAttribute : Attribute
     {
-        private object _item;
+        private readonly object _item;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
         public FallBackAttribute(object item)
         {
-            this._item = item;
+            _item = item;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual object Value
         {
             get { return _item; }

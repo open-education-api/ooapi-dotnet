@@ -2,18 +2,34 @@
 
 namespace ooapi.v5.core.Repositories;
 
+/// <summary>
+/// 
+/// </summary>
 public class RoomsRepository : BaseRepository<Room>
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
     public RoomsRepository(CoreDBContext dbContext) : base(dbContext)
     {
-        //
     }
 
-    public Room GetRoom(Guid roomId)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="roomId"></param>
+    /// <returns></returns>
+    public Room? GetRoom(Guid roomId)
     {
         return dbContext.Rooms.FirstOrDefault(x => x.RoomId.Equals(roomId));
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="buildingId"></param>
+    /// <returns></returns>
     public List<Room> GetRoomsByBuildingId(Guid buildingId)
     {
         return dbContext.Rooms.Where(o => o.BuildingId.Equals(buildingId)).ToList();

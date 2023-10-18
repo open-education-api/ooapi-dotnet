@@ -1,7 +1,10 @@
 ﻿namespace ooapi.v5.core.Utility;
 
-class FilterNode
+internal class FilterNode
 {
-    public Filter Filter { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Filter Filter { get; set; } = default!;
     public Operator NextOperator { get; set; }
 }

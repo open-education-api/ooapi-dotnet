@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 /// </summary>
 /// <value>Address type - postal: post - visit: bezoek - deliveries: bezorg - billing: factuur - teaching: the address where education takes place </value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum AddressTypeEnum
+public enum AddressType
 {
     /// <summary>
     /// Enum PostalEnum for postal

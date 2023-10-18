@@ -1,11 +1,26 @@
 ﻿using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services.Interfaces
+namespace ooapi.v5.core.Services.Interfaces;
+
+/// <summary>
+/// 
+/// </summary>
+public interface INewsFeedsService
 {
-    public interface INewsFeedsService
-    {
-        NewsFeed Get(Guid newsfeedId, out ErrorResponse errorResponse);
-        Pagination<NewsFeed> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse);
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="newsfeedId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    NewsFeed? Get(Guid newsfeedId, out ErrorResponse? errorResponse);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    Pagination<NewsFeed>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse);
 }

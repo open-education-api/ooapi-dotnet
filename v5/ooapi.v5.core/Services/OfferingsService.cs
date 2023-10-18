@@ -6,12 +6,20 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
+/// <summary>
+/// 
+/// </summary>
 public class OfferingsService : ServiceBase, IOfferingsService
 {
     private readonly ProgramOfferingsRepository _programOfferingsRepository;
     private readonly CourseOfferingsRepository _courseOfferingsRepository;
     private readonly ComponentOfferingsRepository _componentOfferingsRepository;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
+    /// <param name="userRequestContext"></param>
     public OfferingsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _programOfferingsRepository = new ProgramOfferingsRepository(dbContext);
@@ -19,12 +27,17 @@ public class OfferingsService : ServiceBase, IOfferingsService
         _componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
     }
 
-
-    public OneOfOfferingInstance Get(Guid offeringId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="offeringId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public OneOfOfferingInstance? Get(Guid offeringId, out ErrorResponse? errorResponse)
     {
         try
         {
-            OneOfOfferingInstance result = null;
+            OneOfOfferingInstance? result = null;
             var programOffering = _programOfferingsRepository.GetProgramOffering(offeringId);
             if (programOffering != null)
             {
@@ -44,18 +57,15 @@ public class OfferingsService : ServiceBase, IOfferingsService
                     {
                         result = new OneOfOfferingInstance(courseOffering.OfferingId, courseOffering);
                     }
-
                 }
             }
             errorResponse = new ErrorResponse(404, $"No offering found for id {offeringId}");
             return result;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
-
     }
-
 }

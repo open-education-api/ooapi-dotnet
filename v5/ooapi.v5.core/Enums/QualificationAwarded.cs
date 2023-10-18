@@ -1,14 +1,14 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
+
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// Type of qualificaton that can be obtained on finishing the program
 /// </summary>
 /// <value>Type of qualificaton that can be obtained on finishing the program</value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum QualificationAwardedEnum
+public enum QualificationAwarded
 {
     /// <summary>
     /// Enum ADEnum for AD

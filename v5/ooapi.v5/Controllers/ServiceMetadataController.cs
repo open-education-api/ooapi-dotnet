@@ -4,7 +4,6 @@ using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.Models;
 using Swashbuckle.AspNetCore.Annotations;
 
-
 namespace ooapi.v5.Controllers;
 
 /// <summary>
@@ -15,6 +14,10 @@ public class ServiceMetadataController : BaseController
 {
     private readonly IServiceMetadataService _serviceMetadataService;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="serviceMetadataService"></param>
     public ServiceMetadataController(IServiceMetadataService serviceMetadataService)
     {
         _serviceMetadataService = serviceMetadataService;

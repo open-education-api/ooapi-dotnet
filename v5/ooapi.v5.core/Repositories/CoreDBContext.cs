@@ -1,23 +1,20 @@
-﻿namespace ooapi.v5.core.Repositories;
-
-using Microsoft.EntityFrameworkCore;
-
-using ooapi.v5.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
 using ooapi.v5.Models;
-using System;
-using System.IO;
-using System.Reflection.Emit;
-using System.Xml;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
+namespace ooapi.v5.core.Repositories;
+
+/// <summary>
+/// 
+/// </summary>
 public class CoreDBContext : DbContext
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="options"></param>
     public CoreDBContext(DbContextOptions<CoreDBContext> options) : base(options)
-
     {
-        //
     }
-
 
     public DbSet<Service> Services { get; set; }
 
@@ -80,8 +77,6 @@ public class CoreDBContext : DbContext
 
     public DbSet<ConsumerRegistration> ConsumerRegistrations { get; set; }
     public IQueryable<ConsumerRegistration> ConsumerRegistrationsNoTracking { get => ConsumerRegistrations.AsNoTracking(); }
-
-
     public DbSet<Cost> Costs { get; set; }
     public IQueryable<Cost> CostsNoTracking { get => Costs.AsNoTracking(); }
 
@@ -100,10 +95,10 @@ public class CoreDBContext : DbContext
     public DbSet<v5.Models.Attribute> Attributes { get; set; }
     public IQueryable<v5.Models.Attribute> AttributesNoTracking { get => Attributes.AsNoTracking(); }
 
-
-
-
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("ooapiv5");
@@ -111,8 +106,6 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<Service>().HasKey(c => c.ServiceId);
 
         modelBuilder.Entity<AcademicSession>().HasKey(c => c.AcademicSessionId);
-        //modelBuilder.Entity<AcademicSession>().HasOne(c => c.Parent).WithMany().HasForeignKey(c => c.AcademicSessionId);
-        //modelBuilder.Entity<AcademicSession>().HasOne(c => c.Parent).WithOne(x=>x.AcademicSessionId);
 
         modelBuilder.Entity<Association>().HasKey(c => c.AssociationId);
         modelBuilder.Entity<Building>().HasKey(c => c.BuildingId);
@@ -138,15 +131,9 @@ public class CoreDBContext : DbContext
         modelBuilder.Entity<LanguageOfChoice>().HasKey(c => c.LanguageOfChoiceId);
         modelBuilder.Entity<OtherCodes>().HasKey(c => c.OtherCodesId);
 
-
         // Consumers
-        modelBuilder.Entity<Consumer>().HasKey(c => new {c.Id, c.ModelTypeName, c.ConsumerKey, c.PropertyName });
-
-
+        modelBuilder.Entity<Consumer>().HasKey(c => new { c.Id, c.ModelTypeName, c.ConsumerKey, c.PropertyName });
         // Attributes (LanguageTypedProperties)
-        modelBuilder.Entity<v5.Models.Attribute>().HasKey(c => new {c.Id, c.ModelTypeName, c.PropertyName, c.Language });
-
-
+        modelBuilder.Entity<v5.Models.Attribute>().HasKey(c => new { c.Id, c.ModelTypeName, c.PropertyName, c.Language });
     }
-
 }

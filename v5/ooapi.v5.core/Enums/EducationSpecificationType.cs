@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 /// </summary>
 /// <value>The type of education specification   - program: HOOPLEIDING   - privateProgram: PARTICULIEREOPLEIDING   - programCluster: HOONDERWIJSEENHEDENCLUSTER   - course: HOONDERWIJSEENHEID </value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum EducationSpecificationTypeEnum
+public enum EducationSpecificationType
 {
     /// <summary>
     /// Enum ProgramEnum for program

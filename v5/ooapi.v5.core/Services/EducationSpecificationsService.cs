@@ -6,31 +6,52 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
+/// <summary>
+/// 
+/// </summary>
 public class EducationSpecificationsService : ServiceBase, IEducationSpecificationsService
 {
     private readonly EducationSpecificationsRepository _repository;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
+    /// <param name="userRequestContext"></param>
     public EducationSpecificationsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new EducationSpecificationsRepository(dbContext);
     }
 
-    public Pagination<EducationSpecification> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Pagination<EducationSpecification>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
     {
         try
         {
-            Pagination<EducationSpecification> result = _repository.GetAllOrderedBy(dataRequestParameters);
+            var result = _repository.GetAllOrderedBy(dataRequestParameters);
             errorResponse = null;
             return result;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    public EducationSpecification Get(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="educationSpecificationId"></param>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public EducationSpecification? Get(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -39,14 +60,21 @@ public class EducationSpecificationsService : ServiceBase, IEducationSpecificati
             errorResponse = null;
             return item;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    public Pagination<EducationSpecification> GetEducationSpecificationsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="educationSpecificationId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Pagination<EducationSpecification>? GetEducationSpecificationsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -55,14 +83,21 @@ public class EducationSpecificationsService : ServiceBase, IEducationSpecificati
             errorResponse = null;
             return paginationResult;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    public Pagination<EducationSpecification> GetEducationSpecificationsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="organizationId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Pagination<EducationSpecification>? GetEducationSpecificationsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -71,7 +106,7 @@ public class EducationSpecificationsService : ServiceBase, IEducationSpecificati
             errorResponse = null;
             return paginationResult;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;

@@ -6,32 +6,52 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
+/// <summary>
+/// 
+/// </summary>
 public class ProgramOfferingService : ServiceBase, IProgramOfferingService
 {
     private readonly ProgramOfferingsRepository _repository;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
+    /// <param name="userRequestContext"></param>
     public ProgramOfferingService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new ProgramOfferingsRepository(dbContext);
     }
 
-    public Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Pagination<ProgramOffering>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
     {
         try
         {
-            Pagination<ProgramOffering> result = _repository.GetAllOrderedBy(dataRequestParameters);
+            var result = _repository.GetAllOrderedBy(dataRequestParameters);
 
             errorResponse = null;
             return result;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    public ProgramOffering Get(Guid programOfferingId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="programOfferingId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public ProgramOffering? Get(Guid programOfferingId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -40,12 +60,10 @@ public class ProgramOfferingService : ServiceBase, IProgramOfferingService
             errorResponse = null;
             return item;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
-
     }
-
 }

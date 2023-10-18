@@ -6,16 +6,30 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
+/// <summary>
+/// 
+/// </summary>
 public class NewsItemsService : ServiceBase, INewsItemsService
 {
     private readonly NewsItemsRepository _repository;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
+    /// <param name="userRequestContext"></param>
     public NewsItemsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new NewsItemsRepository(dbContext);
     }
 
-    public NewsItem Get(Guid newsitemId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="newsitemId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public NewsItem? Get(Guid newsitemId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -24,14 +38,21 @@ public class NewsItemsService : ServiceBase, INewsItemsService
             errorResponse = null;
             return item;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    public Pagination<NewsItem> GetNewsItemsByNewsFeedId(DataRequestParameters dataRequestParameters, Guid newsfeedId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="newsfeedId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Pagination<NewsItem>? GetNewsItemsByNewsFeedId(DataRequestParameters dataRequestParameters, Guid newsfeedId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -40,7 +61,7 @@ public class NewsItemsService : ServiceBase, INewsItemsService
             errorResponse = null;
             return paginationResult;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;

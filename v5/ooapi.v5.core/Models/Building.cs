@@ -71,7 +71,7 @@ namespace ooapi.v5.Models
         {
             get
             {
-                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                var result = new List<LanguageTypedString>();
                 if (Attributes != null && Attributes.Any())
                 {
                     result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
@@ -95,7 +95,7 @@ namespace ooapi.v5.Models
         {
             get
             {
-                List<LanguageTypedString> result = new List<LanguageTypedString>();
+                var result = new List<LanguageTypedString>();
                 if (Attributes != null && Attributes.Any())
                 {
                     result = Attributes.Where(x => x.PropertyName.Equals("description")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();

@@ -1,12 +1,36 @@
 ﻿using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services.Interfaces
+namespace ooapi.v5.core.Services.Interfaces;
+
+/// <summary>
+/// 
+/// </summary>
+public interface IComponentsService
 {
-    public interface IComponentsService
-    {
-        Component Get(Guid componentId, out ErrorResponse errorResponse);
-        Pagination<Component> GetComponentsByCourseId(DataRequestParameters dataRequestParameters, Guid courseId, out ErrorResponse errorResponse);
-        Pagination<Component> GetComponentsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse errorResponse);
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="componentId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    Component? Get(Guid componentId, out ErrorResponse? errorResponse);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="courseId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    Pagination<Component>? GetComponentsByCourseId(DataRequestParameters dataRequestParameters, Guid courseId, out ErrorResponse? errorResponse);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="organizationId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    Pagination<Component>? GetComponentsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse? errorResponse);
 }

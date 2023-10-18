@@ -1,14 +1,14 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
+
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// The type of this association
 /// </summary>
 /// <value>The type of this association</value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum AssociationTypeEnum
+public enum AssociationType
 {
     /// <summary>
     /// Enum ProgramOfferingAssociationEnum for programOfferingAssociation

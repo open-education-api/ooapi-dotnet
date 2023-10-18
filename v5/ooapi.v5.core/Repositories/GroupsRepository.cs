@@ -2,27 +2,47 @@
 
 namespace ooapi.v5.core.Repositories;
 
+/// <summary>
+/// 
+/// </summary>
 public class GroupsRepository : BaseRepository<Group>
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
     public GroupsRepository(CoreDBContext dbContext) : base(dbContext)
     {
-        //
     }
 
-    public Group GetGroup(Guid groupId)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="groupId"></param>
+    /// <returns></returns>
+    public Group? GetGroup(Guid groupId)
     {
         return dbContext.Groups.FirstOrDefault(x => x.GroupId.Equals(groupId));
     }
 
-    public List<Group> GetGroupsByOrganizationId(Guid organizationId)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="organizationId"></param>
+    /// <returns></returns>
+    public List<Group>? GetGroupsByOrganizationId(Guid organizationId)
     {
         return dbContext.Groups.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 
-    public List<Group> GetGroupsByPersonId(Guid personId)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="personId"></param>
+    /// <returns></returns>
+    public List<Group>? GetGroupsByPersonId(Guid personId)
     {
         return null;
-        //return dbContext.Groups.Where(o => o.PersonId.Equals(personId)).ToList();
+        // TODO
     }
-
 }

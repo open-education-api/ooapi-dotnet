@@ -6,31 +6,51 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
+/// <summary>
+/// 
+/// </summary>
 public class RoomsService : ServiceBase, IRoomsService
 {
     private readonly RoomsRepository _repository;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
+    /// <param name="userRequestContext"></param>
     public RoomsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new RoomsRepository(dbContext);
     }
 
-    public Pagination<Room> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Pagination<Room>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
     {
         try
         {
-            Pagination<Room> result = _repository.GetAllOrderedBy(dataRequestParameters);
+            var result = _repository.GetAllOrderedBy(dataRequestParameters);
             errorResponse = null;
             return result;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    public Room Get(Guid roomId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="roomId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Room? Get(Guid roomId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -39,14 +59,21 @@ public class RoomsService : ServiceBase, IRoomsService
             errorResponse = null;
             return item;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    public Pagination<Room> GetRoomsByBuildingId(DataRequestParameters dataRequestParameters, Guid buildingId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="buildingId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Pagination<Room>? GetRoomsByBuildingId(DataRequestParameters dataRequestParameters, Guid buildingId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -55,7 +82,7 @@ public class RoomsService : ServiceBase, IRoomsService
             errorResponse = null;
             return paginationResult;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;

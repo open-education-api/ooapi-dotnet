@@ -4,37 +4,65 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
+/// <summary>
+/// 
+/// </summary>
 public class CoursesRepository : BaseRepository<Course>
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
     public CoursesRepository(CoreDBContext dbContext) : base(dbContext)
     {
-        //
     }
 
-    public Course GetCourse(Guid courseId)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="courseId"></param>
+    /// <returns></returns>
+    public Course? GetCourse(Guid courseId)
     {
         return dbContext.Courses.Include(x => x.Attributes).FirstOrDefault(x => x.CourseId.Equals(courseId));
     }
 
-    public Pagination<Course> GetCoursesByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="educationSpecificationId"></param>
+    /// <param name="dataRequestParameters"></param>
+    /// <returns></returns>
+    public Pagination<Course>? GetCoursesByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<Course> set = dbContext.CoursesNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
-        bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
-        if (includeConsumer)
+        if (dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer))
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+            return GetAllOrderedBy(dataRequestParameters, set);
         }
-        return GetAllOrderedBy(dataRequestParameters, set);
+
+        return null;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="organizationId"></param>
+    /// <returns></returns>
     public List<Course> GetCoursesByOrganizationId(Guid organizationId)
     {
         return dbContext.Courses.Include(x => x.Attributes).Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="programId"></param>
+    /// <returns></returns>
     public List<Course> GetCoursesByProgramId(Guid programId)
     {
-        return null;
+        return new List<Course>();
         //return dbContext.Courses.Where(o => o.Programs.Equals(programId)).ToList();
     }
 }

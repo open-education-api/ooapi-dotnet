@@ -1,25 +1,24 @@
 using Newtonsoft.Json;
 using ooapi.v5.core.Models.OneOfModels;
 
-namespace ooapi.v5.Models
+namespace ooapi.v5.Models;
+
+/// <summary>
+/// 
+/// </summary>
+public class Offerings : Pagination<OneOfOfferingNoIdentifier>
 {
     /// <summary>
-    /// 
+    /// Array of objects (Offering) 
     /// </summary>
-    public class Offerings : Pagination<OneOfOfferingNoIdentifier>
+    /// <value>Array of objects (Offering) </value>
+    [JsonRequired]
+    [JsonProperty(PropertyName = "items")]
+    public override List<OneOfOfferingNoIdentifier> Items
     {
-        /// <summary>
-        /// Array of objects (Offering) 
-        /// </summary>
-        /// <value>Array of objects (Offering) </value>
-        [JsonRequired]
-        [JsonProperty(PropertyName = "items")]
-        public override List<OneOfOfferingNoIdentifier> Items
+        get
         {
-            get
-            {
-                return _items;
-            }
+            return _items;
         }
     }
 }

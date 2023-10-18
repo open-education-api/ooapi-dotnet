@@ -1,21 +1,22 @@
-using Newtonsoft.Json;
-using ooapi.v5.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
+namespace ooapi.v5.Models;
 
-namespace ooapi.v5.Models
+/// <summary>
+/// 
+/// </summary>
+public class LanguageTypedProperty
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    public string PropertyName { get; set; } = default!;
 
-    public class LanguageTypedProperty
-    {
+    /// <summary>
+    /// 
+    /// </summary>
+    public string Language { get; set; } = default!;
 
-
-        public string PropertyName { get; set; }
-
-        public string Language { get; set; }
-
-        public string Value { get; set; }
-
-
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public string Value { get; set; } = default!;
 }

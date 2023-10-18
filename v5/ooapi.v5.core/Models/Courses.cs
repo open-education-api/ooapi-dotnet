@@ -1,24 +1,23 @@
 using Newtonsoft.Json;
 
-namespace ooapi.v5.Models
+namespace ooapi.v5.Models;
+
+/// <summary>
+/// 
+/// </summary>
+public class Courses : Pagination<Course>
 {
     /// <summary>
-    /// 
+    /// Array of objects (Course) 
     /// </summary>
-    public class Courses : Pagination<Course>
+    /// <value>Array of objects (Course) </value>
+    [JsonRequired]
+    [JsonProperty(PropertyName = "items")]
+    public override List<Course> Items
     {
-        /// <summary>
-        /// Array of objects (Course) 
-        /// </summary>
-        /// <value>Array of objects (Course) </value>
-        [JsonRequired]
-        [JsonProperty(PropertyName = "items")]
-        public override List<Course> Items
+        get
         {
-            get
-            {
-                return _items;
-            }
+            return _items;
         }
     }
 }

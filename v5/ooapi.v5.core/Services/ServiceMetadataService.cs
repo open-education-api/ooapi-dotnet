@@ -5,16 +5,29 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
+/// <summary>
+/// 
+/// </summary>
 public class ServiceMetadataService : ServiceBase, IServiceMetadataService
 {
     private readonly ServiceMetadataRepository _repository;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
+    /// <param name="userRequestContext"></param>
     public ServiceMetadataService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new ServiceMetadataRepository(dbContext);
     }
 
-    public Service Get(out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Service? Get(out ErrorResponse? errorResponse)
     {
         try
         {
@@ -23,7 +36,7 @@ public class ServiceMetadataService : ServiceBase, IServiceMetadataService
             errorResponse = null;
             return item;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;

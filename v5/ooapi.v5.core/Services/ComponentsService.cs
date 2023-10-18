@@ -6,16 +6,30 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
+/// <summary>
+/// 
+/// </summary>
 public class ComponentsService : ServiceBase, IComponentsService
 {
     private readonly ComponentsRepository _repository;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
+    /// <param name="userRequestContext"></param>
     public ComponentsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new ComponentsRepository(dbContext);
     }
 
-    public Component Get(Guid componentId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="componentId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Component? Get(Guid componentId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -24,14 +38,21 @@ public class ComponentsService : ServiceBase, IComponentsService
             errorResponse = null;
             return item;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    public Pagination<Component> GetComponentsByCourseId(DataRequestParameters dataRequestParameters, Guid courseId, out ErrorResponse errorResponse)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dataRequestParameters"></param>
+    /// <param name="courseId"></param>
+    /// <param name="errorResponse"></param>
+    /// <returns></returns>
+    public Pagination<Component>? GetComponentsByCourseId(DataRequestParameters dataRequestParameters, Guid courseId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -40,14 +61,14 @@ public class ComponentsService : ServiceBase, IComponentsService
             errorResponse = null;
             return paginationResult;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;
         }
     }
 
-    public Pagination<Component> GetComponentsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse errorResponse)
+    public Pagination<Component>? GetComponentsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse? errorResponse)
     {
         try
         {
@@ -56,7 +77,7 @@ public class ComponentsService : ServiceBase, IComponentsService
             errorResponse = null;
             return paginationResult;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorResponse = new ErrorResponse(500);
             return null;

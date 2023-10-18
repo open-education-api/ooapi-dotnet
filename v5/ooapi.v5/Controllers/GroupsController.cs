@@ -21,6 +21,11 @@ public class GroupsController : BaseController
     private readonly IGroupsService _groupsService;
     private readonly IPersonsService _personsService;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="groupsService"></param>
+    /// <param name="personsService"></param>
     public GroupsController(IGroupsService groupsService, IPersonsService personsService)
     {
         _groupsService = groupsService;

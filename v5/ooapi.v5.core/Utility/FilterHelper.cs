@@ -3,15 +3,18 @@ using System.Text.RegularExpressions;
 
 namespace ooapi.v5.core.Utility;
 
+/// <summary>
+/// 
+/// </summary>
 public static class FilterHelper
 {
     internal static IEnumerable<FilterNode> ToFilterNodeCollection(this string filter)
     {
         var result = new List<FilterNode>();
-        string[] filterexpressions = Regex.Split(filter, OperatorConverter.LogicalOperatorPattern, RegexOptions.IgnoreCase);
-        for (int i = 0; i < filterexpressions.Length; i = i + 2)
+        var filterexpressions = Regex.Split(filter, OperatorConverter.LogicalOperatorPattern, RegexOptions.IgnoreCase);
+        for (var i = 0; i < filterexpressions.Length; i += 2)
         {
-            string[] keyValues = Regex.Split(filterexpressions[i], OperatorConverter.ValueOperatorPattern, RegexOptions.IgnoreCase);
+            var keyValues = Regex.Split(filterexpressions[i], OperatorConverter.ValueOperatorPattern, RegexOptions.IgnoreCase);
 
             if (keyValues.Length == 3)
             {
@@ -32,6 +35,12 @@ public static class FilterHelper
         return result;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <param name="noneFilterablePropertyNames"></param>
+    /// <returns></returns>
     public static string ToAllowedFilterExpression(this string filter, IEnumerable<string> noneFilterablePropertyNames)
     {
         var allowedFilterCollection = filter.ToFilterNodeCollection().Where(x => !noneFilterablePropertyNames.Contains(x.Filter.PropertyName));

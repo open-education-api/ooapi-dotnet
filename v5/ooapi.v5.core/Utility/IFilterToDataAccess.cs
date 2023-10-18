@@ -1,7 +1,6 @@
-﻿namespace ooapi.v5.core.Utility
+﻿namespace ooapi.v5.core.Utility;
+
+interface IFilterToDataAccess<T>
 {
-    interface IFilterToDataAccess<T>
-    {
-        IQueryable<T> Parse(IQueryable<T> collection);
-    }
+    IQueryable<T> Parse(IQueryable<T> collection);
 }

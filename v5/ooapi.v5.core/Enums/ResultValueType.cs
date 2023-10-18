@@ -1,14 +1,14 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
+
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// The result value type for this offering
 /// </summary>
 /// <value>The result value type for this offering</value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum ResultValueTypeEnum
+public enum ResultValueType
 {
     /// <summary>
     /// Enum PassOrFailEnum for pass-or-fail

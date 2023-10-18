@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 /// </summary>
 /// <value>The mode of delivery of the component (ECTS-mode of delivery) - distance-learning: afstandsleren - on campus: op de campus - online: online - hybrid: hybride - situated: op locatie </value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum ModeOfDeliveryEnum
+public enum ModeOfDelivery
 {
     /// <summary>
     /// Enum DistanceLearningEnum for distance-learning

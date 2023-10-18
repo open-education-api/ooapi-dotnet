@@ -2,16 +2,26 @@
 
 namespace ooapi.v5.core.Repositories;
 
+/// <summary>
+/// 
+/// </summary>
 public class NewsFeedsRepository : BaseRepository<NewsFeed>
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbContext"></param>
     public NewsFeedsRepository(CoreDBContext dbContext) : base(dbContext)
     {
-        //
     }
 
-    public NewsFeed GetNewsFeed(Guid newsfeedId)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="newsfeedId"></param>
+    /// <returns></returns>
+    public NewsFeed? GetNewsFeed(Guid newsfeedId)
     {
         return dbContext.NewsFeeds.FirstOrDefault(x => x.NewsFeedId.Equals(newsfeedId));
     }
-
 }

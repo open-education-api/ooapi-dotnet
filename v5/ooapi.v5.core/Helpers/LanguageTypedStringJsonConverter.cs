@@ -1,26 +1,39 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using ooapi.v5.Models;
-using System.Xml.Linq;
 
 namespace ooapi.v5.Helpers;
 
+/// <summary>
+/// 
+/// </summary>
 public static class LanguageTypedStringJsonConverter
 {
     internal static List<LanguageTypedString>? GetLanguageTypesStringList(string? languageTypedStringValue)
     {
-
         if (string.IsNullOrEmpty(languageTypedStringValue))
+        {
             return null;
+        }
+
         try
         {
-            List<LanguageTypedString> result = new List<LanguageTypedString>();
-            JArray? jArray = JsonConvert.DeserializeObject<JArray>(languageTypedStringValue);
+            var result = new List<LanguageTypedString>();
+            var jArray = JsonConvert.DeserializeObject<JArray>(languageTypedStringValue);
             if (jArray == null)
+            {
                 return null;
+            }
+
             foreach (var item in jArray)
             {
-                result.Add(new LanguageTypedString() { Language = item.Value<string>("language"), Value = item.Value<string>("value") });
+                var language = item.Value<string>("language");
+                var value = item.Value<string>("value");
+
+                if (language is not null && value is not null)
+                {
+                    result.Add(new LanguageTypedString() { Language = language, Value = value });
+                }
             }
             return result;
         }
@@ -28,6 +41,5 @@ public static class LanguageTypedStringJsonConverter
         {
             return null;
         }
-
     }
 }

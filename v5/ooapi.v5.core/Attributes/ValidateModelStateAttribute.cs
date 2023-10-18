@@ -19,14 +19,13 @@ namespace ooapi.v5.Attributes
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             // Per https://blog.markvincze.com/how-to-validate-action-parameters-with-dataannotation-attributes/
-            var descriptor = context.ActionDescriptor as ControllerActionDescriptor;
-            if (descriptor != null)
+            if (context.ActionDescriptor is ControllerActionDescriptor descriptor)
             {
                 foreach (var parameter in descriptor.MethodInfo.GetParameters())
                 {
-                    object args = null;
-                    if (context.ActionArguments.ContainsKey(parameter.Name))
-                    { 
+                    object? args = null;
+                    if (parameter.Name is not null && context.ActionArguments.ContainsKey(parameter.Name))
+                    {
                         args = context.ActionArguments[parameter.Name];
                     }
 
@@ -40,19 +39,18 @@ namespace ooapi.v5.Attributes
             }
         }
 
-        private void ValidateAttributes(ParameterInfo parameter, object args, ModelStateDictionary modelState)
+        private static void ValidateAttributes(ParameterInfo parameter, object? args, ModelStateDictionary modelState)
         {
             foreach (var attributeData in parameter.CustomAttributes)
             {
                 var attributeInstance = parameter.GetCustomAttribute(attributeData.AttributeType);
 
-                var validationAttribute = attributeInstance as ValidationAttribute;
-                if (validationAttribute != null)
+                if (attributeInstance is ValidationAttribute validationAttribute)
                 {
                     var isValid = validationAttribute.IsValid(args);
                     if (!isValid)
                     {
-                        modelState.AddModelError(parameter.Name, validationAttribute.FormatErrorMessage(parameter.Name));
+                        modelState.AddModelError(parameter.Name ?? "", validationAttribute.FormatErrorMessage(parameter.Name ?? ""));
                     }
                 }
             }

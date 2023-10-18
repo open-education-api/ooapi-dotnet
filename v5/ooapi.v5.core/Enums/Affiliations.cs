@@ -1,14 +1,13 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// Gets or Sets Affiliations
 /// </summary>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum AffiliationsEnum
+public enum Affiliations
 {
     /// <summary>
     /// Enum StudentEnum for student

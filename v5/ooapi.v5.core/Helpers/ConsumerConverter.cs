@@ -2,91 +2,89 @@
 using Newtonsoft.Json.Linq;
 using ooapi.v5.Enums;
 using ooapi.v5.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ooapi.v5.Helpers
+namespace ooapi.v5.Helpers;
+
+/// <summary>
+/// 
+/// </summary>
+public static class ConsumerConverter
 {
-    public static  class ConsumerConverter
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="consumers"></param>
+    /// <returns></returns>
+    public static List<JObject> GetDynamicConsumers(List<Consumer> consumers)
     {
-        public static List<JObject> GetDynamicConsumers(List<Consumer> consumers)
+        var result = new List<JObject>();
+        var groupedConsumers = consumers.GroupBy(x => x.ConsumerKey);
+        foreach (var groupedConsumer in groupedConsumers)
         {
-
-            //JArray result = new JArray();
-            List<JObject> result = new List<JObject>();
-            var groupedConsumers = consumers.GroupBy(x => x.ConsumerKey);
-            foreach (var groupedConsumer in groupedConsumers)
+            var resultObject = new JObject
             {
-                JObject resultObject = new JObject();
-                resultObject.Add("consumerKey", groupedConsumer.FirstOrDefault().ConsumerKey);
-                foreach (var consumer in groupedConsumer)
+                { "consumerKey", groupedConsumer.First().ConsumerKey }
+            };
+            foreach (var consumer in groupedConsumer)
+            {
+                var propertyType = consumer.PropertyType;
+                var propertyName = consumer.PropertyName;
+                var propertyValue = consumer.PropertyValue;
+
+                switch (propertyType)
                 {
-                    ConsumerPropertyTypeEnum propertyType = consumer.PropertyType;
-                    string propertyName = consumer.PropertyName;
-                    string propertyValue = consumer.PropertyValue; //.Replace("\\","");
-
-
-                    switch (propertyType)
-                    {
-                        case ConsumerPropertyTypeEnum.String:
-                            resultObject.Add(propertyName, propertyValue);
-                            break;
-                        case ConsumerPropertyTypeEnum.JArray:
-                            dynamic array = JsonConvert.DeserializeObject<object>(propertyValue);
-                            //                            JArray jArray = JArray.Parse(test);
-                            resultObject.Add(propertyName, array);
-                            break;
-                        case ConsumerPropertyTypeEnum.JObject:
-                            dynamic obj = JsonConvert.DeserializeObject<object>(propertyValue);
-                            resultObject.Add(propertyName, obj);
-                            break;
-                        case ConsumerPropertyTypeEnum.Int:
-                            if (int.TryParse(propertyValue, out int value))
-                            {
-                                resultObject.Add(propertyName, value);
-                            }
-                            break;
-                        case ConsumerPropertyTypeEnum.Bool:
-                            if (bool.TryParse(propertyValue, out bool res))
-                            {
-                                resultObject.Add(propertyName, res);
-                            }
-                            break;
-                        default:
-                            break;
-                    }
+                    case ConsumerPropertyType.String:
+                        resultObject.Add(propertyName, propertyValue);
+                        break;
+                    case ConsumerPropertyType.JArray:
+                        dynamic? array = JsonConvert.DeserializeObject<object>(propertyValue);
+                        resultObject.Add(propertyName, array);
+                        break;
+                    case ConsumerPropertyType.JObject:
+                        dynamic? obj = JsonConvert.DeserializeObject<object>(propertyValue);
+                        resultObject.Add(propertyName, obj);
+                        break;
+                    case ConsumerPropertyType.Int:
+                        if (int.TryParse(propertyValue, out var value))
+                        {
+                            resultObject.Add(propertyName, value);
+                        }
+                        break;
+                    case ConsumerPropertyType.Bool:
+                        if (bool.TryParse(propertyValue, out var res))
+                        {
+                            resultObject.Add(propertyName, res);
+                        }
+                        break;
+                    default:
+                        break;
                 }
-                result.Add(resultObject);
             }
-
-            return result;
+            result.Add(resultObject);
         }
 
-        public static JToken GetConsumerPropertyValue(ConsumerPropertyTypeEnum propertyType, string propertyValue)
+        return result;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="propertyType"></param>
+    /// <param name="propertyValue"></param>
+    /// <returns></returns>
+    public static JToken GetConsumerPropertyValue(ConsumerPropertyType propertyType, string propertyValue)
+    {
+        switch (propertyType)
         {
-
-            switch (propertyType)
-            {
-                case ConsumerPropertyTypeEnum.String:
-                    return propertyValue;
-                case ConsumerPropertyTypeEnum.JArray:
-
-                    break;
-                case ConsumerPropertyTypeEnum.JObject:
-                    break;
-                case ConsumerPropertyTypeEnum.Int:
-                    break;
-                case ConsumerPropertyTypeEnum.Bool:
-                    break;
-                default:
-                    break;
-            }
-            return "";
+            case ConsumerPropertyType.String:
+                return propertyValue;
+            case ConsumerPropertyType.JArray:
+            case ConsumerPropertyType.JObject:
+            case ConsumerPropertyType.Int:
+            case ConsumerPropertyType.Bool:
+            default:
+                break;
         }
-
-
+        return "";
     }
 }

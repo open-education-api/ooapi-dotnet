@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 /// </summary>
 /// <value>The type of the object this news feed relates to</value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum NewsFeedTypeEnum
+public enum NewsFeedType
 {
     /// <summary>
     /// Enum OrganizationEnum for organization

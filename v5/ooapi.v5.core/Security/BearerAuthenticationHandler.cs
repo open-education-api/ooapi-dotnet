@@ -20,6 +20,13 @@ namespace ooapi.v5.Security
         /// </summary>
         public const string SchemeName = "Bearer";
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="logger"></param>
+        /// <param name="encoder"></param>
+        /// <param name="clock"></param>
         public BearerAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
         {
         }
@@ -35,9 +42,7 @@ namespace ooapi.v5.Security
             }
             try
             {
-                var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
-
-                /// TODO handle token.
+                // TODO handle token.
             }
             catch
             {

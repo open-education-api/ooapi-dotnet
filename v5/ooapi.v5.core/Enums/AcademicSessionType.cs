@@ -1,21 +1,14 @@
-﻿namespace ooapi.v5.Enums;
-
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections;
-using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
-
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// The type of this Acaddemic Session
 /// </summary>
 /// <value>The type of this Acaddemic Session This is an extensible enumeration.</value>
 [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-public enum AcademicSessionTypeEnum
+public enum AcademicSessionType
 {
     /// <summary>
     /// academic year
@@ -47,8 +40,4 @@ public enum AcademicSessionTypeEnum
     /// </summary>
     [EnumMember(Value = "period")]
     period = 5
-
-
 }
-
-

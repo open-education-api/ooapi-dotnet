@@ -16,6 +16,8 @@ public static class CoreStartup
     /// <param name="servicesCollection">ServiceCollection used for dependency injection</param>
     public static void Startup(IServiceCollection servicesCollection)
     {
+        AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromSeconds(3));
+
         servicesCollection.AddServices();
     }
 
