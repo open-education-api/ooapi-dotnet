@@ -47,11 +47,7 @@ public class RoomsController : BaseController
     public virtual IActionResult RoomsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? roomType, [FromQuery] string? sort = "name")
     {
         var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var result = _roomsService.GetAll(parameters, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _roomsService.GetAll(parameters);
         return Ok(result);
     }
 
@@ -69,10 +65,10 @@ public class RoomsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Room), description: "OK")]
     public virtual IActionResult RoomsRoomIdGet([FromRoute][Required] Guid roomId, [FromQuery] List<string> expand)
     {
-        var result = _roomsService.Get(roomId, out var errorResponse);
+        var result = _roomsService.Get(roomId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
         return Ok(result);
     }

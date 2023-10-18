@@ -28,7 +28,7 @@ public class EducationSpecificationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        coursesService.GetCoursesByEducationSpecificationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId, out var errorResponse).Returns(response);
+        coursesService.GetCoursesByEducationSpecificationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId).Returns(response);
 
         //act
         var result = sut.EducationSpecificationsEducationSpecificationIdCoursesGet(educationSpecificationId, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
@@ -36,8 +36,6 @@ public class EducationSpecificationsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var courses = result.Value as Pagination<Course>;
         courses.Should().NotBeNull();
@@ -63,7 +61,7 @@ public class EducationSpecificationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        educationSpecificationsService.GetEducationSpecificationsByEducationSpecificationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId, out var errorResponse).Returns(response);
+        educationSpecificationsService.GetEducationSpecificationsByEducationSpecificationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId).Returns(response);
 
         //act
         var result = sut.EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet(educationSpecificationId, filterParams, pagingParams, sort) as OkObjectResult;
@@ -71,8 +69,6 @@ public class EducationSpecificationsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var educationSpecifications = result.Value as Pagination<EducationSpecification>;
         educationSpecifications.Should().NotBeNull();
@@ -97,7 +93,7 @@ public class EducationSpecificationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        educationSpecificationsService.Get(educationSpecificationId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        educationSpecificationsService.Get(educationSpecificationId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.EducationSpecificationsEducationSpecificationIdGet(educationSpecificationId, returnTimelineOverrides, expand) as OkObjectResult;
@@ -105,8 +101,6 @@ public class EducationSpecificationsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var educationSpecification = result.Value as EducationSpecification;
         educationSpecification.Should().NotBeNull();
@@ -134,7 +128,7 @@ public class EducationSpecificationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.GetProgramsByEducationSpecificationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId, out var errorResponse).Returns(response);
+        programsService.GetProgramsByEducationSpecificationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId).Returns(response);
 
         //act
         var result = sut.EducationSpecificationsEducationSpecificationIdProgramsGet(educationSpecificationId, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, crohoCreboCode, sort) as OkObjectResult;
@@ -142,8 +136,6 @@ public class EducationSpecificationsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var programs = result.Value as Pagination<Models.Program>;
         programs.Should().NotBeNull();
@@ -170,7 +162,7 @@ public class EducationSpecificationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        educationSpecificationsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        educationSpecificationsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.EducationSpecificationsGet(primaryCodeParam, filterParams, pagingParams, educationSpecificationType, sort) as OkObjectResult;
@@ -178,8 +170,6 @@ public class EducationSpecificationsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var educationSpecifications = result.Value as Pagination<EducationSpecification>;
         educationSpecifications.Should().NotBeNull();

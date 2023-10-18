@@ -52,11 +52,7 @@ public class CoursesController : BaseController
     public virtual IActionResult CoursesCourseIdComponentsGet([FromRoute][Required] Guid courseId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? componentType, [FromQuery] string? sort = "componentId")
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _componentsService.GetComponentsByCourseId(parameters, courseId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _componentsService.GetComponentsByCourseId(parameters, courseId);
         return Ok(result);
     }
 
@@ -75,10 +71,10 @@ public class CoursesController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Course), description: "OK")]
     public virtual IActionResult CoursesCourseIdGet([FromRoute][Required] Guid courseId, [FromQuery] List<string> expand, [FromQuery] bool? returnTimelineOverrides)
     {
-        var result = _coursesService.Get(courseId, out var errorResponse);
+        var result = _coursesService.Get(courseId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
         return Ok(result);
     }
@@ -136,11 +132,7 @@ public class CoursesController : BaseController
     public virtual IActionResult CoursesGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "name")
     {
         var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var result = _coursesService.GetAll(parameters, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _coursesService.GetAll(parameters);
         return Ok(result);
     }
 }

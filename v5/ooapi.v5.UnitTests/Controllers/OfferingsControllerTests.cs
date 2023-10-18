@@ -21,7 +21,7 @@ public class OfferingsControllerTests
 
         var response = new OneOfOfferingInstance(offeringId, courseOffering);
 
-        offeringsService.Get(offeringId, out var errorResponse).Returns(response);
+        offeringsService.Get(offeringId).Returns(response);
 
         //act
         var result = sut.OfferingsOfferingIdGet(offeringId, expand) as OkObjectResult;
@@ -29,8 +29,6 @@ public class OfferingsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var offering = result.Value as CourseOffering;
         offering.Should().NotBeNull();
@@ -48,7 +46,7 @@ public class OfferingsControllerTests
 
         var response = new OneOfOfferingInstance(offeringId, componentOffering);
 
-        offeringsService.Get(offeringId, out var errorResponse).Returns(response);
+        offeringsService.Get(offeringId).Returns(response);
 
         //act
         var result = sut.OfferingsOfferingIdGet(offeringId, expand) as OkObjectResult;
@@ -56,8 +54,6 @@ public class OfferingsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var offering = result.Value as ComponentOffering;
         offering.Should().NotBeNull();
@@ -75,7 +71,7 @@ public class OfferingsControllerTests
 
         var response = new OneOfOfferingInstance(offeringId, programOffering);
 
-        offeringsService.Get(offeringId, out var errorResponse).Returns(response);
+        offeringsService.Get(offeringId).Returns(response);
 
         //act
         var result = sut.OfferingsOfferingIdGet(offeringId, expand) as OkObjectResult;
@@ -83,8 +79,6 @@ public class OfferingsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var offering = result.Value as ProgramOffering;
         offering.Should().NotBeNull();

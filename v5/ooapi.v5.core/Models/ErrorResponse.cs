@@ -84,6 +84,8 @@ public class ErrorResponse
     /// A human-readable explanation specific to this occurrence of the problem
     /// </summary>
     /// <value>A human-readable explanation specific to this occurrence of the problem</value>
+
     [JsonProperty(PropertyName = "detail")]
-    public string Detail { get; set; }
+    public string? Detail { get; set; }
+
 }

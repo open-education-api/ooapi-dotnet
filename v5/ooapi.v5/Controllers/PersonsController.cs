@@ -55,11 +55,7 @@ public class PersonsController : BaseController
     public virtual IActionResult PersonsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string? sort = "personId")
     {
         var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var result = _personsService.GetAll(parameters, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _personsService.GetAll(parameters);
         return Ok(result);
     }
 
@@ -104,11 +100,7 @@ public class PersonsController : BaseController
     public virtual IActionResult PersonsPersonIdAssociationsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? associationType, [FromQuery] string? role, [FromQuery] string? state, [FromQuery] string? resultState, [FromQuery] string? sort = "associationId")
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _associationsService.GetAssociationsByPersonId(parameters, personId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _associationsService.GetAssociationsByPersonId(parameters, personId);
         return Ok(result);
     }
 
@@ -125,10 +117,10 @@ public class PersonsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Person), description: "OK")]
     public virtual IActionResult PersonsPersonIdGet([FromRoute][Required] Guid personId)
     {
-        var result = _personsService.Get(personId, out var errorResponse);
+        var result = _personsService.Get(personId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
         return Ok(result);
     }
@@ -155,11 +147,7 @@ public class PersonsController : BaseController
     public virtual IActionResult PersonsPersonIdGroupsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _groupsService.GetGroupsByPersonId(parameters, personId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _groupsService.GetGroupsByPersonId(parameters, personId);
         return Ok(result);
     }
 }

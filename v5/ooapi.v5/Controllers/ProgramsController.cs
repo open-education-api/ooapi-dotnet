@@ -61,11 +61,7 @@ namespace ooapi.v5.Controllers
         public virtual IActionResult ProgramsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
         {
             var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-            var result = _programsService.GetAll(parameters, out var errorResponse);
-            if (result == null)
-            {
-                return BadRequest(errorResponse);
-            }
+            var result = _programsService.GetAll(parameters);
             return Ok(result);
         }
 
@@ -93,11 +89,7 @@ namespace ooapi.v5.Controllers
         public virtual IActionResult ProgramsProgramIdCoursesGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? level, [FromQuery] List<string>? modeOfDelivery, [FromQuery] string? sort = "courseId")
         {
             var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-            var result = _coursesService.GetCoursesByProgramId(parameters, programId, out var errorResponse);
-            if (result == null)
-            {
-                return BadRequest(errorResponse);
-            }
+            var result = _coursesService.GetCoursesByProgramId(parameters, programId);
             return Ok(result);
         }
 
@@ -120,10 +112,10 @@ namespace ooapi.v5.Controllers
             {
                 Expand = expand
             };
-            var result = _programsService.Get(programId, parameters, out var errorResponse);
+            var result = _programsService.Get(programId, parameters);
             if (result == null)
             {
-                return BadRequest(errorResponse);
+                return NotFound();
             }
             return Ok(result);
         }
@@ -155,11 +147,7 @@ namespace ooapi.v5.Controllers
         {
             var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
             parameters.Filters.Add("programId", programId);
-            var result = _programOfferingService.GetAll(parameters, out var errorResponse);
-            if (result == null)
-            {
-                return BadRequest(errorResponse);
-            }
+            var result = _programOfferingService.GetAll(parameters);
             return Ok(result);
         }
 
@@ -190,11 +178,7 @@ namespace ooapi.v5.Controllers
         public virtual IActionResult ProgramsProgramIdProgramsGet([FromRoute][Required] Guid programId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? teachingLanguage, [FromQuery] string? programType, [FromQuery] string? qualificationAwarded, [FromQuery] string? levelOfQualification, [FromQuery] string? sector, [FromQuery] string? fieldsOfStudy, [FromQuery] string? sort = "name")
         {
             var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-            var result = _programsService.GetProgramsByProgramId(parameters, programId, out var errorResponse);
-            if (result == null)
-            {
-                return BadRequest(errorResponse);
-            }
+            var result = _programsService.GetProgramsByProgramId(parameters, programId);
             return Ok(result);
         }
     }

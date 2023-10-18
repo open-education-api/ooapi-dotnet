@@ -6,56 +6,22 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-
-public class BuildingsService : ServiceBase, IBuildingsService
+internal class BuildingsService : ServiceBase, IBuildingsService
 {
     private readonly BuildingsRepository _repository;
 
-
-    /// <param name="dbContext"></param>
-    /// <param name="userRequestContext"></param>
     public BuildingsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = new BuildingsRepository(dbContext);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<Building> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
+    public Pagination<Building> GetAll(DataRequestParameters dataRequestParameters)
     {
-        try
-        {
-            var result = _repository.GetAllOrderedBy(dataRequestParameters);
-
-            errorResponse = null;
-            return result;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return new Pagination<Building>();
-        }
+        return _repository.GetAllOrderedBy(dataRequestParameters);
     }
 
-
-    /// <param name="buildingId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Building? Get(Guid buildingId, out ErrorResponse? errorResponse)
+    public Building? Get(Guid buildingId)
     {
-        try
-        {
-            var item = _repository.GetBuilding(buildingId);
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetBuilding(buildingId);
     }
 }

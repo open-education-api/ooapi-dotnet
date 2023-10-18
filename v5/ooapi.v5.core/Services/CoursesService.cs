@@ -6,8 +6,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-
-public class CoursesService : ServiceBase, ICoursesService
+internal class CoursesService : ServiceBase, ICoursesService
 {
     private readonly CoursesRepository _repository;
 
@@ -16,104 +15,30 @@ public class CoursesService : ServiceBase, ICoursesService
         _repository = new CoursesRepository(dbContext);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<Course>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
+    public Pagination<Course> GetAll(DataRequestParameters dataRequestParameters)
     {
-        try
-        {
-            var result = _repository.GetAllOrderedBy(dataRequestParameters);
-            errorResponse = null;
-            return result;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetAllOrderedBy(dataRequestParameters);
     }
 
-
-    /// <param name="courseId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Course? Get(Guid courseId, out ErrorResponse? errorResponse)
+    public Course? Get(Guid courseId)
     {
-        try
-        {
-            var item = _repository.GetCourse(courseId);
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetCourse(courseId);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="educationSpecificationId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<Course>? GetCoursesByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, out ErrorResponse? errorResponse)
+    public Pagination<Course> GetCoursesByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId)
     {
-        try
-        {
-            var result = _repository.GetCoursesByEducationSpecificationId(educationSpecificationId, dataRequestParameters);
-            errorResponse = null;
-            return result;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetCoursesByEducationSpecificationId(educationSpecificationId, dataRequestParameters);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="organizationId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<Course>? GetCoursesByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse? errorResponse)
+    public Pagination<Course> GetCoursesByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId)
     {
-        try
-        {
-            var result = _repository.GetCoursesByOrganizationId(organizationId);
-            var paginationResult = new Pagination<Course>(result.AsQueryable(), dataRequestParameters);
-            errorResponse = null;
-            return paginationResult;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        var result = _repository.GetCoursesByOrganizationId(organizationId);
+        return new Pagination<Course>(result.AsQueryable(), dataRequestParameters);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="programId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<Course>? GetCoursesByProgramId(DataRequestParameters dataRequestParameters, Guid programId, out ErrorResponse? errorResponse)
+    public Pagination<Course> GetCoursesByProgramId(DataRequestParameters dataRequestParameters, Guid programId)
     {
-        try
-        {
-            var result = _repository.GetCoursesByProgramId(programId);
-            var paginationResult = new Pagination<Course>(result.AsQueryable(), dataRequestParameters);
-            errorResponse = null;
-            return paginationResult;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        var result = _repository.GetCoursesByProgramId(programId);
+        return new Pagination<Course>(result.AsQueryable(), dataRequestParameters);
     }
 }

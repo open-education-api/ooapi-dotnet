@@ -67,10 +67,10 @@ public class OfferingsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(OneOfOfferingNoIdentifier), description: "OK")]
     public virtual IActionResult OfferingsOfferingIdGet([FromRoute][Required] Guid offeringId, [FromQuery] List<string> expand)
     {
-        var result = _offeringsService.Get(offeringId, out var errorResponse);
+        var result = _offeringsService.Get(offeringId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
 
         if (result.CourseOffering != null)
@@ -88,7 +88,7 @@ public class OfferingsController : BaseController
             return Ok(result.ProgramOffering);
         }
 
-        return NotFound(errorResponse);
+        return NotFound();
     }
 
     /// <summary>

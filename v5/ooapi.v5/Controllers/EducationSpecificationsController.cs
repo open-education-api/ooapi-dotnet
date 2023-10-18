@@ -68,11 +68,7 @@ public class EducationSpecificationsController : BaseController
         {
             parameters.Filters.Add("ModeOfDelivery", modeOfDelivery);
         }
-        var result = _coursesService.GetCoursesByEducationSpecificationId(parameters, educationSpecificationId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _coursesService.GetCoursesByEducationSpecificationId(parameters, educationSpecificationId);
         return Ok(result);
     }
 
@@ -97,11 +93,7 @@ public class EducationSpecificationsController : BaseController
     public virtual IActionResult EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? sort = "educationSpecificationId")
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _educationSpecificationsService.GetEducationSpecificationsByEducationSpecificationId(parameters, educationSpecificationId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _educationSpecificationsService.GetEducationSpecificationsByEducationSpecificationId(parameters, educationSpecificationId);
         return Ok(result);
     }
 
@@ -118,16 +110,16 @@ public class EducationSpecificationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("EducationSpecificationsEducationSpecificationIdGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecification), description: "OK")]
-    public virtual IActionResult EducationSpecificationsEducationSpecificationIdGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] bool? returnTimelineOverrides, [FromQuery] List<string>? expand)
+    public virtual IActionResult EducationSpecificationsEducationSpecificationIdGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] bool? returnTimelineOverrides, [FromQuery] List<string> expand)
     {
         var parameters = new DataRequestParameters
         {
             Expand = expand
         };
-        var result = _educationSpecificationsService.Get(educationSpecificationId, parameters, out var errorResponse);
+        var result = _educationSpecificationsService.Get(educationSpecificationId, parameters);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
         return Ok(result);
     }
@@ -189,11 +181,7 @@ public class EducationSpecificationsController : BaseController
             parameters.Filters.Add("PrimaryCode", crohoCreboCode);
         }
 
-        var result = _programsService.GetProgramsByEducationSpecificationId(parameters, educationSpecificationId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _programsService.GetProgramsByEducationSpecificationId(parameters, educationSpecificationId);
         return Ok(result);
     }
 
@@ -227,11 +215,7 @@ public class EducationSpecificationsController : BaseController
         {
             parameters.Filters.Add("EducationSpecificationType", educationSpecificationType);
         }
-        var result = _educationSpecificationsService.GetAll(parameters, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _educationSpecificationsService.GetAll(parameters);
         return Ok(result);
     }
 }

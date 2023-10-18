@@ -5,24 +5,17 @@ using System.Reflection;
 
 namespace ooapi.v5.core.Services;
 
-
-public abstract class ServiceBase
+internal abstract class ServiceBase
 {
     internal readonly IUserRequestContext userRequestContext;
     internal readonly CoreDBContext dataContext;
 
-
-    /// <param name="dbContext"></param>
-    /// <param name="userRequestContext"></param>
     protected ServiceBase(CoreDBContext dbContext, IUserRequestContext userRequestContext)
     {
         dataContext = dbContext;
         this.userRequestContext = userRequestContext;
     }
 
-
-    /// <param name="item"></param>
-    /// <param name="userRequestContext"></param>
     public void HideAttributesBasedOnBivLevel(object item, UserRequestContext userRequestContext)
     {
         var showBiv_V_Hoog = false;
@@ -37,12 +30,6 @@ public abstract class ServiceBase
         {
             showBiv_V_Middel = true;
         }
-
-        //Show property when:
-        // --> (showBiv_V_Hoog == true)
-        // --> (showBiv_V_Middel == true) AND (BivVAttribute.middel == true)
-        // --> (BivVAttribute.laag == true)
-
 
         if (item != null)
         {

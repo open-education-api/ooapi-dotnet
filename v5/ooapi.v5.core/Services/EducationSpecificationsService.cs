@@ -6,8 +6,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-
-public class EducationSpecificationsService : ServiceBase, IEducationSpecificationsService
+internal class EducationSpecificationsService : ServiceBase, IEducationSpecificationsService
 {
     private readonly EducationSpecificationsRepository _repository;
 
@@ -16,85 +15,25 @@ public class EducationSpecificationsService : ServiceBase, IEducationSpecificati
         _repository = new EducationSpecificationsRepository(dbContext);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<EducationSpecification>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
+    public Pagination<EducationSpecification> GetAll(DataRequestParameters dataRequestParameters)
     {
-        try
-        {
-            var result = _repository.GetAllOrderedBy(dataRequestParameters);
-            errorResponse = null;
-            return result;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetAllOrderedBy(dataRequestParameters);
     }
 
-
-    /// <param name="educationSpecificationId"></param>
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public EducationSpecification? Get(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
+    public EducationSpecification? Get(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
-        try
-        {
-            var item = _repository.GetEducationSpecification(educationSpecificationId, dataRequestParameters);
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetEducationSpecification(educationSpecificationId, dataRequestParameters);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="educationSpecificationId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<EducationSpecification>? GetEducationSpecificationsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, out ErrorResponse? errorResponse)
+    public Pagination<EducationSpecification> GetEducationSpecificationsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId)
     {
-        try
-        {
-            var result = _repository.GetEducationSpecificationsByEducationSpecificationId(educationSpecificationId);
-            var paginationResult = new Pagination<EducationSpecification>(result.AsQueryable(), dataRequestParameters);
-            errorResponse = null;
-            return paginationResult;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        var result = _repository.GetEducationSpecificationsByEducationSpecificationId(educationSpecificationId);
+        return new Pagination<EducationSpecification>(result.AsQueryable(), dataRequestParameters);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="organizationId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<EducationSpecification>? GetEducationSpecificationsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse? errorResponse)
+    public Pagination<EducationSpecification> GetEducationSpecificationsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId)
     {
-        try
-        {
-            var result = _repository.GetEducationSpecificationsByOrganizationId(organizationId);
-            var paginationResult = new Pagination<EducationSpecification>(result.AsQueryable(), dataRequestParameters);
-            errorResponse = null;
-            return paginationResult;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        var result = _repository.GetEducationSpecificationsByOrganizationId(organizationId);
+        return new Pagination<EducationSpecification>(result.AsQueryable(), dataRequestParameters);
     }
 }

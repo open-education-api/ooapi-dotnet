@@ -3,12 +3,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services.Interfaces;
 
-
 public interface IOfferingsService
 {
-
-    /// <param name="offeringId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    OneOfOfferingInstance? Get(Guid offeringId, out ErrorResponse? errorResponse);
+    OneOfOfferingInstance? Get(Guid offeringId);
 }

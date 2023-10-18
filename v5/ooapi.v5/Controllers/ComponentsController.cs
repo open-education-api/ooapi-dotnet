@@ -38,11 +38,12 @@ public class ComponentsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Component), description: "OK")]
     public virtual IActionResult ComponentsComponentIdGet([FromRoute][Required] Guid componentId, [FromQuery] List<string> expand)
     {
-        var result = _componentsService.Get(componentId, out var errorResponse);
+        var result = _componentsService.Get(componentId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
+
         return Ok(result);
     }
 

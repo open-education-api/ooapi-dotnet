@@ -20,7 +20,7 @@ public class BuildingsControllerTests
 
         var response = new Building();
 
-        buildingsService.Get(buildingId, out var errorResponse).Returns(response);
+        buildingsService.Get(buildingId).Returns(response);
 
         //act
         var result = sut.BuildingsBuildingIdGet(buildingId) as OkObjectResult;
@@ -28,8 +28,6 @@ public class BuildingsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var building = result.Value as Building;
         building.Should().NotBeNull();
@@ -51,7 +49,7 @@ public class BuildingsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        roomsService.GetRoomsByBuildingId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), buildingId, out var errorResponse).Returns(response);
+        roomsService.GetRoomsByBuildingId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), buildingId).Returns(response);
 
         //act
         var result = sut.BuildingsBuildingIdRoomsGet(buildingId, filterParams, pagingParams, roomType, sort) as OkObjectResult;
@@ -59,8 +57,6 @@ public class BuildingsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var rooms = result.Value as Pagination<Room>;
         rooms.Should().NotBeNull();
@@ -86,7 +82,7 @@ public class BuildingsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        buildingsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        buildingsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.BuildingsGet(primaryCodeParam, filterParams, pagingParams, sort) as OkObjectResult;
@@ -94,8 +90,6 @@ public class BuildingsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var buildings = result.Value as Pagination<Building>;
         buildings.Should().NotBeNull();
@@ -119,7 +113,7 @@ public class BuildingsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        buildingsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        buildingsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.BuildingsGet(primaryCodeParam, filterParams, pagingParams, sort) as OkObjectResult;
@@ -127,8 +121,6 @@ public class BuildingsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var buildings = result.Value as Pagination<Building>;
         buildings.Should().NotBeNull();

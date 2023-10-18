@@ -27,7 +27,7 @@ public class CoursesControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        componentsService.GetComponentsByCourseId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), courseId, out var errorResponse).Returns(response);
+        componentsService.GetComponentsByCourseId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), courseId).Returns(response);
 
         //act
         var result = sut.CoursesCourseIdComponentsGet(courseId, filterParams, pagingParams, teachingLanguage, componentType, sort) as OkObjectResult;
@@ -35,8 +35,6 @@ public class CoursesControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var components = result.Value as Pagination<Component>;
         components.Should().NotBeNull();
@@ -59,7 +57,7 @@ public class CoursesControllerTests
 
         var response = new Course();
 
-        coursesService.Get(courseId, out var errorResponse).Returns(response);
+        coursesService.Get(courseId).Returns(response);
 
         //act
         var result = sut.CoursesCourseIdGet(courseId, expand, returnTimelineOverrides) as OkObjectResult;
@@ -67,8 +65,6 @@ public class CoursesControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var course = result.Value as Course;
         course.Should().NotBeNull();
@@ -92,7 +88,7 @@ public class CoursesControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        coursesService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        coursesService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.CoursesGet(primaryCodeParam, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
@@ -100,8 +96,6 @@ public class CoursesControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var courses = result.Value as Pagination<Course>;
         courses.Should().NotBeNull();
@@ -128,7 +122,7 @@ public class CoursesControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        coursesService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        coursesService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.CoursesGet(primaryCodeParam, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
@@ -136,8 +130,6 @@ public class CoursesControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var courses = result.Value as Pagination<Course>;
         courses.Should().NotBeNull();

@@ -6,8 +6,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-
-public class GroupsService : ServiceBase, IGroupsService
+internal class GroupsService : ServiceBase, IGroupsService
 {
     private readonly GroupsRepository _repository;
 
@@ -16,84 +15,25 @@ public class GroupsService : ServiceBase, IGroupsService
         _repository = new GroupsRepository(dbContext);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<Group>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
+    public Pagination<Group> GetAll(DataRequestParameters dataRequestParameters)
     {
-        try
-        {
-            var result = _repository.GetAllOrderedBy(dataRequestParameters);
-            errorResponse = null;
-            return result;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetAllOrderedBy(dataRequestParameters);
     }
 
-
-    /// <param name="groupId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Group? Get(Guid groupId, out ErrorResponse? errorResponse)
+    public Group? Get(Guid groupId)
     {
-        try
-        {
-            var item = _repository.GetGroup(groupId);
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetGroup(groupId);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="organizationId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<Group>? GetGroupsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId, out ErrorResponse? errorResponse)
+    public Pagination<Group> GetGroupsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId)
     {
-        try
-        {
-            var result = _repository.GetGroupsByOrganizationId(organizationId);
-            var paginationResult = new Pagination<Group>(result.AsQueryable(), dataRequestParameters);
-            errorResponse = null;
-            return paginationResult;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        var result = _repository.GetGroupsByOrganizationId(organizationId);
+        return new Pagination<Group>(result.AsQueryable(), dataRequestParameters);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="personId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<Group>? GetGroupsByPersonId(DataRequestParameters dataRequestParameters, Guid personId, out ErrorResponse? errorResponse)
+    public Pagination<Group> GetGroupsByPersonId(DataRequestParameters dataRequestParameters, Guid personId)
     {
-        try
-        {
-            var result = _repository.GetGroupsByPersonId(personId);
-            var paginationResult = new Pagination<Group>(result.AsQueryable(), dataRequestParameters);
-            errorResponse = null;
-            return paginationResult;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        var result = _repository.GetGroupsByPersonId(personId);
+        return new Pagination<Group>(result.AsQueryable(), dataRequestParameters);
     }
 }

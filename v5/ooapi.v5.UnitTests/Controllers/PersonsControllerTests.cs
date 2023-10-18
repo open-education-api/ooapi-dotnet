@@ -26,7 +26,7 @@ public class PersonsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        personsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        personsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.PersonsGet(primaryCodeParam, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
@@ -34,8 +34,6 @@ public class PersonsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var persons = result.Value as Pagination<Person>;
         persons.Should().NotBeNull();
@@ -60,7 +58,7 @@ public class PersonsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        personsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        personsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.PersonsGet(primaryCodeParam, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
@@ -68,8 +66,6 @@ public class PersonsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var persons = result.Value as Pagination<Person>;
         persons.Should().NotBeNull();
@@ -99,7 +95,7 @@ public class PersonsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        associationsService.GetAssociationsByPersonId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), personId, out var errorResponse).Returns(response);
+        associationsService.GetAssociationsByPersonId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), personId).Returns(response);
 
         //act
         var result = sut.PersonsPersonIdAssociationsGet(personId, filterParams, pagingParams, associationType, role, state, resultState, sort) as OkObjectResult;
@@ -107,8 +103,6 @@ public class PersonsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var asscociations = result.Value as Pagination<Association>;
         asscociations.Should().NotBeNull();
@@ -129,7 +123,7 @@ public class PersonsControllerTests
 
         var response = new Person();
 
-        personsService.Get(personId, out var errorResponse).Returns(response);
+        personsService.Get(personId).Returns(response);
 
         //act
         var result = sut.PersonsPersonIdGet(personId) as OkObjectResult;
@@ -137,8 +131,6 @@ public class PersonsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var person = result.Value as Person;
         person.Should().NotBeNull();
@@ -160,7 +152,7 @@ public class PersonsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        groupsService.GetGroupsByPersonId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), personId, out var errorResponse).Returns(response);
+        groupsService.GetGroupsByPersonId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), personId).Returns(response);
 
         //act
         var result = sut.PersonsPersonIdGroupsGet(personId, filterParams, pagingParams, groupType, sort) as OkObjectResult;
@@ -168,8 +160,6 @@ public class PersonsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var groups = result.Value as Pagination<Group>;
         groups.Should().NotBeNull();

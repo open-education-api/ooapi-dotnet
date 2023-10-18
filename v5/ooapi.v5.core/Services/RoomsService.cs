@@ -6,8 +6,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-
-public class RoomsService : ServiceBase, IRoomsService
+internal class RoomsService : ServiceBase, IRoomsService
 {
     private readonly RoomsRepository _repository;
 
@@ -16,63 +15,19 @@ public class RoomsService : ServiceBase, IRoomsService
         _repository = new RoomsRepository(dbContext);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<Room>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse)
+    public Pagination<Room> GetAll(DataRequestParameters dataRequestParameters)
     {
-        try
-        {
-            var result = _repository.GetAllOrderedBy(dataRequestParameters);
-            errorResponse = null;
-            return result;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetAllOrderedBy(dataRequestParameters);
     }
 
-
-    /// <param name="roomId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Room? Get(Guid roomId, out ErrorResponse? errorResponse)
+    public Room? Get(Guid roomId)
     {
-        try
-        {
-            var item = _repository.GetRoom(roomId);
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetRoom(roomId);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="buildingId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<Room>? GetRoomsByBuildingId(DataRequestParameters dataRequestParameters, Guid buildingId, out ErrorResponse? errorResponse)
+    public Pagination<Room> GetRoomsByBuildingId(DataRequestParameters dataRequestParameters, Guid buildingId)
     {
-        try
-        {
-            var result = _repository.GetRoomsByBuildingId(buildingId);
-            var paginationResult = new Pagination<Room>(result.AsQueryable(), dataRequestParameters);
-            errorResponse = null;
-            return paginationResult;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        var result = _repository.GetRoomsByBuildingId(buildingId);
+        return new Pagination<Room>(result.AsQueryable(), dataRequestParameters);
     }
 }

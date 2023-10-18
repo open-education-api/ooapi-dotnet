@@ -58,12 +58,8 @@ public class AcademicSessionsController : BaseController
         var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         if (parent != null) parameters.Filters.Add("ParentId", parent);
         if (year != null) parameters.Filters.Add("YearId", year);
-        var result = _academicSessionsService.GetAll(parameters, out var errorResponse, academicSessionType);
+        var result = _academicSessionsService.GetAll(parameters, academicSessionType);
 
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
         return Ok(result);
     }
 
@@ -85,11 +81,12 @@ public class AcademicSessionsController : BaseController
         {
             Expand = expand
         };
-        var result = _academicSessionsService.Get(academicSessionId, parameters, out var errorResponse);
+        var result = _academicSessionsService.Get(academicSessionId, parameters);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
+
         return Ok(result);
     }
 

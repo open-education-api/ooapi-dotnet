@@ -26,7 +26,7 @@ public class RoomsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        roomsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        roomsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.RoomsGet(primaryCodeParam, filterParams, pagingParams, roomType, sort) as OkObjectResult;
@@ -34,8 +34,6 @@ public class RoomsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var rooms = result.Value as Pagination<Room>;
         rooms.Should().NotBeNull();
@@ -60,7 +58,7 @@ public class RoomsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        roomsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        roomsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.RoomsGet(primaryCodeParam, filterParams, pagingParams, roomType, sort) as OkObjectResult;
@@ -68,8 +66,6 @@ public class RoomsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var rooms = result.Value as Pagination<Room>;
         rooms.Should().NotBeNull();
@@ -91,7 +87,7 @@ public class RoomsControllerTests
 
         var response = new Room();
 
-        associationsService.Get(roomId, out var errorResponse).Returns(response);
+        associationsService.Get(roomId).Returns(response);
 
         //act
         var result = sut.RoomsRoomIdGet(roomId, expand) as OkObjectResult;
@@ -99,8 +95,6 @@ public class RoomsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var room = result.Value as Room;
         room.Should().NotBeNull();

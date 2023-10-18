@@ -3,25 +3,9 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services.Interfaces;
 
-
 public interface IRoomsService
 {
-
-    /// <param name="roomId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    Room? Get(Guid roomId, out ErrorResponse? errorResponse);
-
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    Pagination<Room>? GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse? errorResponse);
-
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="buildingId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    Pagination<Room>? GetRoomsByBuildingId(DataRequestParameters dataRequestParameters, Guid buildingId, out ErrorResponse? errorResponse);
+    Room? Get(Guid roomId);
+    Pagination<Room> GetAll(DataRequestParameters dataRequestParameters);
+    Pagination<Room> GetRoomsByBuildingId(DataRequestParameters dataRequestParameters, Guid buildingId);
 }

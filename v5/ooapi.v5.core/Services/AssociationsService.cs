@@ -6,8 +6,7 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-
-public class AssociationsService : ServiceBase, IAssociationsService
+internal class AssociationsService : ServiceBase, IAssociationsService
 {
     private readonly AssociationsRepository _repository;
 
@@ -16,44 +15,14 @@ public class AssociationsService : ServiceBase, IAssociationsService
         _repository = new AssociationsRepository(dbContext);
     }
 
-
-    /// <param name="associationId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Association? Get(Guid associationId, out ErrorResponse? errorResponse)
+    public Association? Get(Guid associationId)
     {
-        try
-        {
-            var item = _repository.GetAssociation(associationId);
-
-            errorResponse = null;
-            return item;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        return _repository.GetAssociation(associationId);
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="personId"></param>
-    /// <param name="errorResponse"></param>
-    /// <returns></returns>
-    public Pagination<Association>? GetAssociationsByPersonId(DataRequestParameters dataRequestParameters, Guid personId, out ErrorResponse? errorResponse)
+    public Pagination<Association> GetAssociationsByPersonId(DataRequestParameters dataRequestParameters, Guid personId)
     {
-        try
-        {
-            var result = _repository.GetAssociationsByPersonId(personId);
-            var paginationResult = new Pagination<Association>(result.AsQueryable(), dataRequestParameters);
-            errorResponse = null;
-            return paginationResult;
-        }
-        catch (Exception)
-        {
-            errorResponse = new ErrorResponse(500);
-            return null;
-        }
+        var result = _repository.GetAssociationsByPersonId(personId);
+        return new Pagination<Association>(result.AsQueryable(), dataRequestParameters);
     }
 }

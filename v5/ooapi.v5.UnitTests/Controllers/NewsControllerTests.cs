@@ -25,7 +25,7 @@ public class NewsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        newsFeedsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        newsFeedsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.NewsFeedsGet(filterParams, pagingParams, newsFeedType, sort) as OkObjectResult;
@@ -33,8 +33,6 @@ public class NewsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var newsFeeds = result.Value as Pagination<NewsFeed>;
         newsFeeds.Should().NotBeNull();
@@ -55,7 +53,7 @@ public class NewsControllerTests
 
         var response = new NewsFeed();
 
-        newsFeedsService.Get(newsFeedId, out var errorResponse).Returns(response);
+        newsFeedsService.Get(newsFeedId).Returns(response);
 
         //act
         var result = sut.NewsFeedsNewsFeedIdGet(newsFeedId) as OkObjectResult;
@@ -63,8 +61,6 @@ public class NewsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var newsFeed = result.Value as NewsFeed;
         newsFeed.Should().NotBeNull();
@@ -86,7 +82,7 @@ public class NewsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        newsItemsService.GetNewsItemsByNewsFeedId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), newsFeedId, out var errorResponse).Returns(response);
+        newsItemsService.GetNewsItemsByNewsFeedId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), newsFeedId).Returns(response);
 
         //act
         var result = sut.NewsFeedsNewsFeedIdNewsItemsGet(newsFeedId, filterParams, pagingParams, newsFeedType, sort) as OkObjectResult;
@@ -94,8 +90,6 @@ public class NewsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var newsItems = result.Value as Pagination<NewsItem>;
         newsItems.Should().NotBeNull();
@@ -117,7 +111,7 @@ public class NewsControllerTests
 
         var response = new NewsItem();
 
-        newsItemsService.Get(newsItemId, out var errorResponse).Returns(response);
+        newsItemsService.Get(newsItemId).Returns(response);
 
         //act
         var result = sut.NewsItemsNewsItemIdGet(newsItemId, expand) as OkObjectResult;
@@ -125,8 +119,6 @@ public class NewsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var newsItem = result.Value as NewsItem;
         newsItem.Should().NotBeNull();
