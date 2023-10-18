@@ -119,25 +119,25 @@ public partial class Association : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// Id of the result
     /// </summary>
     [JsonIgnore]
     public Guid? ResultId { get; set; }
 
     /// <summary>
-    /// 
+    /// The result of the program
     /// </summary>
     [JsonIgnore]
     public ProgramResult? ProgramResult { get; set; }
 
     /// <summary>
-    /// 
+    /// The result of the course
     /// </summary>
     [JsonIgnore]
     public CourseResult? CourseResult { get; set; }
 
     /// <summary>
-    /// 
+    /// The result of component
     /// </summary>
     [JsonIgnore]
     public ComponentResult? ComponentResult { get; set; }
@@ -164,17 +164,16 @@ public partial class Association : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// The id of the person
     /// </summary>
     [JsonIgnore]
     public Guid? PersonId { get; set; }
 
     /// <summary>
-    /// 
+    /// The person
     /// </summary>
     [JsonIgnore]
     public Person? Person { get; set; }
-
 
     /// <summary>
     /// Identifier (string) or Offering (object) or Offering (object) or Offering (object))
@@ -212,25 +211,25 @@ public partial class Association : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// Id of the offering
     /// </summary>
     [JsonIgnore]
     public Guid? OfferingId { get; set; }
 
     /// <summary>
-    /// 
+    /// The program offering
     /// </summary>
     [JsonIgnore]
     public ProgramOffering? ProgramOffering { get; set; }
 
     /// <summary>
-    /// 
+    /// The course offering
     /// </summary>
     [JsonIgnore]
     public CourseOffering? CourseOffering { get; set; }
 
     /// <summary>
-    /// 
+    /// The component offering
     /// </summary>
     [JsonIgnore]
     public ComponentOffering? ComponentOffering { get; set; }

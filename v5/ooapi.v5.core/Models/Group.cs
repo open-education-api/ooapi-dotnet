@@ -91,7 +91,7 @@ public class Group : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// List of attributes
     /// </summary>
     [JsonIgnore]
     [SortAllowed]
@@ -173,7 +173,7 @@ public class Group : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// List of consumers
     /// </summary>
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
@@ -200,19 +200,19 @@ public class Group : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// Id of the organization
     /// </summary>
     [JsonIgnore]
     public Guid? OrganizationId { get; set; }
 
     /// <summary>
-    /// 
+    /// The organization
     /// </summary>
     [JsonIgnore]
     public Organization? Organization { get; set; }
 
     /// <summary>
-    /// 
+    /// Collection of persons
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Person> Persons { get; set; } = default!;

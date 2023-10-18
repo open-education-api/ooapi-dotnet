@@ -407,13 +407,13 @@ public class Course : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// Id of the education specification
     /// </summary>
     [JsonIgnore]
     public Guid? EducationSpecificationId { get; set; }
 
     /// <summary>
-    /// 
+    /// The education specification
     /// </summary>
     [JsonIgnore]
     public EducationSpecification? EducationSpecification { get; set; }
@@ -454,7 +454,7 @@ public class Course : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// List of Consumers
     /// </summary>
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
@@ -495,13 +495,13 @@ public class Course : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// Id of the organization
     /// </summary>
     [JsonIgnore]
     public Guid? OrganizationId { get; set; }
 
     /// <summary>
-    /// 
+    /// The organization
     /// </summary>
     [JsonIgnore]
     public Organization? Organization { get; set; }
@@ -523,19 +523,19 @@ public class Course : ModelBase
     public DateTime? ValidTo { get; set; }
 
     /// <summary>
-    /// 
+    /// Collection of Programs
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Program> ProgramsRef { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of Persons
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Person> CoordinatorsRef { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of Addresses
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Address> Address { get; set; } = default!;

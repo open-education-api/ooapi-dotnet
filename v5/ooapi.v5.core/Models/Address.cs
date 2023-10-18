@@ -120,7 +120,7 @@ public partial class Address : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// The latitude
     /// </summary>
     [JsonIgnore]
     [Column(TypeName = "decimal(8, 6)")]
@@ -128,7 +128,7 @@ public partial class Address : ModelBase
     public decimal? Latitude { get; set; }
 
     /// <summary>
-    /// 
+    /// The longitude
     /// </summary>
     [JsonIgnore]
     [Column(TypeName = "decimal(8, 6)")]
@@ -136,43 +136,43 @@ public partial class Address : ModelBase
     public decimal? Longitude { get; set; }
 
     /// <summary>
-    /// 
+    /// Collection of organizations
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Organization> Organizations { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of programs
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Program> Programs { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of coures
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Course> Courses { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of components
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Component> Components { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of program offerings
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<ProgramOffering> ProgramOfferings { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of course offerings
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<CourseOffering> CourseOfferings { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of component offerings
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<ComponentOffering> ComponentOfferings { get; set; } = default!;

@@ -89,19 +89,19 @@ public class Cost : ModelBase
     public string DisplayAmount { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of program offerings
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<ProgramOffering> ProgramOfferings { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of course offerings
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<CourseOffering> CourseOfferings { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of component offerings
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<ComponentOffering> ComponentOfferings { get; set; } = default!;

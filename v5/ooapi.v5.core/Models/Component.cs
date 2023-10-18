@@ -358,13 +358,13 @@ public partial class Component : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// List of consumers
     /// </summary>
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of addresses
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Address> Address { get; set; } = default!;

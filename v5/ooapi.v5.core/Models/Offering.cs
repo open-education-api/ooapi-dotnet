@@ -123,7 +123,7 @@ public class Offering : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// List of attribtes
     /// </summary>
     [JsonIgnore]
     [SortAllowed]
@@ -169,7 +169,7 @@ public class Offering : ModelBase
     public string TeachingLanguage { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Mode of delivery
     /// </summary>
     [JsonIgnore]
     public string? ModeOfDelivery { get; set; }
@@ -306,7 +306,7 @@ public class Offering : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// List of consumers
     /// </summary>
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
@@ -349,25 +349,25 @@ public class Offering : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// Id of the organization
     /// </summary>
     [JsonIgnore]
     public Guid? OrganizationId { get; set; }
 
     /// <summary>
-    /// 
+    /// The organization
     /// </summary>
     [JsonIgnore]
     public Organization? Organization { get; set; }
 
     /// <summary>
-    /// 
+    /// Collection of addresses
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Address> Address { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of costs
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Cost> Costs { get; set; } = default!;

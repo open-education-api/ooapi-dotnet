@@ -54,7 +54,7 @@ public partial class NewsFeed : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// List of attributes
     /// </summary>
     [JsonIgnore]
     [SortAllowed]
@@ -100,13 +100,13 @@ public partial class NewsFeed : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// List of consumers
     /// </summary>
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of news items
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<NewsItem> NewsItems { get; set; } = default!;

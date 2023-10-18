@@ -52,13 +52,13 @@ public partial class Program : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// The type of the primary code
     /// </summary>
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
 
     /// <summary>
-    /// 
+    /// The primary code
     /// </summary>
     [JsonIgnore]
     [SortAllowed]
@@ -155,7 +155,6 @@ public partial class Program : ModelBase
 
             try
             {
-
                 var result = new StudyLoadDescriptor
                 {
                     StudyLoadUnit = StudyLoadUnit,
@@ -179,13 +178,13 @@ public partial class Program : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// The unit of the study load
     /// </summary>
     [JsonIgnore]
     public string? StudyLoadUnit { get; set; }
 
     /// <summary>
-    /// 
+    /// The value of the study load
     /// </summary>
     [JsonIgnore]
     public int StudyLoadValue { get; set; }
@@ -207,13 +206,11 @@ public partial class Program : ModelBase
     [JsonProperty(PropertyName = "modeOfStudy")]
     public ModeOfStudy? ModeOfStudy { get; set; }
 
-
     /// <summary>
-    /// 
+    /// The mode of delivery
     /// </summary>
     [JsonIgnore]
     public string? ModeOfDelivery { get; set; }
-
 
     /// <summary>
     /// The mode of delivery of the component (ECTS-mode of delivery) - distance-learning: afstandsleren - on campus: op de campus - online: online - hybrid: hybride - situated: op locatie 
@@ -436,13 +433,13 @@ public partial class Program : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// Id of the eduction specifation
     /// </summary>
     [JsonIgnore]
     public Guid? EducationSpecificationId { get; set; }
 
     /// <summary>
-    /// 
+    /// The education specification
     /// </summary>
     [JsonIgnore]
     public EducationSpecification? EducationSpecification { get; set; }
@@ -487,13 +484,13 @@ public partial class Program : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// Id of the parent
     /// </summary>
     [JsonIgnore]
     public Guid? ParentId { get; set; }
 
     /// <summary>
-    /// 
+    /// The parent
     /// </summary>
     [JsonIgnore]
     [NotMapped]
@@ -567,13 +564,13 @@ public partial class Program : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// Id of the organization
     /// </summary>
     [JsonIgnore]
     public Guid? OrganizationId { get; set; }
 
     /// <summary>
-    /// 
+    /// The organization
     /// </summary>
     [JsonIgnore]
     public Organization? Organization { get; set; }
@@ -599,7 +596,7 @@ public partial class Program : ModelBase
     }
 
     /// <summary>
-    /// 
+    /// List of consumers
     /// </summary>
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
@@ -623,13 +620,13 @@ public partial class Program : ModelBase
     public DateTime? ValidTo { get; set; }
 
     /// <summary>
-    /// 
+    /// Collections of persons
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Person> CoordinatorsRef { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Collection of addresses
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<Address> Address { get; set; } = default!;
