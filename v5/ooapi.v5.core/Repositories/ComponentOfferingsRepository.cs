@@ -6,7 +6,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class ComponentOfferingsRepository : BaseRepository<ComponentOffering>
 {
-    public ComponentOfferingsRepository(CoreDBContext dbContext) : base(dbContext)
+    public ComponentOfferingsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
         //
     }
@@ -18,11 +18,12 @@ public class ComponentOfferingsRepository : BaseRepository<ComponentOffering>
 
     public Pagination<ComponentOffering> GetComponentOfferingByProgramId(Guid componentId, DataRequestParameters dataRequestParameters)
     {
-        IQueryable<ComponentOffering> set = dbContext.ComponentOfferingsNoTracking.Where(o => o.Component.Equals(componentId)).Include(x => x.Attributes);
+        IQueryable<ComponentOffering> set = dbContext.ComponentOfferingsNoTracking.Where(o => o.Component.ComponentId.Equals(componentId)).Include(x => x.Attributes);
         bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
         if (includeConsumer)
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+
         }
         return GetAllOrderedBy(dataRequestParameters, set);
     }

@@ -6,7 +6,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class CoursesRepository : BaseRepository<Course>
 {
-    public CoursesRepository(CoreDBContext dbContext) : base(dbContext)
+    public CoursesRepository(ICoreDbContext dbContext) : base(dbContext)
     {
         //
     }
@@ -34,7 +34,7 @@ public class CoursesRepository : BaseRepository<Course>
 
     public List<Course> GetCoursesByProgramId(Guid programId)
     {
-        return null;
+        throw new NotImplementedException();
         //return dbContext.Courses.Where(o => o.Programs.Equals(programId)).ToList();
     }
 }

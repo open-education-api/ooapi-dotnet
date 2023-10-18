@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -18,9 +16,11 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class AssociationsController : BaseController
 {
+    private readonly IAssociationsService _associationsService;
 
-    public AssociationsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    public AssociationsController(IAssociationsService associationsService)
     {
+        _associationsService = associationsService;
     }
 
     /// <summary>
@@ -34,11 +34,10 @@ public class AssociationsController : BaseController
     [Route("associations/{associationId}")]
     [ValidateModelState]
     [SwaggerOperation("AssociationsAssociationIdGet")]
-    [SwaggerResponse(statusCode: 200, type: typeof(List<Association>), description: "OK")]
+    [SwaggerResponse(statusCode: 200, type: typeof(Association), description: "OK")]
     public virtual IActionResult AssociationsAssociationIdGet([FromRoute][Required] Guid associationId, [FromQuery] List<string> expand)
     {
-        var service = new AssociationsService(DBContext, UserRequestContext);
-        var result = service.Get(associationId, out ErrorResponse errorResponse);
+        var result = _associationsService.Get(associationId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

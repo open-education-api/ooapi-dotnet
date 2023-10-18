@@ -4,7 +4,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class ServiceMetadataRepository : BaseRepository<Service>
 {
-    public ServiceMetadataRepository(CoreDBContext dbContext) : base(dbContext)
+    public ServiceMetadataRepository(ICoreDbContext dbContext) : base(dbContext)
     {
         //
     }

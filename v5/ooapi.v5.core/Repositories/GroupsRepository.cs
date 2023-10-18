@@ -4,7 +4,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class GroupsRepository : BaseRepository<Group>
 {
-    public GroupsRepository(CoreDBContext dbContext) : base(dbContext)
+    public GroupsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
         //
     }
@@ -21,7 +21,7 @@ public class GroupsRepository : BaseRepository<Group>
 
     public List<Group> GetGroupsByPersonId(Guid personId)
     {
-        return null;
+        throw new NotImplementedException();
         //return dbContext.Groups.Where(o => o.PersonId.Equals(personId)).ToList();
     }
 

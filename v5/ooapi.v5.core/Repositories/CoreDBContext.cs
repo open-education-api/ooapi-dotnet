@@ -1,4 +1,6 @@
-﻿namespace ooapi.v5.core.Repositories;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ooapi.v5.core.Repositories;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +12,8 @@ using System.Reflection.Emit;
 using System.Xml;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-public class CoreDBContext : DbContext
+[ExcludeFromCodeCoverage(Justification = "Configuration class")]
+public class CoreDBContext : DbContext, ICoreDbContext
 {
     public CoreDBContext(DbContextOptions<CoreDBContext> options) : base(options)
 

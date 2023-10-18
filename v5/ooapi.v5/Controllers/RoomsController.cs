@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -20,8 +18,11 @@ namespace ooapi.v5.Controllers;
 [ApiController]
 public class RoomsController : BaseController
 {
-    public RoomsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    private readonly IRoomsService _roomsService;
+
+    public RoomsController(IRoomsService roomsService)
     {
+        _roomsService = roomsService;
     }
 
     /// <summary>
@@ -43,11 +44,10 @@ public class RoomsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("RoomsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Rooms), description: "OK")]
-    public virtual IActionResult RoomsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? roomType, [FromQuery] string? sort = "name")
+    public virtual IActionResult RoomsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? roomType, [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var service = new RoomsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        var result = _roomsService.GetAll(parameters, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);
@@ -69,8 +69,7 @@ public class RoomsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Room), description: "OK")]
     public virtual IActionResult RoomsRoomIdGet([FromRoute][Required] Guid roomId, [FromQuery] List<string> expand)
     {
-        var service = new RoomsService(DBContext, UserRequestContext);
-        var result = service.Get(roomId, out ErrorResponse errorResponse);
+        var result = _roomsService.Get(roomId, out var errorResponse);
         if (result == null)
         {
             return BadRequest(errorResponse);

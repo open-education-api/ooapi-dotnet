@@ -7,7 +7,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class AcademicSessionsRepository : BaseRepository<AcademicSession>
 {
-    public AcademicSessionsRepository(CoreDBContext dbContext) : base(dbContext)
+    public AcademicSessionsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
         //
     }

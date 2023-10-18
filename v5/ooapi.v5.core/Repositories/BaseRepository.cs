@@ -4,9 +4,9 @@ using ooapi.v5.Models;
 namespace ooapi.v5.core.Repositories;
 public class BaseRepository<T> where T : class
 {
-    protected readonly CoreDBContext dbContext;
+    protected readonly ICoreDbContext dbContext;
 
-    public BaseRepository(CoreDBContext dbContext)
+    public BaseRepository(ICoreDbContext dbContext)
 
     {
         this.dbContext = dbContext;
@@ -27,7 +27,4 @@ public class BaseRepository<T> where T : class
         return new Pagination<T>(filteredSet, dataRequestParameters ?? new DataRequestParameters());
 
     }
-
-
-
 }

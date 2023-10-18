@@ -6,7 +6,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class CourseOfferingsRepository : BaseRepository<CourseOffering>
 {
-    public CourseOfferingsRepository(CoreDBContext dbContext) : base(dbContext)
+    public CourseOfferingsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
         //
     }
@@ -16,9 +16,9 @@ public class CourseOfferingsRepository : BaseRepository<CourseOffering>
         return dbContext.CourseOfferings.Include(x => x.Attributes).FirstOrDefault(x => x.OfferingId.Equals(courseOfferingId));
     }
 
-    public Pagination<CourseOffering> GetCourseOfferingByProgramId(Guid courseId, DataRequestParameters dataRequestParameters)
+    public Pagination<CourseOffering> GetCourseOfferingByCourseId(Guid courseId, DataRequestParameters dataRequestParameters)
     {
-        IQueryable<CourseOffering> set = dbContext.CourseOfferingsNoTracking.Where(o => o.Course.Equals(courseId)).Include(x => x.Attributes);
+        IQueryable<CourseOffering> set = dbContext.CourseOfferingsNoTracking.Where(o => o.Course.CourseId.Equals(courseId)).Include(x => x.Attributes);
         bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
         if (includeConsumer)
         {
