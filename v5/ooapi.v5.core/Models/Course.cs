@@ -51,15 +51,9 @@ public class Course : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [JsonIgnore]
     public string? PrimaryCode { get; set; }
 
@@ -83,9 +77,6 @@ public class Course : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [JsonIgnore]
     [SortAllowed]
     [SortDefault]
@@ -139,21 +130,12 @@ public class Course : ModelBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [JsonIgnore]
     public string? StudyLoadUnit { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [JsonIgnore]
     public int StudyLoadValue { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [JsonIgnore]
     public string ModeOfDelivery { get; set; } = default!;
 
@@ -494,15 +476,9 @@ public class Course : ModelBase
         }
     }
 
-    /// <summary>
-    /// Id of the organization
-    /// </summary>
     [JsonIgnore]
     public Guid? OrganizationId { get; set; }
 
-    /// <summary>
-    /// The organization
-    /// </summary>
     [JsonIgnore]
     public Organization? Organization { get; set; }
 
@@ -522,21 +498,12 @@ public class Course : ModelBase
     [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
     public DateTime? ValidTo { get; set; }
 
-    /// <summary>
-    /// Collection of Programs
-    /// </summary>
     [JsonIgnore]
     public virtual ICollection<Program> ProgramsRef { get; set; } = default!;
 
-    /// <summary>
-    /// Collection of Persons
-    /// </summary>
     [JsonIgnore]
     public virtual ICollection<Person> CoordinatorsRef { get; set; } = default!;
 
-    /// <summary>
-    /// Collection of Addresses
-    /// </summary>
     [JsonIgnore]
     public virtual ICollection<Address> Address { get; set; } = default!;
 }
