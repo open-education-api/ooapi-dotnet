@@ -62,7 +62,7 @@ jobs:
 
       - name: dotnet test & sonar analyze
         run: |
-            dotnet sonarscanner begin /k:"open-education-api_ooapi-dotnet" /o:"open-education-api" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /sonar.host.url="https://sonarcloud.io/"
+            dotnet sonarscanner begin -k:"open-education-api_ooapi-dotnet" -o:"open-education-api" -d:sonar.token="${{ secrets.SONAR_TOKEN }}" -d:sonar.host.url="https://sonarcloud.io/"
             dotnet test ./v5 --no-build --collect "Code Coverage"
             dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
