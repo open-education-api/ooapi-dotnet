@@ -11,6 +11,7 @@
 				<Attribute>^System\.Diagnostics\.DebuggerNonUserCodeAttribute$</Attribute>
 				<Attribute>^System\.CodeDom\.Compiler\.GeneratedCodeAttribute$</Attribute>
 				<Attribute>^System\.Diagnostics\.CodeAnalysis\.ExcludeFromCodeCoverageAttribute$</Attribute>
+				<Attribute>^Microsoft\.EntityFrameworkCore\.Migrations\.MigrationAttribute$</Attribute>
 			</Exclude>
 		</Attributes>
 		
