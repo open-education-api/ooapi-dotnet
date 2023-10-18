@@ -37,10 +37,10 @@ public class AssociationsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Association), description: "OK")]
     public virtual IActionResult AssociationsAssociationIdGet([FromRoute][Required] Guid associationId, [FromQuery] List<string> expand)
     {
-        var result = _associationsService.Get(associationId, out var errorResponse);
+        var result = _associationsService.Get(associationId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
         return Ok(result);
     }

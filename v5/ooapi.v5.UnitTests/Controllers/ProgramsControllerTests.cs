@@ -31,7 +31,7 @@ public class ProgramsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        programsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.ProgramsGet(primaryCodeParam, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
@@ -39,8 +39,6 @@ public class ProgramsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var programs = result.Value as Pagination<Models.Program>;
         programs.Should().NotBeNull();
@@ -70,7 +68,7 @@ public class ProgramsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        programsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.ProgramsGet(primaryCodeParam, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
@@ -78,8 +76,6 @@ public class ProgramsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var programs = result.Value as Pagination<Models.Program>;
         programs.Should().NotBeNull();
@@ -108,7 +104,7 @@ public class ProgramsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        coursesService.GetCoursesByProgramId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), programId, out var errorResponse).Returns(response);
+        coursesService.GetCoursesByProgramId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), programId).Returns(response);
 
         //act
         var result = sut.ProgramsProgramIdCoursesGet(programId, filterParams, pagingParams, teachingLevel, level, modeOfDelivery, sort) as OkObjectResult;
@@ -116,8 +112,6 @@ public class ProgramsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var courses = result.Value as Pagination<Course>;
         courses.Should().NotBeNull();
@@ -142,7 +136,7 @@ public class ProgramsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.Get(programId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        programsService.Get(programId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.ProgramsProgramIdGet(programId, expand, returnTimelineOverrides) as OkObjectResult;
@@ -150,8 +144,6 @@ public class ProgramsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var program = result.Value as Models.Program;
         program.Should().NotBeNull();
@@ -177,7 +169,7 @@ public class ProgramsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programOfferingService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        programOfferingService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.ProgramsProgramIdOfferingsGet(programId, filterParams, pagingParams, teachingLanguage, modeOfStudy, resultExpected, since, until, sort) as OkObjectResult;
@@ -185,8 +177,6 @@ public class ProgramsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var programOfferings = result.Value as Pagination<ProgramOffering>;
         programOfferings.Should().NotBeNull();
@@ -218,7 +208,7 @@ public class ProgramsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.GetProgramsByProgramId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), programId, out var errorResponse).Returns(response);
+        programsService.GetProgramsByProgramId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), programId).Returns(response);
 
         //act
         var result = sut.ProgramsProgramIdProgramsGet(programId, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
@@ -226,8 +216,6 @@ public class ProgramsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var programs = result.Value as Pagination<Models.Program>;
         programs.Should().NotBeNull();

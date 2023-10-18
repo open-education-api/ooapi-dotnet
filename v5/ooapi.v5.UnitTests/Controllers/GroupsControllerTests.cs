@@ -26,7 +26,7 @@ public class GroupsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        groupsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        groupsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.GroupsGet(primaryCodeParam, filterParams, pagingParams, groupType, sort) as OkObjectResult;
@@ -34,8 +34,6 @@ public class GroupsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var groups = result.Value as Pagination<Group>;
         groups.Should().NotBeNull();
@@ -60,7 +58,7 @@ public class GroupsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        groupsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        groupsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.GroupsGet(primaryCodeParam, filterParams, pagingParams, groupType, sort) as OkObjectResult;
@@ -68,8 +66,6 @@ public class GroupsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var groups = result.Value as Pagination<Group>;
         groups.Should().NotBeNull();
@@ -91,7 +87,7 @@ public class GroupsControllerTests
 
         var response = new Group();
 
-        groupsService.Get(groupId, out var errorResponse).Returns(response);
+        groupsService.Get(groupId).Returns(response);
 
         //act
         var result = sut.GroupsGroupIdGet(groupId, expand) as OkObjectResult;
@@ -99,8 +95,6 @@ public class GroupsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var group = result.Value as Group;
         group.Should().NotBeNull();
@@ -122,7 +116,7 @@ public class GroupsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        personsService.GetPersonsByGroupId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), groupId, out var errorResponse).Returns(response);
+        personsService.GetPersonsByGroupId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), groupId).Returns(response);
 
         //act
         var result = sut.GroupsGroupIdPersonsGet(groupId, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
@@ -130,8 +124,6 @@ public class GroupsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var persons = result.Value as Pagination<Person>;
         persons.Should().NotBeNull();

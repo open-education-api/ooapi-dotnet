@@ -28,7 +28,7 @@ public class AcademicSessionsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        academicSessionsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse, academicSessionType).Returns(response);
+        academicSessionsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), academicSessionType).Returns(response);
 
         //act
         var result = sut.AcademicSessionsGet(primaryCodeParam, filterParams, pagingParams, academicSessionType, parent, year, sort) as OkObjectResult;
@@ -36,8 +36,6 @@ public class AcademicSessionsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var academicSessions = result.Value as Pagination<AcademicSession>;
         academicSessions.Should().NotBeNull();
@@ -64,7 +62,7 @@ public class AcademicSessionsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        academicSessionsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse, academicSessionType).Returns(response);
+        academicSessionsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), academicSessionType).Returns(response);
 
         //act
         var result = sut.AcademicSessionsGet(primaryCodeParam, filterParams, pagingParams, academicSessionType, parent, year, sort) as OkObjectResult;
@@ -72,8 +70,6 @@ public class AcademicSessionsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var academicSessions = result.Value as Pagination<AcademicSession>;
         academicSessions.Should().NotBeNull();
@@ -97,7 +93,7 @@ public class AcademicSessionsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        academicSessionsService.Get(academicSessionId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), out var errorResponse).Returns(response);
+        academicSessionsService.Get(academicSessionId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
         var result = sut.AcademicSessionsAcademicSessionIdGet(academicSessionId, expand) as OkObjectResult;
@@ -105,8 +101,6 @@ public class AcademicSessionsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var academicSessions = result.Value as AcademicSession;
         academicSessions.Should().NotBeNull();

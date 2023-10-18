@@ -19,7 +19,7 @@ public class ComponentsControllerTests
 
         var response = new Component();
 
-        associationsService.Get(componentId, out var errorResponse).Returns(response);
+        associationsService.Get(componentId).Returns(response);
 
         //act
         var result = sut.ComponentsComponentIdGet(componentId, expand) as OkObjectResult;
@@ -27,8 +27,6 @@ public class ComponentsControllerTests
         //assert
         result.Should().NotBeNull();
         result!.StatusCode.Should().Be(200);
-
-        errorResponse.Should().BeNull();
 
         var component = result.Value as Component;
         component.Should().NotBeNull();

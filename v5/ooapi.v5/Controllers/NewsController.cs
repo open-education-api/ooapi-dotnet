@@ -49,11 +49,7 @@ public class NewsController : BaseController
     public virtual IActionResult NewsFeedsGet([FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? newsFeedType, [FromQuery] string? sort = "name")
     {
         var parameters = new DataRequestParameters(null, filterParams, pagingParams, sort);
-        var result = _newsFeedsService.GetAll(parameters, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _newsFeedsService.GetAll(parameters);
         return Ok(result);
     }
 
@@ -70,10 +66,10 @@ public class NewsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(NewsFeed), description: "OK")]
     public virtual IActionResult NewsFeedsNewsFeedIdGet([FromRoute][Required] Guid newsFeedId)
     {
-        var result = _newsFeedsService.Get(newsFeedId, out var errorResponse);
+        var result = _newsFeedsService.Get(newsFeedId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
         return Ok(result);
     }
@@ -100,11 +96,7 @@ public class NewsController : BaseController
     public virtual IActionResult NewsFeedsNewsFeedIdNewsItemsGet([FromRoute][Required] Guid newsFeedId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? author, [FromQuery] string? sort = "newsItemId")
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var result = _newsItemsService.GetNewsItemsByNewsFeedId(parameters, newsFeedId, out var errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var result = _newsItemsService.GetNewsItemsByNewsFeedId(parameters, newsFeedId);
         return Ok(result);
     }
 
@@ -122,10 +114,10 @@ public class NewsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(NewsItem), description: "OK")]
     public virtual IActionResult NewsItemsNewsItemIdGet([FromRoute][Required] Guid newsItemId, [FromQuery] List<string> expand)
     {
-        var result = _newsItemsService.Get(newsItemId, out var errorResponse);
+        var result = _newsItemsService.Get(newsItemId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
         return Ok(result);
     }

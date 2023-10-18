@@ -70,10 +70,10 @@ public class OfferingsController : BaseController
         var parameters = new DataRequestParameters();
         parameters.Expand = expand;
 
-        var result = _offeringsService.Get(offeringId, out var errorResponse);
+        var result = _offeringsService.Get(offeringId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
         if (result.CourseOffering != null)
             return Ok(result.CourseOffering);
@@ -82,7 +82,7 @@ public class OfferingsController : BaseController
         if (result.ProgramOffering != null)
             return Ok(result.ProgramOffering);
 
-        return NotFound(errorResponse);
+        return NotFound();
     }
 
     /// <summary>
