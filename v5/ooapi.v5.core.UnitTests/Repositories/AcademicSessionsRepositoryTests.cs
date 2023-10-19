@@ -96,7 +96,7 @@ public class AcademicSessionsRepositoryTests
     public void GetAllOrderedBy_WithAcademicSessionType_ReturnsFilteredSet()
     {
         // Arrange
-        var academicSessionType = AcademicSessionTypeEnum.semester;
+        var academicSessionType = AcademicSessionType.semester;
         var academicSessions = new List<AcademicSession>()
         {
             _fixture.Build<AcademicSession>()
@@ -118,7 +118,7 @@ public class AcademicSessionsRepositoryTests
                 .Without(a => a.ComponentOfferings)
                 .Create(),
             _fixture.Build<AcademicSession>()
-                .With(a => a.AcademicSessionType, AcademicSessionTypeEnum.quarter)
+                .With(a => a.AcademicSessionType, AcademicSessionType.quarter)
                 .Without(a => a.Children)
                 .Without(a => a.Parent)
                 .Without(a => a.Year)

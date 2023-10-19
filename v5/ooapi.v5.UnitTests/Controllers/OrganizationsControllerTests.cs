@@ -157,7 +157,7 @@ public class OrganizationsControllerTests
         //arrange
         var sut = CreateSut(out var organizationsService, out var _, out var _, out var _, out var _, out var _);
         var organizationId = _fixture.Create<Guid>();
-        var expand = _fixture.Create<List<string>?>();
+        var expand = _fixture.Create<List<string>>();
 
         var response = new Organization();
 

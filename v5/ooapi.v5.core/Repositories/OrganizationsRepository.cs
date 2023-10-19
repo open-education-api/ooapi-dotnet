@@ -46,12 +46,11 @@ public class OrganizationsRepository : BaseRepository<Organization>
     {
         IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes);
 
-        if (dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer))
+        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-            return GetAllOrderedBy(dataRequestParameters, set);
         }
 
-        return new Pagination<Organization>();
+        return GetAllOrderedBy(dataRequestParameters, set);
     }
 }

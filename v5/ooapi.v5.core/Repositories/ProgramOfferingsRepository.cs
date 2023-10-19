@@ -26,13 +26,12 @@ public class ProgramOfferingsRepository : BaseRepository<ProgramOffering>
     public Pagination<ProgramOffering> GetProgramOfferingByProgramId(Guid programId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<ProgramOffering> set = dbContext.ProgramOfferingsNoTracking.Where(o => o.ProgramId.Equals(programId)).Include(x => x.Attributes);
-        if (dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer))
+        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-            return GetAllOrderedBy(dataRequestParameters, set);
         }
 
-        return new Pagination<ProgramOffering>();
+        return GetAllOrderedBy(dataRequestParameters, set);
     }
 
 }

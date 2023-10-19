@@ -289,7 +289,7 @@ public class ProgramsRepositoryTests
 
         // Assert
         Assert.IsInstanceOf<Program>(result);
-        Assert.That(result.ProgramId, Is.EqualTo(programId));
+        Assert.That(result!.ProgramId, Is.EqualTo(programId));
     }
 
     [Test]

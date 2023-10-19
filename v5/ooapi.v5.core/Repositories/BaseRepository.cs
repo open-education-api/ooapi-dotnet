@@ -3,24 +3,15 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-
-/// <typeparam name="T"></typeparam>
 public class BaseRepository<T> where T : class
 {
     protected readonly ICoreDbContext dbContext;
 
     public BaseRepository(ICoreDbContext dbContext)
-
-    /// <param name="dbContext"></param>
-    public BaseRepository(CoreDBContext dbContext)
     {
         this.dbContext = dbContext;
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <param name="set"></param>
-    /// <returns></returns>
     public virtual Pagination<T> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<T>? set = null)
     {
         // TODO: add logic for OrderBy related attributes. --> for example 'name' (a 'LanguageTypedString') from the related table 'Attributes'

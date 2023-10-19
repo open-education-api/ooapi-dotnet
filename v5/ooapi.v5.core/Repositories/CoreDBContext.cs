@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories;
 using ooapi.v5.Models;
+using System.Diagnostics.CodeAnalysis;
+using Attribute = ooapi.v5.Models.Attribute;
 
 [ExcludeFromCodeCoverage(Justification = "Configuration class")]
 public class CoreDBContext : DbContext, ICoreDbContext
-
-public class CoreDBContext : DbContext
 {
-
     /// <param name="options"></param>
     public CoreDBContext(DbContextOptions<CoreDBContext> options) : base(options)
     {
@@ -88,8 +88,8 @@ public class CoreDBContext : DbContext
     public DbSet<Consumer> Consumers { get; set; }
     public IQueryable<Consumer> ConsumersNoTracking { get => Consumers.AsNoTracking(); }
 
-    public DbSet<v5.Models.Attribute> Attributes { get; set; }
-    public IQueryable<v5.Models.Attribute> AttributesNoTracking { get => Attributes.AsNoTracking(); }
+    public DbSet<Attribute> Attributes { get; set; }
+    public IQueryable<Attribute> AttributesNoTracking { get => Attributes.AsNoTracking(); }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -127,6 +127,6 @@ public class CoreDBContext : DbContext
         // Consumers
         modelBuilder.Entity<Consumer>().HasKey(c => new { c.Id, c.ModelTypeName, c.ConsumerKey, c.PropertyName });
         // Attributes (LanguageTypedProperties)
-        modelBuilder.Entity<v5.Models.Attribute>().HasKey(c => new { c.Id, c.ModelTypeName, c.PropertyName, c.Language });
+        modelBuilder.Entity<Attribute>().HasKey(c => new { c.Id, c.ModelTypeName, c.PropertyName, c.Language });
     }
 }

@@ -11,25 +11,17 @@ public class ProgramsRepository : BaseRepository<Program>
     {
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <returns></returns>
     public Pagination<Program> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
         IQueryable<Program> set = dbContext.ProgramsNoTracking.Include(x => x.Attributes);
-        if (dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer))
+        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-            return GetAllOrderedBy(dataRequestParameters, set);
         }
 
-        return new Pagination<Program>();
+        return GetAllOrderedBy(dataRequestParameters, set);
     }
 
-
-    /// <param name="programId"></param>
-    /// <param name="dataRequestParameters"></param>
-    /// <returns></returns>
     public Program? GetProgram(Guid programId, DataRequestParameters dataRequestParameters)
     {
         // expands: parent, organization, educationSpecification, children
@@ -48,7 +40,7 @@ public class ProgramsRepository : BaseRepository<Program>
 
         if (dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase) && result.ParentId != null)
         {
-            result.Parent = dbContext.ProgramsNoTracking.First(x => x.OrganizationId.Equals(result.ParentId));
+            result.Parent = dbContext.ProgramsNoTracking.First(x => x.ProgramId.Equals(result.ParentId));
             result.Parent.ChildrenIds = set.Where(x => x.ParentId.Equals(result.Parent.ProgramId)).Select(x => x.ProgramId).ToList();
         }
 
@@ -87,34 +79,23 @@ public class ProgramsRepository : BaseRepository<Program>
         return result;
     }
 
-
-    /// <param name="educationSpecificationId"></param>
-    /// <param name="dataRequestParameters"></param>
-    /// <returns></returns>
     public Pagination<Program> GetProgramsByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<Program> set = dbContext.ProgramsNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
 
-        if (dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer))
+        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-            return GetAllOrderedBy(dataRequestParameters, set);
         }
 
-        return new Pagination<Program>();
+        return GetAllOrderedBy(dataRequestParameters, set);
     }
 
-
-    /// <param name="organizationId"></param>
-    /// <returns></returns>
     public List<Program> GetProgramsByOrganizationId(Guid organizationId)
     {
         return dbContext.Programs.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 
-
-    /// <param name="programId"></param>
-    /// <returns></returns>
     public List<Program> GetProgramsByProgramId(Guid programId)
     {
         return dbContext.Programs.Where(o => o.ParentId.Equals(programId)).ToList();

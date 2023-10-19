@@ -66,22 +66,17 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
     internal Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, string? academicSessionType = null)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
-        if (dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer))
+        set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+        set = set.AsQueryable();
+
+        if (academicSessionType != null)
         {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-            set = set.AsQueryable();
-
-            if (academicSessionType != null)
+            academicSessionType = academicSessionType.Replace(" ", "_");
+            if (Enum.TryParse(academicSessionType, true, out AcademicSessionType result))
             {
-                academicSessionType = academicSessionType.Replace(" ", "_");
-                if (Enum.TryParse(academicSessionType, true, out AcademicSessionType result))
-                {
-                    set = set.Where(x => x.AcademicSessionType.Equals(result));
-                }
+                set = set.Where(x => x.AcademicSessionType.Equals(result));
             }
-            return GetAllOrderedBy(dataRequestParameters, set);
         }
-
-        return new Pagination<AcademicSession>();
+        return GetAllOrderedBy(dataRequestParameters, set);
     }
 }

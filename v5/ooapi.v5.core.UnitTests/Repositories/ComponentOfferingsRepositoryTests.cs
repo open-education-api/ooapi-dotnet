@@ -64,11 +64,12 @@ public class ComponentOfferingsRepositoryTests
     }
 
     [Test]
-    public void GetComponentOfferingByProgramId_WhenComponentOfferingsExist_ReturnsComponentOfferings()
+    public void GetComponentOfferingByComponentId_WhenComponentOfferingsExist_ReturnsComponentOfferings()
     {
         // Arrange
         var componentId = _fixture.Create<Guid>();
         var componentOffering = _fixture.Build<ComponentOffering>()
+            .With(x => x.ComponentId, componentId)
             .With(x => x.Component, new Component() { ComponentId = componentId })
             .Without(x => x.Room)
             .Without(x => x.Course)
@@ -86,7 +87,7 @@ public class ComponentOfferingsRepositoryTests
         var componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
 
         // Act
-        var result = componentOfferingsRepository.GetComponentOfferingByProgramId(componentId, new DataRequestParameters());
+        var result = componentOfferingsRepository.GetComponentOfferingByComponentId(componentId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ComponentOffering>>());
@@ -95,7 +96,7 @@ public class ComponentOfferingsRepositoryTests
     }
 
     [Test]
-    public void GetComponentOfferingByProgramId_WhenComponentOfferingsDoNotExist_ReturnsEmptyList()
+    public void GetComponentOfferingByComponentId_WhenComponentOfferingsDoNotExist_ReturnsEmptyList()
     {
         // Arrange
         var componentId = _fixture.Create<Guid>();
@@ -108,7 +109,7 @@ public class ComponentOfferingsRepositoryTests
         var componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
 
         // Act
-        var result = componentOfferingsRepository.GetComponentOfferingByProgramId(componentId, new DataRequestParameters());
+        var result = componentOfferingsRepository.GetComponentOfferingByComponentId(componentId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ComponentOffering>>());

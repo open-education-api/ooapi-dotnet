@@ -23,13 +23,13 @@ public class CoursesRepository : BaseRepository<Course>
     public Pagination<Course> GetCoursesByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<Course> set = dbContext.CoursesNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
-        if (dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer))
+        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-            return GetAllOrderedBy(dataRequestParameters, set);
+            
         }
 
-        return new Pagination<Course>();
+        return GetAllOrderedBy(dataRequestParameters, set);
     }
 
     public List<Course> GetCoursesByOrganizationId(Guid organizationId)
@@ -37,9 +37,6 @@ public class CoursesRepository : BaseRepository<Course>
         return dbContext.Courses.Include(x => x.Attributes).Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 
-
-    /// <param name="programId"></param>
-    /// <returns></returns>
     public List<Course> GetCoursesByProgramId(Guid programId)
     {
         throw new NotImplementedException();

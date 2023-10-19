@@ -79,6 +79,7 @@ public class CourseOfferingsRepositoryTests
         // Arrange
         var courseId = _fixture.Create<Guid>();
         var courseOffering = _fixture.Build<CourseOffering>()
+            .With(x => x.CourseId, courseId)
             .With(x => x.Course, new Course() { CourseId = courseId })
             .Without(x => x.Course)
             .Without(x => x.AcademicSession)
@@ -111,6 +112,7 @@ public class CourseOfferingsRepositoryTests
         // Arrange
         var courseId = _fixture.Create<Guid>();
         var courseOffering = _fixture.Build<CourseOffering>()
+            .With(x => x.CourseId, courseId)
             .With(x => x.Course, new Course() { CourseId = courseId })
             .Without(x => x.Course)
             .Without(x => x.AcademicSession)

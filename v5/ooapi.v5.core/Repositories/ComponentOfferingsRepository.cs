@@ -20,16 +20,11 @@ public class ComponentOfferingsRepository : BaseRepository<ComponentOffering>
 
 
 
-    public Pagination<ComponentOffering> GetComponentOfferingByProgramId(Guid componentId, DataRequestParameters dataRequestParameters)
+    public Pagination<ComponentOffering> GetComponentOfferingByComponentId(Guid componentId, DataRequestParameters dataRequestParameters)
     {
-        IQueryable<ComponentOffering> set = dbContext.ComponentOfferingsNoTracking.Where(o => o.Component.Equals(componentId)).Include(x => x.Attributes);
+        IQueryable<ComponentOffering> set = dbContext.ComponentOfferingsNoTracking.Where(o => o.ComponentId.Equals(componentId)).Include(x => x.Attributes);
+        set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
-        if (dataRequestParameters != null && !string.IsNullOrEmpty(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-            return GetAllOrderedBy(dataRequestParameters, set);
-        }
-
-        return new Pagination<ComponentOffering>();
+        return GetAllOrderedBy(dataRequestParameters, set);
     }
 }
