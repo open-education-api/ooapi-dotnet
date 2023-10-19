@@ -7,9 +7,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class EducationSpecificationsRepository : BaseRepository<EducationSpecification>
 {
-
-    /// <param name="dbContext"></param>
-    public EducationSpecificationsRepository(CoreDBContext dbContext) : base(dbContext)
+    public EducationSpecificationsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
     }
 

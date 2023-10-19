@@ -5,9 +5,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class PersonsRepository : BaseRepository<Person>
 {
-
-    /// <param name="dbContext"></param>
-    public PersonsRepository(CoreDBContext dbContext) : base(dbContext)
+    public PersonsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
     }
 
@@ -24,6 +22,6 @@ public class PersonsRepository : BaseRepository<Person>
     /// <returns></returns>
     public List<Person> GetPersonsByGroupId(Guid groupId)
     {
-        return new List<Person>();
+        throw new NotImplementedException();
     }
 }

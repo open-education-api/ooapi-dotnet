@@ -8,9 +8,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class AcademicSessionsRepository : BaseRepository<AcademicSession>
 {
-
-    /// <param name="dbContext"></param>
-    public AcademicSessionsRepository(CoreDBContext dbContext) : base(dbContext)
+    public AcademicSessionsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
     }
 

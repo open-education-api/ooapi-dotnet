@@ -5,9 +5,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class AssociationsRepository : BaseRepository<Association>
 {
-
-    /// <param name="dbContext"></param>
-    public AssociationsRepository(CoreDBContext dbContext) : base(dbContext)
+    public AssociationsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
     }
 

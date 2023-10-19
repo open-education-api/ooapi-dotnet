@@ -5,9 +5,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class NewsFeedsRepository : BaseRepository<NewsFeed>
 {
-
-    /// <param name="dbContext"></param>
-    public NewsFeedsRepository(CoreDBContext dbContext) : base(dbContext)
+    public NewsFeedsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
     }
 
@@ -18,4 +16,5 @@ public class NewsFeedsRepository : BaseRepository<NewsFeed>
     {
         return dbContext.NewsFeeds.FirstOrDefault(x => x.NewsFeedId.Equals(newsfeedId));
     }
+
 }

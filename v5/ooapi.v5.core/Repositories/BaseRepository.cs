@@ -7,9 +7,9 @@ namespace ooapi.v5.core.Repositories;
 /// <typeparam name="T"></typeparam>
 public class BaseRepository<T> where T : class
 {
+    protected readonly ICoreDbContext dbContext;
 
-    protected readonly CoreDBContext dbContext;
-
+    public BaseRepository(ICoreDbContext dbContext)
 
     /// <param name="dbContext"></param>
     public BaseRepository(CoreDBContext dbContext)

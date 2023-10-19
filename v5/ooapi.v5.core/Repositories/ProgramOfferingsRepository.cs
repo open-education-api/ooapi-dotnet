@@ -7,9 +7,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class ProgramOfferingsRepository : BaseRepository<ProgramOffering>
 {
-
-    /// <param name="dbContext"></param>
-    public ProgramOfferingsRepository(CoreDBContext dbContext) : base(dbContext)
+    public ProgramOfferingsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
     }
 

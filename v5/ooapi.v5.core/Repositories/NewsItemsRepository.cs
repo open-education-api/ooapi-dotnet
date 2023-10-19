@@ -5,9 +5,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class NewsItemsRepository : BaseRepository<NewsItem>
 {
-
-    /// <param name="dbContext"></param>
-    public NewsItemsRepository(CoreDBContext dbContext) : base(dbContext)
+    public NewsItemsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
     }
 
@@ -24,7 +22,6 @@ public class NewsItemsRepository : BaseRepository<NewsItem>
     /// <returns></returns>
     public List<NewsItem> GetNewsItemsByNewsFeedId(Guid newsfeedId)
     {
-        return new List<NewsItem>();
-        // TODO 
+        throw new NotImplementedException();
     }
 }

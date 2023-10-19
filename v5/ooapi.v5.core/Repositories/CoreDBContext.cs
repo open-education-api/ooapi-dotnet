@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Repositories;
-
+[ExcludeFromCodeCoverage(Justification = "Configuration class")]
+public class CoreDBContext : DbContext, ICoreDbContext
 
 public class CoreDBContext : DbContext
 {
@@ -92,7 +92,6 @@ public class CoreDBContext : DbContext
     public IQueryable<v5.Models.Attribute> AttributesNoTracking { get => Attributes.AsNoTracking(); }
 
 
-    /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("ooapiv5");

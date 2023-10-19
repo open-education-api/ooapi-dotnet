@@ -7,9 +7,7 @@ namespace ooapi.v5.core.Repositories;
 
 public class ProgramsRepository : BaseRepository<Program>
 {
-
-    /// <param name="dbContext"></param>
-    public ProgramsRepository(CoreDBContext dbContext) : base(dbContext)
+    public ProgramsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
     }
 
@@ -46,7 +44,6 @@ public class ProgramsRepository : BaseRepository<Program>
             return null;
         }
 
-        result.ChildrenIds = dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).Select(x => x.ProgramId).ToList();
         result.ChildrenIds = dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).Select(x => x.ProgramId).ToList();
 
         if (dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase) && result.ParentId != null)
