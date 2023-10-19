@@ -4,7 +4,6 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-
 [DataContract]
 public partial class ComponentResult : Result
 {

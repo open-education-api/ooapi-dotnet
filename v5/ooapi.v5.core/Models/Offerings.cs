@@ -3,7 +3,6 @@ using ooapi.v5.core.Models.OneOfModels;
 
 namespace ooapi.v5.Models;
 
-
 public class Offerings : Pagination<OneOfOfferingNoIdentifier>
 {
     /// <summary>

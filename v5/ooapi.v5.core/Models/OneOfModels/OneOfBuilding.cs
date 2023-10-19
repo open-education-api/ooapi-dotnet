@@ -9,8 +9,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 [NotMapped]
 public abstract class OneOfBuilding { }
 
-
-
 public class OneOfBuildingInstance : OneOfBuilding
 {
     public Guid? Id { get; set; }
@@ -22,5 +20,3 @@ public class OneOfBuildingInstance : OneOfBuilding
         Building = building;
     }
 }
-
-

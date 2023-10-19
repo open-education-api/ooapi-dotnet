@@ -4,27 +4,17 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-
 public class ProgramOfferingsRepository : BaseRepository<ProgramOffering>
 {
-
-    /// <param name="dbContext"></param>
     public ProgramOfferingsRepository(CoreDBContext dbContext) : base(dbContext)
     {
     }
 
-
-    /// <param name="programOfferingId"></param>
-    /// <returns></returns>
     public ProgramOffering? GetProgramOffering(Guid programOfferingId)
     {
         return dbContext.ProgramOfferings.Include(x => x.Attributes).FirstOrDefault(x => x.OfferingId.Equals(programOfferingId));
     }
 
-
-    /// <param name="programId"></param>
-    /// <param name="dataRequestParameters"></param>
-    /// <returns></returns>
     public Pagination<ProgramOffering> GetProgramOfferingByProgramId(Guid programId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<ProgramOffering> set = dbContext.ProgramOfferingsNoTracking.Where(o => o.ProgramId.Equals(programId)).Include(x => x.Attributes);

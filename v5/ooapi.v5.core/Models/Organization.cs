@@ -51,10 +51,8 @@ public partial class Organization : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
-
 
     [JsonIgnore]
     public string? PrimaryCode { get; set; }

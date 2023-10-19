@@ -3,20 +3,12 @@ using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
-
-
 public class OrganizationsRepository : BaseRepository<Organization>
 {
-
-    /// <param name="dbContext"></param>
     public OrganizationsRepository(CoreDBContext dbContext) : base(dbContext)
     {
     }
 
-
-    /// <param name="organizationId"></param>
-    /// <param name="dataRequestParameters"></param>
-    /// <returns></returns>
     public Organization GetOrganization(Guid organizationId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes);

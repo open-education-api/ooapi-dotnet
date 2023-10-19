@@ -5,7 +5,6 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-
 [DataContract]
 public class Cost : ModelBase
 {
@@ -79,7 +78,6 @@ public class Cost : ModelBase
             }
         }
     }
-
 
     [JsonIgnore]
     public string DisplayAmount { get; set; } = default!;

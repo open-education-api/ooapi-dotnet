@@ -5,12 +5,8 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.Helpers;
 
-
 public static class ConsumerConverter
 {
-
-    /// <param name="consumers"></param>
-    /// <returns></returns>
     public static List<JObject> GetDynamicConsumers(List<Consumer> consumers)
     {
         var result = new List<JObject>();

@@ -13,7 +13,6 @@ using System.Linq;
 
 namespace ooapi.v5.Controllers;
 
-
 [ApiController]
 public class EducationSpecificationsController : BaseController
 {
@@ -21,10 +20,6 @@ public class EducationSpecificationsController : BaseController
     private readonly IEducationSpecificationsService _educationSpecificationsService;
     private readonly IProgramsService _programsService;
 
-
-    /// <param name="educationSpecificationsService"></param>
-    /// <param name="coursesService"></param>
-    /// <param name="programsService"></param>
     public EducationSpecificationsController(IEducationSpecificationsService educationSpecificationsService, ICoursesService coursesService, IProgramsService programsService)
     {
         _educationSpecificationsService = educationSpecificationsService;

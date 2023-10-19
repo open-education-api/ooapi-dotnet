@@ -10,14 +10,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 [NotMapped]
 public abstract class OneOfResult { }
 
-
 public class OneOfResultInstance : OneOfResult
 {
     public Guid? Id { get; set; }
     public ProgramResult? ProgramResult { get; set; }
     public CourseResult? CourseResult { get; set; }
     public ComponentResult? ComponentResult { get; set; }
-
 
     public OneOfResultInstance(Guid? id, ProgramResult? programResult)
     {
@@ -37,5 +35,3 @@ public class OneOfResultInstance : OneOfResult
         ComponentResult = componentResult;
     }
 }
-
-

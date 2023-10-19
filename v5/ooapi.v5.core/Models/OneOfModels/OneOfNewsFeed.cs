@@ -9,11 +9,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 [SwaggerSubType(typeof(NewsFeed), DiscriminatorValue = "newsFeed")]
 [NotMapped]
 public abstract class OneOfNewsFeed { }
-
-
 public class OneOfNewsFeedInstance : OneOfNewsFeed
 {
     public Guid? Id { get; set; }
+
     public NewsFeed? NewsFeed { get; set; }
 
     public OneOfNewsFeedInstance(Guid? id, NewsFeed? newsFeed)
@@ -22,5 +21,3 @@ public class OneOfNewsFeedInstance : OneOfNewsFeed
         NewsFeed = newsFeed;
     }
 }
-
-

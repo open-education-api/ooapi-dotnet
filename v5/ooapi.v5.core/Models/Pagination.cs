@@ -4,7 +4,6 @@ using ooapi.v5.core.Utility;
 
 namespace ooapi.v5.Models;
 
-
 public class Pagination<T> : ModelBase
 {
 

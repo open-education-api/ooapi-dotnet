@@ -10,14 +10,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Controllers;
 
-
 [ApiController]
 public class AssociationsController : BaseController
 {
     private readonly IAssociationsService _associationsService;
 
-
-    /// <param name="associationsService"></param>
     public AssociationsController(IAssociationsService associationsService)
     {
         _associationsService = associationsService;

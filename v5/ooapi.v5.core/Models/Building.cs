@@ -53,7 +53,6 @@ public partial class Building : ModelBase
     /// <summary>
     /// The type of the primary code
     /// </summary>
-
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
 
@@ -67,7 +66,6 @@ public partial class Building : ModelBase
     /// The abbreviation of the name of this building
     /// </summary>
     /// <value>The abbreviation of the name of this building</value>
-
     [MaxLength(256)]
     [JsonProperty(PropertyName = "abbreviation")]
     public string Abbreviation { get; set; } = default!;
@@ -127,7 +125,6 @@ public partial class Building : ModelBase
     [JsonProperty(PropertyName = "address")]
     public Address Address { get; set; } = default!;
 
-
     [JsonIgnore]
     public Guid? AddressId { get; set; }
 
@@ -135,7 +132,6 @@ public partial class Building : ModelBase
     /// An array of additional human readable codes/identifiers for the entity being described.
     /// </summary>
     /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
-
     [JsonProperty(PropertyName = "otherCodes")]
     public List<OtherCodes> OtherCodes { get; set; } = default!;
 
@@ -143,7 +139,6 @@ public partial class Building : ModelBase
     /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
     /// </summary>
     /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
-
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
     public List<JObject> ConsumersList

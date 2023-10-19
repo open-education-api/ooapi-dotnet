@@ -9,7 +9,6 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-
 [DataContract]
 public class Person : ModelBase
 {
@@ -49,14 +48,11 @@ public class Person : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
 
-
     [JsonIgnore]
     public string? PrimaryCode { get; set; }
-
 
     /// <summary>
     /// The first name of this person

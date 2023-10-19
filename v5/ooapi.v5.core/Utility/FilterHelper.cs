@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 
 namespace ooapi.v5.core.Utility;
 
-
 public static class FilterHelper
 {
     internal static IEnumerable<FilterNode> ToFilterNodeCollection(this string filter)
@@ -33,10 +32,6 @@ public static class FilterHelper
         return result;
     }
 
-
-    /// <param name="filter"></param>
-    /// <param name="noneFilterablePropertyNames"></param>
-    /// <returns></returns>
     public static string ToAllowedFilterExpression(this string filter, IEnumerable<string> noneFilterablePropertyNames)
     {
         var allowedFilterCollection = filter.ToFilterNodeCollection().Where(x => !noneFilterablePropertyNames.Contains(x.Filter.PropertyName));

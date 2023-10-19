@@ -6,14 +6,11 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ooapi.v5.Controllers;
 
-
 [ApiController]
 public class ServiceMetadataController : BaseController
 {
     private readonly IServiceMetadataService _serviceMetadataService;
 
-
-    /// <param name="serviceMetadataService"></param>
     public ServiceMetadataController(IServiceMetadataService serviceMetadataService)
     {
         _serviceMetadataService = serviceMetadataService;

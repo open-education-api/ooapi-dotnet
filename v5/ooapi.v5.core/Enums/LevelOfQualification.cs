@@ -1,7 +1,7 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
+
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// Level of qualification according to the Dutch National Qualification Framework and the European Qualifications Framework, see [this overview](https://nlqf.nl/images/downloads/English2018/Schematic_overview_NLQF_2020.pdf) for more information.

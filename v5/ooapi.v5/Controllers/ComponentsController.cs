@@ -11,14 +11,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Controllers;
 
-
 [ApiController]
 public class ComponentsController : BaseController
 {
     private readonly IComponentsService _componentsService;
 
-
-    /// <param name="componentsService"></param>
     public ComponentsController(IComponentsService componentsService)
     {
         _componentsService = componentsService;

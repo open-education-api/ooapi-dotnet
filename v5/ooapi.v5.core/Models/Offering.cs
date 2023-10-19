@@ -9,8 +9,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ooapi.v5.Models;
 
-
-//[DataContract]
 public class Offering : ModelBase
 {
     /// <summary>
@@ -48,10 +46,8 @@ public class Offering : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
-
 
     [JsonIgnore]
     public string? PrimaryCode { get; set; }
@@ -84,10 +80,8 @@ public class Offering : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public Guid? AcademicSessionId { get; set; }
-
 
     [JsonIgnore]
     public AcademicSession? AcademicSession { get; set; }
@@ -272,7 +266,6 @@ public class Offering : ModelBase
     /// An array of additional human readable codes/identifiers for the entity being described.
     /// </summary>
     /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
-
     [JsonProperty(PropertyName = "otherCodes")]
     public List<OtherCodes> OtherCodes { get; set; } = default!;
 

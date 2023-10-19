@@ -10,7 +10,6 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-
 [DataContract]
 public class Course : ModelBase
 {
@@ -329,7 +328,6 @@ public class Course : ModelBase
     [DataMember(Name = "resources")]
     [NotMapped]
     public List<string> resources { get; set; } = default!;
-
 
     [JsonIgnore]
     public string Resources { get; set; } = default!;

@@ -3,11 +3,8 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-
 public class CoreDBContext : DbContext
 {
-
-    /// <param name="options"></param>
     public CoreDBContext(DbContextOptions<CoreDBContext> options) : base(options)
     {
     }

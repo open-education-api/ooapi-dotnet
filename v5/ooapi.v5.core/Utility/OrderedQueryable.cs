@@ -5,23 +5,13 @@ using System.Reflection;
 
 namespace ooapi.v5.core.Utility;
 
-
 public static class OrderedQueryable
 {
-
-    /// <typeparam name="TEntity"></typeparam>
-    /// <param name="source"></param>
-    /// <returns></returns>
     public static IOrderedQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source) where TEntity : class
     {
         return OrderBy(source, string.Empty);
     }
 
-
-    /// <typeparam name="TEntity"></typeparam>
-    /// <param name="source"></param>
-    /// <param name="orderByValues"></param>
-    /// <returns></returns>
     public static IOrderedQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, string orderByValues) where TEntity : class
     {
         IOrderedQueryable<TEntity>? returnValue = null;
@@ -117,12 +107,6 @@ public static class OrderedQueryable
         return returnValue;
     }
 
-
-    /// <typeparam name="TEntity"></typeparam>
-    /// <param name="source"></param>
-    /// <param name="filters"></param>
-    /// <returns></returns>
-    /// <exception cref="FormatException"></exception>
     public static IOrderedQueryable<TEntity> FilterBy<TEntity>(this IQueryable<TEntity> source, Dictionary<string, object> filters) where TEntity : class
     {
         IOrderedQueryable<TEntity> returnValue;
@@ -180,12 +164,6 @@ public static class OrderedQueryable
         return returnValue;
     }
 
-
-    /// <typeparam name="TEntity"></typeparam>
-    /// <param name="source"></param>
-    /// <param name="searchTerm"></param>
-    /// <returns></returns>
-    /// <exception cref="Exception"></exception>
     public static IOrderedQueryable<TEntity> SearchBy<TEntity>(this IQueryable<TEntity> source, string searchTerm) where TEntity : class
     {
         IOrderedQueryable<TEntity> returnValue;

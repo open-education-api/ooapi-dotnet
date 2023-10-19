@@ -1,26 +1,24 @@
-﻿namespace ooapi.v5.Attributes
+﻿namespace ooapi.v5.Attributes;
+
+[AttributeUsage(AttributeTargets.Property)]
+public class SortDefaultAttribute : Attribute
 {
+    private readonly bool _asc;
 
-    [AttributeUsage(AttributeTargets.Property)]
-    public class SortDefaultAttribute : Attribute
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="asc"></param>
+    public SortDefaultAttribute(bool asc = true)
     {
-        private readonly bool _asc;
+        _asc = asc;
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="asc"></param>
-        public SortDefaultAttribute(bool asc = true)
-        {
-            _asc = asc;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual bool Asc
-        {
-            get { return _asc; }
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    public virtual bool Asc
+    {
+        get { return _asc; }
     }
 }

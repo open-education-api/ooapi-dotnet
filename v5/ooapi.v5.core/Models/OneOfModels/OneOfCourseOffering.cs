@@ -11,7 +11,6 @@ namespace ooapi.v5.core.Models.OneOfModels;
 [NotMapped]
 public abstract class OneOfCourseOffering { }
 
-
 public class OneOfCourseOfferingInstance : OneOfCourseOffering
 {
 
@@ -29,5 +28,3 @@ public class OneOfCourseOfferingInstance : OneOfCourseOffering
         CourseOffering = courseOffering;
     }
 }
-
-

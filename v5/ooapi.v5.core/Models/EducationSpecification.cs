@@ -10,7 +10,6 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-
 [DataContract]
 public partial class EducationSpecification : ModelBase
 {
@@ -49,10 +48,8 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
-
 
     [JsonIgnore]
     [SortAllowed]
@@ -94,10 +91,8 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-
     [JsonIgnore]
     [SortAllowed]
-    //[SortDefault]
     public List<Attribute> Attributes { get; set; } = default!;
 
     /// <summary>
@@ -202,10 +197,8 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public string? StudyLoadUnit { get; set; }
-
 
     [JsonIgnore]
     public int StudyLoadValue { get; set; }
@@ -247,10 +240,8 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public Guid? ParentId { get; set; }
-
 
     [JsonIgnore]
     [NotMapped]
@@ -281,11 +272,9 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-
     [JsonIgnore]
     [NotMapped]
     public List<Guid> ChildrenIds { get; set; } = default!;
-
 
     [JsonIgnore]
     [NotMapped]
@@ -312,10 +301,8 @@ public partial class EducationSpecification : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public Guid? OrganizationId { get; set; }
-
 
     [JsonIgnore]
     public Organization? Organization { get; set; }
@@ -338,7 +325,6 @@ public partial class EducationSpecification : ModelBase
             return new List<JObject>();
         }
     }
-
 
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;

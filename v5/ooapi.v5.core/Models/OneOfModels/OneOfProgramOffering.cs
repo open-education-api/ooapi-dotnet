@@ -10,7 +10,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 [NotMapped]
 public abstract class OneOfProgramOffering { }
 
-
 public class OneOfProgramOfferingInstance : OneOfProgramOffering
 {
     public Guid? Id { get; set; }
@@ -22,5 +21,3 @@ public class OneOfProgramOfferingInstance : OneOfProgramOffering
         ProgramOffering = programOffering;
     }
 }
-
-

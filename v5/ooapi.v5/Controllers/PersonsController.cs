@@ -14,7 +14,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Controllers;
 
-
 [ApiController]
 public class PersonsController : BaseController
 {
@@ -22,10 +21,6 @@ public class PersonsController : BaseController
     private readonly IAssociationsService _associationsService;
     private readonly IGroupsService _groupsService;
 
-
-    /// <param name="personsService"></param>
-    /// <param name="associationsService"></param>
-    /// <param name="groupsService"></param>
     public PersonsController(IPersonsService personsService, IAssociationsService associationsService, IGroupsService groupsService)
     {
         _personsService = personsService;

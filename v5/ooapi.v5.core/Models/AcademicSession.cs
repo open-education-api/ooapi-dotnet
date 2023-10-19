@@ -62,10 +62,8 @@ public class AcademicSession : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
-
 
     [JsonIgnore]
     public string? PrimaryCode { get; set; }
@@ -136,10 +134,8 @@ public class AcademicSession : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public Guid? ParentId { get; set; }
-
 
     [JsonIgnore]
     [NotMapped]
@@ -171,11 +167,9 @@ public class AcademicSession : ModelBase
         }
     }
 
-
     [JsonIgnore]
     [NotMapped]
     public List<Guid> ChildrenIds { get; set; } = default!;
-
 
     [JsonIgnore]
     [NotMapped]
@@ -200,10 +194,8 @@ public class AcademicSession : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public Guid? YearId { get; set; }
-
 
     [JsonIgnore]
     [NotMapped]
@@ -213,7 +205,6 @@ public class AcademicSession : ModelBase
     /// An array of additional human readable codes/identifiers for the entity being described.
     /// </summary>
     /// <value>An array of additional human readable codes/identifiers for the entity being described.</value>
-
     [JsonProperty("otherCodes")]
     public List<OtherCodes> OtherCodes { get; set; } = default!;
 
@@ -221,7 +212,6 @@ public class AcademicSession : ModelBase
     /// The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.
     /// </summary>
     /// <value>The additional consumer elements that can be provided, see the [documentation on support for specific consumers](https://open-education-api.github.io/specification/#/consumers) for more information about this mechanism.</value>
-
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
     public List<JObject> ConsumersList
@@ -237,18 +227,14 @@ public class AcademicSession : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;
-
 
     [JsonIgnore]
     public virtual ICollection<ProgramOffering> ProgramOfferings { get; set; } = default!;
 
-
     [JsonIgnore]
     public virtual ICollection<CourseOffering> CourseOfferings { get; set; } = default!;
-
 
     [JsonIgnore]
     public virtual ICollection<ComponentOffering> ComponentOfferings { get; set; } = default!;

@@ -4,11 +4,8 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-
 public class EducationSpecificationsRepository : BaseRepository<EducationSpecification>
 {
-
-    /// <param name="dbContext"></param>
     public EducationSpecificationsRepository(CoreDBContext dbContext) : base(dbContext)
     {
     }
@@ -25,10 +22,6 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
         return new Pagination<EducationSpecification>();
     }
 
-
-    /// <param name="educationSpecificationId"></param>
-    /// <param name="dataRequestParameters"></param>
-    /// <returns></returns>
     public EducationSpecification GetEducationSpecification(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<EducationSpecification> set = dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes);
@@ -61,17 +54,11 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
         return result;
     }
 
-
-    /// <param name="educationSpecificationId"></param>
-    /// <returns></returns>
     public List<EducationSpecification> GetEducationSpecificationsByEducationSpecificationId(Guid educationSpecificationId)
     {
         return dbContext.EducationSpecifications.Where(o => o.ParentId.Equals(educationSpecificationId)).ToList();
     }
 
-
-    /// <param name="organizationId"></param>
-    /// <returns></returns>
     public List<EducationSpecification> GetEducationSpecificationsByOrganizationId(Guid organizationId)
     {
         return dbContext.EducationSpecifications.Where(o => o.OrganizationId.Equals(organizationId)).ToList();

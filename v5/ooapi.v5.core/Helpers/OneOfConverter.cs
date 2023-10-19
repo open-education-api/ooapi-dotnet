@@ -4,13 +4,8 @@ using Newtonsoft.Json.Linq;
 
 namespace ooapi.v5.Helpers;
 
-
 public class OneOfConverter : JsonConverter
 {
-
-    /// <param name="writer"></param>
-    /// <param name="value"></param>
-    /// <param name="serializer"></param>
     public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
     {
         if (value is null)
@@ -74,22 +69,11 @@ public class OneOfConverter : JsonConverter
         }
     }
 
-
-    /// <param name="objectType"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     public override bool CanConvert(Type objectType)
     {
         throw new NotImplementedException();
     }
 
-
-    /// <param name="reader"></param>
-    /// <param name="objectType"></param>
-    /// <param name="existingValue"></param>
-    /// <param name="serializer"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
         throw new NotImplementedException();

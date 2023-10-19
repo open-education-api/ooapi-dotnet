@@ -8,11 +8,9 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-
 [DataContract]
 public partial class ComponentOffering : Offering
 {
-
     [Range(0, 100)]
     [JsonProperty(PropertyName = "resultWeight")]
     public int? ResultWeight { get; set; }
@@ -43,10 +41,8 @@ public partial class ComponentOffering : Offering
         }
     }
 
-
     [JsonIgnore]
     public Guid? ComponentId { get; set; }
-
 
     [JsonIgnore]
     public Component? Component { get; set; }
@@ -70,10 +66,8 @@ public partial class ComponentOffering : Offering
         }
     }
 
-
     [JsonIgnore]
     public Guid? CourseId { get; set; }
-
 
     [JsonIgnore]
     public Course? Course { get; set; }

@@ -53,14 +53,11 @@ public class Room : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
 
-
     [JsonIgnore]
     public string? PrimaryCode { get; set; }
-
 
     /// <summary>
     /// The type of this room - general purpose: algemeen - lecture room: collegezaal - computer room: computerruimte - laboratory: laboratorium - office: kantoor - workspace: werkruimte - exam location: tentamenruimte - study room: studieruimte - examination room: onderzoekskamer - conference room: vergaderkamer 
@@ -101,7 +98,6 @@ public class Room : ModelBase
             }
         }
     }
-
 
     [JsonIgnore]
     [SortAllowed]
@@ -192,12 +188,10 @@ public class Room : ModelBase
         }
     }
 
-
     [JsonIgnore]
     [Column(TypeName = "decimal(8, 6)")]
     [Precision(8, 6)]
     public decimal? Latitude { get; set; }
-
 
     [JsonIgnore]
     [Column(TypeName = "decimal(8, 6)")]

@@ -4,18 +4,13 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-
 public class ProgramsRepository : BaseRepository<Program>
 {
 
-    /// <param name="dbContext"></param>
     public ProgramsRepository(CoreDBContext dbContext) : base(dbContext)
     {
     }
 
-
-    /// <param name="dataRequestParameters"></param>
-    /// <returns></returns>
     public Pagination<Program> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
         IQueryable<Program> set = dbContext.ProgramsNoTracking.Include(x => x.Attributes);
@@ -28,10 +23,6 @@ public class ProgramsRepository : BaseRepository<Program>
         return new Pagination<Program>();
     }
 
-
-    /// <param name="programId"></param>
-    /// <param name="dataRequestParameters"></param>
-    /// <returns></returns>
     public Program? GetProgram(Guid programId, DataRequestParameters dataRequestParameters)
     {
         // expands: parent, organization, educationSpecification, children
@@ -90,10 +81,6 @@ public class ProgramsRepository : BaseRepository<Program>
         return result;
     }
 
-
-    /// <param name="educationSpecificationId"></param>
-    /// <param name="dataRequestParameters"></param>
-    /// <returns></returns>
     public Pagination<Program> GetProgramsByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<Program> set = dbContext.ProgramsNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
@@ -107,17 +94,11 @@ public class ProgramsRepository : BaseRepository<Program>
         return new Pagination<Program>();
     }
 
-
-    /// <param name="organizationId"></param>
-    /// <returns></returns>
     public List<Program> GetProgramsByOrganizationId(Guid organizationId)
     {
         return dbContext.Programs.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
     }
 
-
-    /// <param name="programId"></param>
-    /// <returns></returns>
     public List<Program> GetProgramsByProgramId(Guid programId)
     {
         return dbContext.Programs.Where(o => o.ParentId.Equals(programId)).ToList();
