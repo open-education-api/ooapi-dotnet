@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ooapi.v5.core.Repositories;
 using ooapi.v5.Models;
 using System.Diagnostics.CodeAnalysis;
 using Attribute = ooapi.v5.Models.Attribute;
+
+namespace ooapi.v5.core.Repositories;
 
 [ExcludeFromCodeCoverage(Justification = "Configuration class")]
 public class CoreDBContext : DbContext, ICoreDbContext
