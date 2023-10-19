@@ -1,4 +1,5 @@
 ﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
@@ -8,11 +9,11 @@ namespace ooapi.v5.core.Services;
 
 internal class ProgramsService : ServiceBase, IProgramsService
 {
-    private readonly ProgramsRepository _repository;
+    private readonly IProgramsRepository _repository;
 
-    public ProgramsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public ProgramsService(ICoreDbContext dbContext, IProgramsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        _repository = new ProgramsRepository(dbContext);
+        _repository = repository;
     }
 
     public Pagination<Program> GetAll(DataRequestParameters dataRequestParameters)

@@ -1,4 +1,5 @@
 ﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
@@ -8,11 +9,11 @@ namespace ooapi.v5.core.Services;
 
 internal class OrganizationsService : ServiceBase, IOrganizationsService
 {
-    private readonly OrganizationsRepository _repository;
+    private readonly IOrganizationsRepository _repository;
 
-    public OrganizationsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public OrganizationsService(ICoreDbContext dbContext, IOrganizationsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        _repository = new OrganizationsRepository(dbContext);
+        _repository = repository;
     }
 
     public Pagination<Organization> GetAll(DataRequestParameters dataRequestParameters)

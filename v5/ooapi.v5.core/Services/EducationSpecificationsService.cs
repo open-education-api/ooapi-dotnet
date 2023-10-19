@@ -1,4 +1,5 @@
 ﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
@@ -8,11 +9,11 @@ namespace ooapi.v5.core.Services;
 
 internal class EducationSpecificationsService : ServiceBase, IEducationSpecificationsService
 {
-    private readonly EducationSpecificationsRepository _repository;
+    private readonly IEducationSpecificationsRepository _repository;
 
-    public EducationSpecificationsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public EducationSpecificationsService(ICoreDbContext dbContext, IEducationSpecificationsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        _repository = new EducationSpecificationsRepository(dbContext);
+        _repository = repository;
     }
 
     public Pagination<EducationSpecification> GetAll(DataRequestParameters dataRequestParameters)

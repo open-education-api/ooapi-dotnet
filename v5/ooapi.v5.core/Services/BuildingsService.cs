@@ -1,4 +1,4 @@
-﻿using ooapi.v5.core.Repositories;
+﻿using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
@@ -8,11 +8,11 @@ namespace ooapi.v5.core.Services;
 
 internal class BuildingsService : ServiceBase, IBuildingsService
 {
-    private readonly BuildingsRepository _repository;
+    private readonly IBuildingsRepository _repository;
 
-    public BuildingsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public BuildingsService(ICoreDbContext dbContext, IBuildingsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        _repository = new BuildingsRepository(dbContext);
+        _repository = repository;
     }
 
     public Pagination<Building> GetAll(DataRequestParameters dataRequestParameters)

@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class ProgramOfferingsRepository : BaseRepository<ProgramOffering>
+public class ProgramOfferingsRepository : BaseRepository<ProgramOffering>, IProgramOfferingsRepository
 {
     public ProgramOfferingsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
@@ -25,5 +26,4 @@ public class ProgramOfferingsRepository : BaseRepository<ProgramOffering>
 
         return GetAllOrderedBy(dataRequestParameters, set);
     }
-
 }

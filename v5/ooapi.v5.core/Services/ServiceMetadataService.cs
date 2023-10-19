@@ -1,4 +1,5 @@
 ﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.Models;
@@ -7,11 +8,11 @@ namespace ooapi.v5.core.Services;
 
 internal class ServiceMetadataService : ServiceBase, IServiceMetadataService
 {
-    private readonly ServiceMetadataRepository _repository;
+    private readonly IServiceMetadataRepository _repository;
 
-    public ServiceMetadataService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public ServiceMetadataService(ICoreDbContext dbContext, IServiceMetadataRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        _repository = new ServiceMetadataRepository(dbContext);
+        _repository = repository;
     }
 
     public Service Get()

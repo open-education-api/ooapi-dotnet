@@ -2,6 +2,7 @@ using AutoFixture;
 using Microsoft.EntityFrameworkCore;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.UnitTests.Repositories.Helpers;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
