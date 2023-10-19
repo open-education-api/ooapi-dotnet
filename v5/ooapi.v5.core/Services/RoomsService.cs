@@ -1,4 +1,5 @@
 ﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
@@ -8,11 +9,11 @@ namespace ooapi.v5.core.Services;
 
 internal class RoomsService : ServiceBase, IRoomsService
 {
-    private readonly RoomsRepository _repository;
+    private readonly IRoomsRepository _repository;
 
-    public RoomsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public RoomsService(ICoreDbContext dbContext, IRoomsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        _repository = new RoomsRepository(dbContext);
+        _repository = repository;
     }
 
     public Pagination<Room> GetAll(DataRequestParameters dataRequestParameters)

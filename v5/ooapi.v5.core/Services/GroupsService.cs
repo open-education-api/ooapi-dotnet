@@ -1,4 +1,5 @@
 ﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
@@ -8,11 +9,11 @@ namespace ooapi.v5.core.Services;
 
 internal class GroupsService : ServiceBase, IGroupsService
 {
-    private readonly GroupsRepository _repository;
+    private readonly IGroupsRepository _repository;
 
-    public GroupsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public GroupsService(ICoreDbContext dbContext, IGroupsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        _repository = new GroupsRepository(dbContext);
+        _repository = repository;
     }
 
     public Pagination<Group> GetAll(DataRequestParameters dataRequestParameters)

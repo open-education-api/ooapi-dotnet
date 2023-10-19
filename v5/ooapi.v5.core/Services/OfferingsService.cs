@@ -1,5 +1,6 @@
 ﻿using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 
@@ -7,15 +8,21 @@ namespace ooapi.v5.core.Services;
 
 internal class OfferingsService : ServiceBase, IOfferingsService
 {
-    private readonly ProgramOfferingsRepository _programOfferingsRepository;
-    private readonly CourseOfferingsRepository _courseOfferingsRepository;
-    private readonly ComponentOfferingsRepository _componentOfferingsRepository;
+    private readonly IProgramOfferingsRepository _programOfferingsRepository;
+    private readonly ICourseOfferingsRepository _courseOfferingsRepository;
+    private readonly IComponentOfferingsRepository _componentOfferingsRepository;
 
-    public OfferingsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public OfferingsService(
+        ICoreDbContext dbContext,
+        IUserRequestContext userRequestContext,
+        IProgramOfferingsRepository programOfferingsRepository,
+        ICourseOfferingsRepository courseOfferingsRepository,
+        IComponentOfferingsRepository componentOfferingsRepository
+        ) : base(dbContext, userRequestContext)
     {
-        _programOfferingsRepository = new ProgramOfferingsRepository(dbContext);
-        _courseOfferingsRepository = new CourseOfferingsRepository(dbContext);
-        _componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
+        _programOfferingsRepository = programOfferingsRepository;
+        _courseOfferingsRepository = courseOfferingsRepository;
+        _componentOfferingsRepository = componentOfferingsRepository;
     }
 
 

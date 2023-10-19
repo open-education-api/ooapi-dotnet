@@ -1,4 +1,4 @@
-﻿using ooapi.v5.core.Repositories;
+﻿using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
@@ -8,11 +8,11 @@ namespace ooapi.v5.core.Services;
 
 internal class ComponentsService : ServiceBase, IComponentsService
 {
-    private readonly ComponentsRepository _repository;
+    private readonly IComponentsRepository _repository;
 
-    public ComponentsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public ComponentsService(ICoreDbContext dbContext, IComponentsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        _repository = new ComponentsRepository(dbContext);
+        _repository = repository;
     }
 
     public Component? Get(Guid componentId)

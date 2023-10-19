@@ -2,6 +2,8 @@
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 
 namespace ooapi.v5.core;
@@ -19,6 +21,7 @@ public static class CoreStartup
     {
 
         servicesCollection.AddServices();
+        servicesCollection.AddRepositories();
 
         servicesCollection.TryAddScoped<IUserRequestContext, UserRequestContext>();
     }
@@ -41,6 +44,29 @@ public static class CoreStartup
         builder.TryAddScoped<IRoomsService, RoomsService>();
         builder.TryAddScoped<IServiceMetadataService, ServiceMetadataService>();
         builder.TryAddScoped<IAcademicSessionsService, AcademicSessionsService>();
+
+        return builder;
+    }
+
+    private static IServiceCollection AddRepositories(this IServiceCollection builder)
+    {
+        builder.TryAddScoped<IAcademicSessionsRepository, AcademicSessionsRepository>();
+        builder.TryAddScoped<IAssociationsRepository, AssociationsRepository>();
+        builder.TryAddScoped<IBuildingsRepository, BuildingsRepository>();
+        builder.TryAddScoped<IComponentOfferingsRepository, ComponentOfferingsRepository>();
+        builder.TryAddScoped<IComponentsRepository, ComponentsRepository>();
+        builder.TryAddScoped<ICourseOfferingsRepository, CourseOfferingsRepository>();
+        builder.TryAddScoped<ICoursesRepository, CoursesRepository>();
+        builder.TryAddScoped<IEducationSpecificationsRepository, EducationSpecificationsRepository>();
+        builder.TryAddScoped<IGroupsRepository, GroupsRepository>();
+        builder.TryAddScoped<INewsFeedsRepository, NewsFeedsRepository>();
+        builder.TryAddScoped<INewsItemsRepository, NewsItemsRepository>();
+        builder.TryAddScoped<IOrganizationsRepository, OrganizationsRepository>();
+        builder.TryAddScoped<IPersonsRepository, PersonsRepository>();
+        builder.TryAddScoped<IProgramOfferingsRepository, ProgramOfferingsRepository>();
+        builder.TryAddScoped<IProgramsRepository, ProgramsRepository>();
+        builder.TryAddScoped<IRoomsRepository, RoomsRepository>();
+        builder.TryAddScoped<IServiceMetadataRepository, ServiceMetadataRepository>();
 
         return builder;
     }
