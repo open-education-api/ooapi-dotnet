@@ -15,6 +15,7 @@ using ooapi.v5.Security;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.XPath;
@@ -25,6 +26,7 @@ namespace ooapi.v5;
 /// <summary>
 /// Startup
 /// </summary>
+[ExcludeFromCodeCoverage(Justification = "Configuration class")]
 public class Startup
 {
     private readonly IWebHostEnvironment _hostingEnv;

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.DependencyInjection;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -11,6 +12,7 @@ namespace ooapi.v5.core;
 /// <summary>
 /// Startup
 /// </summary>
+[ExcludeFromCodeCoverage(Justification = "Configuration class")]
 public static class CoreStartup
 {
     /// <summary>
