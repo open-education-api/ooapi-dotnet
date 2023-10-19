@@ -11,7 +11,7 @@ internal class OrganizationsService : ServiceBase, IOrganizationsService
 {
     private readonly IOrganizationsRepository _repository;
 
-    public OrganizationsService(CoreDBContext dbContext, IOrganizationsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public OrganizationsService(ICoreDbContext dbContext, IOrganizationsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = repository;
     }
