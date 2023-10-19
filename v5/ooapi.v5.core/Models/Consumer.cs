@@ -3,7 +3,6 @@ using ooapi.v5.Enums;
 
 namespace ooapi.v5.Models;
 
-
 public class Consumer
 {
     [JsonIgnore]

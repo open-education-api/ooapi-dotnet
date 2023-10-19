@@ -9,7 +9,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 [NotMapped]
 public abstract class OneOfAcademicSession { }
 
-
 public class OneOfAcademicSessionInstance : OneOfAcademicSession
 {
     public Guid? Id { get; set; }

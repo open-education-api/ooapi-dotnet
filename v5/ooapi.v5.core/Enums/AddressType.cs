@@ -1,8 +1,7 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// Address type - postal: post - visit: bezoek - deliveries: bezorg - billing: factuur - teaching: the address where education takes place 

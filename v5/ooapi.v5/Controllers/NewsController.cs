@@ -10,9 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace ooapi.v5.Controllers;
-
 
 [ApiController]
 public class NewsController : BaseController
@@ -20,9 +18,6 @@ public class NewsController : BaseController
     private readonly INewsFeedsService _newsFeedsService;
     private readonly INewsItemsService _newsItemsService;
 
-
-    /// <param name="newsFeedsService"></param>
-    /// <param name="newsItemsService"></param>
     public NewsController(INewsFeedsService newsFeedsService, INewsItemsService newsItemsService)
     {
         _newsFeedsService = newsFeedsService;

@@ -4,22 +4,14 @@ using System.Reflection;
 
 namespace ooapi.v5.core.Utility;
 
-
-/// <typeparam name="T"></typeparam>
 public class FilterToLinq<T> : IFilterToDataAccess<T>
 {
-
-    /// <param name="filterExpression"></param>
     public FilterToLinq(string filterExpression)
     {
         FilterExpression = filterExpression;
     }
 
     private string FilterExpression { get; }
-
-
-    /// <param name="collection"></param>
-    /// <returns></returns>
     public IQueryable<T> Parse(IQueryable<T> collection)
     {
         var filterExpression = BuildExpression(BuildFilterCollection());

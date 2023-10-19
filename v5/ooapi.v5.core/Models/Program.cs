@@ -10,7 +10,6 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-
 [DataContract]
 public partial class Program : ModelBase
 {
@@ -89,7 +88,6 @@ public partial class Program : ModelBase
             return result;
         }
     }
-
 
     [JsonIgnore]
     [SortAllowed]

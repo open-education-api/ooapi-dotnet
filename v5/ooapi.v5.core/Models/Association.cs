@@ -8,7 +8,6 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-
 [DataContract]
 //[SwaggerDiscriminator("resultType")]
 //[SwaggerSubType(typeof(ProgramResult), DiscriminatorValue = "programResult")]
@@ -16,7 +15,6 @@ namespace ooapi.v5.Models;
 //[SwaggerSubType(typeof(ComponentResult), DiscriminatorValue = "componentResult")]
 public partial class Association : ModelBase
 {
-
     /// <summary>
     /// Unique id for this association
     /// </summary>
@@ -74,7 +72,6 @@ public partial class Association : ModelBase
             return new List<JObject>();
         }
     }
-
 
     [JsonIgnore]
     public List<Consumer> Consumers { get; set; } = default!;

@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using ooapi.v5.Attributes;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.core.Services.Interfaces;
-using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,14 +12,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Controllers;
 
-
 [ApiController]
 public class OfferingsController : BaseController
 {
     private readonly IOfferingsService _offeringsService;
 
-
-    /// <param name="offeringsService"></param>
     public OfferingsController(IOfferingsService offeringsService)
     {
         _offeringsService = offeringsService;

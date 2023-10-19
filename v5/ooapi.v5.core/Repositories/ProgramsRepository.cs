@@ -4,7 +4,6 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-
 public class ProgramsRepository : BaseRepository<Program>
 {
     public ProgramsRepository(ICoreDbContext dbContext) : base(dbContext)

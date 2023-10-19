@@ -10,7 +10,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 [NotMapped]
 public abstract class OneOfOfferingNoIdentifier { }
 
-
 public class OneOfOfferingNoIdentifierInstance : OneOfOfferingNoIdentifier
 {
     public Guid? Id { get; set; }
@@ -22,5 +21,3 @@ public class OneOfOfferingNoIdentifierInstance : OneOfOfferingNoIdentifier
         Offering = offering;
     }
 }
-
-

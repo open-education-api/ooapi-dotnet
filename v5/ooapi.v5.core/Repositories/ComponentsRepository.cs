@@ -2,7 +2,6 @@
 
 namespace ooapi.v5.core.Repositories;
 
-
 public class ComponentsRepository : BaseRepository<Component>
 {
     public ComponentsRepository(ICoreDbContext dbContext) : base(dbContext)

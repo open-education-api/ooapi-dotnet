@@ -52,21 +52,17 @@ public partial class Component : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; }
 
-
     [JsonIgnore]
     public string? PrimaryCode { get; set; }
-
 
     /// <summary>
     /// The component type - test: tentamen - lecture: college - practical: practicum - tutorial: werkcollege - consultation: consultatie - project: project - workshop: workshop - excursion: excursie - independent study: zelfstudie - external: extern - skills training: vaardighedentraining 
     /// </summary>
     /// <value>The component type - test: tentamen - lecture: college - practical: practicum - tutorial: werkcollege - consultation: consultatie - project: project - workshop: workshop - excursion: excursie - independent study: zelfstudie - external: extern - skills training: vaardighedentraining </value>
     [JsonRequired]
-
     [JsonProperty(PropertyName = "componentType")]
     public ComponentType? ComponentType { get; set; }
 
@@ -75,7 +71,6 @@ public partial class Component : ModelBase
     /// </summary>
     /// <value>The name of this component</value>
     [JsonRequired]
-
     [JsonProperty(PropertyName = "name")]
     [NotMapped]
     public List<LanguageTypedString> name
@@ -91,7 +86,6 @@ public partial class Component : ModelBase
         }
     }
 
-
     [JsonIgnore]
     [SortAllowed]
     [SortDefault]
@@ -105,7 +99,6 @@ public partial class Component : ModelBase
     [MaxLength(256)]
     [JsonProperty(PropertyName = "abbreviation")]
     public string Abbreviation { get; set; } = default!;
-
 
     [JsonIgnore]
     public string? ModeOfDelivery { get; set; }
@@ -286,10 +279,8 @@ public partial class Component : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public Guid? CourseId { get; set; }
-
 
     [JsonIgnore]
     public Course? Course { get; set; }
@@ -315,10 +306,8 @@ public partial class Component : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public Guid? OrganizationId { get; set; }
-
 
     [JsonIgnore]
     public Organization? Organization { get; set; }

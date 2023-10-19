@@ -2,7 +2,6 @@ using Newtonsoft.Json;
 
 namespace ooapi.v5.Models;
 
-
 public class ComponentOfferings : Pagination<ComponentOffering>
 {
     /// <summary>

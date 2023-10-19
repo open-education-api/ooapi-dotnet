@@ -11,8 +11,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 [SwaggerSubType(typeof(ComponentOffering), DiscriminatorValue = "componentOffering")]
 [NotMapped]
 public abstract class OneOfOffering { }
-
-
 public class OneOfOfferingInstance : OneOfOffering
 {
     public Guid? Id { get; set; }
@@ -38,5 +36,3 @@ public class OneOfOfferingInstance : OneOfOffering
         ComponentOffering = componentOffering;
     }
 }
-
-

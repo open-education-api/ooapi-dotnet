@@ -7,7 +7,6 @@ using Attribute = ooapi.v5.Models.Attribute;
 [ExcludeFromCodeCoverage(Justification = "Configuration class")]
 public class CoreDBContext : DbContext, ICoreDbContext
 {
-    /// <param name="options"></param>
     public CoreDBContext(DbContextOptions<CoreDBContext> options) : base(options)
     {
     }

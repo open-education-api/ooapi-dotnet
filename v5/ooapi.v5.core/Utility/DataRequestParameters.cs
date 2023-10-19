@@ -3,42 +3,29 @@ using ooapi.v5.Models.Params;
 
 namespace ooapi.v5.core.Utility;
 
-
 public class DataRequestParameters
 {
-
     public int PageSize { get; set; } = 10;
-
 
     public int PageNumber { get; set; } = 1;
 
-
     public string Filter { get; set; } = "";
-
 
     public Dictionary<string, object> Filters { get; set; } = new Dictionary<string, object>();
 
-
     public Dictionary<string, object> FiltersExt { get; set; } = new Dictionary<string, object>();
-
 
     public string? Sort { get; set; }
 
-
     public string? SearchTerm { get; set; }
-
 
     public string? Consumer { get; set; }
 
-
     public string? PrimaryCodeSearch { get; set; }
-
 
     public List<string> Expand { get; set; } = new List<string>();
 
-
     public int Skip => (PageNumber - 1) * PageSize;
-
 
     public void Validate()
     {
@@ -52,17 +39,11 @@ public class DataRequestParameters
             PageNumber = 1;
         }
     }
-
-
     public DataRequestParameters() : this(null, null, null)
     {
 
     }
 
-
-    /// <param name="filterParams"></param>
-    /// <param name="curPagingParams"></param>
-    /// <param name="sort"></param>
     public DataRequestParameters(FilterParams? filterParams, PagingParams? curPagingParams, string? sort)
     {
         Sort = sort;
@@ -78,11 +59,6 @@ public class DataRequestParameters
         }
     }
 
-
-    /// <param name="primaryCodeParam"></param>
-    /// <param name="filterParams"></param>
-    /// <param name="curPagingParams"></param>
-    /// <param name="sort"></param>
     public DataRequestParameters(PrimaryCodeParam? primaryCodeParam, FilterParams? filterParams, PagingParams? curPagingParams, string? sort)
     {
         if (primaryCodeParam != null && primaryCodeParam.primaryCode != null)
@@ -105,8 +81,6 @@ public class DataRequestParameters
         }
     }
 
-
-    /// <param name="pageSize"></param>
     public void SetPageSize(PageSize pageSize)
     {
         if (pageSize == 0)

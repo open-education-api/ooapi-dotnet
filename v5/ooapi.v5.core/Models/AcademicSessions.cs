@@ -1,8 +1,6 @@
 using Newtonsoft.Json;
 
 namespace ooapi.v5.Models;
-
-
 public class AcademicSessions : Pagination<AcademicSession>
 {
     /// <summary>

@@ -5,14 +5,11 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-
 [DataContract]
 public class ModelBase
 {
-
     [JsonIgnore]
     public string? Extension { get; set; }
-
 
     [JsonProperty(PropertyName = "ext")]
     [NotMapped]

@@ -1,7 +1,7 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
+
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// The mode of delivery of the component (ECTS-mode of delivery) - distance-learning: afstandsleren - on campus: op de campus - online: online - hybrid: hybride - situated: op locatie 

@@ -64,7 +64,6 @@ public partial class Address : ModelBase
         }
     }
 
-
     [JsonIgnore]
     [SortDefault]
     public List<Attribute> Attributes { get; set; } = default!;

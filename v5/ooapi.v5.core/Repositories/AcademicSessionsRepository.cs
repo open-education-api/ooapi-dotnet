@@ -5,7 +5,6 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-
 public class AcademicSessionsRepository : BaseRepository<AcademicSession>
 {
     public AcademicSessionsRepository(ICoreDbContext dbContext) : base(dbContext)

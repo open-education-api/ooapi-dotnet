@@ -1,7 +1,7 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
+
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// The sector for this program - secondary vocational education: middelbaar beroepsonderwijs - higher professional education: hoger beroepsonderwijs - university education: universitair onderwijs 

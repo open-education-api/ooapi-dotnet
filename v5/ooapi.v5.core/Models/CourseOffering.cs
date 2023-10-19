@@ -6,7 +6,6 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-
 [DataContract]
 public class CourseOffering : OfferingShared
 {
@@ -36,7 +35,6 @@ public class CourseOffering : OfferingShared
     [JsonIgnore]
     public Guid? CourseId { get; set; }
 
-
     [JsonIgnore]
     public Course? Course { get; set; } = default!;
 
@@ -58,10 +56,8 @@ public class CourseOffering : OfferingShared
         }
     }
 
-
     [JsonIgnore]
     public Guid? ProgramOfferingId { get; set; }
-
 
     [JsonIgnore]
     public ProgramOffering? ProgramOffering { get; set; }

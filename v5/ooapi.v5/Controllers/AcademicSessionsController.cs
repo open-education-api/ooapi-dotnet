@@ -12,7 +12,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Controllers;
 
-
 [ApiController]
 public class AcademicSessionsController : BaseController
 {

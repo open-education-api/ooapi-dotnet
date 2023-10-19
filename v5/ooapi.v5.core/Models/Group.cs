@@ -50,10 +50,8 @@ public class Group : ModelBase
         }
     }
 
-
     [JsonIgnore]
     public string? PrimaryCodeType { get; set; } = default!;
-
 
     [JsonIgnore]
     public string? PrimaryCode { get; set; } = default!;

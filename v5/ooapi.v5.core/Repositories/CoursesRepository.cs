@@ -4,16 +4,12 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-
 public class CoursesRepository : BaseRepository<Course>
 {
     public CoursesRepository(ICoreDbContext dbContext) : base(dbContext)
     {
     }
 
-
-    /// <param name="courseId"></param>
-    /// <returns></returns>
     public Course? GetCourse(Guid courseId)
     {
         return dbContext.Courses.Include(x => x.Attributes).FirstOrDefault(x => x.CourseId.Equals(courseId));

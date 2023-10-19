@@ -10,7 +10,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 [NotMapped]
 public abstract class OneOfComponent { }
 
-
 public class OneOfComponentInstance : OneOfComponent
 {
     public Guid? Id { get; set; }
@@ -22,5 +21,3 @@ public class OneOfComponentInstance : OneOfComponent
         Component = component;
     }
 }
-
-

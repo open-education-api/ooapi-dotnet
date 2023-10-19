@@ -1,7 +1,7 @@
-﻿namespace ooapi.v5.Enums;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
+
+namespace ooapi.v5.Enums;
 
 /// <summary>
 /// The type of this group - learning group: A collection of participants carrying out common learning activities - class: A collection of participants carrying out jointly scheduled educational activities - team: A collection of members of a team, either students, employees or mixed. 

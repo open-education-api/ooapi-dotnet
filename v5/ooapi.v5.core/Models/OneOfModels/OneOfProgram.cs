@@ -21,5 +21,3 @@ public class OneOfProgramInstance : OneOfProgram
         Program = program;
     }
 }
-
-

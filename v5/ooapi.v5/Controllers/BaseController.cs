@@ -1,12 +1,8 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ooapi.v5.core.Models;
 using ooapi.v5.Models;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
 
 namespace ooapi.v5.Controllers;
-
 
 [ApiController]
 [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad request")]

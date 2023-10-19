@@ -4,7 +4,6 @@ using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
-
 [DataContract]
 public partial class CourseResult : Result
 {
@@ -44,10 +43,8 @@ public partial class CourseResult : Result
         }
     }
 
-
     [JsonIgnore]
     public string? StudyLoadUnit { get; set; }
-
 
     [JsonIgnore]
     public int StudyLoadValue { get; set; }
