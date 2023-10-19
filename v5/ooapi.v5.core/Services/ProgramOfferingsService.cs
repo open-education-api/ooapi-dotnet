@@ -7,11 +7,11 @@ using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Services;
 
-internal class ProgramOfferingService : ServiceBase, IProgramOfferingService
+internal class ProgramOfferingsService : ServiceBase, IProgramOfferingService
 {
     private readonly IProgramOfferingsRepository _repository;
 
-    public ProgramOfferingService(ICoreDbContext dbContext, IProgramOfferingsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public ProgramOfferingsService(ICoreDbContext dbContext, IProgramOfferingsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
         _repository = repository;
     }

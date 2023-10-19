@@ -39,7 +39,7 @@ public static class CoreStartup
         builder.TryAddScoped<IOfferingsService, OfferingsService>();
         builder.TryAddScoped<IOrganizationsService, OrganizationsService>();
         builder.TryAddScoped<IPersonsService, PersonsService>();
-        builder.TryAddScoped<IProgramOfferingService, ProgramOfferingService>();
+        builder.TryAddScoped<IProgramOfferingService, ProgramOfferingsService>();
         builder.TryAddScoped<IProgramsService, ProgramsService>();
         builder.TryAddScoped<IRoomsService, RoomsService>();
         builder.TryAddScoped<IServiceMetadataService, ServiceMetadataService>();
