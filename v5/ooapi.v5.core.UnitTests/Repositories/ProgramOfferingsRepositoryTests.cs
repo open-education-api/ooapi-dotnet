@@ -89,7 +89,7 @@ public class ProgramOfferingsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ProgramOffering>>());
-        Assert.That(result.Items.Count, Is.EqualTo(1));
+        Assert.That(result.Items, Has.Count.EqualTo(1));
         Assert.That(result.Items[0].ProgramId, Is.EqualTo(programId));
     }
 
@@ -111,6 +111,6 @@ public class ProgramOfferingsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ProgramOffering>>());
-        Assert.That(result.Items.Count, Is.EqualTo(0));
+        Assert.That(result.Items, Is.Empty);
     }
 }

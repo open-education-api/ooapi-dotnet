@@ -85,7 +85,7 @@ public class GroupsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<Group>>());
-        Assert.That(result.Count, Is.EqualTo(1));
+        Assert.That(result, Has.Count.EqualTo(1));
         Assert.That(result[0].OrganizationId, Is.EqualTo(organizationId));
     }
 
@@ -112,6 +112,6 @@ public class GroupsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<Group>>());
-        Assert.That(result.Count, Is.EqualTo(0));
+        Assert.That(result, Is.Empty);
     }
 }

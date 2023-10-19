@@ -87,6 +87,6 @@ public class BuildingsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Building>>());
-        Assert.That(result.Items.Count, Is.EqualTo(3));
+        Assert.That(result.Items, Has.Count.EqualTo(3));
     }
 }

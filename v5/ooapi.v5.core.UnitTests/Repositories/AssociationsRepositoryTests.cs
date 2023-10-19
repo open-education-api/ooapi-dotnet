@@ -99,6 +99,6 @@ public class AssociationsRepositoryTests
         var result = associationsRepository.GetAssociationsByPersonId(personId);
 
         // Assert
-        Assert.That(result.Count, Is.EqualTo(0));
+        Assert.That(result, Is.Empty);
     }
 }

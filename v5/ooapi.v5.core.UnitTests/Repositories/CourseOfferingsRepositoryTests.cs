@@ -135,6 +135,6 @@ public class CourseOfferingsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<CourseOffering>>());
-        Assert.That(result.Items.Count, Is.EqualTo(0));
+        Assert.That(result.Items, Is.Empty);
     }
 }

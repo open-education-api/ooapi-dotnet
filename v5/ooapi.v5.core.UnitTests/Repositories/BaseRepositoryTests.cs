@@ -26,7 +26,7 @@ public class BaseRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
-        Assert.That(result.Items.Count, Is.EqualTo(1));
+        Assert.That(result.Items, Has.Count.EqualTo(1));
     }
 
     [Test]
@@ -47,7 +47,7 @@ public class BaseRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
-        Assert.That(result.Items.Count, Is.EqualTo(1));
+        Assert.That(result.Items, Has.Count.EqualTo(1));
     }
 
     [Test]
@@ -67,7 +67,7 @@ public class BaseRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
-        Assert.That(result.Items.Count, Is.EqualTo(2));
+        Assert.That(result.Items, Has.Count.EqualTo(2));
     }
 
     [Test]
