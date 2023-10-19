@@ -25,8 +25,8 @@ public class BaseRepositoryTests
         var result = repository.GetAllOrderedBy(dataRequestParameters, set);
 
         // Assert
-        Assert.IsInstanceOf<Pagination<Foo>>(result);
-        Assert.That(result.Items.Count(), Is.EqualTo(1));
+        Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
+        Assert.That(result.Items.Count, Is.EqualTo(1));
     }
 
     [Test]
@@ -46,7 +46,7 @@ public class BaseRepositoryTests
         var result = repository.GetAllOrderedBy(dataRequestParameters, set);
 
         // Assert
-        Assert.IsInstanceOf<Pagination<Foo>>(result);
+        Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
         Assert.That(result.Items.Count, Is.EqualTo(1));
     }
 
@@ -66,7 +66,7 @@ public class BaseRepositoryTests
         var result = repository.GetAllOrderedBy(dataRequestParameters, set);
 
         // Assert
-        Assert.IsInstanceOf<Pagination<Foo>>(result);
+        Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
         Assert.That(result.Items.Count, Is.EqualTo(2));
     }
 
@@ -86,7 +86,7 @@ public class BaseRepositoryTests
         var result = repository.GetAllOrderedBy(dataRequestParameters);
 
         // Assert
-        Assert.IsInstanceOf<Pagination<Foo>>(result);
+        Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
     }
 
     private static BaseRepository<T> GetRepository<T>(IQueryable<T>? setForDbContext = null) where T : class
@@ -102,19 +102,27 @@ public class BaseRepositoryTests
 
     public class Foo
     {
-        public string PrimaryCodeType { get; set; }
-        public string PrimaryCode { get; set; }
+        public string? PrimaryCodeType { get; set; }
+        public string? PrimaryCode { get; set; }
 
-        public IdentifierEntry primaryCodeIdentifier
+        public IdentifierEntry? PrimaryCodeIdentifier
         {
             get
             {
-                return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+                if (PrimaryCodeType is not null && PrimaryCode is not null)
+                {
+                    return new IdentifierEntry() { CodeType = PrimaryCodeType, Code = PrimaryCode };
+                }
+
+                return null;
             }
             set
             {
-                PrimaryCode = value.Code;
-                PrimaryCodeType = value.CodeType;
+                if (value is not null)
+                {
+                    PrimaryCode = value.Code;
+                    PrimaryCodeType = value.CodeType;
+                }
             }
         }
     }

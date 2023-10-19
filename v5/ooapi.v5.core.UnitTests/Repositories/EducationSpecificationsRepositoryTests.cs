@@ -48,7 +48,7 @@ public class EducationSpecificationsRepositoryTests
         var result = repository.GetAllOrderedBy(new DataRequestParameters());
 
         // Assert
-        Assert.IsInstanceOf<Pagination<EducationSpecification>>(result);
+        Assert.That(result, Is.InstanceOf<Pagination<EducationSpecification>>());
         Assert.That(result.Items.Count, Is.EqualTo(3));
     }
 
@@ -331,6 +331,6 @@ public class EducationSpecificationsRepositoryTests
         // Assert
         Assert.That(result, Is.InstanceOf<EducationSpecification>());
         Assert.That(result.EducationSpecificationId, Is.EqualTo(educationSpecificationId));
-        Assert.That(result.Organization.OrganizationId, Is.EqualTo(organization.OrganizationId));
+        Assert.That(result.Organization!.OrganizationId, Is.EqualTo(organization.OrganizationId));
     }
 }

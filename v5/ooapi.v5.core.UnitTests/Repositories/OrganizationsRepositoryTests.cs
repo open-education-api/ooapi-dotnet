@@ -48,7 +48,7 @@ public class OrganizationsRepositoryTests
         var result = organizationsRepository.GetAllOrderedBy(new DataRequestParameters());
 
         // Assert
-        Assert.IsInstanceOf<Pagination<Organization>>(result);
+        Assert.That(result, Is.InstanceOf<Pagination<Organization>>());
         Assert.That(result.Items.Count, Is.EqualTo(3));
     }
 
@@ -117,7 +117,7 @@ public class OrganizationsRepositoryTests
         // Assert
         Assert.That(result, Is.InstanceOf<Organization>());
         Assert.That(result.OrganizationId, Is.EqualTo(organizationId));
-        Assert.That(result.Parent.OrganizationId, Is.EqualTo(parentOrganizationId));
+        Assert.That(result.Parent!.OrganizationId, Is.EqualTo(parentOrganizationId));
         Assert.That(result.Parent.ChildrenIds.Contains(organizationId), Is.True);
     }
 

@@ -18,10 +18,9 @@ internal class OfferingsService : ServiceBase, IOfferingsService
         _componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
     }
 
-
     public OneOfOfferingInstance? Get(Guid offeringId)
     {
-        OneOfOfferingInstance result = null;
+        OneOfOfferingInstance? result = null;
         var programOffering = _programOfferingsRepository.GetProgramOffering(offeringId);
         if (programOffering != null)
         {

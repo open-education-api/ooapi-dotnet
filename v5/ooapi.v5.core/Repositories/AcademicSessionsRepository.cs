@@ -26,7 +26,8 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
     internal AcademicSession? GetAcademicSession(string primaryCode, DataRequestParameters dataRequestParameters)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
-        var result = set.FirstOrDefault(x => x.PrimaryCode.Equals(primaryCode));
+
+        var result = set.FirstOrDefault(x => primaryCode.Equals(x.PrimaryCode));
         if (result == null)
         {
             return null;
@@ -41,7 +42,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
 
         if (dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase) && result.ParentId != null)
         {
-            result.Parent = set.FirstOrDefault(x => x.AcademicSessionId.Equals(result.ParentId));
+            result.Parent = set.First(x => x.AcademicSessionId.Equals(result.ParentId));
             result.Parent.ChildrenIds = set.Where(x => x.ParentId.Equals(result.Parent.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
         }
 

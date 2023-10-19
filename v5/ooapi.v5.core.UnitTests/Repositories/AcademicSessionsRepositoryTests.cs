@@ -30,7 +30,7 @@ public class AcademicSessionsRepositoryTests
         var result = academicSessionsRepository.GetAcademicSession(academicSessions.First().AcademicSessionId, new DataRequestParameters());
 
         // Assert
-        Assert.IsInstanceOf<AcademicSession>(result);
+        Assert.That(result, Is.InstanceOf<AcademicSession>());
         Assert.That(result.AcademicSessionId, Is.EqualTo(academicSessions.First().AcademicSessionId));
     }
 
@@ -50,7 +50,7 @@ public class AcademicSessionsRepositoryTests
         var result = academicSessionsRepository.GetAcademicSession(Guid.NewGuid(), new DataRequestParameters());
 
         // Assert
-        Assert.IsNull(result);
+        Assert.That(result, Is.Null);
     }
 
     [Test]
@@ -69,7 +69,7 @@ public class AcademicSessionsRepositoryTests
         var result = academicSessionsRepository.GetAcademicSession(academicSessions.First().PrimaryCode!, new DataRequestParameters());
 
         // Assert
-        Assert.IsInstanceOf<AcademicSession>(result);
+        Assert.That(result, Is.InstanceOf<AcademicSession>());
         Assert.That(result.PrimaryCode, Is.EqualTo(academicSessions.First().PrimaryCode));
     }
 
@@ -89,7 +89,7 @@ public class AcademicSessionsRepositoryTests
         var result = academicSessionsRepository.GetAcademicSession("custom_primary_code_for_test", new DataRequestParameters());
 
         // Assert
-        Assert.IsNull(result);
+        Assert.That(result, Is.Null);
     }
 
     [Test]

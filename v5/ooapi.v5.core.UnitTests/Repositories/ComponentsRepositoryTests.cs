@@ -126,7 +126,6 @@ public class ComponentsRepositoryTests
 
         // Assert
         Assert.That(result.Contains(component), Is.False);
-
     }
 
     [Test]

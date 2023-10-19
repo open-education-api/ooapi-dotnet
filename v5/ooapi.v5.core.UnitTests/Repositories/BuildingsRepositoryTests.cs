@@ -86,7 +86,7 @@ public class BuildingsRepositoryTests
         var result = repository.GetAllOrderedBy(new DataRequestParameters());
 
         // Assert
-        Assert.IsInstanceOf<Pagination<Building>>(result);
+        Assert.That(result, Is.InstanceOf<Pagination<Building>>());
         Assert.That(result.Items.Count, Is.EqualTo(3));
     }
 }
