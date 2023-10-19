@@ -9,6 +9,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{D4C8F2A3-CE03-499D-A059-EDCDAF6BCF61}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
+		dotnetcoverage.runsettings.xml = dotnetcoverage.runsettings.xml
 		..\LICENSE = ..\LICENSE
 		..\README.md = ..\README.md
 	EndProjectSection
@@ -16,11 +17,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5.UnitTests", "ooapi.v5.UnitTests\ooapi.v5.UnitTests.csproj", "{77C9B463-E06B-472D-934C-DDF2606E9D48}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5.core.UnitTests", "ooapi.v5.core.UnitTests\ooapi.v5.core.UnitTests.csproj", "{7448434C-CE41-47BE-B402-F79401F85A63}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3135D490-9511-4535-B585-C68840148C4E}"
-	ProjectSection(SolutionItems) = preProject
-		dotnetcoverage.runsettings.xml = dotnetcoverage.runsettings.xml
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
