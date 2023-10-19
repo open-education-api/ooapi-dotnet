@@ -66,7 +66,7 @@ public class ErrorResponse
     /// <value>The HTTP status code</value>
     [JsonRequired]
     [JsonProperty(PropertyName = "status")]
-    public string Status { get; set; }
+    public string Status { get; set; } = default!;
 
     /// <summary>
     /// A short, human-readable summary of the problem type
@@ -74,7 +74,7 @@ public class ErrorResponse
     /// <value>A short, human-readable summary of the problem type</value>
     [JsonRequired]
     [JsonProperty(PropertyName = "title")]
-    public string Title { get; set; }
+    public string Title { get; set; } = default!;
 
     /// <summary>
     /// A human-readable explanation specific to this occurrence of the problem

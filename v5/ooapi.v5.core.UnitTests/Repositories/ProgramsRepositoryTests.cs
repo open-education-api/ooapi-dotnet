@@ -340,10 +340,13 @@ public class ProgramsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Program>());
-        Assert.That(result.ProgramId, Is.EqualTo(programId));
-        Assert.That(result.Parent, Is.InstanceOf<Program>());
-        Assert.That(result.Parent.ProgramId, Is.EqualTo(parentProgramId));
-        Assert.That(result.Parent.ChildrenIds.Contains(programId), Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.ProgramId, Is.EqualTo(programId));
+            Assert.That(result.Parent, Is.InstanceOf<Program>());
+            Assert.That(result.Parent!.ProgramId, Is.EqualTo(parentProgramId));
+            Assert.That(result.Parent.ChildrenIds, Does.Contain(programId));
+        });
     }
 
     [Test]

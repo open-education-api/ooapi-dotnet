@@ -138,9 +138,12 @@ public class AcademicSessionsRepositoryTests
         var result = academicSessionsRepository.GetAllOrderedBy(new DataRequestParameters(), academicSessionType.ToString());
 
         // Assert
-        Assert.IsInstanceOf<Pagination<AcademicSession>>(result);
-        Assert.That(result.Items.TrueForAll(a => a.AcademicSessionType == academicSessionType));
-        Assert.That(result.Items.Count, Is.EqualTo(2));
+        Assert.That(result, Is.InstanceOf<Pagination<AcademicSession>>());
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Items.TrueForAll(a => a.AcademicSessionType == academicSessionType));
+            Assert.That(result.Items, Has.Count.EqualTo(2));
+        });
     }
 
     private IQueryable<AcademicSession> CreateDefaultAcademicSessions()

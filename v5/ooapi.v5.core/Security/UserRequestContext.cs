@@ -33,10 +33,10 @@ public class UserRequestContext : IUserRequestContext
         IsLocal = request.Host.Host.ToLower().Equals("localhost");
     }
 
-    public string UserId { get; set; }
+    public string UserId { get; set; } = default!;
     public bool IsStudent { get; set; }
     public bool IsEmployee { get; set; }
     public string Bivv { get; set; } = "laag";
-    public string CurrentOrganisation { get; set; }
+    public string CurrentOrganisation { get; set; } = default!;
     public bool IsLocal { get; set; }
 }

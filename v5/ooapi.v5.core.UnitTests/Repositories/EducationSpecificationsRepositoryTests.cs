@@ -163,7 +163,7 @@ public class EducationSpecificationsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<EducationSpecification>>());
-        Assert.That(result.Count, Is.EqualTo(0));
+        Assert.That(result, Is.Empty);
     }
 
     [Test]
