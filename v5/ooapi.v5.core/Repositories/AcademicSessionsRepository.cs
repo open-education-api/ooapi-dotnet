@@ -1,17 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Enums;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class AcademicSessionsRepository : BaseRepository<AcademicSession>
+public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcademicSessionsRepository
 {
     public AcademicSessionsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
     }
 
-    internal AcademicSession? GetAcademicSession(Guid academicSessionId, DataRequestParameters dataRequestParameters)
+    public AcademicSession? GetAcademicSession(Guid academicSessionId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
         var result = set.FirstOrDefault(x => x.AcademicSessionId.Equals(academicSessionId));
@@ -23,7 +24,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         return GetAcademicSession(result, set, dataRequestParameters);
     }
 
-    internal AcademicSession? GetAcademicSession(string primaryCode, DataRequestParameters dataRequestParameters)
+    public AcademicSession? GetAcademicSession(string primaryCode, DataRequestParameters dataRequestParameters)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
         var result = set.FirstOrDefault(x => x.PrimaryCode.Equals(primaryCode));
@@ -62,7 +63,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         return result;
     }
 
-    internal Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, string? academicSessionType = null)
+    public Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, string? academicSessionType = null)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
         set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));

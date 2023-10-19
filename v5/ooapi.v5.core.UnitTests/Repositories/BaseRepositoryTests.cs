@@ -1,5 +1,6 @@
 using NSubstitute;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
@@ -26,7 +27,7 @@ public class BaseRepositoryTests
 
         // Assert
         Assert.IsInstanceOf<Pagination<Foo>>(result);
-        Assert.That(result.Items.Count(), Is.EqualTo(1));
+        Assert.That(result.Items.Count, Is.EqualTo(1));
     }
 
     [Test]

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ooapi.v5.Models;
 using System.Diagnostics.CodeAnalysis;
+using ooapi.v5.core.Repositories.Interfaces;
 using Attribute = ooapi.v5.Models.Attribute;
 
 namespace ooapi.v5.core.Repositories;

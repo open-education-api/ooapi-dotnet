@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class BuildingsRepository : BaseRepository<Building>
+public class BuildingsRepository : BaseRepository<Building>, IBuildingsRepository
 {
     public BuildingsRepository(ICoreDbContext dbContext) : base(dbContext)
     {

@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class ProgramsRepository : BaseRepository<Program>
+public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
 {
     public ProgramsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
@@ -66,7 +67,7 @@ public class ProgramsRepository : BaseRepository<Program>
                 .Where(x => x.EducationSpecificationId.Equals(result.EducationSpecification.ParentId))
                 .Select(x => x.EducationSpecificationId)
                 .FirstOrDefault();
-            if (educationSpecificationParentId != null && educationSpecificationParentId != Guid.Empty)
+            if (educationSpecificationParentId != Guid.Empty)
                 result.EducationSpecification.ParentId = dbContext.EducationSpecificationsNoTracking
                     .Where(x => x.EducationSpecificationId.Equals(result.EducationSpecification.ParentId))
                     .Select(x => x.EducationSpecificationId)

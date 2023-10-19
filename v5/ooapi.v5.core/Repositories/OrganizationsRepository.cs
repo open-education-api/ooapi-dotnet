@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
-public class OrganizationsRepository : BaseRepository<Organization>
+public class OrganizationsRepository : BaseRepository<Organization>, IOrganizationsRepository
 {
     public OrganizationsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
@@ -36,7 +37,7 @@ public class OrganizationsRepository : BaseRepository<Organization>
         return result;
     }
 
-    internal Pagination<Organization> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    public Pagination<Organization> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
         IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes);
 

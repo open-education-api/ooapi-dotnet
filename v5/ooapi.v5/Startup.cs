@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.XPath;
+using ooapi.v5.core.Repositories.Interfaces;
 
 namespace ooapi.v5;
 
@@ -50,7 +51,7 @@ public class Startup
         // Allows EF bundle to work when applying migrations in the pipeline, it replaces the placeholder connection string with the parameter value when running the EF bundle executable
         var connectionString = Configuration.GetConnectionString("ooapiDB") ?? "Data Source=;Initial Catalog=;Integrated Security=True;Encrypt=False;";
 
-        services.AddDbContext<CoreDBContext>(options =>
+        services.AddDbContext<ICoreDbContext, CoreDBContext>(options =>
             options.UseSqlServer(connectionString,
             x => x.MigrationsHistoryTable("__EFMigrationsHistory", "ooapiv5"))
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
