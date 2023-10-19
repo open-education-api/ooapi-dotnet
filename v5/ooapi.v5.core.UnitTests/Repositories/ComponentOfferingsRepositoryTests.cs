@@ -92,7 +92,7 @@ public class ComponentOfferingsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ComponentOffering>>());
-        Assert.That(result.Items.Count, Is.EqualTo(1));
+        Assert.That(result.Items, Has.Count.EqualTo(1));
         Assert.That(result.Items[0].Component!.ComponentId, Is.EqualTo(componentId));
     }
 
@@ -114,6 +114,6 @@ public class ComponentOfferingsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ComponentOffering>>());
-        Assert.That(result.Items.Count, Is.EqualTo(0));
+        Assert.That(result.Items, Has.Count.EqualTo(0));
     }
 }

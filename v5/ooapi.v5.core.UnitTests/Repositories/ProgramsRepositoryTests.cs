@@ -67,8 +67,8 @@ public class ProgramsRepositoryTests
         var result = programsRepository.GetAllOrderedBy(new DataRequestParameters());
 
         // Assert
-        Assert.IsInstanceOf<Pagination<Program>>(result);
-        Assert.That(result.Items.Count, Is.EqualTo(3));
+        Assert.That(result, Is.InstanceOf<Pagination<Program>>());
+        Assert.That(result.Items, Has.Count.EqualTo(3));
     }
 
         [Test]
@@ -129,8 +129,8 @@ public class ProgramsRepositoryTests
         var result = programsRepository.GetProgramsByEducationSpecificationId(educationSpecificationId, new DataRequestParameters());
 
         // Assert
-        Assert.IsInstanceOf<Pagination<Program>>(result);
-        Assert.That(result.Items.Count, Is.EqualTo(2));
+        Assert.That(result, Is.InstanceOf<Pagination<Program>>());
+        Assert.That(result.Items, Has.Count.EqualTo(2));
     }
 
     [Test]
@@ -191,8 +191,8 @@ public class ProgramsRepositoryTests
         var result = programsRepository.GetProgramsByOrganizationId(organizationId);
 
         // Assert
-        Assert.IsInstanceOf<List<Program>>(result);
-        Assert.That(result.Count, Is.EqualTo(2));
+        Assert.That(result, Is.InstanceOf<List<Program>>());
+        Assert.That(result, Has.Count.EqualTo(2));
     }
 
     [Test]
@@ -253,8 +253,8 @@ public class ProgramsRepositoryTests
         var result = programsRepository.GetProgramsByProgramId(programId);
 
         // Assert
-        Assert.IsInstanceOf<List<Program>>(result);
-        Assert.That(result.Count, Is.EqualTo(2));
+        Assert.That(result, Is.InstanceOf<List<Program>>());
+        Assert.That(result, Has.Count.EqualTo(2));
     }
 
     [Test]
@@ -289,7 +289,7 @@ public class ProgramsRepositoryTests
         var result = programsRepository.GetProgram(programId, new DataRequestParameters());
 
         // Assert
-        Assert.IsInstanceOf<Program>(result);
+        Assert.That(result, Is.InstanceOf<Program>());
         Assert.That(result!.ProgramId, Is.EqualTo(programId));
     }
 
@@ -341,10 +341,13 @@ public class ProgramsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Program>());
-        Assert.That(result.ProgramId, Is.EqualTo(programId));
-        Assert.That(result.Parent, Is.InstanceOf<Program>());
-        Assert.That(result.Parent.ProgramId, Is.EqualTo(parentProgramId));
-        Assert.That(result.Parent.ChildrenIds.Contains(programId), Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.ProgramId, Is.EqualTo(programId));
+            Assert.That(result.Parent, Is.InstanceOf<Program>());
+            Assert.That(result.Parent!.ProgramId, Is.EqualTo(parentProgramId));
+            Assert.That(result.Parent.ChildrenIds, Does.Contain(programId));
+        });
     }
 
     [Test]
@@ -410,14 +413,16 @@ public class ProgramsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Program>());
-        Assert.That(result.ProgramId, Is.EqualTo(programId));
-        Assert.That(result.Children, Is.InstanceOf<List<Program>>());
-        Assert.That(result.ChildrenIds.Contains(firstChildProgramId), Is.True);
-        Assert.That(result.Children.Contains(firstChildProgram), Is.True);
-        Assert.That(result.ChildrenIds.Contains(secondChildProgramId), Is.True);
-        Assert.That(result.Children.Contains(secondChildProgram), Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.ProgramId, Is.EqualTo(programId));
+            Assert.That(result.Children, Is.InstanceOf<List<Program>>());
+            Assert.That(result.ChildrenIds, Does.Contain(firstChildProgramId));
+            Assert.That(result.Children, Does.Contain(firstChildProgram));
+            Assert.That(result.ChildrenIds, Does.Contain(secondChildProgramId));
+            Assert.That(result.Children, Does.Contain(secondChildProgram));
+        });
     }
-
 
     [Test]
     public void GetProgram_WhenExpandOrganizationRequestedViaRequestParameters_ReturnsProgramAndOrganization()
@@ -466,11 +471,14 @@ public class ProgramsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Program>());
-        Assert.That(result.ProgramId, Is.EqualTo(programId));
-        Assert.That(result.Organization.OrganizationId, Is.EqualTo(organization.OrganizationId));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.ProgramId, Is.EqualTo(programId));
+            Assert.That(result.Organization!.OrganizationId, Is.EqualTo(organization.OrganizationId));
+        });
     }
 
-        [Test]
+    [Test]
     public void GetProgram_WhenExpandEducationSpecificationRequestedViaRequestParameters_ReturnsProgramAndEducationSpecification()
     {
         // Arrange
@@ -517,7 +525,10 @@ public class ProgramsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Program>());
-        Assert.That(result.ProgramId, Is.EqualTo(programId));
-        Assert.That(result.EducationSpecification.EducationSpecificationId, Is.EqualTo(educationSpecificationId));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.ProgramId, Is.EqualTo(programId));
+            Assert.That(result.EducationSpecification!.EducationSpecificationId, Is.EqualTo(educationSpecificationId));
+        });
     }
 }

@@ -97,7 +97,7 @@ public class ComponentsRepositoryTests
         var result = componentsRepository.GetComponentsByCourseId(courseId);
 
         // Assert
-        Assert.That(result.Contains(component), Is.True);
+        Assert.That(result, Does.Contain(component));
     }
 
     [Test]
@@ -126,8 +126,7 @@ public class ComponentsRepositoryTests
         var result = componentsRepository.GetComponentsByCourseId(_fixture.Create<Guid>());
 
         // Assert
-        Assert.That(result.Contains(component), Is.False);
-
+        Assert.That(result, Does.Not.Contain(component));
     }
 
     [Test]
@@ -156,7 +155,7 @@ public class ComponentsRepositoryTests
         var result = componentsRepository.GetComponentsByOrganizationId(organizationId);
 
         // Assert
-        Assert.That(result.Contains(component), Is.True);
+        Assert.That(result, Does.Contain(component));
     }
 
     [Test]
@@ -185,6 +184,6 @@ public class ComponentsRepositoryTests
         var result = componentsRepository.GetComponentsByOrganizationId(_fixture.Create<Guid>());
 
         // Assert
-        Assert.That(result.Contains(component), Is.False);
+        Assert.That(result, Does.Not.Contain(component));
     }
 }

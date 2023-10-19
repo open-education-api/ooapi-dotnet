@@ -4,6 +4,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ooapi.v5.Controllers;
 
+/// <summary>
+/// The base controller
+/// </summary>
 [ApiController]
 [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad request")]
 [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]

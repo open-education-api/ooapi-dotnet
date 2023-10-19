@@ -49,8 +49,8 @@ public class OrganizationsRepositoryTests
         var result = organizationsRepository.GetAllOrderedBy(new DataRequestParameters());
 
         // Assert
-        Assert.IsInstanceOf<Pagination<Organization>>(result);
-        Assert.That(result.Items.Count, Is.EqualTo(3));
+        Assert.That(result, Is.InstanceOf<Pagination<Organization>>());
+        Assert.That(result.Items, Has.Count.EqualTo(3));
     }
 
     [Test]
@@ -117,9 +117,12 @@ public class OrganizationsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Organization>());
-        Assert.That(result.OrganizationId, Is.EqualTo(organizationId));
-        Assert.That(result.Parent.OrganizationId, Is.EqualTo(parentOrganizationId));
-        Assert.That(result.Parent.ChildrenIds.Contains(organizationId), Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.OrganizationId, Is.EqualTo(organizationId));
+            Assert.That(result.Parent!.OrganizationId, Is.EqualTo(parentOrganizationId));
+            Assert.That(result.Parent.ChildrenIds, Does.Contain(organizationId));
+        });
     }
 
     [Test]
@@ -167,11 +170,14 @@ public class OrganizationsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Organization>());
-        Assert.That(result.OrganizationId, Is.EqualTo(organizationId));
-        Assert.That(result.Children, Is.InstanceOf<List<Organization>>());
-        Assert.That(result.ChildrenIds.Contains(firstChildOrganizationId), Is.True);
-        Assert.That(result.Children.Contains(firstChildOrganization), Is.True);
-        Assert.That(result.ChildrenIds.Contains(secondChildOrganizationId), Is.True);
-        Assert.That(result.Children.Contains(secondChildOrganization), Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.OrganizationId, Is.EqualTo(organizationId));
+            Assert.That(result.Children, Is.InstanceOf<List<Organization>>());
+            Assert.That(result.ChildrenIds, Does.Contain(firstChildOrganizationId));
+            Assert.That(result.Children, Does.Contain(firstChildOrganization));
+            Assert.That(result.ChildrenIds, Does.Contain(secondChildOrganizationId));
+            Assert.That(result.Children, Does.Contain(secondChildOrganization));
+        });
     }
 }

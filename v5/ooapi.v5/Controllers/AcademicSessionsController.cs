@@ -12,12 +12,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Controllers;
 
+/// <summary>
+/// API calls for academic sessions
+/// </summary>
 [ApiController]
 public class AcademicSessionsController : BaseController
 {
     private readonly IAcademicSessionsService _academicSessionsService;
 
-
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
     /// <param name="academicSessionsService"></param>
     public AcademicSessionsController(IAcademicSessionsService academicSessionsService)
     {

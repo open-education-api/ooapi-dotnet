@@ -103,7 +103,7 @@ public class CourseOfferingsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<CourseOffering>>());
-        Assert.That(result.Items.Count, Is.EqualTo(1));
+        Assert.That(result.Items, Has.Count.EqualTo(1));
         Assert.That(result.Items[0].Course!.CourseId, Is.EqualTo(courseId));
     }
 
@@ -136,6 +136,6 @@ public class CourseOfferingsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<CourseOffering>>());
-        Assert.That(result.Items.Count, Is.EqualTo(0));
+        Assert.That(result.Items, Is.Empty);
     }
 }

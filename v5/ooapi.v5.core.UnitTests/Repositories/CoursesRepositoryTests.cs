@@ -108,7 +108,7 @@ public class CoursesRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Course>>());
-        Assert.That(result.Items.Count, Is.EqualTo(1));
+        Assert.That(result.Items, Has.Count.EqualTo(1));
         Assert.That(result.Items[0].EducationSpecificationId, Is.EqualTo(educationSpecificationId));
     }
 
@@ -142,7 +142,7 @@ public class CoursesRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Course>>());
-        Assert.That(result.Items.Count, Is.EqualTo(0));
+        Assert.That(result.Items, Is.Empty);
     }
 
     [Test]
@@ -175,7 +175,7 @@ public class CoursesRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<Course>>());
-        Assert.That(result.Count, Is.EqualTo(1));
+        Assert.That(result, Has.Count.EqualTo(1));
         Assert.That(result[0].OrganizationId, Is.EqualTo(organizationId));
     }
 
@@ -209,6 +209,6 @@ public class CoursesRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<Course>>());
-        Assert.That(result.Count, Is.EqualTo(0));
+        Assert.That(result, Is.Empty);
     }
 }

@@ -106,6 +106,6 @@ public class RoomsRepositoryTests
         var result = roomsRepository.GetRoomsByBuildingId(_fixture.Create<Guid>());
 
         // Assert
-        Assert.That(result.Count, Is.EqualTo(0));
+        Assert.That(result, Is.Empty);
     }
 }

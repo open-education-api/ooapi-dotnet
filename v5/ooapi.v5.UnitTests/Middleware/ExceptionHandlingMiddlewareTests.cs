@@ -13,7 +13,7 @@ public class ExceptionHandlingMiddlewareTests
         // Arrange
         var context = new DefaultHttpContext();
         var exception = new Exception("Exception!");
-        RequestDelegate next = x => throw exception;
+        Task next(HttpContext x) => throw exception;
         var logger = Substitute.For<ILogger<ExceptionHandlingMiddleware>>();
         var sut = new ExceptionHandlingMiddleware(logger);
 

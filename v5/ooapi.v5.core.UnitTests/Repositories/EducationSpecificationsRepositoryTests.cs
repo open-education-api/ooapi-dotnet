@@ -49,8 +49,8 @@ public class EducationSpecificationsRepositoryTests
         var result = repository.GetAllOrderedBy(new DataRequestParameters());
 
         // Assert
-        Assert.IsInstanceOf<Pagination<EducationSpecification>>(result);
-        Assert.That(result.Items.Count, Is.EqualTo(3));
+        Assert.That(result, Is.InstanceOf<Pagination<EducationSpecification>>());
+        Assert.That(result.Items, Has.Count.EqualTo(3));
     }
 
     [Test]
@@ -78,7 +78,7 @@ public class EducationSpecificationsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<EducationSpecification>>());
-        Assert.That(result.Count, Is.EqualTo(1));
+        Assert.That(result, Has.Count.EqualTo(1));
         Assert.That(result[0].ParentId, Is.EqualTo(educationSpecificationId));
     }
 
@@ -107,7 +107,7 @@ public class EducationSpecificationsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<EducationSpecification>>());
-        Assert.That(result.Count, Is.EqualTo(0));
+        Assert.That(result, Is.Empty);
     }
 
     [Test]
@@ -135,7 +135,7 @@ public class EducationSpecificationsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<EducationSpecification>>());
-        Assert.That(result.Count, Is.EqualTo(1));
+        Assert.That(result, Has.Count.EqualTo(1));
         Assert.That(result[0].OrganizationId, Is.EqualTo(organizationId));
     }
 
@@ -164,7 +164,7 @@ public class EducationSpecificationsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<EducationSpecification>>());
-        Assert.That(result.Count, Is.EqualTo(0));
+        Assert.That(result, Is.Empty);
     }
 
     [Test]
@@ -231,10 +231,13 @@ public class EducationSpecificationsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<EducationSpecification>());
-        Assert.That(result.EducationSpecificationId, Is.EqualTo(educationSpecificationId));
         Assert.That(result.Parent, Is.InstanceOf<EducationSpecification>());
-        Assert.That(result.Parent.EducationSpecificationId, Is.EqualTo(parentEducationSpecificationId));
-        Assert.That(result.Parent.ChildrenIds.Contains(educationSpecificationId), Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Parent.EducationSpecificationId, Is.EqualTo(parentEducationSpecificationId));
+            Assert.That(result.Parent.ChildrenIds, Does.Contain(educationSpecificationId));
+            Assert.That(result.EducationSpecificationId, Is.EqualTo(educationSpecificationId));
+        });
     }
 
     [Test]
@@ -282,12 +285,15 @@ public class EducationSpecificationsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<EducationSpecification>());
-        Assert.That(result.EducationSpecificationId, Is.EqualTo(educationSpecificationId));
-        Assert.That(result.Children, Is.InstanceOf<List<EducationSpecification>>());
-        Assert.That(result.ChildrenIds.Contains(firstChildEducationSpecificationId), Is.True);
-        Assert.That(result.Children.Contains(firstChildEducationSpecification), Is.True);
-        Assert.That(result.ChildrenIds.Contains(secondChildEducationSpecificationId), Is.True);
-        Assert.That(result.Children.Contains(secondChildEducationSpecification), Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.EducationSpecificationId, Is.EqualTo(educationSpecificationId));
+            Assert.That(result.Children, Is.InstanceOf<List<EducationSpecification>>());
+            Assert.That(result.ChildrenIds, Does.Contain(firstChildEducationSpecificationId));
+            Assert.That(result.Children, Does.Contain(firstChildEducationSpecification));
+            Assert.That(result.ChildrenIds, Does.Contain(secondChildEducationSpecificationId));
+            Assert.That(result.Children, Does.Contain(secondChildEducationSpecification));
+        });
     }
 
     [Test]
@@ -331,7 +337,10 @@ public class EducationSpecificationsRepositoryTests
 
         // Assert
         Assert.That(result, Is.InstanceOf<EducationSpecification>());
-        Assert.That(result.EducationSpecificationId, Is.EqualTo(educationSpecificationId));
-        Assert.That(result.Organization.OrganizationId, Is.EqualTo(organization.OrganizationId));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.EducationSpecificationId, Is.EqualTo(educationSpecificationId));
+            Assert.That(result.Organization!.OrganizationId, Is.EqualTo(organization.OrganizationId));
+        });
     }
 }
