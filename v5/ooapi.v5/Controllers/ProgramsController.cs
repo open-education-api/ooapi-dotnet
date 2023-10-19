@@ -12,6 +12,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Controllers;
 
+/// <summary>
+/// API calls for programs
+/// </summary>
 [ApiController]
 public class ProgramsController : BaseController
 {
@@ -19,6 +22,12 @@ public class ProgramsController : BaseController
     private readonly ICoursesService _coursesService;
     private readonly IProgramOfferingService _programOfferingService;
 
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="programsService"></param>
+    /// <param name="coursesService"></param>
+    /// <param name="programOfferingService"></param>
     public ProgramsController(IProgramsService programsService, ICoursesService coursesService, IProgramOfferingService programOfferingService)
     {
         _programsService = programsService;

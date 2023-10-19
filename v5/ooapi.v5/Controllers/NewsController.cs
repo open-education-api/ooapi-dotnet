@@ -12,12 +12,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Controllers;
 
+/// <summary>
+/// API calls for news
+/// </summary>
 [ApiController]
 public class NewsController : BaseController
 {
     private readonly INewsFeedsService _newsFeedsService;
     private readonly INewsItemsService _newsItemsService;
 
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="newsFeedsService"></param>
+    /// <param name="newsItemsService"></param>
     public NewsController(INewsFeedsService newsFeedsService, INewsItemsService newsItemsService)
     {
         _newsFeedsService = newsFeedsService;

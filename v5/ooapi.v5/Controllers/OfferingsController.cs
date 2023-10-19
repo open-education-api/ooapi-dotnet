@@ -12,11 +12,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Controllers;
 
+/// <summary>
+/// API calls for offerings
+/// </summary>
 [ApiController]
 public class OfferingsController : BaseController
 {
     private readonly IOfferingsService _offeringsService;
 
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="offeringsService"></param>
     public OfferingsController(IOfferingsService offeringsService)
     {
         _offeringsService = offeringsService;

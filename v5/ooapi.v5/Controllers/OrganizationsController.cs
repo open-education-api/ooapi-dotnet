@@ -13,6 +13,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ooapi.v5.Controllers;
 
+/// <summary>
+/// API calls for organizations
+/// </summary>
 [ApiController]
 public class OrganizationsController : BaseController
 {
@@ -23,6 +26,15 @@ public class OrganizationsController : BaseController
     private readonly IGroupsService _groupsService;
     private readonly IProgramsService _programsService;
 
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="organizationsService"></param>
+    /// <param name="componentsService"></param>
+    /// <param name="coursesService"></param>
+    /// <param name="educationSpecificationsService"></param>
+    /// <param name="groupsService"></param>
+    /// <param name="programsService"></param>
     public OrganizationsController(IOrganizationsService organizationsService, IComponentsService componentsService, ICoursesService coursesService, IEducationSpecificationsService educationSpecificationsService, IGroupsService groupsService, IProgramsService programsService)
     {
         _organizationsService = organizationsService;

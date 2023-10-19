@@ -32,7 +32,7 @@ internal class ExceptionHandlingMiddleware : IMiddleware
         }
     }
 
-    private async Task HandleExceptionAsync(HttpContext context)
+    private static async Task HandleExceptionAsync(HttpContext context)
     {
         context.Response.ContentType = MediaTypeNames.Application.Json;
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
