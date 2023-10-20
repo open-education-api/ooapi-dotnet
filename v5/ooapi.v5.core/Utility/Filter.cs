@@ -1,4 +1,6 @@
-﻿namespace ooapi.v5.core.Utility;
+﻿using System.Globalization;
+
+namespace ooapi.v5.core.Utility;
 
 internal class Filter
 {
