@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -10,6 +11,7 @@ namespace ooapi.v5.Attributes;
 /// <summary>
 /// Model state validation attribute
 /// </summary>
+[ExcludeFromCodeCoverage(Justification = "Source: https://github.com/swagger-api/swagger-codegen/blob/master/samples/server/petstore/aspnetcore/src/IO.Swagger/Attributes/ValidateModelStateAttribute.cs")]
 public class ValidateModelStateAttribute : ActionFilterAttribute
 {
     /// <summary>
