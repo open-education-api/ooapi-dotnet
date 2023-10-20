@@ -71,11 +71,11 @@ public class OneOfConverter : JsonConverter
 
     public override bool CanConvert(Type objectType)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 }
