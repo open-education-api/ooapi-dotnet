@@ -272,7 +272,7 @@ public sealed class RoomTests
     }
 
     [Test]
-    public void GetOneOfYear_WhenYearIdIsNull_ReturnsNull()
+    public void GetOneOfBuilding_WhenBuildingIdIsNull_ReturnsNull()
     {
         // Arrange
         Guid? buildingId = null;
