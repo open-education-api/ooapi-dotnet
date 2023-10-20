@@ -42,12 +42,12 @@ public class FilterTests<T>
     public void TryParseToType_ReturnsStringForUnknownType()
     {
         var _objectInput = _fixture.Create<T>();
-        var result = Filter.TryParseToType(_objectInput!, typeof(SomeOtherType));
+        var result = Filter.TryParseToType(_objectInput!, typeof(ISomeOtherType));
 
         Assert.That(result, Is.TypeOf(typeof(string)));
     }
 
-    private class SomeOtherType
+    private interface ISomeOtherType
     {
 
     }
