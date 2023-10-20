@@ -1,6 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
 namespace ooapi.v5.Models;
+
+[ExcludeFromCodeCoverage(Justification = "Get/Set")]
 public class AcademicSessions : Pagination<AcademicSession>
 {
     /// <summary>
