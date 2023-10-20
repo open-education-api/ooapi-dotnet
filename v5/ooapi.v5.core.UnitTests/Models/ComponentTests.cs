@@ -11,7 +11,7 @@ public class ComponentTests
 {
     private readonly IFixture _fixture = new Fixture();
 
-[TestCase("TestType", "TestCode", true)]
+    [TestCase("TestType", "TestCode", true)]
     [TestCase("TestType", null, false)]
     [TestCase(null, "TestCode", false)]
     [TestCase(null, null, false)]
