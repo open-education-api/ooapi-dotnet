@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
@@ -6,6 +7,7 @@ namespace ooapi.v5.Models;
 /// The affiliations of this person, the relations a person has with the organization providing this endpoint - student: student - employee: medewerker - guest: gast 
 /// </summary>
 [DataContract]
+[ExcludeFromCodeCoverage]
 public partial class PersonAffiliations
 {
 }

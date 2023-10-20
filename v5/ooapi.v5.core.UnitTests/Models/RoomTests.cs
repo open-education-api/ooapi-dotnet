@@ -45,7 +45,7 @@ public sealed class RoomTests
     public void SetPrimaryCodeIdentifier_SetsPrimaryCodeAndPrimaryCodeType()
     {
         // Arrange
-        var building = _fixture.Build<Building>()
+        var building = _fixture.Build<Room>()
             .OmitAutoProperties()
             .Create();
 
