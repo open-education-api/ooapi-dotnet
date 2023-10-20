@@ -1,7 +1,6 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using ooapi.v5.core.Utility;
-using System.Reflection.Metadata;
 
 namespace ooapi.v5.core.UnitTests.Utility;
 
@@ -46,14 +45,14 @@ public class FilterTests<T>
         // Arrange
         var _objectInput = _fixture.Create<T>();
 
-        // Act
-        var result = Filter.TryParseToType(_objectInput!, typeof(SomeOtherType));
+        //Act
+        var result = Filter.TryParseToType(_objectInput!, typeof(ISomeOtherType));
 
         // Assert
         result.Should().BeOfType<string>();
     }
 
-    private class SomeOtherType
+    private interface ISomeOtherType
     {
 
     }

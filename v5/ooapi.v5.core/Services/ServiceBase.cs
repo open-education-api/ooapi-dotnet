@@ -1,8 +1,8 @@
 ﻿using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Security;
 using System.Reflection;
 using ooapi.v5.core.Repositories.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ooapi.v5.core.Services;
 
@@ -17,6 +17,7 @@ internal abstract class ServiceBase
         this.userRequestContext = userRequestContext;
     }
 
+    [ExcludeFromCodeCoverage(Justification = "Not used")]
     public void HideAttributesBasedOnBivLevel(object item, UserRequestContext userRequestContext)
     {
         var showBiv_V_Hoog = false;

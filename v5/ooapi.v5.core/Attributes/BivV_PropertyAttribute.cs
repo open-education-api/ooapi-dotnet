@@ -1,6 +1,8 @@
-﻿namespace ooapi.v5.Attributes;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace ooapi.v5.Attributes;
 
+[ExcludeFromCodeCoverage(Justification = "Not used")]
 [AttributeUsage(AttributeTargets.Property)]
 public class BivVAttribute : Attribute
 {
