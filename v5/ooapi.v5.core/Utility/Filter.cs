@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace ooapi.v5.core.Utility;
+﻿namespace ooapi.v5.core.Utility;
 
 internal class Filter
 {
@@ -28,8 +26,8 @@ internal class Filter
             Type t when t == typeof(int?) => input as int?,
             Type t when t == typeof(short) => short.Parse(inputAsString),
             Type t when t == typeof(short?) => input as short?,
-            Type t when t == typeof(DateTime) => DateTime.Parse(inputAsString, DateTimeFormatInfo.InvariantInfo),
-            Type t when t == typeof(DateTime?) => DateTime.Parse(inputAsString, DateTimeFormatInfo.InvariantInfo),
+            Type t when t == typeof(DateTime) => DateTime.Parse(inputAsString),
+            Type t when t == typeof(DateTime?) => DateTime.Parse(inputAsString),
             Type t when t == typeof(Guid) => Guid.Parse(inputAsString),
             Type t when t == typeof(Guid?) => Guid.Parse(inputAsString),
             Type t when t == typeof(bool) => bool.Parse(inputAsString),

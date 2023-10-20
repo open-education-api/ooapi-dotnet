@@ -168,7 +168,7 @@ public class FilterToLinq<T> : IFilterToDataAccess<T>
         return false; // value-type
     }
 
-    private readonly MethodInfo containsMethod = typeof(string).GetMethod("Contains")!;
-    private readonly MethodInfo startsWithMethod = typeof(string).GetMethod("StartsWith", new Type[] { typeof(string) })!;
-    private readonly MethodInfo endsWithMethod = typeof(string).GetMethod("EndsWith", new Type[] { typeof(string) })!;
+    private static readonly MethodInfo containsMethod = typeof(string).GetMethod("Contains", new Type[] { typeof(string) })!;
+    private static readonly MethodInfo startsWithMethod = typeof(string).GetMethod("StartsWith", new Type[] { typeof(string) })!;
+    private static readonly MethodInfo endsWithMethod = typeof(string).GetMethod("EndsWith", new Type[] { typeof(string) })!;
 }
