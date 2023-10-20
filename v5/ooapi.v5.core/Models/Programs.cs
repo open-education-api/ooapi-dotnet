@@ -1,7 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
 namespace ooapi.v5.Models;
 
+[ExcludeFromCodeCoverage]
 public class Programs : Pagination<Program>
 {
     /// <summary>

@@ -47,7 +47,7 @@ public class CourseOffering : OfferingShared
     {
         get
         {
-            if (CourseId == null)
+            if (ProgramOfferingId == null)
             {
                 return null;
             }

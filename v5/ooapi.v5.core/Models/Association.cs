@@ -32,9 +32,9 @@ public partial class Association : ModelBase
     public AssociationType AssociationType { get; set; }
 
     /// <summary>
-    /// The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coördinator   - guest: gast 
+    /// The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coï¿½rdinator   - guest: gast 
     /// </summary>
-    /// <value>The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coördinator   - guest: gast </value>
+    /// <value>The role of this person associated with the offering   - student: student   - lecturer: docent   - teaching assistant: studentassistent   - coordinator: coï¿½rdinator   - guest: gast </value>
     [JsonRequired]
     [JsonProperty(PropertyName = "role")]
     public AssociationRole Role { get; set; }
@@ -147,7 +147,7 @@ public partial class Association : ModelBase
     {
         get
         {
-            if (ResultId == null)
+            if (PersonId == null)
             {
                 return null;
             }

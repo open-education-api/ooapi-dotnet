@@ -1,11 +1,13 @@
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ooapi.v5.Models;
 
 /// <summary>
 /// A String with an associated language code.
 /// </summary>
+[ExcludeFromCodeCoverage(Justification = "Get/Set")]
 public class LanguageTypedString
 {
     /// <summary>

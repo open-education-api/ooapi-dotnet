@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using ooapi.v5.Helpers;
 using System.Runtime.Serialization;
@@ -8,6 +9,7 @@ namespace ooapi.v5.Models;
 /// A time-line override of the program.
 /// </summary>
 [DataContract]
+[ExcludeFromCodeCoverage]
 public partial class TimelineOverrideProgram
 {
     /// <summary>

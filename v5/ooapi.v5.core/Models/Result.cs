@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
@@ -9,6 +10,7 @@ namespace ooapi.v5.Models;
 /// A result as part of an association
 /// </summary>
 [DataContract]
+[ExcludeFromCodeCoverage]
 public partial class Result : ModelBase
 {
 

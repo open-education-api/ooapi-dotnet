@@ -70,13 +70,7 @@ public class Cost : ModelBase
         {
             return Helpers.LanguageTypedStringJsonConverter.GetLanguageTypesStringList(DisplayAmount);
         }
-        set
-        {
-            if (value != null)
-            {
-                DisplayAmount = JsonConvert.SerializeObject(value);
-            }
-        }
+        set => DisplayAmount = JsonConvert.SerializeObject(value);
     }
 
     [JsonIgnore]
