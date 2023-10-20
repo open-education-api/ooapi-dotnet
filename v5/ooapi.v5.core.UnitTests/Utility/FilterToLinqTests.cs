@@ -9,13 +9,29 @@ public class FilterToLinqTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void Parse_ReturnsIQueryable()
+    public void Parse_WithAndFilter_ReturnsIQueryable()
     {
         // Arrange
         var items = _fixture.CreateMany<SomeFilterableClass>().ToList();
         string filter = $"integerproperty eq {items[0].IntegerProperty} and stringproperty eq {items[0].StringProperty}";
         var suj = new FilterToLinq<SomeFilterableClass>(filter);
         
+        // Act
+        var result = suj.Parse(items.AsQueryable());
+
+        // Assert
+        result.Should().NotBeNull();
+        result.ToList().Should().HaveCount(1);
+    }
+
+    [Test]
+    public void Parse_WithOrFilter_ReturnsIQueryable()
+    {
+        // Arrange
+        var items = _fixture.CreateMany<SomeFilterableClass>().ToList();
+        string filter = $"integerproperty eq {items[0].IntegerProperty} or stringproperty eq {items[0].StringProperty}";
+        var suj = new FilterToLinq<SomeFilterableClass>(filter);
+
         // Act
         var result = suj.Parse(items.AsQueryable());
 
