@@ -12,9 +12,9 @@ internal class Filter
 
     public static object? TryParseToType(object input, Type type)
     {
-        var inputAsString = input.ToString();
+        var inputAsString = input?.ToString();
 
-        if (inputAsString is null)
+        if (input is null || inputAsString is null || inputAsString.ToLower() == "null")
         {
             return null;
         }
@@ -28,22 +28,17 @@ internal class Filter
             Type t when t == typeof(int?) => input as int?,
             Type t when t == typeof(short) => short.Parse(inputAsString),
             Type t when t == typeof(short?) => input as short?,
-            Type t when t == typeof(DateTime) => DateTime.Parse(inputAsString, DateTimeFormatInfo.InvariantInfo),
-            Type t when t == typeof(DateTime?) => IsNull(input) ? null : DateTime.Parse(inputAsString, DateTimeFormatInfo.InvariantInfo),
+            Type t when t == typeof(DateTime) => DateTime.Parse(((DateTime)(input)).ToString("s"), DateTimeFormatInfo.InvariantInfo),
+            Type t when t == typeof(DateTime?) => DateTime.Parse(((DateTime)(input)).ToString("s"), DateTimeFormatInfo.InvariantInfo),
             Type t when t == typeof(Guid) => Guid.Parse(inputAsString),
-            Type t when t == typeof(Guid?) => IsNull(input) ? null : Guid.Parse(inputAsString),
+            Type t when t == typeof(Guid?) => Guid.Parse(inputAsString),
             Type t when t == typeof(bool) => bool.Parse(inputAsString),
-            Type t when t == typeof(bool?) => IsNull(input) ? null : bool.Parse(inputAsString),
+            Type t when t == typeof(bool?) => bool.Parse(inputAsString),
             Type t when t == typeof(double) => double.Parse(inputAsString),
-            Type t when t == typeof(double?) => IsNull(input) ? null : double.Parse(inputAsString),
+            Type t when t == typeof(double?) => double.Parse(inputAsString),
             Type t when t == typeof(float) => float.Parse(inputAsString),
-            Type t when t == typeof(float?) => IsNull(input) ? null : float.Parse(inputAsString),
+            Type t when t == typeof(float?) => float.Parse(inputAsString),
             _ => inputAsString
         };
-    }
-
-    private static bool IsNull(object input)
-    {
-        return input is null || input.ToString()?.ToLower() == "null";
     }
 }

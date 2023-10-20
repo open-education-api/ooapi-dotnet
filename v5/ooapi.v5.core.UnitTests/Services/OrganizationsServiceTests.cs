@@ -46,7 +46,7 @@ public class OrganizationsServiceTests
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        Assert.That(result.Items[0].Addresses.Count, Is.EqualTo(organizations.First().Address.Count));
+        Assert.That(result.Items[0].Addresses, Has.Count.EqualTo(organizations.First().Address.Count));
         repository.Received(1).GetAllOrderedBy(dataRequestParameters);
     }
 

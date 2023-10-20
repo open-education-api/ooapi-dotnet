@@ -2,12 +2,14 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ooapi.v5.Filters;
 
 /// <summary>
 /// Path Parameter Validation Rules Filter
 /// </summary>
+[ExcludeFromCodeCoverage(Justification = "Not used")]
 public class GeneratePathParamsValidationFilter : IOperationFilter
 {
     /// <summary>

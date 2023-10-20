@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ooapi.v5.Enums;
 using ooapi.v5.Models;
@@ -7,7 +8,7 @@ namespace ooapi.v5.Helpers;
 
 public static class ConsumerConverter
 {
-    public static List<JObject> GetDynamicConsumers(List<Consumer> consumers)
+    public static List<JObject> GetDynamicConsumers(IEnumerable<Consumer> consumers)
     {
         var result = new List<JObject>();
         var groupedConsumers = consumers.GroupBy(x => x.ConsumerKey);
@@ -17,6 +18,7 @@ public static class ConsumerConverter
             {
                 { "consumerKey", groupedConsumer.First().ConsumerKey }
             };
+
             foreach (var consumer in groupedConsumer)
             {
                 var propertyType = consumer.PropertyType;
@@ -48,20 +50,22 @@ public static class ConsumerConverter
                             resultObject.Add(propertyName, res);
                         }
                         break;
-                    default:
-                        break;
                 }
             }
+
             result.Add(resultObject);
         }
 
         return result;
     }
 
-
-    /// <param name="propertyType"></param>
-    /// <param name="propertyValue"></param>
-    /// <returns></returns>
+    /// <summary>
+    /// Gets the consumer property value.
+    /// </summary>
+    /// <param name="propertyType">The property type.</param>
+    /// <param name="propertyValue">The property value.</param>
+    /// <returns>The <see cref="JToken"/>.</returns>
+    [ExcludeFromCodeCoverage(Justification = "Function is currently not used")]
     public static JToken GetConsumerPropertyValue(ConsumerPropertyType propertyType, string propertyValue)
     {
         switch (propertyType)
