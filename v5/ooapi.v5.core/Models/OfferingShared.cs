@@ -2,10 +2,12 @@ using Newtonsoft.Json;
 using ooapi.v5.Attributes;
 using ooapi.v5.Helpers;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
+[ExcludeFromCodeCoverage(Justification = "Get/Set")]
 [DataContract]
 public class OfferingShared : Offering
 {

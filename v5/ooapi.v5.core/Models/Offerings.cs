@@ -1,8 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using ooapi.v5.core.Models.OneOfModels;
 
 namespace ooapi.v5.Models;
 
+[ExcludeFromCodeCoverage(Justification = "Get/Set")]
 public class Offerings : Pagination<OneOfOfferingNoIdentifier>
 {
     /// <summary>
