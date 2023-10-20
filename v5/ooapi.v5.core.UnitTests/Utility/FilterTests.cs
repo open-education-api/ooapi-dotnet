@@ -1,7 +1,6 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using ooapi.v5.core.Utility;
-using System.Reflection.Metadata;
 
 namespace ooapi.v5.core.UnitTests.Utility;
 
