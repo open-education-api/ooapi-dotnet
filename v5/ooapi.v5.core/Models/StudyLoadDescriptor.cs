@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
@@ -7,6 +8,7 @@ namespace ooapi.v5.Models;
 /// The amount of effort to complete this education in the specified unit.
 /// </summary>
 [DataContract]
+[ExcludeFromCodeCoverage]
 public partial class StudyLoadDescriptor
 {
     /// <summary>

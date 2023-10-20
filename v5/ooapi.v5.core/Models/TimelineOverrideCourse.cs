@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using ooapi.v5.Helpers;
 using System.Runtime.Serialization;
@@ -8,6 +9,7 @@ namespace ooapi.v5.Models;
 /// A timeline override of the course.
 /// </summary>
 [DataContract]
+[ExcludeFromCodeCoverage]
 public partial class TimelineOverrideCourse
 {
     /// <summary>
