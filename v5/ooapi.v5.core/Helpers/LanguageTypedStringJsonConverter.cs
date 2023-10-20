@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.Helpers;
+
 public static class LanguageTypedStringJsonConverter
 {
     internal static List<LanguageTypedString> GetLanguageTypesStringList(string? languageTypedStringValue)
