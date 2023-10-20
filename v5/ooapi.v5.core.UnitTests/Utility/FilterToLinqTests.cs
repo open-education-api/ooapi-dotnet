@@ -24,6 +24,21 @@ public class FilterToLinqTests
         result.ToList().Should().HaveCount(1);
     }
 
+    [Test]
+    public void Parse_WithEmptyFilter_ReturnsIQueryable()
+    {
+        // Arrange
+        var items = _fixture.CreateMany<SomeFilterableClass>().ToList();
+        var suj = new FilterToLinq<SomeFilterableClass>(string.Empty);
+
+        // Act
+        var result = suj.Parse(items.AsQueryable());
+
+        // Assert
+        result.Should().NotBeNull();
+        result.ToList().Should().HaveCount(items.Count);
+    }
+
     [TestCase("eq")]
     [TestCase("ne")]
     [TestCase("gt")]
