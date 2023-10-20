@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
@@ -7,6 +8,7 @@ namespace ooapi.v5.Models;
 /// A system message including the error code and an explanation
 /// </summary>
 [DataContract]
+[ExcludeFromCodeCoverage]
 public partial class Problem
 {
     /// <summary>
