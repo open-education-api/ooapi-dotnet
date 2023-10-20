@@ -267,8 +267,7 @@ public class ComponentTests
         // Assert
         result.Should().BeEmpty();
     }
-    
-    
+
     [Test]
     public void GetOneOfOrganization_ReturnsOneOfOrganizationInstance()
     {

@@ -1,9 +1,11 @@
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
 
+[ExcludeFromCodeCoverage(Justification = "Get/Set")]
 [DataContract]
 public partial class ComponentResult : Result
 {
