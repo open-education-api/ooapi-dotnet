@@ -1,8 +1,9 @@
-﻿using ooapi.v5.Models;
+﻿using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class AssociationsRepository : BaseRepository<Association>
+public class AssociationsRepository : BaseRepository<Association>, IAssociationsRepository
 {
     public AssociationsRepository(ICoreDbContext dbContext) : base(dbContext)
     {

@@ -1,16 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class EducationSpecificationsRepository : BaseRepository<EducationSpecification>
+public class EducationSpecificationsRepository : BaseRepository<EducationSpecification>, IEducationSpecificationsRepository
 {
     public EducationSpecificationsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
     }
 
-    internal Pagination<EducationSpecification> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    public Pagination<EducationSpecification> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
         IQueryable<EducationSpecification> set = dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes);
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))

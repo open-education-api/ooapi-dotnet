@@ -5,6 +5,7 @@ using ooapi.v5.core.Utility;
 using ooapi.v5.Enums;
 using ooapi.v5.Models;
 using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.UnitTests.Repositories.Helpers;
 
 namespace ooapi.v5.core.UnitTests.Repositories;

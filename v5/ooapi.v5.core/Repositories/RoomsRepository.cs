@@ -1,8 +1,9 @@
-﻿using ooapi.v5.Models;
+﻿using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class RoomsRepository : BaseRepository<Room>
+public class RoomsRepository : BaseRepository<Room>, IRoomsRepository
 {
     public RoomsRepository(ICoreDbContext dbContext) : base(dbContext)
     {

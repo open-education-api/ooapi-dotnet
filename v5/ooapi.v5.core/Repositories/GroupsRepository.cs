@@ -1,8 +1,9 @@
-﻿using ooapi.v5.Models;
+﻿using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class GroupsRepository : BaseRepository<Group>
+public class GroupsRepository : BaseRepository<Group>, IGroupsRepository
 {
     public GroupsRepository(ICoreDbContext dbContext) : base(dbContext)
     {

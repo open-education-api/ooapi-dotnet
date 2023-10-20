@@ -1,4 +1,4 @@
-﻿using ooapi.v5.core.Repositories;
+﻿using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
@@ -8,11 +8,11 @@ namespace ooapi.v5.core.Services;
 
 internal class AssociationsService : ServiceBase, IAssociationsService
 {
-    private readonly AssociationsRepository _repository;
+    private readonly IAssociationsRepository _repository;
 
-    public AssociationsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public AssociationsService(ICoreDbContext dbContext, IAssociationsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        _repository = new AssociationsRepository(dbContext);
+        _repository = repository;
     }
 
     public Association? Get(Guid associationId)
