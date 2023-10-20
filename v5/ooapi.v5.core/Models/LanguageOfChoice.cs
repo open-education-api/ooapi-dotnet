@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
@@ -5,6 +6,7 @@ namespace ooapi.v5.Models;
 
 
 [DataContract]
+[ExcludeFromCodeCoverage(Justification = "Get/Set")]
 public class LanguageOfChoice
 {
     /// <summary>
