@@ -19,14 +19,14 @@ public sealed class ProgramTests
     public void GetPrimaryCodeIdentifier_ReturnsIdentifierEntryOrNull(string? primaryCodeType, string? primaryCode, bool resultIsNotNull)
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var model = _fixture.Build<Program>()
             .With(x => x.PrimaryCodeType, primaryCodeType)
             .With(x => x.PrimaryCode, primaryCode)
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.PrimaryCodeIdentifier;
+        var result = model.PrimaryCodeIdentifier;
 
         // Assert
         if (resultIsNotNull)
@@ -45,18 +45,18 @@ public sealed class ProgramTests
     public void SetPrimaryCodeIdentifier_SetsPrimaryCodeAndPrimaryCodeType()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var model = _fixture.Build<Program>()
             .OmitAutoProperties()
             .Create();
 
         var primaryCodeIdentifier = new IdentifierEntry() { CodeType = "TestType", Code = "TestCode" };
 
         // Act
-        building.PrimaryCodeIdentifier = primaryCodeIdentifier;
+        model.PrimaryCodeIdentifier = primaryCodeIdentifier;
 
         // Assert
-        building.PrimaryCodeType.Should().Be(primaryCodeIdentifier.CodeType);
-        building.PrimaryCode.Should().Be(primaryCodeIdentifier.Code);
+        model.PrimaryCodeType.Should().Be(primaryCodeIdentifier.CodeType);
+        model.PrimaryCode.Should().Be(primaryCodeIdentifier.Code);
     }
 
     [Test]
@@ -65,7 +65,7 @@ public sealed class ProgramTests
         // Arrange
         var codeType = "TestType";
         var code = "TestCode";
-        var building = _fixture.Build<Program>()
+        var model = _fixture.Build<Program>()
             .With(x => x.PrimaryCodeType, codeType)
             .With(x => x.PrimaryCode, code)
             .OmitAutoProperties()
@@ -74,11 +74,11 @@ public sealed class ProgramTests
         IdentifierEntry? primaryCodeIdentifier = null;
 
         // Act
-        building.PrimaryCodeIdentifier = primaryCodeIdentifier;
+        model.PrimaryCodeIdentifier = primaryCodeIdentifier;
 
         // Assert
-        building.PrimaryCodeType.Should().Be(codeType);
-        building.PrimaryCode.Should().Be(code);
+        model.PrimaryCodeType.Should().Be(codeType);
+        model.PrimaryCode.Should().Be(code);
     }
 
     [Test]
@@ -106,7 +106,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var building = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>() { })
+            .With(x => x.Attributes, new List<Attribute>())
             .OmitAutoProperties()
             .Create();
 
@@ -144,7 +144,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var building = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>() { })
+            .With(x => x.Attributes, new List<Attribute>())
             .OmitAutoProperties()
             .Create();
 
@@ -189,13 +189,13 @@ public sealed class ProgramTests
         result.Value.Should().Be(model.StudyLoadValue);
     }
 
-    [TestCase("distance-learning", Enums.ModeOfDelivery.distance_learning)]
-    [TestCase("on campus", Enums.ModeOfDelivery.on_campus)]
-    [TestCase("online", Enums.ModeOfDelivery.online)]
-    [TestCase("hybrid", Enums.ModeOfDelivery.hybrid)]
-    [TestCase("situated", Enums.ModeOfDelivery.situated)]
+    [TestCase("distance-learning", ModeOfDelivery.distance_learning)]
+    [TestCase("on campus", ModeOfDelivery.on_campus)]
+    [TestCase("online", ModeOfDelivery.online)]
+    [TestCase("hybrid", ModeOfDelivery.hybrid)]
+    [TestCase("situated", ModeOfDelivery.situated)]
     [TestCase("", null)]
-    public void GetModeOfDel_ReturnsListModeOfDelivery(string modeOfDelivery, Enums.ModeOfDelivery? expectedModeOfDelivery)
+    public void GetModeOfDel_ReturnsListModeOfDelivery(string modeOfDelivery, ModeOfDelivery? expectedModeOfDelivery)
     {
         // Arrange
         var component = _fixture.Build<Program>()
@@ -208,7 +208,7 @@ public sealed class ProgramTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<List<Enums.ModeOfDelivery>>();
+        result.Should().BeOfType<List<ModeOfDelivery>>();
         if (expectedModeOfDelivery != null)
         {
             result.Should().HaveCount(1);
@@ -245,7 +245,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var building = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>() { })
+            .With(x => x.Attributes, new List<Attribute>())
             .OmitAutoProperties()
             .Create();
 
@@ -283,7 +283,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var building = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>() { })
+            .With(x => x.Attributes, new List<Attribute>())
             .OmitAutoProperties()
             .Create();
 
@@ -321,7 +321,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var building = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>() { })
+            .With(x => x.Attributes, new List<Attribute>())
             .OmitAutoProperties()
             .Create();
 
@@ -359,7 +359,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var building = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>() { })
+            .With(x => x.Attributes, new List<Attribute>())
             .OmitAutoProperties()
             .Create();
 
