@@ -1,4 +1,5 @@
 ﻿using AutoFixture;
+using FluentAssertions;
 using ooapi.v5.core.Utility;
 
 namespace ooapi.v5.core.UnitTests.Utility;
@@ -27,27 +28,31 @@ public class FilterTests<T>
     [Test]
     public void TryParseToType_ReturnsCorrectType()
     {
-        //Arrange
+        // Arrange
         var _objectInput = _fixture.Create<T>();
 
-        //Act
+        // Act
         var result = Filter.TryParseToType(_objectInput!, typeof(T));
 
-        //Assert
+        // Assert
         var expectedType = _objectInput!.GetType().UnderlyingSystemType;
-        Assert.That(result, Is.TypeOf(expectedType));
+        result.Should().BeOfType(expectedType);
     }
 
     [Test]
     public void TryParseToType_ReturnsStringForUnknownType()
     {
+        // Arrange
         var _objectInput = _fixture.Create<T>();
-        var result = Filter.TryParseToType(_objectInput!, typeof(SomeOtherType));
 
-        Assert.That(result, Is.TypeOf(typeof(string)));
+        //Act
+        var result = Filter.TryParseToType(_objectInput!, typeof(ISomeOtherType));
+
+        // Assert
+        result.Should().BeOfType<string>();
     }
 
-    private class SomeOtherType
+    private interface ISomeOtherType
     {
 
     }
