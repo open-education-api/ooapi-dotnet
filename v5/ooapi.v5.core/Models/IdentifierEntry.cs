@@ -1,12 +1,14 @@
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ooapi.v5.Models;
 
 /// <summary>
 /// The primary human readable identifier for this component. This is often the source identifier as defined by the institution.
 /// </summary>
+[ExcludeFromCodeCoverage(Justification = "Get/Set")]
 public class IdentifierEntry
 {
     /// <summary>

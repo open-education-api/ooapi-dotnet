@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace ooapi.v5.Models;
@@ -10,6 +11,7 @@ namespace ooapi.v5.Models;
 /// Geolocation of the entrance of this address (WGS84 coordinate reference system)
 /// </summary>
 [DataContract]
+[ExcludeFromCodeCoverage(Justification = "Get/Set")]
 public class Geolocation
 {
     /// <summary>
