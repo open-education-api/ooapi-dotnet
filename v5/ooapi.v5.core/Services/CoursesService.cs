@@ -1,4 +1,5 @@
 ﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
@@ -8,11 +9,11 @@ namespace ooapi.v5.core.Services;
 
 internal class CoursesService : ServiceBase, ICoursesService
 {
-    private readonly CoursesRepository _repository;
+    private readonly ICoursesRepository _repository;
 
-    public CoursesService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public CoursesService(ICoreDbContext dbContext, ICoursesRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        _repository = new CoursesRepository(dbContext);
+        _repository = repository;
     }
 
     public Pagination<Course> GetAll(DataRequestParameters dataRequestParameters)

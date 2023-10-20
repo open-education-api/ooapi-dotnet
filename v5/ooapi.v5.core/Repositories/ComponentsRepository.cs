@@ -1,8 +1,9 @@
-﻿using ooapi.v5.Models;
+﻿using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class ComponentsRepository : BaseRepository<Component>
+public class ComponentsRepository : BaseRepository<Component>, IComponentsRepository
 {
     public ComponentsRepository(ICoreDbContext dbContext) : base(dbContext)
     {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Repositories;
+namespace ooapi.v5.core.Repositories.Interfaces;
 
 public interface ICoreDbContext : IDisposable
 {

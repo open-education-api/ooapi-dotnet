@@ -1,8 +1,9 @@
-﻿using ooapi.v5.Models;
+﻿using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class PersonsRepository : BaseRepository<Person>
+public class PersonsRepository : BaseRepository<Person>, IPersonsRepository
 {
     public PersonsRepository(ICoreDbContext dbContext) : base(dbContext)
     {

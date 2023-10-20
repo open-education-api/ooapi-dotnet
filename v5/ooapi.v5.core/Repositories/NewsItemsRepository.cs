@@ -1,8 +1,9 @@
-﻿using ooapi.v5.Models;
+﻿using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class NewsItemsRepository : BaseRepository<NewsItem>
+public class NewsItemsRepository : BaseRepository<NewsItem>, INewsItemsRepository
 {
     public NewsItemsRepository(ICoreDbContext dbContext) : base(dbContext)
     {

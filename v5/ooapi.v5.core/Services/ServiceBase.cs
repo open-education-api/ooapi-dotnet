@@ -2,15 +2,16 @@
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Security;
 using System.Reflection;
+using ooapi.v5.core.Repositories.Interfaces;
 
 namespace ooapi.v5.core.Services;
 
 internal abstract class ServiceBase
 {
     internal readonly IUserRequestContext userRequestContext;
-    internal readonly CoreDBContext dataContext;
+    internal readonly ICoreDbContext dataContext;
 
-    protected ServiceBase(CoreDBContext dbContext, IUserRequestContext userRequestContext)
+    protected ServiceBase(ICoreDbContext dbContext, IUserRequestContext userRequestContext)
     {
         dataContext = dbContext;
         this.userRequestContext = userRequestContext;
