@@ -19,14 +19,14 @@ public sealed class RoomTests
     public void GetPrimaryCodeIdentifier_ReturnsIdentifierEntryOrNull(string? primaryCodeType, string? primaryCode, bool resultIsNotNull)
     {
         // Arrange
-        var building = _fixture.Build<Room>()
+        var room = _fixture.Build<Room>()
             .With(x => x.PrimaryCodeType, primaryCodeType)
             .With(x => x.PrimaryCode, primaryCode)
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.PrimaryCodeIdentifier;
+        var result = room.PrimaryCodeIdentifier;
 
         // Assert
         if (resultIsNotNull)
@@ -45,18 +45,18 @@ public sealed class RoomTests
     public void SetPrimaryCodeIdentifier_SetsPrimaryCodeAndPrimaryCodeType()
     {
         // Arrange
-        var building = _fixture.Build<Room>()
+        var room = _fixture.Build<Room>()
             .OmitAutoProperties()
             .Create();
 
         var primaryCodeIdentifier = new IdentifierEntry() { CodeType = "TestType", Code = "TestCode" };
 
         // Act
-        building.PrimaryCodeIdentifier = primaryCodeIdentifier;
+        room.PrimaryCodeIdentifier = primaryCodeIdentifier;
 
         // Assert
-        building.PrimaryCodeType.Should().Be(primaryCodeIdentifier.CodeType);
-        building.PrimaryCode.Should().Be(primaryCodeIdentifier.Code);
+        room.PrimaryCodeType.Should().Be(primaryCodeIdentifier.CodeType);
+        room.PrimaryCode.Should().Be(primaryCodeIdentifier.Code);
     }
 
     [Test]
@@ -65,7 +65,7 @@ public sealed class RoomTests
         // Arrange
         var codeType = "TestType";
         var code = "TestCode";
-        var building = _fixture.Build<Room>()
+        var room = _fixture.Build<Room>()
             .With(x => x.PrimaryCodeType, codeType)
             .With(x => x.PrimaryCode, code)
             .OmitAutoProperties()
@@ -74,24 +74,24 @@ public sealed class RoomTests
         IdentifierEntry? primaryCodeIdentifier = null;
 
         // Act
-        building.PrimaryCodeIdentifier = primaryCodeIdentifier;
+        room.PrimaryCodeIdentifier = primaryCodeIdentifier;
 
         // Assert
-        building.PrimaryCodeType.Should().Be(codeType);
-        building.PrimaryCode.Should().Be(code);
+        room.PrimaryCodeType.Should().Be(codeType);
+        room.PrimaryCode.Should().Be(code);
     }
 
     [Test]
     public void GetName_WhenAttributesExist_ReturnsListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Room>()
+        var room = _fixture.Build<Room>()
             .With(x => x.Name, JsonConvert.SerializeObject(new List<object> { new { language = "en", value = "TestName" } }))
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.name;
+        var result = room.name;
 
         // Assert
         result.Should().NotBeNull();
@@ -105,13 +105,13 @@ public sealed class RoomTests
     public void GetName_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Room>()
+        var room = _fixture.Build<Room>()
             .With(x => x.Name, JsonConvert.SerializeObject(new List<object>()))
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.name;
+        var result = room.name;
 
         // Assert
         result.Should().NotBeNull();
@@ -123,13 +123,13 @@ public sealed class RoomTests
     public void GetDescription_WhenAttributesExist_ReturnsListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Room>()
+        var room = _fixture.Build<Room>()
             .With(x => x.Description, JsonConvert.SerializeObject(new List<object> { new { language = "en", value = "TestName" } }))
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.description;
+        var result = room.description;
 
         // Assert
         result.Should().NotBeNull();
@@ -143,13 +143,13 @@ public sealed class RoomTests
     public void GetDescription_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Room>()
+        var room = _fixture.Build<Room>()
             .With(x => x.Description, JsonConvert.SerializeObject(new List<object>()))
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.description;
+        var result = room.description;
 
         // Assert
         result.Should().NotBeNull();
@@ -164,14 +164,14 @@ public sealed class RoomTests
     public void GetGeolocation_ReturnsGeolocation(decimal? latitude, decimal? longitude, bool isNotNull)
     {
         // Arrange
-        var address = _fixture.Build<Room>()
+        var room = _fixture.Build<Room>()
             .With(x => x.Latitude, latitude)
             .With(x => x.Longitude, longitude)
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = address.Geolocation;
+        var result = room.Geolocation;
 
         // Assert
         if (isNotNull)
@@ -197,23 +197,23 @@ public sealed class RoomTests
             geolocation = _fixture.Create<Geolocation>();
         }
 
-        var address = _fixture.Build<Room>()
+        var room = _fixture.Build<Room>()
             .OmitAutoProperties()
             .Create();
 
         // Act
-        address.Geolocation = geolocation;
+        room.Geolocation = geolocation;
 
         // Assert
         if (isNotNull)
         {
-            address.Latitude.Should().Be(geolocation!.Latitude);
-            address.Longitude.Should().Be(geolocation.Longitude);
+            room.Latitude.Should().Be(geolocation!.Latitude);
+            room.Longitude.Should().Be(geolocation.Longitude);
         }
         else
         {
-            address.Latitude.Should().BeNull();
-            address.Latitude.Should().BeNull();
+            room.Latitude.Should().BeNull();
+            room.Latitude.Should().BeNull();
         }
     }
 
