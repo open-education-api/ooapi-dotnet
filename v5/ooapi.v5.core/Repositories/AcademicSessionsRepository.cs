@@ -67,7 +67,12 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcad
     public Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, string? academicSessionType = null)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
-        set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+        bool includeConsumer = !string.IsNullOrEmpty(dataRequestParameters.Consumer);
+        if (includeConsumer)
+        {
+            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+        }
+
         set = set.AsQueryable();
 
         if (academicSessionType != null)
