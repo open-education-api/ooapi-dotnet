@@ -10,7 +10,6 @@ namespace ooapi.v5.core.UnitTests.Utility;
 [TestFixture]
 public class OrderedQueryableTests
 {
-    private readonly IFixture _fixture = new Fixture();
     private readonly IQueryable<Room> _rooms = new List<Room>
     {
         new Room { Name = "3B", TotalSeats = 8, AvailableSeats = 8 },
@@ -186,7 +185,7 @@ public class OrderedQueryableTests
         var searchableEntities = new List<SearchableEntity>
         {
             new SearchableEntity { Id = 1, Name = "3A computer room" },
-            new SearchableEntity { Id = 2, Name = "3B toilet room", },
+            new SearchableEntity { Id = 2, Name = "3B small room", },
             new SearchableEntity { Id = 3, Name = "3C large room", Description = "Room with computer and beamer." },
         }.AsQueryable();
 
@@ -196,14 +195,21 @@ public class OrderedQueryableTests
         // Assert
         result.Count().Should().Be(2);
         result[0].Id.Should().Be(1);
-        result[0].Id.Should().Be(3);
+        result[1].Id.Should().Be(3);
     }
 
     [Test]
     public void SearchBy_NoSearchableProperties_WithNullSource()
     {
         // Arrange
-        FluentActions.Invoking(() => _rooms.SearchBy("searchTern")).Should().Throw<InputFormatterException>().WithMessage("There are no searchable fields defined for this endpoint. Clear the search parameter and call the API again.");
+        // Arrange
+        var searchableEntities = new List<NonSearchableEntity>
+        {
+            new NonSearchableEntity { Id = 1, Name = "3A computer room" },
+        }.AsQueryable();
+
+        // Act
+        FluentActions.Invoking(() => _rooms.SearchBy("computer")).Should().Throw<InputFormatterException>().WithMessage("There are no searchable fields defined for this endpoint. Clear the search parameter and call the API again.");
     }
 
     private class SearchableEntity
@@ -215,5 +221,12 @@ public class OrderedQueryableTests
 
         [Searchable]
         public string? Description { get; set; } = default!;
+    }
+
+    private class NonSearchableEntity
+    {
+        public int Id { get; set; }
+
+        public string? Name { get; set; } = default!;
     }
 }

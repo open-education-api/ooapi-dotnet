@@ -207,15 +207,17 @@ public static class OrderedQueryable
                 var toLowerMethod = typeof(string).GetMethod("ToLower", Array.Empty<Type>());
                 Expression toLowerExpressionRight = Expression.Call(propertyExpression, toLowerMethod!); // for example: {p.Name.ToLower()}
                 var containsMethod = typeof(string).GetMethod("Contains", new Type[] { typeof(string) });
-                Expression containsExpressionRight = Expression.Call(toLowerExpressionRight, containsMethod!, targetExpression); // for example: {p.Name.ToLower().Contains("abc")}
-                var nullCheck = Expression.NotEqual(propertyExpression, Expression.Constant(null, type: typeof(object)));
+                Expression containsExpressionRight = Expression.Call(toLowerExpressionRight, containsMethod!, targetExpression);
+                var nullCheck = Expression.NotEqual(propertyExpression, Expression.Constant(null, type: typeof(object))); // for example: {p.Name.ToLower().Contains("abc")}
+                containsExpressionRight = Expression.AndAlso(nullCheck, containsExpressionRight);
                 if (isFirstSearchProperty)
                 {
-                    orElseExpressionRight = Expression.AndAlso(nullCheck, containsExpressionRight);
+                    orElseExpressionRight = containsExpressionRight;
                 }
                 else if (orElseExpressionRight is not null)
                 {
-                    orElseExpressionRight = Expression.AndAlso(nullCheck, Expression.OrElse(orElseExpressionRight, containsExpressionRight)); // for example: {p.Name.ToLower().Contains("abc") || p.Description.ToLower().Contains("abc")} 
+                    orElseExpressionRight = 
+                    orElseExpressionRight = Expression.OrElse(orElseExpressionRight, containsExpressionRight); // for example: {p.Name.ToLower().Contains("abc") || p.Description.ToLower().Contains("abc")} 
                 }
                 isFirstSearchProperty = false;
             }
