@@ -1,4 +1,3 @@
-using AutoFixture;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using ooapi.v5.Attributes;
