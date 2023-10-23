@@ -136,7 +136,7 @@ public class OrderedQueryableTests
         var result = _rooms.FilterBy(filters).ToList();
 
         // Assert
-        result.Count().Should().Be(1);
+        result.Count.Should().Be(1);
         result[0].Name.Should().Be("3C");
     }
 
@@ -160,7 +160,7 @@ public class OrderedQueryableTests
         var result = rooms.FilterBy(filters).ToList();
 
         // Assert
-        result.Count().Should().Be(1);
+        result.Count.Should().Be(1);
         result[0].Name.Should().Be("3C");
     }
 
@@ -192,7 +192,7 @@ public class OrderedQueryableTests
         var result = searchableEntities.SearchBy("computer").ToList();
 
         // Assert
-        result.Count().Should().Be(2);
+        result.Count.Should().Be(2);
         result[0].Id.Should().Be(1);
         result[1].Id.Should().Be(3);
     }
