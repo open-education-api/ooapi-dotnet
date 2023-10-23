@@ -1,85 +1,81 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using ooapi.v5.Models;
-using System.IdentityModel.Tokens.Jwt;
 
-namespace ooapi.v5.Helpers
+namespace ooapi.v5.Helpers;
+
+public class OneOfConverter : JsonConverter
 {
-    public class OneOfConverter : JsonConverter
-
+    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
     {
-        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+        if (value is null)
         {
-            JToken t = JToken.FromObject(value);
+            writer.WriteNull();
+            return;
+        }
 
-            if (t.Type != JTokenType.Object)
+        var t = JToken.FromObject(value);
+
+        if (t.Type != JTokenType.Object)
+        {
+            t.WriteTo(writer);
+        }
+        else
+        {
+            var o = (JObject)t;
+
+            var properties = o.Properties();
+
+            var result = new JObject();
+            JToken? jToken = null;
+            var resultId = "";
+            foreach (var prop in properties)
             {
-                t.WriteTo(writer);
-            }
-            else
-            {
 
-                JObject o = (JObject)t;
-
-                var properties = o.Properties();
-
-                JObject result = new JObject();
-                JToken jToken = null;
-                string resultId = "";
-                foreach (var prop in properties)
+                if (prop.Name != "Id" && !prop.Value.IsNullOrEmpty())
                 {
-                    try
+                    jToken = prop.Value;
+                    if (jToken is not null)
                     {
-                        if (prop.Name != "Id" && !prop.Value.IsNullOrEmpty())
+                        foreach (var item in jToken)
                         {
-                            jToken = prop.Value;
-                            foreach (var item in jToken)
+                            var val = item.Values().Values().FirstOrDefault();
+                            if (val is not null)
                             {
-                                var val = item.Values().Values().FirstOrDefault();
-                                var isNull = (val == null);
-                                if (!isNull)
+                                var valie = val.ToString();
+                                if (!string.IsNullOrEmpty(valie))
                                 {
-                                    string valie = val.ToString();
-                                    if (!string.IsNullOrEmpty(valie))
-                                    {
-                                        result.Add(item);
-                                    }
+                                    result.Add(item);
                                 }
                             }
                         }
-                        if (prop.Name == "Id" && prop.Value != null)
-                        {
-                            resultId = prop.Value.ToString();
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        //throw;
                     }
                 }
+                if (prop.Name == "Id" && prop.Value != null)
+                {
+                    resultId = prop.Value.ToString();
+                }
+            }
 
-                if (jToken != null)
-                    result.WriteTo(writer);
-                else
-                    writer.WriteValue(resultId);
-
+            if (jToken is not null)
+            {
+                result.WriteTo(writer);
+            }
+            else
+            {
+                writer.WriteValue(resultId);
 
             }
         }
+    }
 
+    public override bool CanConvert(Type objectType)
+    {
+        throw new NotSupportedException();
+    }
 
-        public override bool CanConvert(Type objectType)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
-        {
-            throw new NotImplementedException();
-        }
-
-
+    public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+    {
+        throw new NotSupportedException();
     }
 }

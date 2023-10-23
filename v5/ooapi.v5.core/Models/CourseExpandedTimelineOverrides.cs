@@ -1,41 +1,40 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using ooapi.v5.Helpers;
 using System.Runtime.Serialization;
 
-namespace ooapi.v5.Models
+namespace ooapi.v5.Models;
+
+/// <summary>
+/// A timeline override of the course.
+/// </summary>
+[ExcludeFromCodeCoverage(Justification = "Get/Set")]
+[DataContract]
+public partial class CourseExpandedTimelineOverrides
 {
     /// <summary>
-    /// A timeline override of the course.
+    /// The day on which this timelineOverride starts (inclusive), RFC3339 (date)
     /// </summary>
-    [DataContract]
-    public partial class CourseExpandedTimelineOverrides
-    {
-        /// <summary>
-        /// The day on which this timelineOverride starts (inclusive), RFC3339 (date)
-        /// </summary>
-        /// <value>The day on which this timelineOverride starts (inclusive), RFC3339 (date)</value>
-        [JsonRequired]
+    /// <value>The day on which this timelineOverride starts (inclusive), RFC3339 (date)</value>
+    [JsonRequired]
 
-        [JsonProperty(PropertyName = "validFrom")]
-        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
-        public DateTime? ValidFrom { get; set; }
+    [JsonProperty(PropertyName = "validFrom")]
+    [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
+    public DateTime? ValidFrom { get; set; }
 
-        /// <summary>
-        /// The day on which this timelineOverride ends (exclusive), RFC3339 (date)
-        /// </summary>
-        /// <value>The day on which this timelineOverride ends (exclusive), RFC3339 (date)</value>
+    /// <summary>
+    /// The day on which this timelineOverride ends (exclusive), RFC3339 (date)
+    /// </summary>
+    /// <value>The day on which this timelineOverride ends (exclusive), RFC3339 (date)</value>
 
-        [JsonProperty(PropertyName = "validTo")]
-        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
-        public DateTime? ValidTo { get; set; }
+    [JsonProperty(PropertyName = "validTo")]
+    [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
+    public DateTime? ValidTo { get; set; }
 
-        /// <summary>
-        /// Gets or Sets Course
-        /// </summary>
-        [JsonRequired]
-
-        [JsonProperty(PropertyName = "course")]
-        public Course Course { get; set; }
-    }
-
+    /// <summary>
+    /// Gets or Sets Course
+    /// </summary>
+    [JsonRequired]
+    [JsonProperty(PropertyName = "course")]
+    public Course Course { get; set; } = default!;
 }

@@ -1,9 +1,8 @@
 ﻿using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services.Interfaces
+namespace ooapi.v5.core.Services.Interfaces;
+
+public interface IServiceMetadataService
 {
-    public interface IServiceMetadataService
-    {
-        Service Get();
-    }
+    Service Get();
 }

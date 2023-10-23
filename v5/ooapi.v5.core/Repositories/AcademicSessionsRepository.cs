@@ -1,32 +1,39 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Enums;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class AcademicSessionsRepository : BaseRepository<AcademicSession>
+public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcademicSessionsRepository
 {
-    public AcademicSessionsRepository(CoreDBContext dbContext) : base(dbContext)
+    public AcademicSessionsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
-        //
     }
 
-    internal AcademicSession GetAcademicSession(Guid academicSessionId, DataRequestParameters dataRequestParameters)
+    public AcademicSession? GetAcademicSession(Guid academicSessionId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
-        AcademicSession result = set.FirstOrDefault(x => x.AcademicSessionId.Equals(academicSessionId));
-        if (result == null) 
+        var result = set.FirstOrDefault(x => x.AcademicSessionId.Equals(academicSessionId));
+        if (result == null)
+        {
             return null;
+        }
+
         return GetAcademicSession(result, set, dataRequestParameters);
     }
 
-    internal AcademicSession GetAcademicSession(string primaryCode, DataRequestParameters dataRequestParameters)
+    public AcademicSession? GetAcademicSession(string primaryCode, DataRequestParameters dataRequestParameters)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
-        AcademicSession result = set.FirstOrDefault(x => x.PrimaryCode.Equals(primaryCode));
+
+        var result = set.FirstOrDefault(x => primaryCode.Equals(x.PrimaryCode));
         if (result == null)
+        {
             return null;
+        }
+
         return GetAcademicSession(result, set, dataRequestParameters);
     }
 
@@ -34,15 +41,13 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
     {
         result.ChildrenIds = dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(result.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
 
-        bool getParent = dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
-        if (getParent && result.ParentId != null)
+        if (dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase) && result.ParentId != null)
         {
-            result.Parent = set.FirstOrDefault(x => x.AcademicSessionId.Equals(result.ParentId));
+            result.Parent = set.First(x => x.AcademicSessionId.Equals(result.ParentId));
             result.Parent.ChildrenIds = set.Where(x => x.ParentId.Equals(result.Parent.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
         }
 
-        bool getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
-        if (getChildren)
+        if (dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase))
         {
             result.Children = set.Where(x => x.ParentId.Equals(result.AcademicSessionId)).ToList();
             foreach (var item in result.Children)
@@ -51,8 +56,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
             }
         }
 
-        bool getYear = dataRequestParameters.Expand.Contains("year", StringComparer.InvariantCultureIgnoreCase);
-        if (getYear && result.YearId != null)
+        if (dataRequestParameters.Expand.Contains("year", StringComparer.InvariantCultureIgnoreCase) && result.YearId != null)
         {
             result.Year = set.FirstOrDefault(x => x.AcademicSessionId.Equals(result.YearId));
         }
@@ -60,10 +64,10 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         return result;
     }
 
-    internal Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, string? academicSessionType = null)
+    public Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, string? academicSessionType = null)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
-        bool includeConsumer = dataRequestParameters != null && !String.IsNullOrEmpty(dataRequestParameters.Consumer);
+        bool includeConsumer = !string.IsNullOrEmpty(dataRequestParameters.Consumer);
         if (includeConsumer)
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
@@ -74,12 +78,11 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>
         if (academicSessionType != null)
         {
             academicSessionType = academicSessionType.Replace(" ", "_");
-            if (Enum.TryParse(academicSessionType, true, out AcademicSessionTypeEnum result))
+            if (Enum.TryParse(academicSessionType, true, out AcademicSessionType result))
             {
                 set = set.Where(x => x.AcademicSessionType.Equals(result));
             }
         }
         return GetAllOrderedBy(dataRequestParameters, set);
     }
-
 }

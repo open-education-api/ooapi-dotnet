@@ -14,7 +14,7 @@ using System.Linq;
 namespace ooapi.v5.Controllers;
 
 /// <summary>
-/// 
+/// API calls for education specifications
 /// </summary>
 [ApiController]
 public class EducationSpecificationsController : BaseController
@@ -23,6 +23,12 @@ public class EducationSpecificationsController : BaseController
     private readonly IEducationSpecificationsService _educationSpecificationsService;
     private readonly IProgramsService _programsService;
 
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="educationSpecificationsService"></param>
+    /// <param name="coursesService"></param>
+    /// <param name="programsService"></param>
     public EducationSpecificationsController(IEducationSpecificationsService educationSpecificationsService, ICoursesService coursesService, IProgramsService programsService)
     {
         _educationSpecificationsService = educationSpecificationsService;
@@ -77,7 +83,6 @@ public class EducationSpecificationsController : BaseController
     /// <param name="educationSpecificationId">Education Specification ID</param>
     /// <param name="filterParams"></param>
     /// <param name="pagingParams"></param>
-    /// <param name="teachingLanguage">Filter by teachingLanguage, which is a string describing the main teaching language, should be a three-letter language code as specified by ISO 639-2.</param>
     /// <param name="sort">
     ///Default: ["educationSpecificationId"]<br/>
     ///Items Enum: "educationSpecificationId" "name" "educationSpecificationType" "-educationSpecificationId" "-name" "-educationSpecificationType"<br/>
@@ -109,10 +114,12 @@ public class EducationSpecificationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("EducationSpecificationsEducationSpecificationIdGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(EducationSpecification), description: "OK")]
-    public virtual IActionResult EducationSpecificationsEducationSpecificationIdGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] bool? returnTimelineOverrides, [FromQuery] List<string>? expand)
+    public virtual IActionResult EducationSpecificationsEducationSpecificationIdGet([FromRoute][Required] Guid educationSpecificationId, [FromQuery] bool? returnTimelineOverrides, [FromQuery] List<string> expand)
     {
-        var parameters = new DataRequestParameters();
-        parameters.Expand = expand;
+        var parameters = new DataRequestParameters
+        {
+            Expand = expand
+        };
         var result = _educationSpecificationsService.Get(educationSpecificationId, parameters);
         if (result == null)
         {

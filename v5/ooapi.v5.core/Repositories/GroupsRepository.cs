@@ -1,15 +1,15 @@
-﻿using ooapi.v5.Models;
+﻿using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
 
-public class GroupsRepository : BaseRepository<Group>
+public class GroupsRepository : BaseRepository<Group>, IGroupsRepository
 {
-    public GroupsRepository(CoreDBContext dbContext) : base(dbContext)
+    public GroupsRepository(ICoreDbContext dbContext) : base(dbContext)
     {
-        //
     }
 
-    public Group GetGroup(Guid groupId)
+    public Group? GetGroup(Guid groupId)
     {
         return dbContext.Groups.FirstOrDefault(x => x.GroupId.Equals(groupId));
     }
@@ -21,8 +21,6 @@ public class GroupsRepository : BaseRepository<Group>
 
     public List<Group> GetGroupsByPersonId(Guid personId)
     {
-        return null;
-        //return dbContext.Groups.Where(o => o.PersonId.Equals(personId)).ToList();
+        throw new NotImplementedException();
     }
-
 }

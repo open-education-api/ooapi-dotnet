@@ -20,7 +20,7 @@ public class OrganizationsControllerTests
         var primaryCodeParam = _fixture.Create<PrimaryCodeParam>();
         var filterParams = _fixture.Create<FilterParams>();
         var pagingParams = _fixture.Create<PagingParams>();
-        var organizationType = _fixture.Create<OrganizationTypeEnum?>();
+        var organizationType = _fixture.Create<OrganizationType?>();
         var sort = _fixture.Create<string?>();
 
         var response = new Pagination<Organization>();
@@ -157,7 +157,7 @@ public class OrganizationsControllerTests
         //arrange
         var sut = CreateSut(out var organizationsService, out var _, out var _, out var _, out var _, out var _);
         var organizationId = _fixture.Create<Guid>();
-        var expand = _fixture.Create<List<string>?>();
+        var expand = _fixture.Create<List<string>>();
 
         var response = new Organization();
 

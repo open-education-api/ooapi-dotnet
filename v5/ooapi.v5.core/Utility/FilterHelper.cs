@@ -8,10 +8,10 @@ public static class FilterHelper
     internal static IEnumerable<FilterNode> ToFilterNodeCollection(this string filter)
     {
         var result = new List<FilterNode>();
-        string[] filterexpressions = Regex.Split(filter, OperatorConverter.LogicalOperatorPattern, RegexOptions.IgnoreCase);
-        for (int i = 0; i < filterexpressions.Length; i = i + 2)
+        var filterexpressions = Regex.Split(filter, OperatorConverter.LogicalOperatorPattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(2));
+        for (var i = 0; i < filterexpressions.Length; i += 2)
         {
-            string[] keyValues = Regex.Split(filterexpressions[i], OperatorConverter.ValueOperatorPattern, RegexOptions.IgnoreCase);
+            var keyValues = Regex.Split(filterexpressions[i], OperatorConverter.ValueOperatorPattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(2));
 
             if (keyValues.Length == 3)
             {

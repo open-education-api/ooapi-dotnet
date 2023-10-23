@@ -12,7 +12,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ooapi.v5.Controllers;
 
 /// <summary>
-/// 
+/// API calls for buildings
 /// </summary>
 [ApiController]
 public class BuildingsController : BaseController
@@ -20,6 +20,11 @@ public class BuildingsController : BaseController
     private readonly IBuildingsService _buildingsService;
     private readonly IRoomsService _roomsService;
 
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="buildingsService"></param>
+    /// <param name="roomsService"></param>
     public BuildingsController(IBuildingsService buildingsService, IRoomsService roomsService)
     {
         _buildingsService = buildingsService;
@@ -46,16 +51,6 @@ public class BuildingsController : BaseController
         }
 
         return Ok(result);
-
-        //var service = new BuildingsService(DBContext, userRequestContext);
-        //var result = service.Get(buildingId);
-
-        //if (result.PaginationMetadata.CurrentPageSize.Equals(0))
-        //{
-        //    return NotFound(new ServiceErrorResult<Building>(404, "Not found.", result));
-        //}
-
-        //return null;  //Ok(result);
 
         //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
         // return StatusCode(200, default(InlineResponse20026));

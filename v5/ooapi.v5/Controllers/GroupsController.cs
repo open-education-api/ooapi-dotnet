@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ooapi.v5.Controllers;
 
 /// <summary>
-/// 
+/// API calls for groups
 /// </summary>
 [ApiController]
 public class GroupsController : BaseController
@@ -21,6 +21,11 @@ public class GroupsController : BaseController
     private readonly IGroupsService _groupsService;
     private readonly IPersonsService _personsService;
 
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="groupsService"></param>
+    /// <param name="personsService"></param>
     public GroupsController(IGroupsService groupsService, IPersonsService personsService)
     {
         _groupsService = groupsService;

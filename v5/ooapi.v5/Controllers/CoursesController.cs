@@ -10,11 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace ooapi.v5.Controllers;
 
 /// <summary>
-/// 
+/// API calls for courses
 /// </summary>
 [ApiController]
 public class CoursesController : BaseController
@@ -22,6 +21,11 @@ public class CoursesController : BaseController
     private readonly IComponentsService _componentsService;
     private readonly ICoursesService _coursesService;
 
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="componentsService"></param>
+    /// <param name="coursesService"></param>
     public CoursesController(IComponentsService componentsService, ICoursesService coursesService)
     {
         _componentsService = componentsService;

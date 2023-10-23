@@ -1,21 +1,16 @@
-using Newtonsoft.Json;
-using ooapi.v5.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
+using System.Diagnostics.CodeAnalysis;
 
-namespace ooapi.v5.Models
+namespace ooapi.v5.Models;
+
+[ExcludeFromCodeCoverage(Justification = "Get/Set")]
+public class LanguageTypedProperty
 {
 
-    public class LanguageTypedProperty
-    {
+    public string PropertyName { get; set; } = default!;
 
 
-        public string PropertyName { get; set; }
-
-        public string Language { get; set; }
-
-        public string Value { get; set; }
+    public string Language { get; set; } = default!;
 
 
-    }
+    public string Value { get; set; } = default!;
 }

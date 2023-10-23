@@ -11,11 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace ooapi.v5.Controllers;
 
 /// <summary>
-/// 
+/// API calls for organizations
 /// </summary>
 [ApiController]
 public class OrganizationsController : BaseController
@@ -27,6 +26,15 @@ public class OrganizationsController : BaseController
     private readonly IGroupsService _groupsService;
     private readonly IProgramsService _programsService;
 
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="organizationsService"></param>
+    /// <param name="componentsService"></param>
+    /// <param name="coursesService"></param>
+    /// <param name="educationSpecificationsService"></param>
+    /// <param name="groupsService"></param>
+    /// <param name="programsService"></param>
     public OrganizationsController(IOrganizationsService organizationsService, IComponentsService componentsService, ICoursesService coursesService, IEducationSpecificationsService educationSpecificationsService, IGroupsService groupsService, IProgramsService programsService)
     {
         _organizationsService = organizationsService;
@@ -56,16 +64,16 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Organizations), description: "OK")]
-    public virtual IActionResult OrganizationsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] OrganizationTypeEnum? organizationType, [FromQuery] string? sort = "name")
+    public virtual IActionResult OrganizationsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] OrganizationType? organizationType, [FromQuery] string? sort = "name")
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        if (!string.IsNullOrWhiteSpace(primaryCodeParam.primaryCode))
+        if (!string.IsNullOrWhiteSpace(primaryCodeParam?.primaryCode))
         {
             parameters.Filters.Add("primaryCode", primaryCodeParam.primaryCode);
         }
         if (!string.IsNullOrWhiteSpace(organizationType.ToString()))
         {
-            parameters.Filters.Add("OrganizationType", organizationType);
+            parameters.Filters.Add("OrganizationType", organizationType.ToString()!);
         }
         var result = _organizationsService.GetAll(parameters);
         return Ok(result);
@@ -164,10 +172,12 @@ public class OrganizationsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("OrganizationsOrganizationIdGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Organization), description: "OK")]
-    public virtual IActionResult OrganizationsOrganizationIdGet([FromRoute][Required] Guid organizationId, [FromQuery] List<string>? expand)
+    public virtual IActionResult OrganizationsOrganizationIdGet([FromRoute][Required] Guid organizationId, [FromQuery] List<string> expand)
     {
-        var parameters = new DataRequestParameters();
-        parameters.Expand = expand;
+        var parameters = new DataRequestParameters
+        {
+            Expand = expand
+        };
         var result = _organizationsService.Get(organizationId, parameters);
         if (result == null)
         {

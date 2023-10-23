@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ooapi.v5.Controllers;
 
 /// <summary>
-/// 
+/// API calls for academic sessions
 /// </summary>
 [ApiController]
 public class AcademicSessionsController : BaseController
@@ -21,7 +21,7 @@ public class AcademicSessionsController : BaseController
     private readonly IAcademicSessionsService _academicSessionsService;
 
     /// <summary>
-    /// 
+    /// Resolves the required services
     /// </summary>
     /// <param name="academicSessionsService"></param>
     public AcademicSessionsController(IAcademicSessionsService academicSessionsService)
@@ -79,10 +79,12 @@ public class AcademicSessionsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("AcademicSessionsAcademicSessionIdGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(AcademicSession), description: "OK")]
-    public virtual IActionResult AcademicSessionsAcademicSessionIdGet([FromRoute][Required] Guid academicSessionId, [FromQuery] List<string>? expand)
+    public virtual IActionResult AcademicSessionsAcademicSessionIdGet([FromRoute][Required] Guid academicSessionId, [FromQuery] List<string> expand)
     {
-        var parameters = new DataRequestParameters();
-        parameters.Expand = expand;
+        var parameters = new DataRequestParameters
+        {
+            Expand = expand
+        };
         var result = _academicSessionsService.Get(academicSessionId, parameters);
         if (result == null)
         {

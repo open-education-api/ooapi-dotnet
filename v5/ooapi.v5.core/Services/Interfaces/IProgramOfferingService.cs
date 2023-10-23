@@ -1,11 +1,10 @@
 ﻿using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services.Interfaces
+namespace ooapi.v5.core.Services.Interfaces;
+
+public interface IProgramOfferingService
 {
-    public interface IProgramOfferingService
-    {
-        ProgramOffering? Get(Guid programOfferingId);
-        Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters);
-    }
+    ProgramOffering? Get(Guid programOfferingId);
+    Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters);
 }

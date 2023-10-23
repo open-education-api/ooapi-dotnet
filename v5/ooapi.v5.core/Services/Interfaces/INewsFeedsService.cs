@@ -1,11 +1,10 @@
 ﻿using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services.Interfaces
+namespace ooapi.v5.core.Services.Interfaces;
+
+public interface INewsFeedsService
 {
-    public interface INewsFeedsService
-    {
-        NewsFeed? Get(Guid newsfeedId);
-        Pagination<NewsFeed> GetAll(DataRequestParameters dataRequestParameters);
-    }
+    NewsFeed? Get(Guid newsfeedId);
+    Pagination<NewsFeed> GetAll(DataRequestParameters dataRequestParameters);
 }

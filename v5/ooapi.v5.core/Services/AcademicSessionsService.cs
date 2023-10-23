@@ -1,4 +1,4 @@
-﻿using ooapi.v5.core.Repositories;
+﻿using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
@@ -8,11 +8,11 @@ namespace ooapi.v5.core.Services;
 
 internal class AcademicSessionsService : ServiceBase, IAcademicSessionsService
 {
-    private readonly AcademicSessionsRepository _repository;
+    private readonly IAcademicSessionsRepository _repository;
 
-    public AcademicSessionsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public AcademicSessionsService(ICoreDbContext dbContext, IAcademicSessionsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        _repository = new AcademicSessionsRepository(dbContext);
+        _repository = repository;
     }
 
     public Pagination<AcademicSession> GetAll(DataRequestParameters dataRequestParameters, string? academicSessionType)
@@ -24,9 +24,4 @@ internal class AcademicSessionsService : ServiceBase, IAcademicSessionsService
     {
         return _repository.GetAcademicSession(academicSessionId, dataRequestParameters);
     }
-
-    //public Pagination<AcademicSession> GetByPrimaryCode(string primaryCode, DataRequestParameters dataRequestParameters)
-    //{
-    //        return _repository.GetAcademicSession(primaryCode, dataRequestParameters);
-    //}
 }

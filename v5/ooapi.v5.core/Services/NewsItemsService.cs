@@ -1,4 +1,5 @@
 ﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
 using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
@@ -8,11 +9,11 @@ namespace ooapi.v5.core.Services;
 
 internal class NewsItemsService : ServiceBase, INewsItemsService
 {
-    private readonly NewsItemsRepository _repository;
+    private readonly INewsItemsRepository _repository;
 
-    public NewsItemsService(CoreDBContext dbContext, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
+    public NewsItemsService(ICoreDbContext dbContext, INewsItemsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        _repository = new NewsItemsRepository(dbContext);
+        _repository = repository;
     }
 
     public NewsItem? Get(Guid newsitemId)
