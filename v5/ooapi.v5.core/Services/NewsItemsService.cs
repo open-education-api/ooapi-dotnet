@@ -1,49 +1,29 @@
-﻿using ooapi.v5.core.Models;
-using ooapi.v5.core.Repositories;
+﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.core.Security;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services
+namespace ooapi.v5.core.Services;
+
+internal class NewsItemsService : ServiceBase, INewsItemsService
 {
-    public class NewsItemsService : ServiceBase
+    private readonly INewsItemsRepository _repository;
+
+    public NewsItemsService(ICoreDbContext dbContext, INewsItemsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        private readonly NewsItemsRepository _repository;
+        _repository = repository;
+    }
 
-        public NewsItemsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
-        {
-            _repository = new NewsItemsRepository(dbContext);
-        }
+    public NewsItem? Get(Guid newsitemId)
+    {
+            return _repository.GetNewsItem(newsitemId);
+    }
 
-        public NewsItem Get(Guid newsitemId, out ErrorResponse errorResponse)
-        {
-            try
-            {
-                var item = _repository.GetNewsItem(newsitemId);
-
-                errorResponse = null;
-                return item;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
-        }
-
-        public Pagination<NewsItem> GetNewsItemsByNewsFeedId(DataRequestParameters dataRequestParameters, Guid newsfeedId, out ErrorResponse errorResponse)
-        {
-            try
-            {
-                var result = _repository.GetNewsItemsByNewsFeedId(newsfeedId);
-                var paginationResult = new Pagination<NewsItem>(result.AsQueryable(), dataRequestParameters);
-                errorResponse = null;
-                return paginationResult;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
-        }
+    public Pagination<NewsItem> GetNewsItemsByNewsFeedId(DataRequestParameters dataRequestParameters, Guid newsfeedId)
+    {
+        var result = _repository.GetNewsItemsByNewsFeedId(newsfeedId);
+        return new Pagination<NewsItem>(result.AsQueryable(), dataRequestParameters);
     }
 }

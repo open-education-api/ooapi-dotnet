@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using Swashbuckle.AspNetCore.Annotations;
@@ -14,14 +12,20 @@ using System.ComponentModel.DataAnnotations;
 namespace ooapi.v5.Controllers;
 
 /// <summary>
-/// 
+/// API calls for components
 /// </summary>
 [ApiController]
 public class ComponentsController : BaseController
 {
+    private readonly IComponentsService _componentsService;
 
-    public ComponentsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="componentsService"></param>
+    public ComponentsController(IComponentsService componentsService)
     {
+        _componentsService = componentsService;
     }
 
     /// <summary>
@@ -38,12 +42,12 @@ public class ComponentsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Component), description: "OK")]
     public virtual IActionResult ComponentsComponentIdGet([FromRoute][Required] Guid componentId, [FromQuery] List<string> expand)
     {
-        var service = new ComponentsService(DBContext, UserRequestContext);
-        var result = service.Get(componentId, out ErrorResponse errorResponse);
+        var result = _componentsService.Get(componentId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
+
         return Ok(result);
     }
 

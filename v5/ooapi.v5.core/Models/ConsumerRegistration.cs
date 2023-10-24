@@ -1,17 +1,11 @@
-using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 
-using System.Runtime.Serialization;
+namespace ooapi.v5.Models;
 
-namespace ooapi.v5.Models
+[ExcludeFromCodeCoverage(Justification = "Get/Set")]
+public class ConsumerRegistration
 {
+    public string ConsumerKey { get; set; } = default!;
 
-    public class ConsumerRegistration
-    {
-
-        public string ConsumerKey { get; set; }
-
-        public string Description{ get; set; }
-
-
-    }
+    public string Description { get; set; } = default!;
 }

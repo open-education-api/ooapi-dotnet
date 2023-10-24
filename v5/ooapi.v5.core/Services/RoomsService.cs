@@ -1,66 +1,34 @@
-﻿using ooapi.v5.core.Models;
-using ooapi.v5.core.Repositories;
+﻿using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.core.Security;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services
+namespace ooapi.v5.core.Services;
+
+internal class RoomsService : ServiceBase, IRoomsService
 {
-    public class RoomsService : ServiceBase
+    private readonly IRoomsRepository _repository;
+
+    public RoomsService(ICoreDbContext dbContext, IRoomsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        private readonly RoomsRepository _repository;
+        _repository = repository;
+    }
 
-        public RoomsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
-        {
-            _repository = new RoomsRepository(dbContext);
-        }
+    public Pagination<Room> GetAll(DataRequestParameters dataRequestParameters)
+    {
+        return _repository.GetAllOrderedBy(dataRequestParameters);
+    }
 
-        public Pagination<Room> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
-        {
-            try
-            {
-                Pagination<Room> result = _repository.GetAllOrderedBy(dataRequestParameters);
-                errorResponse = null;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
-        }
+    public Room? Get(Guid roomId)
+    {
+        return _repository.GetRoom(roomId);
+    }
 
-        public Room Get(Guid roomId, out ErrorResponse errorResponse)
-        {
-            try
-            {
-                var item = _repository.GetRoom(roomId);
-
-                errorResponse = null;
-                return item;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
-        }
-
-        public Pagination<Room> GetRoomsByBuildingId(DataRequestParameters dataRequestParameters, Guid buildingId, out ErrorResponse errorResponse)
-        {
-            try
-            {
-                var result = _repository.GetRoomsByBuildingId(buildingId);
-                var paginationResult = new Pagination<Room>(result.AsQueryable(), dataRequestParameters);
-                errorResponse = null;
-                return paginationResult;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
-        }
-
-
+    public Pagination<Room> GetRoomsByBuildingId(DataRequestParameters dataRequestParameters, Guid buildingId)
+    {
+        var result = _repository.GetRoomsByBuildingId(buildingId);
+        return new Pagination<Room>(result.AsQueryable(), dataRequestParameters);
     }
 }

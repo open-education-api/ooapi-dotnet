@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
 using ooapi.v5.core.Models.OneOfModels;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
-using ooapi.v5.core.Utility;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
 using Swashbuckle.AspNetCore.Annotations;
@@ -16,13 +13,20 @@ using System.ComponentModel.DataAnnotations;
 namespace ooapi.v5.Controllers;
 
 /// <summary>
-/// 
+/// API calls for offerings
 /// </summary>
 [ApiController]
 public class OfferingsController : BaseController
 {
-    public OfferingsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    private readonly IOfferingsService _offeringsService;
+
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="offeringsService"></param>
+    public OfferingsController(IOfferingsService offeringsService)
     {
+        _offeringsService = offeringsService;
     }
 
     /// <summary>
@@ -66,27 +70,28 @@ public class OfferingsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(OneOfOfferingNoIdentifier), description: "OK")]
     public virtual IActionResult OfferingsOfferingIdGet([FromRoute][Required] Guid offeringId, [FromQuery] List<string> expand)
     {
-        DataRequestParameters parameters = new DataRequestParameters();
-        parameters.Expand = expand;
-
-        var service = new OfferingsService(DBContext, UserRequestContext);
-        OneOfOfferingInstance result = service.Get(offeringId, out ErrorResponse errorResponse);
+        var result = _offeringsService.Get(offeringId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
+
         if (result.CourseOffering != null)
+        {
             return Ok(result.CourseOffering);
+        }
+
         if (result.ComponentOffering != null)
+        {
             return Ok(result.ComponentOffering);
+        }
+
         if (result.ProgramOffering != null)
+        {
             return Ok(result.ProgramOffering);
+        }
 
-        return NotFound(errorResponse);
-
-
-
-        return null;
+        return NotFound();
     }
 
     /// <summary>
@@ -110,6 +115,6 @@ public class OfferingsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
     public virtual IActionResult OfferingsOfferingIdGroupsGet([FromRoute][Required] Guid offeringId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
-        return BadRequest(new ErrorResponse(400,"Not implemented yet."));
+        return BadRequest(new ErrorResponse(400, "Not implemented yet."));
     }
 }

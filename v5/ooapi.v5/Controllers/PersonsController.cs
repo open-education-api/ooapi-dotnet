@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -14,17 +12,29 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace ooapi.v5.Controllers;
 
 /// <summary>
-/// 
+/// API calls for persons
 /// </summary>
 [ApiController]
 public class PersonsController : BaseController
 {
-    public PersonsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    private readonly IPersonsService _personsService;
+    private readonly IAssociationsService _associationsService;
+    private readonly IGroupsService _groupsService;
+
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="personsService"></param>
+    /// <param name="associationsService"></param>
+    /// <param name="groupsService"></param>
+    public PersonsController(IPersonsService personsService, IAssociationsService associationsService, IGroupsService groupsService)
     {
+        _personsService = personsService;
+        _associationsService = associationsService;
+        _groupsService = groupsService;
     }
 
     /// <summary>
@@ -46,15 +56,10 @@ public class PersonsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("PersonsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Persons), description: "OK")]
-    public virtual IActionResult PersonsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string? sort = "personId")
+    public virtual IActionResult PersonsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] List<string>? affiliations, [FromQuery] string? sort = "personId")
     {
-        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var service = new PersonsService(DBContext, UserRequestContext);
-        var result = service.GetAll(parameters, out ErrorResponse errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        var result = _personsService.GetAll(parameters);
         return Ok(result);
     }
 
@@ -98,13 +103,8 @@ public class PersonsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Associations), description: "OK")]
     public virtual IActionResult PersonsPersonIdAssociationsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? associationType, [FromQuery] string? role, [FromQuery] string? state, [FromQuery] string? resultState, [FromQuery] string? sort = "associationId")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new AssociationsService(DBContext, UserRequestContext);
-        var result = service.GetAssociationsByPersonId(parameters, personId, out ErrorResponse errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var result = _associationsService.GetAssociationsByPersonId(parameters, personId);
         return Ok(result);
     }
 
@@ -121,11 +121,10 @@ public class PersonsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Person), description: "OK")]
     public virtual IActionResult PersonsPersonIdGet([FromRoute][Required] Guid personId)
     {
-        var service = new PersonsService(DBContext, UserRequestContext);
-        var result = service.Get(personId, out ErrorResponse errorResponse);
+        var result = _personsService.Get(personId);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
         return Ok(result);
     }
@@ -151,42 +150,8 @@ public class PersonsController : BaseController
     [SwaggerResponse(statusCode: 200, type: typeof(Groups), description: "OK")]
     public virtual IActionResult PersonsPersonIdGroupsGet([FromRoute][Required] Guid personId, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? groupType, [FromQuery] string? sort = "name")
     {
-        DataRequestParameters parameters = new DataRequestParameters(filterParams, pagingParams, sort);
-        var service = new GroupsService(DBContext, UserRequestContext);
-        var result = service.GetGroupsByPersonId(parameters, personId, out ErrorResponse errorResponse);
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
+        var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
+        var result = _groupsService.GetGroupsByPersonId(parameters, personId);
         return Ok(result);
     }
-
-    ///// <summary>
-    ///// POST /persons
-    ///// </summary>
-    ///// <remarks>POST a single person.</remarks>
-    ///// <param name="body"></param>
-    ///// <response code="201">CREATED</response>
-    ///// <response code="400">Bad request</response>
-    //[HttpPost]
-    //[Route("persons")]
-    //[ValidateModelState]
-    //[SwaggerOperation("PersonsPost")]
-    //[SwaggerResponse(statusCode: 201, type: typeof(List<Person>), description: "CREATED")]
-    //[SwaggerResponse(statusCode: 400, type: typeof(InlineResponse400), description: "Bad request")]
-    //public virtual IActionResult PersonsPost([FromBody] PersonsBody body)
-    //{
-    //    //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-    //    // return StatusCode(201, default(InlineResponse201));
-
-    //    //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-    //    // return StatusCode(400, default(InlineResponse400));
-    //    string exampleJson = null;
-    //    exampleJson = "\"\"";
-
-    //    var example = exampleJson != null
-    //    ? JsonConvert.DeserializeObject<InlineResponse201>(exampleJson)
-    //    : default(InlineResponse201);            //TODO: Change the data returned
-    //    return new ObjectResult(example);
-    //}
 }

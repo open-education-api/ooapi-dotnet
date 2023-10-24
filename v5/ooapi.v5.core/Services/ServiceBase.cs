@@ -1,70 +1,69 @@
 ﻿using ooapi.v5.Attributes;
-using ooapi.v5.core.Models;
-using ooapi.v5.core.Repositories;
+using ooapi.v5.core.Security;
 using System.Reflection;
+using ooapi.v5.core.Repositories.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 
-namespace ooapi.v5.core.Services
+namespace ooapi.v5.core.Services;
+
+internal abstract class ServiceBase
 {
-    public abstract class ServiceBase
-    {
-        internal readonly UserRequestContext userRequestContext;
-        internal readonly CoreDBContext dataContext;
+    internal readonly IUserRequestContext userRequestContext;
+    internal readonly ICoreDbContext dataContext;
 
-        public ServiceBase(CoreDBContext dbContext, UserRequestContext userRequestContext)
+    protected ServiceBase(ICoreDbContext dbContext, IUserRequestContext userRequestContext)
+    {
+        dataContext = dbContext;
+        this.userRequestContext = userRequestContext;
+    }
+
+    [ExcludeFromCodeCoverage(Justification = "Not used")]
+    public void HideAttributesBasedOnBivLevel(object item, UserRequestContext userRequestContext)
+    {
+        var showBiv_V_Hoog = false;
+        var showBiv_V_Middel = false;
+
+        if (userRequestContext.Bivv == "hoog" || userRequestContext.IsLocal)
         {
-            dataContext = dbContext;
-            this.userRequestContext = userRequestContext ?? new UserRequestContext();
+            showBiv_V_Hoog = true;
         }
 
-        public void HideAttributesBasedOnBivLevel(object item, UserRequestContext userRequestContext)
+        if (userRequestContext.Bivv == "middel")
         {
-            bool showBiv_V_Hoog = false;
-            bool showBiv_V_Middel = false;
-            string curUser = userRequestContext.UserID;
+            showBiv_V_Middel = true;
+        }
 
-            if (userRequestContext.Bivv == "hoog" || userRequestContext.IsLocal)
-                showBiv_V_Hoog = true;
-            if (userRequestContext.Bivv == "middel")
-                showBiv_V_Middel = true;
-
-            //Show property when:
-            // --> (showBiv_V_Hoog == true)
-            // --> (showBiv_V_Middel == true) AND (BivVAttribute.middel == true)
-            // --> (BivVAttribute.laag == true)
-
-
-            if (item != null)
+        if (item != null)
+        {
+            var properties = item.GetType().GetProperties();
+            foreach (var property in properties)
             {
-                PropertyInfo[] properties = item.GetType().GetProperties();
-                foreach (var property in properties)
+                var hideProperty = true;
+                var BivVAttribuut = property.GetCustomAttribute<BivVAttribute>();
+                if (BivVAttribuut != null)
                 {
-                    bool hideProperty = true;
-                    var BivVAttribuut = property.GetCustomAttribute<BivVAttribute>();
-                    if (BivVAttribuut != null)
+                    if (BivVAttribuut.Laag)
                     {
-                        if (property.GetCustomAttribute<BivVAttribute>().Laag)
+                        // property is public
+                        hideProperty = false;
+                    }
+                    else
+                    {
+                        if (showBiv_V_Hoog)
                         {
-                            // property is public
+                            // property is accessible for everyone with with 'hoog' (high) access
                             hideProperty = false;
                         }
-                        else
+                        if (showBiv_V_Middel && BivVAttribuut.Middel)
                         {
-                            if (showBiv_V_Hoog == true)
-                            {
-                                // property is accessible for everyone with with 'hoog' (high) access
-                                hideProperty = false;
-                            }
-                            if (showBiv_V_Middel == true && property.GetCustomAttribute<BivVAttribute>().Middel == true)
-                            {
-                                // all properties with 'middel' attribute are accessible for everyone with 'middel' (middle) access
-                                hideProperty = false;
-                            }
+                            // all properties with 'middel' attribute are accessible for everyone with 'middel' (middle) access
+                            hideProperty = false;
                         }
                     }
-                    if (hideProperty)
-                    {
-                        property.SetValue(item, null);
-                    }
+                }
+                if (hideProperty)
+                {
+                    property.SetValue(item, null);
                 }
             }
         }

@@ -1,94 +1,44 @@
-﻿namespace ooapi.v5.core.Utility;
+﻿using System.Globalization;
 
-class Filter
+namespace ooapi.v5.core.Utility;
+
+internal class Filter
 {
-    public string PropertyName { get; set; }
+    public string PropertyName { get; set; } = default!;
+
     public Operator Operation { get; set; }
-    public object Value { get; set; }
 
-    public static object TryParseToType(object input, Type type)
-    {
-        if (type == typeof(string))
-        {
-            return input.ToString();
-        }
-        else if (type == typeof(long))
-        {
-            return long.Parse(input.ToString());
-        }
-        else if (type == typeof(long?))
-        {
-            if (IsNull(input)) { return null; }
-            return input as long?;
-        }
-        else if (type == typeof(int))
-        {
-            return int.Parse(input.ToString());
-        }
-        else if (type == typeof(int?))
-        {
-            if (IsNull(input)) { return null; }
-            return input as int?;
-        }
-        else if (type == typeof(short))
-        {
-            return short.Parse(input.ToString());
-        }
-        else if (type == typeof(short?))
-        {
-            if (IsNull(input)) { return null; }
-            return input as short?;
-        }
-        else if (type == typeof(DateTime))
-        {
-            return DateTime.Parse(input.ToString());
-        }
-        else if (type == typeof(DateTime?))
-        {
-            if (IsNull(input)) { return null; }
-            return DateTime.Parse(input.ToString());
-        }
-        else if (type == typeof(Guid))
-        {
-            return Guid.Parse(input.ToString());
-        }
-        else if (type == typeof(Guid?))
-        {
-            if (IsNull(input)) { return null; }
-            return Guid.Parse(input.ToString());
-        }
-        else if (type == typeof(bool))
-        {
-            return bool.Parse(input.ToString());
-        }
-        else if (type == typeof(bool?))
-        {
-            if (IsNull(input)) { return null; }
-            return bool.Parse(input.ToString());
-        }
-        else if (type == typeof(double))
-        {
-            return double.Parse(input.ToString());
-        }
-        else if (type == typeof(double?))
-        {
-            if (IsNull(input)) { return null; }
-            return double.Parse(input.ToString());
-        }
-        else if (type == typeof(float))
-        {
-            float.Parse(input.ToString());
-        }
-        else if (type == typeof(float?))
-        {
-            if (IsNull(input)) { return null; }
-            return float.Parse(input.ToString());
-        }
-        return input.ToString();
-    }
+    public object Value { get; set; } = default!;
 
-    private static bool IsNull(object input)
+    public static object? TryParseToType(object input, Type type)
     {
-        return input == null || input.ToString().ToLower() == "null";
+        var inputAsString = input?.ToString();
+
+        if (input is null || inputAsString is null || inputAsString.ToLower() == "null")
+        {
+            return null;
+        }
+
+        return type switch
+        {
+            Type t when t == typeof(string) => inputAsString,
+            Type t when t == typeof(long) => long.Parse(inputAsString),
+            Type t when t == typeof(long?) => input as long?,
+            Type t when t == typeof(int) => int.Parse(inputAsString),
+            Type t when t == typeof(int?) => input as int?,
+            Type t when t == typeof(short) => short.Parse(inputAsString),
+            Type t when t == typeof(short?) => input as short?,
+            Type t when t == typeof(DateTime) => DateTime.Parse(((DateTime)(input)).ToString("s"), DateTimeFormatInfo.InvariantInfo),
+            Type t when t == typeof(DateTime?) => DateTime.Parse(((DateTime)(input)).ToString("s"), DateTimeFormatInfo.InvariantInfo),
+            Type t when t == typeof(Guid) => Guid.Parse(inputAsString),
+            Type t when t == typeof(Guid?) => Guid.Parse(inputAsString),
+            Type t when t == typeof(bool) => bool.Parse(inputAsString),
+            Type t when t == typeof(bool?) => bool.Parse(inputAsString),
+            Type t when t == typeof(double) => double.Parse(inputAsString),
+            Type t when t == typeof(double?) => double.Parse(inputAsString),
+            Type t when t == typeof(float) => float.Parse(inputAsString),
+            Type t when t == typeof(float?) => float.Parse(inputAsString),
+            _ => inputAsString
+        };
     }
 }

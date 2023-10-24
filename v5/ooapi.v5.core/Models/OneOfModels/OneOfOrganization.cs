@@ -10,7 +10,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 [NotMapped]
 public abstract class OneOfOrganization { }
 
-
 public class OneOfOrganizationInstance : OneOfOrganization
 {
     public Guid? Id { get; set; }
@@ -22,5 +21,3 @@ public class OneOfOrganizationInstance : OneOfOrganization
         Organization = organization;
     }
 }
-
-

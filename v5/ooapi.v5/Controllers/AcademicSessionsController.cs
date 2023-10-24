@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ooapi.v5.Attributes;
-using ooapi.v5.core.Repositories;
-using ooapi.v5.core.Services;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 using ooapi.v5.Models.Params;
@@ -15,14 +13,20 @@ using System.ComponentModel.DataAnnotations;
 namespace ooapi.v5.Controllers;
 
 /// <summary>
-/// 
+/// API calls for academic sessions
 /// </summary>
 [ApiController]
 public class AcademicSessionsController : BaseController
 {
+    private readonly IAcademicSessionsService _academicSessionsService;
 
-    public AcademicSessionsController(IConfiguration configuration, CoreDBContext dbContext) : base(configuration, dbContext)
+    /// <summary>
+    /// Resolves the required services
+    /// </summary>
+    /// <param name="academicSessionsService"></param>
+    public AcademicSessionsController(IAcademicSessionsService academicSessionsService)
     {
+        _academicSessionsService = academicSessionsService;
     }
 
     /// <summary>
@@ -53,20 +57,13 @@ public class AcademicSessionsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("AcademicSessionsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(AcademicSessions), description: "OK")]
-    public virtual IActionResult AcademicSessionsGet([FromQuery] PrimaryCodeParam primaryCodeParam, [FromQuery] FilterParams filterParams, [FromQuery] PagingParams pagingParams, [FromQuery] string? academicSessionType, [FromQuery] Guid? parent, [FromQuery] Guid? year, [FromQuery] string? sort = "startDate")
+    public virtual IActionResult AcademicSessionsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? academicSessionType, [FromQuery] Guid? parent, [FromQuery] Guid? year, [FromQuery] string? sort = "startDate")
     {
-        Pagination<AcademicSession> result = null;
-        var service = new AcademicSessionsService(DBContext, UserRequestContext);
-
-        DataRequestParameters parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
+        var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
         if (parent != null) parameters.Filters.Add("ParentId", parent);
         if (year != null) parameters.Filters.Add("YearId", year);
-        result = service.GetAll(parameters, out ErrorResponse errorResponse, academicSessionType);
+        var result = _academicSessionsService.GetAll(parameters, academicSessionType);
 
-        if (result == null)
-        {
-            return BadRequest(errorResponse);
-        }
         return Ok(result);
     }
 
@@ -82,16 +79,18 @@ public class AcademicSessionsController : BaseController
     [ValidateModelState]
     [SwaggerOperation("AcademicSessionsAcademicSessionIdGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(AcademicSession), description: "OK")]
-    public virtual IActionResult AcademicSessionsAcademicSessionIdGet([FromRoute][Required] Guid academicSessionId, [FromQuery] List<string>? expand)
+    public virtual IActionResult AcademicSessionsAcademicSessionIdGet([FromRoute][Required] Guid academicSessionId, [FromQuery] List<string> expand)
     {
-        DataRequestParameters parameters = new DataRequestParameters();
-        parameters.Expand = expand;
-        var service = new AcademicSessionsService(DBContext, UserRequestContext);
-        var result = service.Get(academicSessionId, parameters, out ErrorResponse errorResponse);
+        var parameters = new DataRequestParameters
+        {
+            Expand = expand
+        };
+        var result = _academicSessionsService.Get(academicSessionId, parameters);
         if (result == null)
         {
-            return BadRequest(errorResponse);
+            return NotFound();
         }
+
         return Ok(result);
     }
 

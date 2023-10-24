@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
@@ -10,9 +9,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{D4C8F2A3-CE03-499D-A059-EDCDAF6BCF61}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
+		dotnetcoverage.runsettings.xml = dotnetcoverage.runsettings.xml
 		..\LICENSE = ..\LICENSE
 		..\README.md = ..\README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5.UnitTests", "ooapi.v5.UnitTests\ooapi.v5.UnitTests.csproj", "{77C9B463-E06B-472D-934C-DDF2606E9D48}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ooapi.v5.core.UnitTests", "ooapi.v5.core.UnitTests\ooapi.v5.core.UnitTests.csproj", "{7448434C-CE41-47BE-B402-F79401F85A63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +32,14 @@ Global
 		{17F78369-11CB-4318-8047-E1F8580B8687}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17F78369-11CB-4318-8047-E1F8580B8687}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17F78369-11CB-4318-8047-E1F8580B8687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77C9B463-E06B-472D-934C-DDF2606E9D48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77C9B463-E06B-472D-934C-DDF2606E9D48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77C9B463-E06B-472D-934C-DDF2606E9D48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77C9B463-E06B-472D-934C-DDF2606E9D48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7448434C-CE41-47BE-B402-F79401F85A63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7448434C-CE41-47BE-B402-F79401F85A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7448434C-CE41-47BE-B402-F79401F85A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7448434C-CE41-47BE-B402-F79401F85A63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

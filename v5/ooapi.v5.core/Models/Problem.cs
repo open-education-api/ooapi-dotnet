@@ -1,41 +1,39 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
-namespace ooapi.v5.Models
+namespace ooapi.v5.Models;
+
+/// <summary>
+/// A system message including the error code and an explanation
+/// </summary>
+[DataContract]
+[ExcludeFromCodeCoverage]
+public partial class Problem
 {
     /// <summary>
-    /// A system message including the error code and an explanation
+    /// The HTTP status code
     /// </summary>
-    [DataContract]
-    public partial class Problem
-    {
-        /// <summary>
-        /// The HTTP status code
-        /// </summary>
-        /// <value>The HTTP status code</value>
-        [JsonRequired]
+    /// <value>The HTTP status code</value>
+    [JsonRequired]
 
-        [JsonProperty(PropertyName = "status")]
-        public string Status { get; set; }
+    [JsonProperty(PropertyName = "status")]
+    public string Status { get; set; } = default!;
 
-        /// <summary>
-        /// A short, human-readable summary of the problem type
-        /// </summary>
-        /// <value>A short, human-readable summary of the problem type</value>
-        [JsonRequired]
+    /// <summary>
+    /// A short, human-readable summary of the problem type
+    /// </summary>
+    /// <value>A short, human-readable summary of the problem type</value>
+    [JsonRequired]
 
-        [JsonProperty(PropertyName = "title")]
-        public string Title { get; set; }
+    [JsonProperty(PropertyName = "title")]
+    public string Title { get; set; } = default!;
 
-        /// <summary>
-        /// A human-readable explanation specific to this occurrence of the problem
-        /// </summary>
-        /// <value>A human-readable explanation specific to this occurrence of the problem</value>
+    /// <summary>
+    /// A human-readable explanation specific to this occurrence of the problem
+    /// </summary>
+    /// <value>A human-readable explanation specific to this occurrence of the problem</value>
 
-        [JsonProperty(PropertyName = "detail")]
-        public string Detail { get; set; }
-
-
-    }
+    [JsonProperty(PropertyName = "detail")]
+    public string Detail { get; set; } = default!;
 }

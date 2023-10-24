@@ -1,14 +1,11 @@
 ﻿using Newtonsoft.Json.Converters;
 
-namespace ooapi.v5.Helpers
+namespace ooapi.v5.Helpers;
+
+public class DateFormatConverter : IsoDateTimeConverter
 {
-    public class DateFormatConverter : IsoDateTimeConverter
-
+    public DateFormatConverter(string format)
     {
-
-        public DateFormatConverter(string format)
-        {
-            DateTimeFormat = format;
-        }
+        DateTimeFormat = format;
     }
 }

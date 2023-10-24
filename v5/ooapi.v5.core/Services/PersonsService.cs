@@ -1,64 +1,33 @@
-﻿using ooapi.v5.core.Models;
-using ooapi.v5.core.Repositories;
+﻿using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.core.Security;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services
+namespace ooapi.v5.core.Services;
+
+internal class PersonsService : ServiceBase, IPersonsService
 {
-    public class PersonsService : ServiceBase
+    private readonly IPersonsRepository _repository;
+
+    public PersonsService(ICoreDbContext dbContext, IPersonsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        private readonly PersonsRepository _repository;
+        _repository = repository;
+    }
 
-        public PersonsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
-        {
-            _repository = new PersonsRepository(dbContext);
-        }
+    public Pagination<Person> GetAll(DataRequestParameters dataRequestParameters)
+    {
+        return _repository.GetAllOrderedBy(dataRequestParameters);
+    }
 
-        public Pagination<Person> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
-        {
-            try
-            {
-                Pagination<Person> result = _repository.GetAllOrderedBy(dataRequestParameters);
-                errorResponse = null;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
-        }
+    public Person? Get(Guid personId)
+    {
+        return _repository.GetPerson(personId);
+    }
 
-        public Person Get(Guid personId, out ErrorResponse errorResponse)
-        {
-            try
-            {
-                var item = _repository.GetPerson(personId);
-
-                errorResponse = null;
-                return item;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
-        }
-
-        public Pagination<Person> GetPersonsByGroupId(DataRequestParameters dataRequestParameters, Guid groupId, out ErrorResponse errorResponse)
-        {
-            try
-            {
-                var result = _repository.GetPersonsByGroupId(groupId);
-                var paginationResult = new Pagination<Person>(result.AsQueryable(), dataRequestParameters);
-                errorResponse = null;
-                return paginationResult;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
-        }
+    public Pagination<Person> GetPersonsByGroupId(DataRequestParameters dataRequestParameters, Guid groupId)
+    {
+        var result = _repository.GetPersonsByGroupId(groupId);
+        return new Pagination<Person>(result.AsQueryable(), dataRequestParameters);
     }
 }

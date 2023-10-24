@@ -1,51 +1,27 @@
-﻿using ooapi.v5.core.Models;
-using ooapi.v5.core.Repositories;
+﻿using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.core.Security;
+using ooapi.v5.core.Services.Interfaces;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
-namespace ooapi.v5.core.Services
+namespace ooapi.v5.core.Services;
+
+internal class BuildingsService : ServiceBase, IBuildingsService
 {
-    public class BuildingsService : ServiceBase
+    private readonly IBuildingsRepository _repository;
+
+    public BuildingsService(ICoreDbContext dbContext, IBuildingsRepository repository, IUserRequestContext userRequestContext) : base(dbContext, userRequestContext)
     {
-        private readonly BuildingsRepository _repository;
+        _repository = repository;
+    }
 
-        public BuildingsService(CoreDBContext dbContext, UserRequestContext userRequestContext) : base(dbContext, userRequestContext)
-        {
-            _repository = new BuildingsRepository(dbContext);
-        }
+    public Pagination<Building> GetAll(DataRequestParameters dataRequestParameters)
+    {
+        return _repository.GetAllOrderedBy(dataRequestParameters);
+    }
 
-        public Pagination<Building> GetAll(DataRequestParameters dataRequestParameters, out ErrorResponse errorResponse)
-        {
-            try
-            {
-                Pagination<Building> result = _repository.GetAllOrderedBy(dataRequestParameters);
-
-                errorResponse = null;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
-        }
-
-        public Building Get(Guid buildingId, out ErrorResponse errorResponse)
-        {
-            try
-            {
-                var item = _repository.GetBuilding(buildingId);
-
-                errorResponse = null;
-                return item;
-            }
-            catch (Exception ex)
-            {
-                errorResponse = new ErrorResponse(500);
-                return null;
-            }
-
-        }
-
+    public Building? Get(Guid buildingId)
+    {
+        return _repository.GetBuilding(buildingId);
     }
 }

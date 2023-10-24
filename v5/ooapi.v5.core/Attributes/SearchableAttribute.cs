@@ -1,9 +1,7 @@
-﻿using System;
+﻿namespace ooapi.v5.Attributes;
 
-namespace ooapi.v5.Attributes
+
+[AttributeUsage(AttributeTargets.Property)]
+public class SearchableAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.Property)]
-    public class SearchableAttribute : Attribute
-    {
-    }
 }

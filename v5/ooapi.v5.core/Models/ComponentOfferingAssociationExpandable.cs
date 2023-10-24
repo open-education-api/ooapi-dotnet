@@ -1,27 +1,22 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
-namespace ooapi.v5.Models
+namespace ooapi.v5.Models;
+
+[ExcludeFromCodeCoverage(Justification = "Get/Set")]
+[DataContract]
+public partial class ComponentOfferingAssociationExpandable
 {
     /// <summary>
-    /// 
+    /// Gets or Sets Result
     /// </summary>
-    [DataContract]
-    public partial class ComponentOfferingAssociationExpandable
-    {
-        /// <summary>
-        /// Gets or Sets Result
-        /// </summary>
+    [JsonProperty(PropertyName = "result")]
+    public object Result { get; set; } = default!;
 
-        [JsonProperty(PropertyName = "result")]
-        public Object Result { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Person
-        /// </summary>
-
-        [JsonProperty(PropertyName = "person")]
-        public ProgramOfferingAssociationExpandablePerson Person { get; set; }
-    }
-
+    /// <summary>
+    /// Gets or Sets Person
+    /// </summary>
+    [JsonProperty(PropertyName = "person")]
+    public ProgramOfferingAssociationExpandablePerson Person { get; set; } = default!;
 }

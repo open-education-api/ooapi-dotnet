@@ -3,42 +3,38 @@ using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
-namespace ooapi.v5.Models
+namespace ooapi.v5.Models;
+
+[DataContract]
+public class ModelBase
 {
-    [DataContract]
-    public class ModelBase
+    [JsonIgnore]
+    public string? Extension { get; set; }
+
+    [JsonProperty(PropertyName = "ext")]
+    [NotMapped]
+    public dynamic? Ext
     {
-
-        [JsonIgnore]
-        public string? Extension { get; set; }
-
-
-        [JsonProperty(PropertyName = "ext")]
-        [NotMapped]
-        /// <summary>
-        /// Object for additional non-standard attributes
-        /// </summary>
-        public dynamic? Ext
+        get
         {
-            get
+            if (string.IsNullOrEmpty(Extension))
             {
-                if (string.IsNullOrEmpty(Extension))
-                    return null;
-                try
-                {
-                    return JsonConvert.DeserializeObject<JObject>(Extension);
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
+                return null;
             }
-            set
+
+            try
             {
-                Extension = value.ToString();
+                return JsonConvert.DeserializeObject<JObject>(Extension);
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
-
+        set
+        {
+            Extension = value?.ToString();
+        }
     }
 }
 

@@ -1,24 +1,22 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace ooapi.v5.Models
+namespace ooapi.v5.Models;
+
+[ExcludeFromCodeCoverage]
+public class Persons : Pagination<Person>
 {
     /// <summary>
-    /// 
+    /// Array of objects (Person) 
     /// </summary>
-    public class Persons : Pagination<Person>
+    /// <value>Array of objects (Person) </value>
+    [JsonRequired]
+    [JsonProperty(PropertyName = "items")]
+    public override List<Person> Items
     {
-        /// <summary>
-        /// Array of objects (Person) 
-        /// </summary>
-        /// <value>Array of objects (Person) </value>
-        [JsonRequired]
-        [JsonProperty(PropertyName = "items")]
-        public override List<Person> Items
+        get
         {
-            get
-            {
-                return _items;
-            }
+            return _items;
         }
     }
 }

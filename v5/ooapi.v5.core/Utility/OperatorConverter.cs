@@ -4,81 +4,58 @@ public static class OperatorConverter
 {
     internal static Operator ToLogicalOperator(this string input)
     {
-        switch (input.ToLower())
+        return input.ToLower() switch
         {
-            case "and":
-                return Operator.And;
-            case "or":
-                return Operator.Or;
-            default:
-                return Operator.None;
-        }
+            "and" => Operator.And,
+            "or" => Operator.Or,
+            _ => Operator.None,
+        };
     }
+
     internal static string ToExpressionLogicaOperator(this Operator @operator)
     {
-        switch (@operator)
+        return @operator switch
         {
-            case Operator.And:
-                return "and";
-            case Operator.Or:
-                return "or";
-            default:
-                return "";
-        }
+            Operator.And => "and",
+            Operator.Or => "or",
+            _ => "",
+        };
     }
+
     internal static Operator ToValueOperator(this string input)
     {
-        switch (input.ToLower())
+        return input.ToLower() switch
         {
-            case "eq":
-                return Operator.EqualTo;
-            case "ne":
-                return Operator.NotEqualTo;
-            case "gt":
-                return Operator.GreaterThan;
-            case "ge":
-                return Operator.GreaterThanOrEqualTo;
-            case "lt":
-                return Operator.LessThan;
-            case "le":
-                return Operator.LessThanOrEqualTo;
-            case "startswith":
-                return Operator.StartsWith;
-            case "endswith":
-                return Operator.EndsWith;
-            case "contains":
-                return Operator.Contains;
-            default:
-                return Operator.None;
-        }
+            "eq" => Operator.EqualTo,
+            "ne" => Operator.NotEqualTo,
+            "gt" => Operator.GreaterThan,
+            "ge" => Operator.GreaterThanOrEqualTo,
+            "lt" => Operator.LessThan,
+            "le" => Operator.LessThanOrEqualTo,
+            "startswith" => Operator.StartsWith,
+            "endswith" => Operator.EndsWith,
+            "contains" => Operator.Contains,
+            _ => Operator.None,
+        };
     }
 
     internal static string ToExpressionValueOperator(this Operator @operator)
     {
-        switch (@operator)
+        return @operator switch
         {
-            case Operator.EqualTo:
-                return "eq";
-            case Operator.NotEqualTo:
-                return "ne";
-            case Operator.GreaterThan:
-                return "gt";
-            case Operator.GreaterThanOrEqualTo:
-                return "ge";
-            case Operator.LessThan:
-                return "lt";
-            case Operator.LessThanOrEqualTo:
-                return "le";
-            case Operator.StartsWith:
-                return "startswith";
-            case Operator.EndsWith:
-                return "endswith";
-            case Operator.Contains:
-                return "contains";
-            default:
-                return "";
-        }
+            Operator.EqualTo => "eq",
+            Operator.NotEqualTo => "ne",
+            Operator.GreaterThan => "gt",
+            Operator.GreaterThanOrEqualTo => "ge",
+            Operator.LessThan => "lt",
+            Operator.LessThanOrEqualTo => "le",
+            Operator.StartsWith => "startswith",
+            Operator.EndsWith => "endswith",
+            Operator.Contains => "contains",
+            _ => "",
+        };
     }
+
     internal const string ValueOperatorPattern = @"(\beq\b)|(\bne\b)|(\bgt\b)|(\bge\b)|(\blt\b)|(\ble\b)|(\bendsWith\b)|(\bstartsWith\b)|(\bcontains\b)|(\bexists\b)";
     internal const string LogicalOperatorPattern = @"(\band\b)|(\bor\b)";
 }

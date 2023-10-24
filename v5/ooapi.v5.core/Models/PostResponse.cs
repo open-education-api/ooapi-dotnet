@@ -2,47 +2,43 @@ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
-namespace ooapi.v5.Models
+namespace ooapi.v5.Models;
+
+/// <summary>
+/// A system message as a response to a POST message
+/// </summary>
+[DataContract]
+public partial class PostResponse
 {
     /// <summary>
-    /// A system message as a response to a POST message
+    /// information displayed to user
     /// </summary>
-    [DataContract]
-    public partial class PostResponse
+    /// <value>information displayed to user</value>
+    [JsonRequired]
+    [JsonProperty(PropertyName = "message")]
+    [NotMapped]
+    public List<LanguageTypedString> message
     {
-        /// <summary>
-        /// information displayed to user
-        /// </summary>
-        /// <value>information displayed to user</value>
-        [JsonRequired]
-
-        [JsonProperty(PropertyName = "message")]
-        [NotMapped]
-        public List<LanguageTypedString> message
+        get
         {
-            get
+            return Helpers.LanguageTypedStringJsonConverter.GetLanguageTypesStringList(Message);
+        }
+        set
+        {
+            if (value != null)
             {
-                return Helpers.LanguageTypedStringJsonConverter.GetLanguageTypesStringList(Message);
-            }
-            set
-            {
-                if (value != null)
-                    Message = JsonConvert.SerializeObject(value);
+                Message = JsonConvert.SerializeObject(value);
             }
         }
-
-        [JsonIgnore]
-        public string Message { get; set; }
-
-
-        /// <summary>
-        /// URL where additional information can be found e.g. by use of deeplink
-        /// </summary>
-        /// <value>URL where additional information can be found e.g. by use of deeplink</value>
-
-        [JsonProperty(PropertyName = "redirect")]
-        public string Redirect { get; set; }
-
-
     }
+
+    [JsonIgnore]
+    public string Message { get; set; } = default!;
+
+    /// <summary>
+    /// URL where additional information can be found e.g. by use of deeplink
+    /// </summary>
+    /// <value>URL where additional information can be found e.g. by use of deeplink</value>
+    [JsonProperty(PropertyName = "redirect")]
+    public string Redirect { get; set; } = default!;
 }
