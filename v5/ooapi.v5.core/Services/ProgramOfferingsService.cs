@@ -16,9 +16,9 @@ internal class ProgramOfferingsService : ServiceBase, IProgramOfferingService
         _repository = repository;
     }
 
-    public Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<ProgramOffering>> GetAll(DataRequestParameters dataRequestParameters)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters);
     }
 
     public ProgramOffering? Get(Guid programOfferingId)

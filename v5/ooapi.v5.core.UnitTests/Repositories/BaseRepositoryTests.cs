@@ -23,7 +23,7 @@ public class BaseRepositoryTests
         }.AsQueryable();
 
         // Act
-        var result = repository.GetAllOrderedBy(dataRequestParameters, set);
+        var result = repository.GetAllOrderedByAsync(dataRequestParameters, set);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
@@ -44,7 +44,7 @@ public class BaseRepositoryTests
         var repository = GetRepository<Foo>();
 
         // Act
-        var result = repository.GetAllOrderedBy(dataRequestParameters, set);
+        var result = repository.GetAllOrderedByAsync(dataRequestParameters, set);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
@@ -64,7 +64,7 @@ public class BaseRepositoryTests
         var repository = GetRepository<Foo>();
 
         // Act
-        var result = repository.GetAllOrderedBy(dataRequestParameters, set);
+        var result = repository.GetAllOrderedByAsync(dataRequestParameters, set);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
@@ -84,7 +84,7 @@ public class BaseRepositoryTests
         var repository = GetRepository<Foo>(dbContextSet);
 
         // Act
-        var result = repository.GetAllOrderedBy(dataRequestParameters);
+        var result = repository.GetAllOrderedByAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Foo>>());

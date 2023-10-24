@@ -7,5 +7,5 @@ public interface IPersonsRepository
 {
     Person? GetPerson(Guid personId);
     List<Person> GetPersonsByGroupId(Guid groupId);
-    Pagination<Person> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<Person>? set = null);
+    Task<Pagination<Person>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Person>? set = null, CancellationToken cancellationToken = default);
 }

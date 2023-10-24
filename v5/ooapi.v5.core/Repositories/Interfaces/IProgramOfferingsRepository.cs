@@ -6,6 +6,6 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 public interface IProgramOfferingsRepository
 {
     ProgramOffering? GetProgramOffering(Guid programOfferingId);
-    Pagination<ProgramOffering> GetProgramOfferingByProgramId(Guid programId, DataRequestParameters dataRequestParameters);
-    Pagination<ProgramOffering> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<ProgramOffering>? set = null);
+    Task<Pagination<ProgramOffering>> GetProgramOfferingByProgramIdAsync(Guid programId, DataRequestParameters dataRequestParameters);
+    Task<Pagination<ProgramOffering>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<ProgramOffering>? set = null, CancellationToken cancellationToken = default);
 }

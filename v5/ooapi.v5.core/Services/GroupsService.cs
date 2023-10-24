@@ -16,9 +16,9 @@ internal class GroupsService : ServiceBase, IGroupsService
         _repository = repository;
     }
 
-    public Pagination<Group> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Group>> GetAll(DataRequestParameters dataRequestParameters)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters);
     }
 
     public Group? Get(Guid groupId)

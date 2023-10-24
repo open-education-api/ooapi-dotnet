@@ -28,10 +28,10 @@ public class AcademicSessionsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        academicSessionsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), academicSessionType).Returns(response);
+        academicSessionsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), academicSessionType).Returns(response);
 
         //act
-        var result = sut.AcademicSessionsGet(primaryCodeParam, filterParams, pagingParams, academicSessionType, parent, year, sort) as OkObjectResult;
+        var result = sut.AcademicSessionsGetAsync(primaryCodeParam, filterParams, pagingParams, academicSessionType, parent, year, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -62,10 +62,10 @@ public class AcademicSessionsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        academicSessionsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), academicSessionType).Returns(response);
+        academicSessionsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), academicSessionType).Returns(response);
 
         //act
-        var result = sut.AcademicSessionsGet(primaryCodeParam, filterParams, pagingParams, academicSessionType, parent, year, sort) as OkObjectResult;
+        var result = sut.AcademicSessionsGetAsync(primaryCodeParam, filterParams, pagingParams, academicSessionType, parent, year, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -93,10 +93,10 @@ public class AcademicSessionsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        academicSessionsService.Get(academicSessionId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        academicSessionsService.GetAsync(academicSessionId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.AcademicSessionsAcademicSessionIdGet(academicSessionId, expand) as OkObjectResult;
+        var result = sut.AcademicSessionsAcademicSessionIdGetAsync(academicSessionId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

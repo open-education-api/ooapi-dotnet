@@ -6,5 +6,5 @@ namespace ooapi.v5.core.Services.Interfaces;
 public interface IProgramOfferingService
 {
     ProgramOffering? Get(Guid programOfferingId);
-    Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters);
+    Task<Pagination<ProgramOffering>> GetAll(DataRequestParameters dataRequestParameters);
 }

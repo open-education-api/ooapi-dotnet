@@ -11,7 +11,7 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
     {
     }
 
-    public Pagination<EducationSpecification> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<EducationSpecification>> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
         IQueryable<EducationSpecification> set = dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes);
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
@@ -19,7 +19,7 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set);
     }
 
     public EducationSpecification GetEducationSpecification(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)

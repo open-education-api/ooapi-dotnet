@@ -16,7 +16,7 @@ public class ProgramOfferingsRepository : BaseRepository<ProgramOffering>, IProg
         return dbContext.ProgramOfferings.Include(x => x.Attributes).FirstOrDefault(x => x.OfferingId.Equals(programOfferingId));
     }
 
-    public Pagination<ProgramOffering> GetProgramOfferingByProgramId(Guid programId, DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<ProgramOffering>> GetProgramOfferingByProgramIdAsync(Guid programId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<ProgramOffering> set = dbContext.ProgramOfferingsNoTracking.Where(o => o.ProgramId.Equals(programId)).Include(x => x.Attributes);
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
@@ -24,6 +24,6 @@ public class ProgramOfferingsRepository : BaseRepository<ProgramOffering>, IProg
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set);
     }
 }

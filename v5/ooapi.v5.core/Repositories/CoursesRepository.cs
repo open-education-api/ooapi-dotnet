@@ -17,7 +17,7 @@ public class CoursesRepository : BaseRepository<Course>, ICoursesRepository
     }
 
 
-    public Pagination<Course> GetCoursesByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Course>> GetCoursesByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<Course> set = dbContext.CoursesNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
@@ -26,7 +26,7 @@ public class CoursesRepository : BaseRepository<Course>, ICoursesRepository
             
         }
 
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set);
     }
 
     public List<Course> GetCoursesByOrganizationId(Guid organizationId)

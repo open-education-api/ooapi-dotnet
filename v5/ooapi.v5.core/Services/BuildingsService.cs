@@ -15,9 +15,9 @@ internal class BuildingsService : ServiceBase, IBuildingsService
         _repository = repository;
     }
 
-    public Pagination<Building> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Building>> GetAll(DataRequestParameters dataRequestParameters)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedBy(dataRequestParameters);
     }
 
     public Building? Get(Guid buildingId)

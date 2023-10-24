@@ -7,5 +7,5 @@ public interface IAssociationsRepository
 {
     Association? GetAssociation(Guid associationId);
     List<Association> GetAssociationsByPersonId(Guid personId);
-    Pagination<Association> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<Association>? set = null);
+    Task<Pagination<Association>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Association>? set = null, CancellationToken cancellationToken = default);
 }

@@ -6,6 +6,6 @@ namespace ooapi.v5.core.Services.Interfaces;
 public interface IRoomsService
 {
     Room? Get(Guid roomId);
-    Pagination<Room> GetAll(DataRequestParameters dataRequestParameters);
+    Task<Pagination<Room>> GetAll(DataRequestParameters dataRequestParameters);
     Pagination<Room> GetRoomsByBuildingId(DataRequestParameters dataRequestParameters, Guid buildingId);
 }

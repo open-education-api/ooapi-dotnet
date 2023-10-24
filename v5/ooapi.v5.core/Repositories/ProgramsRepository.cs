@@ -11,7 +11,7 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
     {
     }
 
-    public Pagination<Program> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Program>> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
         IQueryable<Program> set = dbContext.ProgramsNoTracking.Include(x => x.Attributes);
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
@@ -19,7 +19,7 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set);
     }
 
     public Program? GetProgram(Guid programId, DataRequestParameters dataRequestParameters)
@@ -79,7 +79,7 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
         return result;
     }
 
-    public Pagination<Program> GetProgramsByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Program>> GetProgramsByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
     {
         IQueryable<Program> set = dbContext.ProgramsNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
 
@@ -88,7 +88,7 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set);
     }
 
     public List<Program> GetProgramsByOrganizationId(Guid organizationId)

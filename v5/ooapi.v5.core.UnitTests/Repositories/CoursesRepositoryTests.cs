@@ -104,7 +104,7 @@ public class CoursesRepositoryTests
         var coursesRepository = new CoursesRepository(dbContext);
 
         // Act
-        var result = coursesRepository.GetCoursesByEducationSpecificationId(educationSpecificationId, new DataRequestParameters());
+        var result = coursesRepository.GetCoursesByEducationSpecificationIdAsync(educationSpecificationId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Course>>());
@@ -138,7 +138,7 @@ public class CoursesRepositoryTests
         var coursesRepository = new CoursesRepository(dbContext);
 
         // Act
-        var result = coursesRepository.GetCoursesByEducationSpecificationId(_fixture.Create<Guid>(), new DataRequestParameters());
+        var result = coursesRepository.GetCoursesByEducationSpecificationIdAsync(_fixture.Create<Guid>(), new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Course>>());

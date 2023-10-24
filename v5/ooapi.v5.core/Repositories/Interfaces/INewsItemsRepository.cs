@@ -7,5 +7,5 @@ public interface INewsItemsRepository
 {
     NewsItem? GetNewsItem(Guid newsitemId);
     List<NewsItem> GetNewsItemsByNewsFeedId(Guid newsfeedId);
-    Pagination<NewsItem> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<NewsItem>? set = null);
+    Task<Pagination<NewsItem>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<NewsItem>? set = null, CancellationToken cancellationToken = default);
 }

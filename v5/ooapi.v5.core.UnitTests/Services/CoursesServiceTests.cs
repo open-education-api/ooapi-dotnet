@@ -24,14 +24,14 @@ public class CoursesServiceTests
         var dataRequestParameters = new DataRequestParameters();
 
         var expected = new Pagination<Course>();
-        repository.GetAllOrderedBy(dataRequestParameters).Returns(expected);
+        repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
         var result = sut.GetAll(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedBy(dataRequestParameters);
+        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]
@@ -68,14 +68,14 @@ public class CoursesServiceTests
         var educationSpecificationId = _fixture.Create<Guid>();
 
         var expected = new Pagination<Course>();
-        repository.GetCoursesByEducationSpecificationId(educationSpecificationId, dataRequestParameters).Returns(expected);
+        repository.GetCoursesByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = sut.GetCoursesByEducationSpecificationId(dataRequestParameters, educationSpecificationId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetCoursesByEducationSpecificationId(educationSpecificationId, dataRequestParameters);
+        repository.Received(1).GetCoursesByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters);
     }
 
     [Test]

@@ -16,9 +16,9 @@ internal class OrganizationsService : ServiceBase, IOrganizationsService
         _repository = repository;
     }
 
-    public Pagination<Organization> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Organization>> GetAll(DataRequestParameters dataRequestParameters)
     {
-        Pagination<Organization> result = _repository.GetAllOrderedBy(dataRequestParameters);
+        var result = await _repository.GetAllOrderedBy(dataRequestParameters);
         foreach (var item in result.Items)
         {
             SetAddresses(item);

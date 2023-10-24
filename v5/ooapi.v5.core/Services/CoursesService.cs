@@ -16,9 +16,9 @@ internal class CoursesService : ServiceBase, ICoursesService
         _repository = repository;
     }
 
-    public Pagination<Course> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Course>> GetAll(DataRequestParameters dataRequestParameters)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters);
     }
 
     public Course? Get(Guid courseId)
@@ -26,9 +26,9 @@ internal class CoursesService : ServiceBase, ICoursesService
         return _repository.GetCourse(courseId);
     }
 
-    public Pagination<Course> GetCoursesByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId)
+    public async Task<Pagination<Course>> GetCoursesByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId)
     {
-        return _repository.GetCoursesByEducationSpecificationId(educationSpecificationId, dataRequestParameters);
+        return await _repository.GetCoursesByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters);
     }
 
     public Pagination<Course> GetCoursesByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId)

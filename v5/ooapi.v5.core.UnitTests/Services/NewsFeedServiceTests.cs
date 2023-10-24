@@ -24,14 +24,14 @@ public class NewsFeedsServiceTests
         var dataRequestParameters = new DataRequestParameters();
 
         var expected = new Pagination<NewsFeed>();
-        repository.GetAllOrderedBy(dataRequestParameters).Returns(expected);
+        repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
         var result = sut.GetAll(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedBy(dataRequestParameters);
+        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]

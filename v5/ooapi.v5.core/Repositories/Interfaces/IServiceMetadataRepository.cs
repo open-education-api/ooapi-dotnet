@@ -6,5 +6,5 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 public interface IServiceMetadataRepository
 {
     Service GetServiceMetadata();
-    Pagination<Service> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<Service>? set = null);
+    Task<Pagination<Service>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Service>? set = null, CancellationToken cancellationToken = default);
 }

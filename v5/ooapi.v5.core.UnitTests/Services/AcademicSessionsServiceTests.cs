@@ -25,14 +25,14 @@ public class AcademicSessionsServiceTests
         string? academicSessionType = null;
 
         var expected = new Pagination<AcademicSession>();
-        repository.GetAllOrderedBy(dataRequestParameters, academicSessionType).Returns(expected);
+        repository.GetAllOrderedByAsync(dataRequestParameters, academicSessionType).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters, academicSessionType);
+        var result = sut.GetAllAsync(dataRequestParameters, academicSessionType);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedBy(dataRequestParameters, academicSessionType);
+        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters, academicSessionType);
     }
 
     [Test]
@@ -47,14 +47,14 @@ public class AcademicSessionsServiceTests
         var academicSessionType = _fixture.Create<string>();
 
         var expected = new Pagination<AcademicSession>();
-        repository.GetAllOrderedBy(dataRequestParameters, academicSessionType).Returns(expected);
+        repository.GetAllOrderedByAsync(dataRequestParameters, academicSessionType).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters, academicSessionType);
+        var result = sut.GetAllAsync(dataRequestParameters, academicSessionType);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedBy(dataRequestParameters, academicSessionType);
+        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters, academicSessionType);
     }
 
     [Test]
@@ -72,7 +72,7 @@ public class AcademicSessionsServiceTests
         repository.GetAcademicSession(academicSessionId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.Get(academicSessionId, dataRequestParameters);
+        var result = sut.GetAsync(academicSessionId, dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));

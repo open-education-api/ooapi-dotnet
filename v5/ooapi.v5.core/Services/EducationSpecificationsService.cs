@@ -16,9 +16,9 @@ internal class EducationSpecificationsService : ServiceBase, IEducationSpecifica
         _repository = repository;
     }
 
-    public Pagination<EducationSpecification> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<EducationSpecification>> GetAll(DataRequestParameters dataRequestParameters)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedBy(dataRequestParameters);
     }
 
     public EducationSpecification? Get(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)

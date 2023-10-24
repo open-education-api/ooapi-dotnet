@@ -7,5 +7,5 @@ public interface IRoomsRepository
 {
     Room? GetRoom(Guid roomId);
     List<Room> GetRoomsByBuildingId(Guid buildingId);
-    Pagination<Room> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<Room>? set = null);
+    Task<Pagination<Room>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Room>? set = null, CancellationToken cancellationToken = default);
 }

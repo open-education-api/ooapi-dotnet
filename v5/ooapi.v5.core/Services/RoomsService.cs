@@ -16,9 +16,9 @@ internal class RoomsService : ServiceBase, IRoomsService
         _repository = repository;
     }
 
-    public Pagination<Room> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Room>> GetAll(DataRequestParameters dataRequestParameters)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters);
     }
 
     public Room? Get(Guid roomId)

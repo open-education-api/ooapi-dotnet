@@ -15,9 +15,9 @@ internal class PersonsService : ServiceBase, IPersonsService
         _repository = repository;
     }
 
-    public Pagination<Person> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Person>> GetAll(DataRequestParameters dataRequestParameters)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters);
     }
 
     public Person? Get(Guid personId)

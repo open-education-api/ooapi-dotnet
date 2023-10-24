@@ -136,7 +136,7 @@ public class AcademicSessionsRepositoryTests
         var academicSessionsRepository = new AcademicSessionsRepository(dbContext);
 
         // Act
-        var result = academicSessionsRepository.GetAllOrderedBy(new DataRequestParameters(), academicSessionType.ToString());
+        var result = academicSessionsRepository.GetAllOrderedByAsync(new DataRequestParameters(), academicSessionType.ToString());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<AcademicSession>>());

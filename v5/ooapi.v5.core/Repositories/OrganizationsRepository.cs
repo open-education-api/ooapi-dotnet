@@ -37,7 +37,7 @@ public class OrganizationsRepository : BaseRepository<Organization>, IOrganizati
         return result;
     }
 
-    public Pagination<Organization> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Organization>> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
         IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes);
 
@@ -46,6 +46,6 @@ public class OrganizationsRepository : BaseRepository<Organization>, IOrganizati
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set);
     }
 }

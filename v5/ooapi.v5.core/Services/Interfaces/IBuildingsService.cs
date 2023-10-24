@@ -6,5 +6,5 @@ namespace ooapi.v5.core.Services.Interfaces;
 public interface IBuildingsService
 {
     Building? Get(Guid buildingId);
-    Pagination<Building> GetAll(DataRequestParameters dataRequestParameters);
+    Task<Pagination<Building>> GetAll(DataRequestParameters dataRequestParameters);
 }

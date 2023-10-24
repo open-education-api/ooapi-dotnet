@@ -5,8 +5,8 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 
 public interface IAcademicSessionsRepository
 {
-    AcademicSession? GetAcademicSession(Guid academicSessionId, DataRequestParameters dataRequestParameters);
-    AcademicSession? GetAcademicSession(string primaryCode, DataRequestParameters dataRequestParameters);
-    Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, string? academicSessionType = null);
-    Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<AcademicSession>? set = null);
+    Task<AcademicSession?> GetAcademicSessionAsync(Guid academicSessionId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken);
+    Task<AcademicSession?> GetAcademicSessionAsync(string primaryCode, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken);
+    Task<Pagination<AcademicSession>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, string? academicSessionType = null, CancellationToken cancellationToken = default);
+    Task<Pagination<AcademicSession>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<AcademicSession>? set = null, CancellationToken cancellationToken = default);
 }

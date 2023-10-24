@@ -88,7 +88,7 @@ public class ComponentOfferingsRepositoryTests
         var componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
 
         // Act
-        var result = componentOfferingsRepository.GetComponentOfferingByComponentId(componentId, new DataRequestParameters());
+        var result = componentOfferingsRepository.GetComponentOfferingByComponentIdAsync(componentId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ComponentOffering>>());
@@ -110,7 +110,7 @@ public class ComponentOfferingsRepositoryTests
         var componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
 
         // Act
-        var result = componentOfferingsRepository.GetComponentOfferingByComponentId(componentId, new DataRequestParameters());
+        var result = componentOfferingsRepository.GetComponentOfferingByComponentIdAsync(componentId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ComponentOffering>>());

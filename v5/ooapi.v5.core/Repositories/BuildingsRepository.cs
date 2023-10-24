@@ -19,9 +19,9 @@ public class BuildingsRepository : BaseRepository<Building>, IBuildingsRepositor
 
 
 
-    public Pagination<Building> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Building>> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
     {
         IQueryable<Building> set = dbContext.Set<Building>().Include(x => x.Address).Include(x => x.Attributes).AsQueryable();
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set);
     }
 }

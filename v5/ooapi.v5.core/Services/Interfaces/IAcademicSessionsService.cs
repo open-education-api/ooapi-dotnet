@@ -5,6 +5,6 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IAcademicSessionsService
 {
-    AcademicSession? Get(Guid academicSessionId, DataRequestParameters dataRequestParameters);
-    Pagination<AcademicSession> GetAll(DataRequestParameters dataRequestParameters, string? academicSessionType);
+    Task<AcademicSession?> GetAsync(Guid academicSessionId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken);
+    Task<Pagination<AcademicSession>> GetAllAsync(DataRequestParameters dataRequestParameters, string? academicSessionType, CancellationToken cancellationToken);
 }

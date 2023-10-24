@@ -16,9 +16,9 @@ internal class ProgramsService : ServiceBase, IProgramsService
         _repository = repository;
     }
 
-    public Pagination<Program> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Program>> GetAll(DataRequestParameters dataRequestParameters)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedBy(dataRequestParameters);
     }
 
     public Program? Get(Guid programId, DataRequestParameters dataRequestParameters)
@@ -26,9 +26,9 @@ internal class ProgramsService : ServiceBase, IProgramsService
         return _repository.GetProgram(programId, dataRequestParameters);
     }
 
-    public Pagination<Program> GetProgramsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId)
+    public async Task<Pagination<Program>> GetProgramsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId)
     {
-        return _repository.GetProgramsByEducationSpecificationId(educationSpecificationId, dataRequestParameters);
+        return await _repository.GetProgramsByEducationSpecificationId(educationSpecificationId, dataRequestParameters);
     }
 
     public Pagination<Program> GetProgramsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId)

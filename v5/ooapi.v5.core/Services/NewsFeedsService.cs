@@ -16,9 +16,9 @@ internal class NewsFeedsService : ServiceBase, INewsFeedsService
         _repository = repository;
     }
 
-    public Pagination<NewsFeed> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<NewsFeed>> GetAll(DataRequestParameters dataRequestParameters)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters);
     }
 
     public NewsFeed? Get(Guid newsfeedId)

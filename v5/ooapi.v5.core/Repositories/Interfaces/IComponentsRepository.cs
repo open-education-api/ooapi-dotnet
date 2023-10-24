@@ -8,5 +8,5 @@ public interface IComponentsRepository
     Component? GetComponent(Guid componentId);
     List<Component> GetComponentsByCourseId(Guid courseId);
     List<Component> GetComponentsByOrganizationId(Guid organizationId);
-    Pagination<Component> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<Component>? set = null);
+    Task<Pagination<Component>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Component>? set = null, CancellationToken cancellationToken = default);
 }

@@ -6,7 +6,7 @@ namespace ooapi.v5.core.Services.Interfaces;
 public interface IGroupsService
 {
     Group? Get(Guid groupId);
-    Pagination<Group> GetAll(DataRequestParameters dataRequestParameters);
+    Task<Pagination<Group>> GetAll(DataRequestParameters dataRequestParameters);
     Pagination<Group> GetGroupsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId);
     Pagination<Group> GetGroupsByPersonId(DataRequestParameters dataRequestParameters, Guid personId);
 }

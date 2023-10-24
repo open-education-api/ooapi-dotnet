@@ -6,8 +6,8 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 public interface ICoursesRepository
 {
     Course? GetCourse(Guid courseId);
-    Pagination<Course> GetCoursesByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters);
+    Task<Pagination<Course>> GetCoursesByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters);
     List<Course> GetCoursesByOrganizationId(Guid organizationId);
     List<Course> GetCoursesByProgramId(Guid programId);
-    Pagination<Course> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<Course>? set = null);
+    Task<Pagination<Course>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Course>? set = null, CancellationToken cancellationToken = default);
 }

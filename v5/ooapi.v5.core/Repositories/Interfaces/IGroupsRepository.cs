@@ -8,5 +8,7 @@ public interface IGroupsRepository
     Group? GetGroup(Guid groupId);
     List<Group> GetGroupsByOrganizationId(Guid organizationId);
     List<Group> GetGroupsByPersonId(Guid personId);
-    Pagination<Group> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<Group>? set = null);
+
+    Task<Pagination<Group>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Group>? set = null,
+        CancellationToken cancellationToken = default);
 }
