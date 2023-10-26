@@ -8,17 +8,17 @@ namespace ooapi.v5.UnitTests.Controllers;
 public class ServiceMetadataControllerTests
 {
     [Test]
-    public void RootGet_Success_ReturnsService()
+    public async Task RootGet_Success_ReturnsService()
     {
         //arrange
         var sut = CreateSut(out var serviceMetadataService);
 
         var response = new Service();
 
-        serviceMetadataService.GetAsync().Returns(response);
+        serviceMetadataService.GetAsync(Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.RootGetAsync() as OkObjectResult;
+        var result = await sut.RootGetAsync() as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

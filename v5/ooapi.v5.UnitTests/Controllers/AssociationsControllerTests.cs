@@ -10,7 +10,7 @@ public class AssociationsControllerTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void AssociationsAssociationIdGet_Success_ReturnsAssociation()
+    public async Task AssociationsAssociationIdGet_Success_ReturnsAssociation()
     {
         //arrange
         var sut = CreateSut(out var associationsService);
@@ -19,10 +19,10 @@ public class AssociationsControllerTests
 
         var response = new Association();
 
-        associationsService.Get(associationId).Returns(response);
+        associationsService.GetAsync(associationId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.AssociationsAssociationIdGetAsync(associationId, expand) as OkObjectResult;
+        var result = await sut.AssociationsAssociationIdGetAsync(associationId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

@@ -12,7 +12,7 @@ public class AcademicSessionsControllerTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void AcademicSessionsGet_ByPrimaryCode_ReturnsAcademicSessions()
+    public async Task AcademicSessionsGet_ByPrimaryCode_ReturnsAcademicSessions()
     {
         //arrange
         var sut = CreateSut(out var academicSessionsService);
@@ -28,10 +28,10 @@ public class AcademicSessionsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        academicSessionsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), academicSessionType).Returns(response);
+        academicSessionsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), academicSessionType, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.AcademicSessionsGetAsync(primaryCodeParam, filterParams, pagingParams, academicSessionType, parent, year, sort) as OkObjectResult;
+        var result = await sut.AcademicSessionsGetAsync(primaryCodeParam, filterParams, pagingParams, academicSessionType, parent, year, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -46,7 +46,7 @@ public class AcademicSessionsControllerTests
     }
 
     [Test]
-    public void AcademicSessionsGet_ByFilterParams_ReturnsAcademicSessions()
+    public async Task AcademicSessionsGet_ByFilterParams_ReturnsAcademicSessions()
     {
         //arrange
         var sut = CreateSut(out var academicSessionsService);
@@ -62,10 +62,10 @@ public class AcademicSessionsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        academicSessionsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), academicSessionType).Returns(response);
+        academicSessionsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), academicSessionType, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.AcademicSessionsGetAsync(primaryCodeParam, filterParams, pagingParams, academicSessionType, parent, year, sort) as OkObjectResult;
+        var result = await sut.AcademicSessionsGetAsync(primaryCodeParam, filterParams, pagingParams, academicSessionType, parent, year, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -82,7 +82,7 @@ public class AcademicSessionsControllerTests
     }
 
     [Test]
-    public void AcademicSessionsAcademicSessionIdGet_Success_ReturnsAcademicSession()
+    public async Task AcademicSessionsAcademicSessionIdGet_Success_ReturnsAcademicSession()
     {
         //arrange
         var sut = CreateSut(out var academicSessionsService);
@@ -93,10 +93,10 @@ public class AcademicSessionsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        academicSessionsService.GetAsync(academicSessionId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        academicSessionsService.GetAsync(academicSessionId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.AcademicSessionsAcademicSessionIdGetAsync(academicSessionId, expand) as OkObjectResult;
+        var result = await sut.AcademicSessionsAcademicSessionIdGetAsync(academicSessionId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

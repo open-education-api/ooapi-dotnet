@@ -12,7 +12,7 @@ public class PersonsControllerTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void PersonsGet_ByPrimaryCode_ReturnsPersons()
+    public async Task PersonsGet_ByPrimaryCode_ReturnsPersons()
     {
         //arrange
         var sut = CreateSut(out var personsService, out var _, out var _);
@@ -26,10 +26,10 @@ public class PersonsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        personsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        personsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.PersonsGetAsync(primaryCodeParam, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
+        var result = await sut.PersonsGetAsync(primaryCodeParam, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -44,7 +44,7 @@ public class PersonsControllerTests
     }
 
     [Test]
-    public void PersonsGet_ByFilterParams_ReturnsPersons()
+    public async Task PersonsGet_ByFilterParams_ReturnsPersons()
     {
         //arrange
         var sut = CreateSut(out var personsService, out var _, out var _);
@@ -58,10 +58,10 @@ public class PersonsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        personsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        personsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.PersonsGetAsync(primaryCodeParam, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
+        var result = await sut.PersonsGetAsync(primaryCodeParam, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -78,7 +78,7 @@ public class PersonsControllerTests
     }
 
     [Test]
-    public void PersonsPersonIdAssociationsGet_Success_ReturnsAssociations()
+    public async Task PersonsPersonIdAssociationsGet_Success_ReturnsAssociations()
     {
         //arrange
         var sut = CreateSut(out var _, out var associationsService, out var _);
@@ -95,10 +95,10 @@ public class PersonsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        associationsService.GetAssociationsByPersonId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), personId).Returns(response);
+        associationsService.GetAssociationsByPersonIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), personId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.PersonsPersonIdAssociationsGetAsync(personId, filterParams, pagingParams, associationType, role, state, resultState, sort) as OkObjectResult;
+        var result = await sut.PersonsPersonIdAssociationsGetAsync(personId, filterParams, pagingParams, associationType, role, state, resultState, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -115,7 +115,7 @@ public class PersonsControllerTests
     }
 
     [Test]
-    public void PersonsPersonIdGet_Success_ReturnsPerson()
+    public async Task PersonsPersonIdGet_Success_ReturnsPerson()
     {
         //arrange
         var sut = CreateSut(out var personsService, out var _, out var _);
@@ -123,10 +123,10 @@ public class PersonsControllerTests
 
         var response = new Person();
 
-        personsService.Get(personId).Returns(response);
+        personsService.GetAsync(personId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.PersonsPersonIdGetAsync(personId) as OkObjectResult;
+        var result = await sut.PersonsPersonIdGetAsync(personId) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -138,7 +138,7 @@ public class PersonsControllerTests
     }
 
     [Test]
-    public void PersonsPersonIdGroupsGet_Success_ReturnsGroups()
+    public async Task PersonsPersonIdGroupsGet_Success_ReturnsGroups()
     {
         //arrange
         var sut = CreateSut(out var _, out var _, out var groupsService);
@@ -152,10 +152,10 @@ public class PersonsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        groupsService.GetGroupsByPersonIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), personId).Returns(response);
+        groupsService.GetGroupsByPersonIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), personId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.PersonsPersonIdGroupsGetAsync(personId, filterParams, pagingParams, groupType, sort) as OkObjectResult;
+        var result = await sut.PersonsPersonIdGroupsGetAsync(personId, filterParams, pagingParams, groupType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

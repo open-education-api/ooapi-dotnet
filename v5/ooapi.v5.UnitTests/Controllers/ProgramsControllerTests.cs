@@ -12,7 +12,7 @@ public class ProgramsControllerTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void ProgramsGet_ByPrimaryCode_ReturnsPrograms()
+    public async Task ProgramsGet_ByPrimaryCode_ReturnsPrograms()
     {
         //arrange
         var sut = CreateSut(out var programsService, out var _, out var _);
@@ -31,10 +31,10 @@ public class ProgramsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        programsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.ProgramsGetAsync(primaryCodeParam, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
+        var result = await sut.ProgramsGetAsync(primaryCodeParam, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -49,7 +49,7 @@ public class ProgramsControllerTests
     }
 
     [Test]
-    public void ProgramsGet_ByFilterParams_ReturnsPrograms()
+    public async Task ProgramsGet_ByFilterParams_ReturnsPrograms()
     {
         //arrange
         var sut = CreateSut(out var programsService, out var _, out var _);
@@ -68,10 +68,10 @@ public class ProgramsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        programsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.ProgramsGetAsync(primaryCodeParam, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
+        var result = await sut.ProgramsGetAsync(primaryCodeParam, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -88,7 +88,7 @@ public class ProgramsControllerTests
     }
 
     [Test]
-    public void ProgramsProgramIdCoursesGet_Success_ReturnsCourses()
+    public async Task ProgramsProgramIdCoursesGet_Success_ReturnsCourses()
     {
         //arrange
         var sut = CreateSut(out var _, out var coursesService, out var _);
@@ -104,10 +104,10 @@ public class ProgramsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        coursesService.GetCoursesByProgramIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), programId).Returns(response);
+        coursesService.GetCoursesByProgramIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), programId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.ProgramsProgramIdCoursesGetAsync(programId, filterParams, pagingParams, teachingLevel, level, modeOfDelivery, sort) as OkObjectResult;
+        var result = await sut.ProgramsProgramIdCoursesGetAsync(programId, filterParams, pagingParams, teachingLevel, level, modeOfDelivery, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -124,7 +124,7 @@ public class ProgramsControllerTests
     }
 
     [Test]
-    public void ProgramsProgramIdGet_Success_ReturnsProgram()
+    public async Task ProgramsProgramIdGet_Success_ReturnsProgram()
     {
         //arrange
         var sut = CreateSut(out var programsService, out var _, out var _);
@@ -136,10 +136,10 @@ public class ProgramsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.GetAsync(programId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        programsService.GetAsync(programId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.ProgramsProgramIdGetAsync(programId, expand, returnTimelineOverrides) as OkObjectResult;
+        var result = await sut.ProgramsProgramIdGetAsync(programId, expand, returnTimelineOverrides) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -151,7 +151,7 @@ public class ProgramsControllerTests
     }
 
     [Test]
-    public void ProgramsProgramIdOfferingsGet_Success_ReturnsProgramOfferings()
+    public async Task ProgramsProgramIdOfferingsGet_Success_ReturnsProgramOfferings()
     {
         //arrange
         var sut = CreateSut(out var _, out var _, out var programOfferingService);
@@ -172,7 +172,7 @@ public class ProgramsControllerTests
         programOfferingService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.ProgramsProgramIdOfferingsGetAsync(programId, filterParams, pagingParams, teachingLanguage, modeOfStudy, resultExpected, since, until, sort) as OkObjectResult;
+        var result = await sut.ProgramsProgramIdOfferingsGetAsync(programId, filterParams, pagingParams, teachingLanguage, modeOfStudy, resultExpected, since, until, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -189,7 +189,7 @@ public class ProgramsControllerTests
     }
 
     [Test]
-    public void ProgramsProgramIdProgramsGet_Success_ReturnsPrograms()
+    public async Task ProgramsProgramIdProgramsGet_Success_ReturnsPrograms()
     {
         //arrange
         var sut = CreateSut(out var programsService, out var _, out var _);
@@ -208,10 +208,10 @@ public class ProgramsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.GetProgramsByProgramIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), programId).Returns(response);
+        programsService.GetProgramsByProgramIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), programId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.ProgramsProgramIdProgramsGetAsync(programId, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
+        var result = await sut.ProgramsProgramIdProgramsGetAsync(programId, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

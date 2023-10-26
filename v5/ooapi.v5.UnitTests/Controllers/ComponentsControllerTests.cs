@@ -10,7 +10,7 @@ public class ComponentsControllerTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void ComponentsComponentIdGet_Success_ReturnsComponent()
+    public async Task ComponentsComponentIdGet_Success_ReturnsComponent()
     {
         //arrange
         var sut = CreateSut(out var associationsService);
@@ -19,10 +19,10 @@ public class ComponentsControllerTests
 
         var response = new Component();
 
-        associationsService.GetAsync(componentId).Returns(response);
+        associationsService.GetAsync(componentId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.ComponentsComponentIdGetAsync(componentId, expand) as OkObjectResult;
+        var result = await sut.ComponentsComponentIdGetAsync(componentId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

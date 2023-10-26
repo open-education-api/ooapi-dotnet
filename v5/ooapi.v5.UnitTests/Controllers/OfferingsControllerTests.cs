@@ -11,7 +11,7 @@ public class OfferingsControllerTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void OfferingsOfferingIdGet_SuccessWithCourseOffering_ReturnsCourseOffering()
+    public async Task OfferingsOfferingIdGet_SuccessWithCourseOffering_ReturnsCourseOffering()
     {
         //arrange
         var sut = CreateSut(out var offeringsService);
@@ -21,10 +21,10 @@ public class OfferingsControllerTests
 
         var response = new OneOfOfferingInstance(offeringId, courseOffering);
 
-        offeringsService.GetAsync(offeringId).Returns(response);
+        offeringsService.GetAsync(offeringId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.OfferingsOfferingIdGetAsync(offeringId, expand) as OkObjectResult;
+        var result = await sut.OfferingsOfferingIdGetAsync(offeringId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -36,7 +36,7 @@ public class OfferingsControllerTests
     }
 
     [Test]
-    public void OfferingsOfferingIdGet_SuccessWithComponentOffering_ReturnsComponentOffering()
+    public async Task OfferingsOfferingIdGet_SuccessWithComponentOffering_ReturnsComponentOffering()
     {
         //arrange
         var sut = CreateSut(out var offeringsService);
@@ -46,10 +46,10 @@ public class OfferingsControllerTests
 
         var response = new OneOfOfferingInstance(offeringId, componentOffering);
 
-        offeringsService.GetAsync(offeringId).Returns(response);
+        offeringsService.GetAsync(offeringId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.OfferingsOfferingIdGetAsync(offeringId, expand) as OkObjectResult;
+        var result = await sut.OfferingsOfferingIdGetAsync(offeringId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -61,7 +61,7 @@ public class OfferingsControllerTests
     }
 
     [Test]
-    public void OfferingsOfferingIdGet_SuccessWithProgramOffering_ReturnsProgramOffering()
+    public async Task OfferingsOfferingIdGet_SuccessWithProgramOffering_ReturnsProgramOffering()
     {
         //arrange
         var sut = CreateSut(out var offeringsService);
@@ -71,10 +71,10 @@ public class OfferingsControllerTests
 
         var response = new OneOfOfferingInstance(offeringId, programOffering);
 
-        offeringsService.GetAsync(offeringId).Returns(response);
+        offeringsService.GetAsync(offeringId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.OfferingsOfferingIdGetAsync(offeringId, expand) as OkObjectResult;
+        var result = await sut.OfferingsOfferingIdGetAsync(offeringId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
