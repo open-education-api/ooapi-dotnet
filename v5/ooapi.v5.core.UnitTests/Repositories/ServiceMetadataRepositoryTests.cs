@@ -26,7 +26,7 @@ public class ServiceMetadataRepositoryTests
         dbContext.Services.Returns(db);
 
         // Act
-        var result = serviceMetadataRepository.GetServiceMetadata();
+        var result = serviceMetadataRepository.GetServiceMetadataAsync();
 
         // Assert
         Assert.That(result, Is.EqualTo(services.First()));

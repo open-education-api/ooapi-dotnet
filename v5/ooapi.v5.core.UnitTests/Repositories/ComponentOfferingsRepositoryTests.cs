@@ -38,7 +38,7 @@ public class ComponentOfferingsRepositoryTests
         var componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
 
         // Act
-        var result = componentOfferingsRepository.GetComponentOffering(courseOfferingId);
+        var result = componentOfferingsRepository.GetComponentOfferingAsync(courseOfferingId);
 
         // Assert
         Assert.That(result, Is.EqualTo(componentOffering));
@@ -58,7 +58,7 @@ public class ComponentOfferingsRepositoryTests
         var componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
 
         // Act
-        var result = componentOfferingsRepository.GetComponentOffering(courseOfferingId);
+        var result = componentOfferingsRepository.GetComponentOfferingAsync(courseOfferingId);
 
         // Assert
         Assert.That(result, Is.Null);

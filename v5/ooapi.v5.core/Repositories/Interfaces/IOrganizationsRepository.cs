@@ -5,6 +5,6 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 
 public interface IOrganizationsRepository
 {
-    Organization GetOrganization(Guid organizationId, DataRequestParameters dataRequestParameters);
-    Task<Pagination<Organization>> GetAllOrderedBy(DataRequestParameters dataRequestParameters);
+    Task<Organization> GetOrganizationAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<Organization>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
 }

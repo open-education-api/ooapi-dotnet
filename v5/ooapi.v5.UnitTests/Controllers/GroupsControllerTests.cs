@@ -26,10 +26,10 @@ public class GroupsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        groupsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        groupsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.GroupsGet(primaryCodeParam, filterParams, pagingParams, groupType, sort) as OkObjectResult;
+        var result = sut.GroupsGetAsync(primaryCodeParam, filterParams, pagingParams, groupType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -58,10 +58,10 @@ public class GroupsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        groupsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        groupsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.GroupsGet(primaryCodeParam, filterParams, pagingParams, groupType, sort) as OkObjectResult;
+        var result = sut.GroupsGetAsync(primaryCodeParam, filterParams, pagingParams, groupType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -87,10 +87,10 @@ public class GroupsControllerTests
 
         var response = new Group();
 
-        groupsService.Get(groupId).Returns(response);
+        groupsService.GetAsync(groupId).Returns(response);
 
         //act
-        var result = sut.GroupsGroupIdGet(groupId, expand) as OkObjectResult;
+        var result = sut.GroupsGroupIdGetAsync(groupId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -116,10 +116,10 @@ public class GroupsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        personsService.GetPersonsByGroupId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), groupId).Returns(response);
+        personsService.GetPersonsByGroupIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), groupId).Returns(response);
 
         //act
-        var result = sut.GroupsGroupIdPersonsGet(groupId, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
+        var result = sut.GroupsGroupIdPersonsGetAsync(groupId, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

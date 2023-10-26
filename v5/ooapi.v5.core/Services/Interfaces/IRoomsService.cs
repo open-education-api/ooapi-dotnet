@@ -5,7 +5,7 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IRoomsService
 {
-    Room? Get(Guid roomId);
-    Task<Pagination<Room>> GetAll(DataRequestParameters dataRequestParameters);
-    Pagination<Room> GetRoomsByBuildingId(DataRequestParameters dataRequestParameters, Guid buildingId);
+    Task<Room?> GetAsync(Guid roomId, CancellationToken cancellationToken = default);
+    Task<Pagination<Room>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<Room>> GetRoomsByBuildingIdAsync(DataRequestParameters dataRequestParameters, Guid buildingId, CancellationToken cancellationToken = default);
 }

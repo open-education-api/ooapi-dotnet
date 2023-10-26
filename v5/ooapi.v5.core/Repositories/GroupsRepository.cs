@@ -1,4 +1,5 @@
-﻿using ooapi.v5.core.Repositories.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
@@ -9,17 +10,17 @@ public class GroupsRepository : BaseRepository<Group>, IGroupsRepository
     {
     }
 
-    public Group? GetGroup(Guid groupId)
+    public async Task<Group?> GetGroupAsync(Guid groupId, CancellationToken cancellationToken = default)
     {
-        return dbContext.Groups.FirstOrDefault(x => x.GroupId.Equals(groupId));
+        return await dbContext.Groups.FirstOrDefaultAsync(x => x.GroupId.Equals(groupId), cancellationToken);
     }
 
-    public List<Group> GetGroupsByOrganizationId(Guid organizationId)
+    public async Task<List<Group>> GetGroupsByOrganizationIdAsync(Guid organizationId, CancellationToken cancellationToken = default)
     {
-        return dbContext.Groups.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
+        return await dbContext.Groups.Where(o => o.OrganizationId.Equals(organizationId)).ToListAsync(cancellationToken);
     }
 
-    public List<Group> GetGroupsByPersonId(Guid personId)
+    public async Task<List<Group>> GetGroupsByPersonIdAsync(Guid personId, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

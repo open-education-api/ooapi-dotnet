@@ -27,7 +27,7 @@ public class NewsFeedsServiceTests
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
@@ -45,13 +45,13 @@ public class NewsFeedsServiceTests
         var newsFeedId = _fixture.Create<Guid>();
 
         var expected = new NewsFeed();
-        repository.GetNewsFeed(newsFeedId).Returns(expected);
+        repository.GetNewsFeedAsync(newsFeedId).Returns(expected);
 
         // Act
-        var result = sut.Get(newsFeedId);
+        var result = sut.GetAsync(newsFeedId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetNewsFeed(newsFeedId);
+        repository.Received(1).GetNewsFeedAsync(newsFeedId);
     }
 }

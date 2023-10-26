@@ -26,10 +26,10 @@ public class RoomsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        roomsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        roomsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.RoomsGet(primaryCodeParam, filterParams, pagingParams, roomType, sort) as OkObjectResult;
+        var result = sut.RoomsGetAsync(primaryCodeParam, filterParams, pagingParams, roomType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -58,10 +58,10 @@ public class RoomsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        roomsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        roomsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.RoomsGet(primaryCodeParam, filterParams, pagingParams, roomType, sort) as OkObjectResult;
+        var result = sut.RoomsGetAsync(primaryCodeParam, filterParams, pagingParams, roomType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -87,10 +87,10 @@ public class RoomsControllerTests
 
         var response = new Room();
 
-        associationsService.Get(roomId).Returns(response);
+        associationsService.GetAsync(roomId).Returns(response);
 
         //act
-        var result = sut.RoomsRoomIdGet(roomId, expand) as OkObjectResult;
+        var result = sut.RoomsRoomIdGetAsync(roomId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

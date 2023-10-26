@@ -24,14 +24,14 @@ public class ProgramsServiceTests
         var dataRequestParameters = new DataRequestParameters();
 
         var expected = new Pagination<Program>();
-        repository.GetAllOrderedBy(dataRequestParameters).Returns(expected);
+        repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedBy(dataRequestParameters);
+        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]
@@ -46,14 +46,14 @@ public class ProgramsServiceTests
         var programId = _fixture.Create<Guid>();
 
         var expected = new Program();
-        repository.GetProgram(programId, dataRequestParameters).Returns(expected);
+        repository.GetProgramAsync(programId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.Get(programId, dataRequestParameters);
+        var result = sut.GetAsync(programId, dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetProgram(programId, dataRequestParameters);
+        repository.Received(1).GetProgramAsync(programId, dataRequestParameters);
     }
 
     [Test]
@@ -68,14 +68,14 @@ public class ProgramsServiceTests
         var educationSpecificationId = _fixture.Create<Guid>();
 
         var programs = new Pagination<Program>();
-        repository.GetProgramsByEducationSpecificationId(educationSpecificationId, dataRequestParameters).Returns(programs);
+        repository.GetProgramsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters).Returns(programs);
 
         // Act
-        var result = sut.GetProgramsByEducationSpecificationId(dataRequestParameters, educationSpecificationId);
+        var result = sut.GetProgramsByEducationSpecificationIdAsync(dataRequestParameters, educationSpecificationId);
 
         // Assert
         Assert.That(result, Is.EqualTo(programs));
-        repository.Received(1).GetProgramsByEducationSpecificationId(educationSpecificationId, dataRequestParameters);
+        repository.Received(1).GetProgramsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters);
     }
 
     [Test]
@@ -90,14 +90,14 @@ public class ProgramsServiceTests
         var organizationId = _fixture.Create<Guid>();
 
         var programs = new List<Program>();
-        repository.GetProgramsByOrganizationId(organizationId).Returns(programs);
+        repository.GetProgramsByOrganizationIdAsync(organizationId).Returns(programs);
 
         // Act
-        var result = sut.GetProgramsByOrganizationId(dataRequestParameters, organizationId);
+        var result = sut.GetProgramsByOrganizationIdAsync(dataRequestParameters, organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Program>>());
-        repository.Received(1).GetProgramsByOrganizationId(organizationId);
+        repository.Received(1).GetProgramsByOrganizationIdAsync(organizationId);
     }
 
     [Test]
@@ -112,13 +112,13 @@ public class ProgramsServiceTests
         var programId = _fixture.Create<Guid>();
 
         var programs = new List<Program>();
-        repository.GetProgramsByProgramId(programId).Returns(programs);
+        repository.GetProgramsByProgramIdAsync(programId).Returns(programs);
 
         // Act
-        var result = sut.GetProgramsByProgramId(dataRequestParameters, programId);
+        var result = sut.GetProgramsByProgramIdAsync(dataRequestParameters, programId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Program>>());
-        repository.Received(1).GetProgramsByProgramId(programId);
+        repository.Received(1).GetProgramsByProgramIdAsync(programId);
     }
 }

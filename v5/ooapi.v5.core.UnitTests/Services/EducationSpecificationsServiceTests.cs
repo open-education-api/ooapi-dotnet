@@ -24,14 +24,14 @@ public class EducationSpecificationsServiceTests
         var dataRequestParameters = new DataRequestParameters();
 
         var expected = new Pagination<EducationSpecification>();
-        repository.GetAllOrderedBy(dataRequestParameters).Returns(expected);
+        repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedBy(dataRequestParameters);
+        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]
@@ -46,14 +46,14 @@ public class EducationSpecificationsServiceTests
         var educationSpecificationId = _fixture.Create<Guid>();
 
         var expected = new EducationSpecification();
-        repository.GetEducationSpecification(educationSpecificationId, dataRequestParameters).Returns(expected);
+        repository.GetEducationSpecificationAsync(educationSpecificationId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.Get(educationSpecificationId, dataRequestParameters);
+        var result = sut.GetAsync(educationSpecificationId, dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetEducationSpecification(educationSpecificationId, dataRequestParameters);
+        repository.Received(1).GetEducationSpecificationAsync(educationSpecificationId, dataRequestParameters);
     }
 
 
@@ -69,14 +69,14 @@ public class EducationSpecificationsServiceTests
         var educationSpecificationId = _fixture.Create<Guid>();
 
         var educationSpecifications = new List<EducationSpecification>();
-        repository.GetEducationSpecificationsByEducationSpecificationId(educationSpecificationId).Returns(educationSpecifications);
+        repository.GetEducationSpecificationsByEducationSpecificationIdAsync(educationSpecificationId).Returns(educationSpecifications);
 
         // Act
-        var result = sut.GetEducationSpecificationsByEducationSpecificationId(dataRequestParameters, educationSpecificationId);
+        var result = sut.GetEducationSpecificationsByEducationSpecificationIdAsync(dataRequestParameters, educationSpecificationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<EducationSpecification>>());
-        repository.Received(1).GetEducationSpecificationsByEducationSpecificationId(educationSpecificationId);
+        repository.Received(1).GetEducationSpecificationsByEducationSpecificationIdAsync(educationSpecificationId);
     }
 
     [Test]
@@ -91,13 +91,13 @@ public class EducationSpecificationsServiceTests
         var organizationId = _fixture.Create<Guid>();
 
         var educationSpecifications = new List<EducationSpecification>();
-        repository.GetEducationSpecificationsByOrganizationId(organizationId).Returns(educationSpecifications);
+        repository.GetEducationSpecificationsByOrganizationIdAsync(organizationId).Returns(educationSpecifications);
 
         // Act
-        var result = sut.GetEducationSpecificationsByOrganizationId(dataRequestParameters, organizationId);
+        var result = sut.GetEducationSpecificationsByOrganizationIdAsync(dataRequestParameters, organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<EducationSpecification>>());
-        repository.Received(1).GetEducationSpecificationsByOrganizationId(organizationId);
+        repository.Received(1).GetEducationSpecificationsByOrganizationIdAsync(organizationId);
     }
 }

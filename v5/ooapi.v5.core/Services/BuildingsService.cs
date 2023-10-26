@@ -15,13 +15,13 @@ internal class BuildingsService : ServiceBase, IBuildingsService
         _repository = repository;
     }
 
-    public async Task<Pagination<Building>> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Building>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return await _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters, cancellationToken);
     }
 
-    public Building? Get(Guid buildingId)
+    public async Task<Building?> GetAsync(Guid buildingId, CancellationToken cancellationToken = default)
     {
-        return _repository.GetBuilding(buildingId);
+        return await _repository.GetBuildingAsync(buildingId, cancellationToken);
     }
 }

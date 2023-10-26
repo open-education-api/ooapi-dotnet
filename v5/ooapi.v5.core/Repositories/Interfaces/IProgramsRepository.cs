@@ -5,9 +5,10 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 
 public interface IProgramsRepository
 {
-    Task<Pagination<Program>> GetAllOrderedBy(DataRequestParameters dataRequestParameters);
-    Program? GetProgram(Guid programId, DataRequestParameters dataRequestParameters);
-    Task<Pagination<Program>> GetProgramsByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters);
-    List<Program> GetProgramsByOrganizationId(Guid organizationId);
-    List<Program> GetProgramsByProgramId(Guid programId);
+    Task<Pagination<Program>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters,
+        CancellationToken cancellationToken = default);
+    Task<Program?> GetProgramAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<Program>> GetProgramsByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<List<Program>> GetProgramsByOrganizationIdAsync(Guid organizationId, CancellationToken cancellationToken = default);
+    Task<List<Program>> GetProgramsByProgramIdAsync(Guid programId, CancellationToken cancellationToken = default);
 }

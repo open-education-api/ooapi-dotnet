@@ -22,7 +22,7 @@ public class AssociationsControllerTests
         associationsService.Get(associationId).Returns(response);
 
         //act
-        var result = sut.AssociationsAssociationIdGet(associationId, expand) as OkObjectResult;
+        var result = sut.AssociationsAssociationIdGetAsync(associationId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

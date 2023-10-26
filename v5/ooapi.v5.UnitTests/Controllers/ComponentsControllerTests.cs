@@ -19,10 +19,10 @@ public class ComponentsControllerTests
 
         var response = new Component();
 
-        associationsService.Get(componentId).Returns(response);
+        associationsService.GetAsync(componentId).Returns(response);
 
         //act
-        var result = sut.ComponentsComponentIdGet(componentId, expand) as OkObjectResult;
+        var result = sut.ComponentsComponentIdGetAsync(componentId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

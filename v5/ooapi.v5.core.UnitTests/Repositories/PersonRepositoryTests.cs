@@ -32,7 +32,7 @@ public class PersonsRepositoryTests
         var personsRepository = new PersonsRepository(dbContext);
 
         // Act
-        var result = personsRepository.GetPerson(personId);
+        var result = personsRepository.GetPersonAsync(personId);
 
         // Assert
         Assert.That(result, Is.EqualTo(person));
@@ -57,7 +57,7 @@ public class PersonsRepositoryTests
         var personsRepository = new PersonsRepository(dbContext);
 
         // Act
-        var result = personsRepository.GetPerson(_fixture.Create<Guid>());
+        var result = personsRepository.GetPersonAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);

@@ -24,14 +24,14 @@ public class BuildingsServiceTests
         var buildingId = _fixture.Create<Guid>();
 
         var expected = new Building();
-        repository.GetBuilding(buildingId).Returns(expected);
+        repository.GetBuildingAsync(buildingId).Returns(expected);
 
         // Act
-        var result = sut.Get(buildingId);
+        var result = sut.GetAsync(buildingId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetBuilding(buildingId);
+        repository.Received(1).GetBuildingAsync(buildingId);
     }
 
 
@@ -49,7 +49,7 @@ public class BuildingsServiceTests
         repository.GetAllOrderedBy(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));

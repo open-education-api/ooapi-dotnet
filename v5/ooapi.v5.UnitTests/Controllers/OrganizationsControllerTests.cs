@@ -27,10 +27,10 @@ public class OrganizationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        organizationsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        organizationsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.OrganizationsGet(primaryCodeParam, filterParams, pagingParams, organizationType, sort) as OkObjectResult;
+        var result = sut.OrganizationsGetAsync(primaryCodeParam, filterParams, pagingParams, organizationType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -65,7 +65,7 @@ public class OrganizationsControllerTests
         componentsService.GetComponentsByOrganizationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
 
         //act
-        var result = sut.OrganizationsOrganizationIdComponentsGet(organizationId, filterParams, pagingParams, teachingLanguage, componentType, sort) as OkObjectResult;
+        var result = sut.OrganizationsOrganizationIdComponentsGetAsync(organizationId, filterParams, pagingParams, teachingLanguage, componentType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -98,10 +98,10 @@ public class OrganizationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        coursesService.GetCoursesByOrganizationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
+        coursesService.GetCoursesByOrganizationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
 
         //act
-        var result = sut.OrganizationsOrganizationIdCoursesGet(organizationId, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
+        var result = sut.OrganizationsOrganizationIdCoursesGetAsync(organizationId, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -132,10 +132,10 @@ public class OrganizationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        educationSpecificationsService.GetEducationSpecificationsByOrganizationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
+        educationSpecificationsService.GetEducationSpecificationsByOrganizationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
 
         //act
-        var result = sut.OrganizationsOrganizationIdEducationSpecificationsGet(organizationId, filterParams, pagingParams, educationSpecificationType, sort) as OkObjectResult;
+        var result = sut.OrganizationsOrganizationIdEducationSpecificationsGetAsync(organizationId, filterParams, pagingParams, educationSpecificationType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -163,10 +163,10 @@ public class OrganizationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        organizationsService.Get(organizationId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        organizationsService.GetAsync(organizationId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.OrganizationsOrganizationIdGet(organizationId, expand) as OkObjectResult;
+        var result = sut.OrganizationsOrganizationIdGetAsync(organizationId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -192,10 +192,10 @@ public class OrganizationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        groupsService.GetGroupsByOrganizationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
+        groupsService.GetGroupsByOrganizationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
 
         //act
-        var result = sut.OrganizationsOrganizationIdGroupsGet(organizationId, filterParams, pagingParams, groupType, sort) as OkObjectResult;
+        var result = sut.OrganizationsOrganizationIdGroupsGetAsync(organizationId, filterParams, pagingParams, groupType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -232,10 +232,10 @@ public class OrganizationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.GetProgramsByOrganizationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
+        programsService.GetProgramsByOrganizationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
 
         //act
-        var result = sut.OrganizationsOrganizationIdProgramsGet(organizationId, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
+        var result = sut.OrganizationsOrganizationIdProgramsGetAsync(organizationId, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

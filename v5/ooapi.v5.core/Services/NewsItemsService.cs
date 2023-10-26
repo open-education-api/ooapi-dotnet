@@ -16,14 +16,14 @@ internal class NewsItemsService : ServiceBase, INewsItemsService
         _repository = repository;
     }
 
-    public NewsItem? Get(Guid newsitemId)
+    public async Task<NewsItem?> GetAsync(Guid newsitemId, CancellationToken cancellationToken = default)
     {
-            return _repository.GetNewsItem(newsitemId);
+            return await _repository.GetNewsItemAsync(newsitemId, cancellationToken);
     }
 
-    public Pagination<NewsItem> GetNewsItemsByNewsFeedId(DataRequestParameters dataRequestParameters, Guid newsfeedId)
+    public async Task<Pagination<NewsItem>> GetNewsItemsByNewsFeedIdAsync(DataRequestParameters dataRequestParameters, Guid newsfeedId, CancellationToken cancellationToken = default)
     {
-        var result = _repository.GetNewsItemsByNewsFeedId(newsfeedId);
+        var result = await _repository.GetNewsItemsByNewsFeedIdAsync(newsfeedId, cancellationToken);
         return new Pagination<NewsItem>(result.AsQueryable(), dataRequestParameters);
     }
 }

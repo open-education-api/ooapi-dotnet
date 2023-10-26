@@ -1,4 +1,5 @@
-﻿using ooapi.v5.core.Repositories.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
@@ -9,12 +10,12 @@ public class NewsItemsRepository : BaseRepository<NewsItem>, INewsItemsRepositor
     {
     }
 
-    public NewsItem? GetNewsItem(Guid newsitemId)
+    public async Task<NewsItem?> GetNewsItemAsync(Guid newsitemId, CancellationToken cancellationToken = default)
     {
-        return dbContext.NewsItems.FirstOrDefault(x => x.NewsItemId.Equals(newsitemId));
+        return await dbContext.NewsItems.FirstOrDefaultAsync(x => x.NewsItemId.Equals(newsitemId),cancellationToken);
     }
 
-    public List<NewsItem> GetNewsItemsByNewsFeedId(Guid newsfeedId)
+    public async Task<List<NewsItem>> GetNewsItemsByNewsFeedIdAsync(Guid newsfeedId, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

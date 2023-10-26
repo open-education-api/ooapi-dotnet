@@ -5,9 +5,9 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IProgramsService
 {
-    Program? Get(Guid programId, DataRequestParameters dataRequestParameters);
-    Task<Pagination<Program>> GetAll(DataRequestParameters dataRequestParameters);
-    Task<Pagination<Program>> GetProgramsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId);
-    Pagination<Program> GetProgramsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId);
-    Pagination<Program> GetProgramsByProgramId(DataRequestParameters dataRequestParameters, Guid programId);
+    Task<Program?> GetAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<Program>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<Program>> GetProgramsByEducationSpecificationIdAsync(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, CancellationToken cancellationToken = default);
+    Task<Pagination<Program>> GetProgramsByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default);
+    Task<Pagination<Program>> GetProgramsByProgramIdAsync(DataRequestParameters dataRequestParameters, Guid programId, CancellationToken cancellationToken = default);
 }

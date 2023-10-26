@@ -24,14 +24,14 @@ public class ComponentsServiceTests
         var componentId = _fixture.Create<Guid>();
 
         var expected = new Component();
-        repository.GetComponent(componentId).Returns(expected);
+        repository.GetComponentAsync(componentId).Returns(expected);
 
         // Act
-        var result = sut.Get(componentId);
+        var result = sut.GetAsync(componentId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetComponent(componentId);
+        repository.Received(1).GetComponentAsync(componentId);
     }
 
 
@@ -47,14 +47,14 @@ public class ComponentsServiceTests
         var courseId = _fixture.Create<Guid>();
 
         var components = new List<Component>();
-        repository.GetComponentsByCourseId(courseId).Returns(components);
+        repository.GetComponentsByCourseIdAsync(courseId).Returns(components);
 
         // Act
-        var result = sut.GetComponentsByCourseId(dataRequestParameters, courseId);
+        var result = sut.GetComponentsByCourseIdAsync(dataRequestParameters, courseId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Component>>());
-        repository.Received(1).GetComponentsByCourseId(courseId);
+        repository.Received(1).GetComponentsByCourseIdAsync(courseId);
     }
 
     [Test]
@@ -69,13 +69,13 @@ public class ComponentsServiceTests
         var organizationId = _fixture.Create<Guid>();
 
         var components = new List<Component>();
-        repository.GetComponentsByOrganizationId(organizationId).Returns(components);
+        repository.GetComponentsByOrganizationIdAsync(organizationId).Returns(components);
 
         // Act
-        var result = sut.GetComponentsByOrganizationId(dataRequestParameters, organizationId);
+        var result = sut.GetComponentsByOrganizationIdAsync(dataRequestParameters, organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Component>>());
-        repository.Received(1).GetComponentsByOrganizationId(organizationId);
+        repository.Received(1).GetComponentsByOrganizationIdAsync(organizationId);
     }
 }

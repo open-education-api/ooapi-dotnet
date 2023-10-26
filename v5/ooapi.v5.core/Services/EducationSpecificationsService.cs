@@ -16,25 +16,25 @@ internal class EducationSpecificationsService : ServiceBase, IEducationSpecifica
         _repository = repository;
     }
 
-    public async Task<Pagination<EducationSpecification>> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<EducationSpecification>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return await _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters, cancellationToken);
     }
 
-    public EducationSpecification? Get(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
+    public async Task<EducationSpecification?> GetAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return _repository.GetEducationSpecification(educationSpecificationId, dataRequestParameters);
+        return await _repository.GetEducationSpecificationAsync(educationSpecificationId, dataRequestParameters, cancellationToken);
     }
 
-    public Pagination<EducationSpecification> GetEducationSpecificationsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId)
+    public async Task<Pagination<EducationSpecification>> GetEducationSpecificationsByEducationSpecificationIdAsync(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, CancellationToken cancellationToken = default)
     {
-        var result = _repository.GetEducationSpecificationsByEducationSpecificationId(educationSpecificationId);
+        var result = await _repository.GetEducationSpecificationsByEducationSpecificationIdAsync(educationSpecificationId, cancellationToken);
         return new Pagination<EducationSpecification>(result.AsQueryable(), dataRequestParameters);
     }
 
-    public Pagination<EducationSpecification> GetEducationSpecificationsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId)
+    public async Task<Pagination<EducationSpecification>> GetEducationSpecificationsByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default)
     {
-        var result = _repository.GetEducationSpecificationsByOrganizationId(organizationId);
+        var result = await _repository.GetEducationSpecificationsByOrganizationIdAsync(organizationId, cancellationToken);
         return new Pagination<EducationSpecification>(result.AsQueryable(), dataRequestParameters);
     }
 }

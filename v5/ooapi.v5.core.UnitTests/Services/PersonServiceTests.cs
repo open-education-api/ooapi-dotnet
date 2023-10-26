@@ -27,7 +27,7 @@ public class PersonsServiceTests
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
@@ -45,14 +45,14 @@ public class PersonsServiceTests
         var personId = _fixture.Create<Guid>();
 
         var expected = new Person();
-        repository.GetPerson(personId).Returns(expected);
+        repository.GetPersonAsync(personId).Returns(expected);
 
         // Act
-        var result = sut.Get(personId);
+        var result = sut.GetAsync(personId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetPerson(personId);
+        repository.Received(1).GetPersonAsync(personId);
     }
 
     [Test]
@@ -67,13 +67,13 @@ public class PersonsServiceTests
         var GroupId = _fixture.Create<Guid>();
 
         var persons = new List<Person>();
-        repository.GetPersonsByGroupId(GroupId).Returns(persons);
+        repository.GetPersonsByGroupIdAsync(GroupId).Returns(persons);
 
         // Act
-        var result = sut.GetPersonsByGroupId(dataRequestParameters, GroupId);
+        var result = sut.GetPersonsByGroupIdAsync(dataRequestParameters, GroupId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Person>>());
-        repository.Received(1).GetPersonsByGroupId(GroupId);
+        repository.Received(1).GetPersonsByGroupIdAsync(GroupId);
     }
 }

@@ -46,7 +46,7 @@ public class OrganizationsRepositoryTests
         var organizationsRepository = new OrganizationsRepository(dbContext);
 
         // Act
-        var result = organizationsRepository.GetAllOrderedBy(new DataRequestParameters());
+        var result = organizationsRepository.GetAllOrderedByAsync(new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Organization>>());
@@ -74,7 +74,7 @@ public class OrganizationsRepositoryTests
         var organizationsRepository = new OrganizationsRepository(dbContext);
 
         // Act
-        var result = organizationsRepository.GetOrganization(organizationId, new DataRequestParameters());
+        var result = organizationsRepository.GetOrganizationAsync(organizationId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Organization>());
@@ -113,7 +113,7 @@ public class OrganizationsRepositoryTests
         var requestParams = new DataRequestParameters() { Expand = { "Parent" } };
 
         // Act
-        var result = organizationsRepository.GetOrganization(organizationId, requestParams);
+        var result = organizationsRepository.GetOrganizationAsync(organizationId, requestParams);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Organization>());
@@ -166,7 +166,7 @@ public class OrganizationsRepositoryTests
         var requestParams = new DataRequestParameters() { Expand = { "Children" } };
 
         // Act
-        var result = organizationsRepository.GetOrganization(organizationId, requestParams);
+        var result = organizationsRepository.GetOrganizationAsync(organizationId, requestParams);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Organization>());

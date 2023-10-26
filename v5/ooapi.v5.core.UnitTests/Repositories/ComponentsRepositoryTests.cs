@@ -36,7 +36,7 @@ public class ComponentsRepositoryTests
         var componentsRepository = new ComponentsRepository(dbContext);
 
         // Act
-        var result = componentsRepository.GetComponent(componentId);
+        var result = componentsRepository.GetComponentAsync(componentId);
 
         // Assert
         Assert.That(result, Is.EqualTo(component));
@@ -65,7 +65,7 @@ public class ComponentsRepositoryTests
         var componentsRepository = new ComponentsRepository(dbContext);
 
         // Act
-        var result = componentsRepository.GetComponent(_fixture.Create<Guid>());
+        var result = componentsRepository.GetComponentAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);
@@ -94,7 +94,7 @@ public class ComponentsRepositoryTests
         var componentsRepository = new ComponentsRepository(dbContext);
 
         // Act
-        var result = componentsRepository.GetComponentsByCourseId(courseId);
+        var result = componentsRepository.GetComponentsByCourseIdAsync(courseId);
 
         // Assert
         Assert.That(result, Does.Contain(component));
@@ -123,7 +123,7 @@ public class ComponentsRepositoryTests
         var componentsRepository = new ComponentsRepository(dbContext);
 
         // Act
-        var result = componentsRepository.GetComponentsByCourseId(_fixture.Create<Guid>());
+        var result = componentsRepository.GetComponentsByCourseIdAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Does.Not.Contain(component));
@@ -152,7 +152,7 @@ public class ComponentsRepositoryTests
         var componentsRepository = new ComponentsRepository(dbContext);
 
         // Act
-        var result = componentsRepository.GetComponentsByOrganizationId(organizationId);
+        var result = componentsRepository.GetComponentsByOrganizationIdAsync(organizationId);
 
         // Assert
         Assert.That(result, Does.Contain(component));
@@ -181,7 +181,7 @@ public class ComponentsRepositoryTests
         var componentsRepository = new ComponentsRepository(dbContext);
 
         // Act
-        var result = componentsRepository.GetComponentsByOrganizationId(_fixture.Create<Guid>());
+        var result = componentsRepository.GetComponentsByOrganizationIdAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Does.Not.Contain(component));

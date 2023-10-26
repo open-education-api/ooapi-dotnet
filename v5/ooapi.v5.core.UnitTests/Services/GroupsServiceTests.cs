@@ -27,7 +27,7 @@ public class GroupsServiceTests
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
@@ -45,14 +45,14 @@ public class GroupsServiceTests
         var groupId = _fixture.Create<Guid>();
 
         var expected = new Group();
-        repository.GetGroup(groupId).Returns(expected);
+        repository.GetGroupAsync(groupId).Returns(expected);
 
         // Act
-        var result = sut.Get(groupId);
+        var result = sut.GetAsync(groupId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetGroup(groupId);
+        repository.Received(1).GetGroupAsync(groupId);
     }
 
     [Test]
@@ -67,14 +67,14 @@ public class GroupsServiceTests
         var organizationId = _fixture.Create<Guid>();
 
         var groups = new List<Group>();
-        repository.GetGroupsByOrganizationId(organizationId).Returns(groups);
+        repository.GetGroupsByOrganizationIdAsync(organizationId).Returns(groups);
 
         // Act
-        var result = sut.GetGroupsByOrganizationId(dataRequestParameters, organizationId);
+        var result = sut.GetGroupsByOrganizationIdAsync(dataRequestParameters, organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Group>>());
-        repository.Received(1).GetGroupsByOrganizationId(organizationId);
+        repository.Received(1).GetGroupsByOrganizationIdAsync(organizationId);
     }
 
     [Test]
@@ -89,13 +89,13 @@ public class GroupsServiceTests
         var groupId = _fixture.Create<Guid>();
 
         var groups = new List<Group>();
-        repository.GetGroupsByPersonId(groupId).Returns(groups);
+        repository.GetGroupsByPersonIdAsync(groupId).Returns(groups);
 
         // Act
-        var result = sut.GetGroupsByPersonId(dataRequestParameters, groupId);
+        var result = sut.GetGroupsByPersonIdAsync(dataRequestParameters, groupId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Group>>());
-        repository.Received(1).GetGroupsByPersonId(groupId);
+        repository.Received(1).GetGroupsByPersonIdAsync(groupId);
     }
 }

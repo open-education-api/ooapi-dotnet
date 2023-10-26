@@ -32,7 +32,7 @@ public class NewsItemsRepositoryTests
         var newsItemsRepository = new NewsItemsRepository(dbContext);
 
         // Act
-        var result = newsItemsRepository.GetNewsItem(newsItemId);
+        var result = newsItemsRepository.GetNewsItemAsync(newsItemId);
 
         // Assert
         Assert.That(result, Is.EqualTo(newsItem));
@@ -57,7 +57,7 @@ public class NewsItemsRepositoryTests
         var newsItemsRepository = new NewsItemsRepository(dbContext);
 
         // Act
-        var result = newsItemsRepository.GetNewsItem(_fixture.Create<Guid>());
+        var result = newsItemsRepository.GetNewsItemAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);

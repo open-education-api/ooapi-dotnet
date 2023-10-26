@@ -37,7 +37,7 @@ public class ProgramOfferingsRepositoryTests
         var programOfferingsRepository = new ProgramOfferingsRepository(dbContext);
 
         // Act
-        var result = programOfferingsRepository.GetProgramOffering(programOfferingId);
+        var result = programOfferingsRepository.GetProgramOfferingAsync(programOfferingId);
 
         // Assert
         Assert.That(result, Is.EqualTo(programOffering));
@@ -57,7 +57,7 @@ public class ProgramOfferingsRepositoryTests
         var programOfferingsRepository = new ProgramOfferingsRepository(dbContext);
 
         // Act
-        var result = programOfferingsRepository.GetProgramOffering(programOfferingId);
+        var result = programOfferingsRepository.GetProgramOfferingAsync(programOfferingId);
 
         // Assert
         Assert.That(result, Is.Null);

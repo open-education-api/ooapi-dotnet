@@ -31,7 +31,7 @@ public class RoomsRepositoryTests
         dbContext.Rooms.Returns(db);
 
         // Act
-        var result = roomsRepository.GetRoom(roomId);
+        var result = roomsRepository.GetRoomAsync(roomId);
 
         // Assert
         Assert.That(room, Is.EqualTo(result));
@@ -55,7 +55,7 @@ public class RoomsRepositoryTests
         dbContext.Rooms.Returns(db);
 
         // Act
-        var result = roomsRepository.GetRoom(_fixture.Create<Guid>());
+        var result = roomsRepository.GetRoomAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);
@@ -79,7 +79,7 @@ public class RoomsRepositoryTests
         dbContext.Rooms.Returns(db);
 
         // Act
-        var result = roomsRepository.GetRoomsByBuildingId(buildingId);
+        var result = roomsRepository.GetRoomsByBuildingIdAsync(buildingId);
 
         // Assert
         CollectionAssert.AreEqual(rooms, result);
@@ -103,7 +103,7 @@ public class RoomsRepositoryTests
         dbContext.Rooms.Returns(db);
 
         // Act
-        var result = roomsRepository.GetRoomsByBuildingId(_fixture.Create<Guid>());
+        var result = roomsRepository.GetRoomsByBuildingIdAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Empty);

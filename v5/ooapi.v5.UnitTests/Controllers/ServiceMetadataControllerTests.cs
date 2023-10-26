@@ -15,10 +15,10 @@ public class ServiceMetadataControllerTests
 
         var response = new Service();
 
-        serviceMetadataService.Get().Returns(response);
+        serviceMetadataService.GetAsync().Returns(response);
 
         //act
-        var result = sut.RootGet() as OkObjectResult;
+        var result = sut.RootGetAsync() as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

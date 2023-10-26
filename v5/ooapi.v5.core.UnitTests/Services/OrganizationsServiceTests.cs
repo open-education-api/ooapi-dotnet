@@ -39,15 +39,15 @@ public class OrganizationsServiceTests
             .Without(x => x.Children)
             .CreateMany(5);
         var expected = new Pagination<Organization>(organizations.AsQueryable(), dataRequestParameters);
-        repository.GetAllOrderedBy(dataRequestParameters).Returns(expected);
+        repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
         Assert.That(result.Items[0].Addresses, Has.Count.EqualTo(organizations.First().Address.Count));
-        repository.Received(1).GetAllOrderedBy(dataRequestParameters);
+        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]
@@ -62,13 +62,13 @@ public class OrganizationsServiceTests
         var organizationId = _fixture.Create<Guid>();
 
         var expected = new Organization();
-        repository.GetOrganization(organizationId, dataRequestParameters).Returns(expected);
+        repository.GetOrganizationAsync(organizationId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.Get(organizationId, dataRequestParameters);
+        var result = sut.GetAsync(organizationId, dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetOrganization(organizationId, dataRequestParameters);
+        repository.Received(1).GetOrganizationAsync(organizationId, dataRequestParameters);
     }
 }

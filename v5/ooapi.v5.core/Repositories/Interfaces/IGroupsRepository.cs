@@ -5,9 +5,9 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 
 public interface IGroupsRepository
 {
-    Group? GetGroup(Guid groupId);
-    List<Group> GetGroupsByOrganizationId(Guid organizationId);
-    List<Group> GetGroupsByPersonId(Guid personId);
+    Task<Group?> GetGroupAsync(Guid groupId, CancellationToken cancellationToken = default);
+    Task<List<Group>> GetGroupsByOrganizationIdAsync(Guid organizationId, CancellationToken cancellationToken = default);
+    Task<List<Group>> GetGroupsByPersonIdAsync(Guid personId, CancellationToken cancellationToken = default);
 
     Task<Pagination<Group>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Group>? set = null,
         CancellationToken cancellationToken = default);

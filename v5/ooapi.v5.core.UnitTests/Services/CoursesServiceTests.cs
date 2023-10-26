@@ -27,7 +27,7 @@ public class CoursesServiceTests
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
@@ -45,14 +45,14 @@ public class CoursesServiceTests
         var courseId = _fixture.Create<Guid>();
 
         var expected = new Course();
-        repository.GetCourse(courseId).Returns(expected);
+        repository.GetCourseAsync(courseId).Returns(expected);
 
         // Act
-        var result = sut.Get(courseId);
+        var result = sut.GetAsync(courseId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetCourse(courseId);
+        repository.Received(1).GetCourseAsync(courseId);
     }
 
 
@@ -71,7 +71,7 @@ public class CoursesServiceTests
         repository.GetCoursesByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetCoursesByEducationSpecificationId(dataRequestParameters, educationSpecificationId);
+        var result = sut.GetCoursesByEducationSpecificationIdAsync(dataRequestParameters, educationSpecificationId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
@@ -90,14 +90,14 @@ public class CoursesServiceTests
         var organizationId = _fixture.Create<Guid>();
 
         var courses = new List<Course>();
-        repository.GetCoursesByOrganizationId(organizationId).Returns(courses);
+        repository.GetCoursesByOrganizationIdAsync(organizationId).Returns(courses);
 
         // Act
-        var result = sut.GetCoursesByOrganizationId(dataRequestParameters, organizationId);
+        var result = sut.GetCoursesByOrganizationIdAsync(dataRequestParameters, organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Course>>());
-        repository.Received(1).GetCoursesByOrganizationId(organizationId);
+        repository.Received(1).GetCoursesByOrganizationIdAsync(organizationId);
     }
 
     [Test]
@@ -112,13 +112,13 @@ public class CoursesServiceTests
         var programId = _fixture.Create<Guid>();
 
         var courses = new List<Course>();
-        repository.GetCoursesByProgramId(programId).Returns(courses);
+        repository.GetCoursesByProgramIdAsync(programId).Returns(courses);
 
         // Act
-        var result = sut.GetCoursesByProgramId(dataRequestParameters, programId);
+        var result = sut.GetCoursesByProgramIdAsync(dataRequestParameters, programId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Course>>());
-        repository.Received(1).GetCoursesByProgramId(programId);
+        repository.Received(1).GetCoursesByProgramIdAsync(programId);
     }
 }

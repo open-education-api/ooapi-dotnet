@@ -5,7 +5,7 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 
 public interface IPersonsRepository
 {
-    Person? GetPerson(Guid personId);
-    List<Person> GetPersonsByGroupId(Guid groupId);
+    Task<Person?> GetPersonAsync(Guid personId, CancellationToken cancellationToken = default);
+    Task<List<Person>> GetPersonsByGroupIdAsync(Guid groupId, CancellationToken cancellationToken = default);
     Task<Pagination<Person>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Person>? set = null, CancellationToken cancellationToken = default);
 }

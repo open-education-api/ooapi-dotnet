@@ -25,10 +25,10 @@ public class NewsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        newsFeedsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        newsFeedsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.NewsFeedsGet(filterParams, pagingParams, newsFeedType, sort) as OkObjectResult;
+        var result = sut.NewsFeedsGetAsync(filterParams, pagingParams, newsFeedType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -53,10 +53,10 @@ public class NewsControllerTests
 
         var response = new NewsFeed();
 
-        newsFeedsService.Get(newsFeedId).Returns(response);
+        newsFeedsService.GetAsync(newsFeedId).Returns(response);
 
         //act
-        var result = sut.NewsFeedsNewsFeedIdGet(newsFeedId) as OkObjectResult;
+        var result = sut.NewsFeedsNewsFeedIdGetAsync(newsFeedId) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -82,10 +82,10 @@ public class NewsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        newsItemsService.GetNewsItemsByNewsFeedId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), newsFeedId).Returns(response);
+        newsItemsService.GetNewsItemsByNewsFeedIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), newsFeedId).Returns(response);
 
         //act
-        var result = sut.NewsFeedsNewsFeedIdNewsItemsGet(newsFeedId, filterParams, pagingParams, newsFeedType, sort) as OkObjectResult;
+        var result = sut.NewsFeedsNewsFeedIdNewsItemsGetAsymc(newsFeedId, filterParams, pagingParams, newsFeedType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -111,10 +111,10 @@ public class NewsControllerTests
 
         var response = new NewsItem();
 
-        newsItemsService.Get(newsItemId).Returns(response);
+        newsItemsService.GetAsync(newsItemId).Returns(response);
 
         //act
-        var result = sut.NewsItemsNewsItemIdGet(newsItemId, expand) as OkObjectResult;
+        var result = sut.NewsItemsNewsItemIdGetAsync(newsItemId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

@@ -40,7 +40,7 @@ public class CoursesRepositoryTests
         var coursesRepository = new CoursesRepository(dbContext);
 
         // Act
-        var result = coursesRepository.GetCourse(courseId);
+        var result = coursesRepository.GetCourseAsync(courseId);
 
         // Assert
         Assert.That(result, Is.EqualTo(course));
@@ -72,7 +72,7 @@ public class CoursesRepositoryTests
         var coursesRepository = new CoursesRepository(dbContext);
 
         // Act
-        var result = coursesRepository.GetCourse(_fixture.Create<Guid>());
+        var result = coursesRepository.GetCourseAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);
@@ -171,7 +171,7 @@ public class CoursesRepositoryTests
         var coursesRepository = new CoursesRepository(dbContext);
 
         // Act
-        var result = coursesRepository.GetCoursesByOrganizationId(organizationId);
+        var result = coursesRepository.GetCoursesByOrganizationIdAsync(organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<Course>>());
@@ -205,7 +205,7 @@ public class CoursesRepositoryTests
         var coursesRepository = new CoursesRepository(dbContext);
 
         // Act
-        var result = coursesRepository.GetCoursesByOrganizationId(_fixture.Create<Guid>());
+        var result = coursesRepository.GetCoursesByOrganizationIdAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<Course>>());

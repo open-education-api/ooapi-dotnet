@@ -15,19 +15,19 @@ internal class PersonsService : ServiceBase, IPersonsService
         _repository = repository;
     }
 
-    public async Task<Pagination<Person>> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Person>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return await _repository.GetAllOrderedByAsync(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters, null, cancellationToken);
     }
 
-    public Person? Get(Guid personId)
+    public async Task<Person?> GetAsync(Guid personId, CancellationToken cancellationToken = default)
     {
-        return _repository.GetPerson(personId);
+        return await _repository.GetPersonAsync(personId, cancellationToken);
     }
 
-    public Pagination<Person> GetPersonsByGroupId(DataRequestParameters dataRequestParameters, Guid groupId)
+    public async Task<Pagination<Person>> GetPersonsByGroupIdAsync(DataRequestParameters dataRequestParameters, Guid groupId, CancellationToken cancellationToken = default)
     {
-        var result = _repository.GetPersonsByGroupId(groupId);
+        var result = await _repository.GetPersonsByGroupIdAsync(groupId, cancellationToken);
         return new Pagination<Person>(result.AsQueryable(), dataRequestParameters);
     }
 }

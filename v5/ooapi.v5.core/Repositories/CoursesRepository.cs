@@ -11,13 +11,13 @@ public class CoursesRepository : BaseRepository<Course>, ICoursesRepository
     {
     }
 
-    public Course? GetCourse(Guid courseId)
+    public async Task<Course?> GetCourseAsync(Guid courseId, CancellationToken cancellationToken = default)
     {
-        return dbContext.Courses.Include(x => x.Attributes).FirstOrDefault(x => x.CourseId.Equals(courseId));
+        return await dbContext.Courses.Include(x => x.Attributes).FirstOrDefaultAsync(x => x.CourseId.Equals(courseId), cancellationToken);
     }
 
 
-    public async Task<Pagination<Course>> GetCoursesByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Course>> GetCoursesByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         IQueryable<Course> set = dbContext.CoursesNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
@@ -26,15 +26,15 @@ public class CoursesRepository : BaseRepository<Course>, ICoursesRepository
             
         }
 
-        return await GetAllOrderedByAsync(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public List<Course> GetCoursesByOrganizationId(Guid organizationId)
+    public Task<List<Course>> GetCoursesByOrganizationIdAsync(Guid organizationId, CancellationToken cancellationToken = default)
     {
-        return dbContext.Courses.Include(x => x.Attributes).Where(o => o.OrganizationId.Equals(organizationId)).ToList();
+        return dbContext.Courses.Include(x => x.Attributes).Where(o => o.OrganizationId.Equals(organizationId)).ToListAsync(cancellationToken);
     }
 
-    public List<Course> GetCoursesByProgramId(Guid programId)
+    public async Task<List<Course>> GetCoursesByProgramIdAsync(Guid programId, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

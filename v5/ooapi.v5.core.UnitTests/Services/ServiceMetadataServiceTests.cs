@@ -19,13 +19,13 @@ public class ServiceMetadatasServiceTests
         var sut = new ServiceMetadataService(dbContext, repository, userRequestContext);
 
         var expected = new Service();
-        repository.GetServiceMetadata().Returns(expected);
+        repository.GetServiceMetadataAsync().Returns(expected);
 
         // Act
-        var result = sut.Get();
+        var result = sut.GetAsync();
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetServiceMetadata();
+        repository.Received(1).GetServiceMetadataAsync();
     }
 }

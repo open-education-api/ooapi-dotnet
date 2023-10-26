@@ -32,7 +32,7 @@ public class BuildingsRepositoryTests
         var buildingsRepository = new BuildingsRepository(dbContext);
 
         // Act
-        var result = buildingsRepository.GetBuilding(buildingId);
+        var result = buildingsRepository.GetBuildingAsync(buildingId);
 
         // Assert
         Assert.That(building, Is.EqualTo(result));
@@ -52,7 +52,7 @@ public class BuildingsRepositoryTests
         var buildingsRepository = new BuildingsRepository(dbContext);
 
         // Act
-        var result = buildingsRepository.GetBuilding(buildingId);
+        var result = buildingsRepository.GetBuildingAsync(buildingId);
 
         // Assert
         Assert.That(result, Is.Null);

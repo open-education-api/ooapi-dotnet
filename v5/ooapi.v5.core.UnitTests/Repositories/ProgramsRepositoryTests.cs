@@ -64,7 +64,7 @@ public class ProgramsRepositoryTests
         var programsRepository = new ProgramsRepository(dbContext);
 
         // Act
-        var result = programsRepository.GetAllOrderedBy(new DataRequestParameters());
+        var result = programsRepository.GetAllOrderedByAsync(new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Program>>());
@@ -126,7 +126,7 @@ public class ProgramsRepositoryTests
         var programsRepository = new ProgramsRepository(dbContext);
 
         // Act
-        var result = programsRepository.GetProgramsByEducationSpecificationId(educationSpecificationId, new DataRequestParameters());
+        var result = programsRepository.GetProgramsByEducationSpecificationIdAsync(educationSpecificationId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Program>>());
@@ -188,7 +188,7 @@ public class ProgramsRepositoryTests
         var programsRepository = new ProgramsRepository(dbContext);
 
         // Act
-        var result = programsRepository.GetProgramsByOrganizationId(organizationId);
+        var result = programsRepository.GetProgramsByOrganizationIdAsync(organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<Program>>());
@@ -250,7 +250,7 @@ public class ProgramsRepositoryTests
         var programsRepository = new ProgramsRepository(dbContext);
 
         // Act
-        var result = programsRepository.GetProgramsByProgramId(programId);
+        var result = programsRepository.GetProgramsByProgramIdAsync(programId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<Program>>());

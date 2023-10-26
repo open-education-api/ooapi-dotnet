@@ -5,6 +5,6 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 
 public interface IBuildingsRepository
 {
-    Building? GetBuilding(Guid buildingId);
-    Task<Pagination<Building>> GetAllOrderedBy(DataRequestParameters dataRequestParameters);
+    Task<Building?> GetBuildingAsync(Guid buildingId, CancellationToken cancellationToken = default);
+    Task<Pagination<Building>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
 }

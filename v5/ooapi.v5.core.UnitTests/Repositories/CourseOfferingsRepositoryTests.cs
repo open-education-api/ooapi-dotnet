@@ -38,7 +38,7 @@ public class CourseOfferingsRepositoryTests
         var courseOfferingsRepository = new CourseOfferingsRepository(dbContext);
 
         // Act
-        var result = courseOfferingsRepository.GetCourseOffering(courseOfferingId);
+        var result = courseOfferingsRepository.GetCourseOfferingAsync(courseOfferingId);
 
         // Assert
         Assert.That(result, Is.EqualTo(courseOffering));
@@ -68,7 +68,7 @@ public class CourseOfferingsRepositoryTests
         var courseOfferingsRepository = new CourseOfferingsRepository(dbContext);
 
         // Act
-        var result = courseOfferingsRepository.GetCourseOffering(_fixture.Create<Guid>());
+        var result = courseOfferingsRepository.GetCourseOfferingAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);

@@ -31,7 +31,7 @@ public class NewsFeedsRepositoryTests
         var newsFeedsRepository = new NewsFeedsRepository(dbContext);
 
         // Act
-        var result = newsFeedsRepository.GetNewsFeed(newsFeedId);
+        var result = newsFeedsRepository.GetNewsFeedAsync(newsFeedId);
 
         // Assert
         Assert.That(result, Is.EqualTo(newsFeed));
@@ -55,7 +55,7 @@ public class NewsFeedsRepositoryTests
         var newsFeedsRepository = new NewsFeedsRepository(dbContext);
 
         // Act
-        var result = newsFeedsRepository.GetNewsFeed(_fixture.Create<Guid>());
+        var result = newsFeedsRepository.GetNewsFeedAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);

@@ -27,7 +27,7 @@ public class ProgramOfferingsServiceTests
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
@@ -45,13 +45,13 @@ public class ProgramOfferingsServiceTests
         var programOfferingId = _fixture.Create<Guid>();
 
         var expected = new ProgramOffering();
-        repository.GetProgramOffering(programOfferingId).Returns(expected);
+        repository.GetProgramOfferingAsync(programOfferingId).Returns(expected);
 
         // Act
-        var result = sut.Get(programOfferingId);
+        var result = sut.GetAsync(programOfferingId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetProgramOffering(programOfferingId);
+        repository.Received(1).GetProgramOfferingAsync(programOfferingId);
     }
 }

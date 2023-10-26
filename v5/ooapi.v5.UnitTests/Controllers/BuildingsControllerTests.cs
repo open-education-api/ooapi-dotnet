@@ -20,10 +20,10 @@ public class BuildingsControllerTests
 
         var response = new Building();
 
-        buildingsService.Get(buildingId).Returns(response);
+        buildingsService.GetAsync(buildingId).Returns(response);
 
         //act
-        var result = sut.BuildingsBuildingIdGet(buildingId) as OkObjectResult;
+        var result = sut.BuildingsBuildingIdGetAsync(buildingId) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -49,10 +49,10 @@ public class BuildingsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        roomsService.GetRoomsByBuildingId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), buildingId).Returns(response);
+        roomsService.GetRoomsByBuildingIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), buildingId).Returns(response);
 
         //act
-        var result = sut.BuildingsBuildingIdRoomsGet(buildingId, filterParams, pagingParams, roomType, sort) as OkObjectResult;
+        var result = sut.BuildingsBuildingIdRoomsGetAsync(buildingId, filterParams, pagingParams, roomType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -82,10 +82,10 @@ public class BuildingsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        buildingsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        buildingsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.BuildingsGet(primaryCodeParam, filterParams, pagingParams, sort) as OkObjectResult;
+        var result = sut.BuildingsGetAsync(primaryCodeParam, filterParams, pagingParams, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -113,10 +113,10 @@ public class BuildingsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        buildingsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        buildingsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.BuildingsGet(primaryCodeParam, filterParams, pagingParams, sort) as OkObjectResult;
+        var result = sut.BuildingsGetAsync(primaryCodeParam, filterParams, pagingParams, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

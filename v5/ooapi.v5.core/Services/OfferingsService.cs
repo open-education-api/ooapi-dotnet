@@ -25,24 +25,24 @@ internal class OfferingsService : ServiceBase, IOfferingsService
         _componentOfferingsRepository = componentOfferingsRepository;
     }
 
-    public OneOfOfferingInstance? Get(Guid offeringId)
+    public async Task<OneOfOfferingInstance?> GetAsync(Guid offeringId, CancellationToken cancellationToken = default)
     {
         OneOfOfferingInstance? result = null;
-        var programOffering = _programOfferingsRepository.GetProgramOffering(offeringId);
+        var programOffering = await _programOfferingsRepository.GetProgramOfferingAsync(offeringId, cancellationToken);
         if (programOffering != null)
         {
             result = new OneOfOfferingInstance(programOffering.OfferingId, programOffering);
         }
         else
         {
-            var componentOffering = _componentOfferingsRepository.GetComponentOffering(offeringId);
+            var componentOffering = await _componentOfferingsRepository.GetComponentOfferingAsync(offeringId, cancellationToken);
             if (componentOffering != null)
             {
                 result = new OneOfOfferingInstance(componentOffering.OfferingId, componentOffering);
             }
             else
             {
-                var courseOffering = _courseOfferingsRepository.GetCourseOffering(offeringId);
+                var courseOffering = await _courseOfferingsRepository.GetCourseOfferingAsync(offeringId, cancellationToken);
                 if (courseOffering != null)
                 {
                     result = new OneOfOfferingInstance(courseOffering.OfferingId, courseOffering);

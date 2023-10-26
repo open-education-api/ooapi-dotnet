@@ -28,10 +28,10 @@ public class EducationSpecificationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        coursesService.GetCoursesByEducationSpecificationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId).Returns(response);
+        coursesService.GetCoursesByEducationSpecificationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId).Returns(response);
 
         //act
-        var result = sut.EducationSpecificationsEducationSpecificationIdCoursesGet(educationSpecificationId, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
+        var result = sut.EducationSpecificationsEducationSpecificationIdCoursesGetAsync(educationSpecificationId, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -61,10 +61,10 @@ public class EducationSpecificationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        educationSpecificationsService.GetEducationSpecificationsByEducationSpecificationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId).Returns(response);
+        educationSpecificationsService.GetEducationSpecificationsByEducationSpecificationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId).Returns(response);
 
         //act
-        var result = sut.EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet(educationSpecificationId, filterParams, pagingParams, sort) as OkObjectResult;
+        var result = sut.EducationSpecificationsEducationSpecificationIdEducationSpecificationsGetAsync(educationSpecificationId, filterParams, pagingParams, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -93,10 +93,10 @@ public class EducationSpecificationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        educationSpecificationsService.Get(educationSpecificationId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        educationSpecificationsService.GetAsync(educationSpecificationId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.EducationSpecificationsEducationSpecificationIdGet(educationSpecificationId, returnTimelineOverrides, expand) as OkObjectResult;
+        var result = sut.EducationSpecificationsEducationSpecificationIdGetAsync(educationSpecificationId, returnTimelineOverrides, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -128,10 +128,10 @@ public class EducationSpecificationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.GetProgramsByEducationSpecificationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId).Returns(response);
+        programsService.GetProgramsByEducationSpecificationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId).Returns(response);
 
         //act
-        var result = sut.EducationSpecificationsEducationSpecificationIdProgramsGet(educationSpecificationId, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, crohoCreboCode, sort) as OkObjectResult;
+        var result = sut.EducationSpecificationsEducationSpecificationIdProgramsGetAsync(educationSpecificationId, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, crohoCreboCode, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -162,10 +162,10 @@ public class EducationSpecificationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        educationSpecificationsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        educationSpecificationsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.EducationSpecificationsGet(primaryCodeParam, filterParams, pagingParams, educationSpecificationType, sort) as OkObjectResult;
+        var result = sut.EducationSpecificationsGetAsync(primaryCodeParam, filterParams, pagingParams, educationSpecificationType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

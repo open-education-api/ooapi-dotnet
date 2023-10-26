@@ -5,6 +5,6 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface INewsFeedsService
 {
-    NewsFeed? Get(Guid newsfeedId);
-    Task<Pagination<NewsFeed>> GetAll(DataRequestParameters dataRequestParameters);
+    Task<NewsFeed?> GetAsync(Guid newsfeedId, CancellationToken cancellationToken = default);
+    Task<Pagination<NewsFeed>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
 }

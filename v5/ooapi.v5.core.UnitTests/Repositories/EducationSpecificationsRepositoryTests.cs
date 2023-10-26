@@ -46,7 +46,7 @@ public class EducationSpecificationsRepositoryTests
         var repository = new EducationSpecificationsRepository(dbContext);
 
         // Act
-        var result = repository.GetAllOrderedBy(new DataRequestParameters());
+        var result = repository.GetAllOrderedByAsync(new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<EducationSpecification>>());
@@ -74,7 +74,7 @@ public class EducationSpecificationsRepositoryTests
         var educationSpecificationsRepository = new EducationSpecificationsRepository(dbContext);
 
         // Act
-        var result = educationSpecificationsRepository.GetEducationSpecificationsByEducationSpecificationId(educationSpecificationId);
+        var result = educationSpecificationsRepository.GetEducationSpecificationsByEducationSpecificationIdAsync(educationSpecificationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<EducationSpecification>>());
@@ -103,7 +103,7 @@ public class EducationSpecificationsRepositoryTests
         var educationSpecificationsRepository = new EducationSpecificationsRepository(dbContext);
 
         // Act
-        var result = educationSpecificationsRepository.GetEducationSpecificationsByEducationSpecificationId(_fixture.Create<Guid>());
+        var result = educationSpecificationsRepository.GetEducationSpecificationsByEducationSpecificationIdAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<EducationSpecification>>());
@@ -131,7 +131,7 @@ public class EducationSpecificationsRepositoryTests
         var educationSpecificationsRepository = new EducationSpecificationsRepository(dbContext);
 
         // Act
-        var result = educationSpecificationsRepository.GetEducationSpecificationsByOrganizationId(organizationId);
+        var result = educationSpecificationsRepository.GetEducationSpecificationsByOrganizationIdAsync(organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<EducationSpecification>>());
@@ -160,7 +160,7 @@ public class EducationSpecificationsRepositoryTests
         var educationSpecificationsRepository = new EducationSpecificationsRepository(dbContext);
 
         // Act
-        var result = educationSpecificationsRepository.GetEducationSpecificationsByOrganizationId(_fixture.Create<Guid>());
+        var result = educationSpecificationsRepository.GetEducationSpecificationsByOrganizationIdAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<EducationSpecification>>());
@@ -188,7 +188,7 @@ public class EducationSpecificationsRepositoryTests
         var educationSpecificationsRepository = new EducationSpecificationsRepository(dbContext);
 
         // Act
-        var result = educationSpecificationsRepository.GetEducationSpecification(educationSpecificationId, new DataRequestParameters());
+        var result = educationSpecificationsRepository.GetEducationSpecificationAsync(educationSpecificationId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<EducationSpecification>());
@@ -227,7 +227,7 @@ public class EducationSpecificationsRepositoryTests
         var requestParameters = new DataRequestParameters() { Expand = { "Parent" } };
 
         // Act
-        var result = educationSpecificationsRepository.GetEducationSpecification(educationSpecificationId, requestParameters);
+        var result = educationSpecificationsRepository.GetEducationSpecificationAsync(educationSpecificationId, requestParameters);
 
         // Assert
         Assert.That(result, Is.InstanceOf<EducationSpecification>());
@@ -281,7 +281,7 @@ public class EducationSpecificationsRepositoryTests
         var requestParameters = new DataRequestParameters() { Expand = { "Children" } };
 
         // Act
-        var result = educationSpecificationsRepository.GetEducationSpecification(educationSpecificationId, requestParameters);
+        var result = educationSpecificationsRepository.GetEducationSpecificationAsync(educationSpecificationId, requestParameters);
 
         // Assert
         Assert.That(result, Is.InstanceOf<EducationSpecification>());
@@ -333,7 +333,7 @@ public class EducationSpecificationsRepositoryTests
         var requestParameters = new DataRequestParameters() { Expand = { "Organization" } };
 
         // Act
-        var result = educationSpecificationsRepository.GetEducationSpecification(educationSpecificationId, requestParameters);
+        var result = educationSpecificationsRepository.GetEducationSpecificationAsync(educationSpecificationId, requestParameters);
 
         // Assert
         Assert.That(result, Is.InstanceOf<EducationSpecification>());

@@ -27,7 +27,7 @@ public class RoomsServiceTests
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
@@ -45,14 +45,14 @@ public class RoomsServiceTests
         var roomId = _fixture.Create<Guid>();
 
         var expected = new Room();
-        repository.GetRoom(roomId).Returns(expected);
+        repository.GetRoomAsync(roomId).Returns(expected);
 
         // Act
-        var result = sut.Get(roomId);
+        var result = sut.GetAsync(roomId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetRoom(roomId);
+        repository.Received(1).GetRoomAsync(roomId);
     }
 
     [Test]
@@ -67,13 +67,13 @@ public class RoomsServiceTests
         var buildingId = _fixture.Create<Guid>();
 
         var rooms = new List<Room>();
-        repository.GetRoomsByBuildingId(buildingId).Returns(rooms);
+        repository.GetRoomsByBuildingIdAsync(buildingId).Returns(rooms);
 
         // Act
-        var result = sut.GetRoomsByBuildingId(dataRequestParameters, buildingId);
+        var result = sut.GetRoomsByBuildingIdAsync(dataRequestParameters, buildingId);
 
         // Assert
         Assert.That(result, Is.TypeOf<Pagination<Room>>());
-        repository.Received(1).GetRoomsByBuildingId(buildingId);
+        repository.Received(1).GetRoomsByBuildingIdAsync(buildingId);
     }
 }

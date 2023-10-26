@@ -24,14 +24,14 @@ public class NewsItemsServiceTests
         var newsItemId = _fixture.Create<Guid>();
 
         var expected = new NewsItem();
-        repository.GetNewsItem(newsItemId).Returns(expected);
+        repository.GetNewsItemAsync(newsItemId).Returns(expected);
 
         // Act
-        var result = sut.Get(newsItemId);
+        var result = sut.GetAsync(newsItemId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetNewsItem(newsItemId);
+        repository.Received(1).GetNewsItemAsync(newsItemId);
     }
 
     [Test]
@@ -46,13 +46,13 @@ public class NewsItemsServiceTests
         var newsFeedId = _fixture.Create<Guid>();
 
         var newsItems = new List<NewsItem>();
-        repository.GetNewsItemsByNewsFeedId(newsFeedId).Returns(newsItems);
+        repository.GetNewsItemsByNewsFeedIdAsync(newsFeedId).Returns(newsItems);
 
         // Act
-        var result = sut.GetNewsItemsByNewsFeedId(dataRequestParameters, newsFeedId);
+        var result = sut.GetNewsItemsByNewsFeedIdAsync(dataRequestParameters, newsFeedId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<NewsItem>>());
-        repository.Received(1).GetNewsItemsByNewsFeedId(newsFeedId);
+        repository.Received(1).GetNewsItemsByNewsFeedIdAsync(newsFeedId);
     }
 }

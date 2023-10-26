@@ -32,7 +32,7 @@ public class GroupsRepositoryTests
         var groupsRepository = new GroupsRepository(dbContext);
 
         // Act
-        var result = groupsRepository.GetGroup(groupId);
+        var result = groupsRepository.GetGroupAsync(groupId);
 
         // Assert
         Assert.That(result, Is.EqualTo(group));
@@ -57,7 +57,7 @@ public class GroupsRepositoryTests
         var groupsRepository = new GroupsRepository(dbContext);
 
         // Act
-        var result = groupsRepository.GetGroup(_fixture.Create<Guid>());
+        var result = groupsRepository.GetGroupAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);
@@ -82,7 +82,7 @@ public class GroupsRepositoryTests
         var groupsRepository = new GroupsRepository(dbContext);
 
         // Act
-        var result = groupsRepository.GetGroupsByOrganizationId(organizationId);
+        var result = groupsRepository.GetGroupsByOrganizationIdAsync(organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<Group>>());
@@ -109,7 +109,7 @@ public class GroupsRepositoryTests
         var groupsRepository = new GroupsRepository(dbContext);
 
         // Act
-        var result = groupsRepository.GetGroupsByOrganizationId(_fixture.Create<Guid>());
+        var result = groupsRepository.GetGroupsByOrganizationIdAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.InstanceOf<List<Group>>());

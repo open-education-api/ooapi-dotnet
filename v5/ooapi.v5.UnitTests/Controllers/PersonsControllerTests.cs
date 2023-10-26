@@ -26,10 +26,10 @@ public class PersonsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        personsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        personsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.PersonsGet(primaryCodeParam, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
+        var result = sut.PersonsGetAsync(primaryCodeParam, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -58,10 +58,10 @@ public class PersonsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        personsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        personsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
 
         //act
-        var result = sut.PersonsGet(primaryCodeParam, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
+        var result = sut.PersonsGetAsync(primaryCodeParam, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -98,7 +98,7 @@ public class PersonsControllerTests
         associationsService.GetAssociationsByPersonId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), personId).Returns(response);
 
         //act
-        var result = sut.PersonsPersonIdAssociationsGet(personId, filterParams, pagingParams, associationType, role, state, resultState, sort) as OkObjectResult;
+        var result = sut.PersonsPersonIdAssociationsGetAsync(personId, filterParams, pagingParams, associationType, role, state, resultState, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -126,7 +126,7 @@ public class PersonsControllerTests
         personsService.Get(personId).Returns(response);
 
         //act
-        var result = sut.PersonsPersonIdGet(personId) as OkObjectResult;
+        var result = sut.PersonsPersonIdGetAsync(personId) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -152,10 +152,10 @@ public class PersonsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        groupsService.GetGroupsByPersonId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), personId).Returns(response);
+        groupsService.GetGroupsByPersonIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), personId).Returns(response);
 
         //act
-        var result = sut.PersonsPersonIdGroupsGet(personId, filterParams, pagingParams, groupType, sort) as OkObjectResult;
+        var result = sut.PersonsPersonIdGroupsGetAsync(personId, filterParams, pagingParams, groupType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

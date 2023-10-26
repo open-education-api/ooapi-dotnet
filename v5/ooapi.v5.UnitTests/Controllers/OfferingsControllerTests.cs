@@ -21,10 +21,10 @@ public class OfferingsControllerTests
 
         var response = new OneOfOfferingInstance(offeringId, courseOffering);
 
-        offeringsService.Get(offeringId).Returns(response);
+        offeringsService.GetAsync(offeringId).Returns(response);
 
         //act
-        var result = sut.OfferingsOfferingIdGet(offeringId, expand) as OkObjectResult;
+        var result = sut.OfferingsOfferingIdGetAsync(offeringId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -46,10 +46,10 @@ public class OfferingsControllerTests
 
         var response = new OneOfOfferingInstance(offeringId, componentOffering);
 
-        offeringsService.Get(offeringId).Returns(response);
+        offeringsService.GetAsync(offeringId).Returns(response);
 
         //act
-        var result = sut.OfferingsOfferingIdGet(offeringId, expand) as OkObjectResult;
+        var result = sut.OfferingsOfferingIdGetAsync(offeringId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -71,10 +71,10 @@ public class OfferingsControllerTests
 
         var response = new OneOfOfferingInstance(offeringId, programOffering);
 
-        offeringsService.Get(offeringId).Returns(response);
+        offeringsService.GetAsync(offeringId).Returns(response);
 
         //act
-        var result = sut.OfferingsOfferingIdGet(offeringId, expand) as OkObjectResult;
+        var result = sut.OfferingsOfferingIdGetAsync(offeringId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

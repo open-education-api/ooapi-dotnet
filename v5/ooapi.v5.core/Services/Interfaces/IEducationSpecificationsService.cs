@@ -5,8 +5,8 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IEducationSpecificationsService
 {
-    EducationSpecification? Get(Guid educationSpecificationId, DataRequestParameters dataRequestParameters);
-    Task<Pagination<EducationSpecification>> GetAll(DataRequestParameters dataRequestParameters);
-    Pagination<EducationSpecification> GetEducationSpecificationsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId);
-    Pagination<EducationSpecification> GetEducationSpecificationsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId);
+    Task<EducationSpecification?> GetAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<EducationSpecification>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<EducationSpecification>> GetEducationSpecificationsByEducationSpecificationIdAsync(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, CancellationToken cancellationToken = default);
+    Task<Pagination<EducationSpecification>> GetEducationSpecificationsByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default);
 }

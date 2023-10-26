@@ -5,7 +5,7 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 
 public interface IAssociationsRepository
 {
-    Association? GetAssociation(Guid associationId);
-    List<Association> GetAssociationsByPersonId(Guid personId);
+    Task<Association?> GetAssociationAsync(Guid associationId, CancellationToken cancellationToken = default);
+    Task<List<Association>> GetAssociationsByPersonIdAsync(Guid personId, CancellationToken cancellationToken = default);
     Task<Pagination<Association>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Association>? set = null, CancellationToken cancellationToken = default);
 }

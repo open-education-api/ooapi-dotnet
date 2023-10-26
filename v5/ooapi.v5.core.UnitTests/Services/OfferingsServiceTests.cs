@@ -35,17 +35,17 @@ public class OfferingsServiceTests
             .With(x => x.OfferingId, offeringId)
             .OmitAutoProperties()
             .Create();
-        programOfferingsRepository.GetProgramOffering(offeringId).Returns(programOffering);
+        programOfferingsRepository.GetProgramOfferingAsync(offeringId).Returns(programOffering);
 
         // Act
-        var result = sut.Get(offeringId);
+        var result = sut.GetAsync(offeringId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<OneOfOfferingInstance>());
         Assert.That(result!.ProgramOffering, Is.EqualTo(programOffering));
-        programOfferingsRepository.Received(1).GetProgramOffering(offeringId);
-        componentOfferingsRepository.DidNotReceiveWithAnyArgs().GetComponentOffering(offeringId);
-        courseOfferingsRepository.DidNotReceiveWithAnyArgs().GetCourseOffering(offeringId);
+        programOfferingsRepository.Received(1).GetProgramOfferingAsync(offeringId);
+        componentOfferingsRepository.DidNotReceiveWithAnyArgs().GetComponentOfferingAsync(offeringId);
+        courseOfferingsRepository.DidNotReceiveWithAnyArgs().GetCourseOfferingAsync(offeringId);
     }
 
     [Test]
@@ -69,17 +69,17 @@ public class OfferingsServiceTests
             .With(x => x.OfferingId, offeringId)
             .OmitAutoProperties()
             .Create();
-        componentOfferingsRepository.GetComponentOffering(offeringId).Returns(componentOffering);
+        componentOfferingsRepository.GetComponentOfferingAsync(offeringId).Returns(componentOffering);
 
         // Act
-        var result = sut.Get(offeringId);
+        var result = sut.GetAsync(offeringId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<OneOfOfferingInstance>());
         Assert.That(result!.ComponentOffering, Is.EqualTo(componentOffering));
-        programOfferingsRepository.Received(1).GetProgramOffering(offeringId);
-        componentOfferingsRepository.Received(1).GetComponentOffering(offeringId);
-        courseOfferingsRepository.DidNotReceiveWithAnyArgs().GetCourseOffering(offeringId);
+        programOfferingsRepository.Received(1).GetProgramOfferingAsync(offeringId);
+        componentOfferingsRepository.Received(1).GetComponentOfferingAsync(offeringId);
+        courseOfferingsRepository.DidNotReceiveWithAnyArgs().GetCourseOfferingAsync(offeringId);
     }
 
     [Test]
@@ -103,17 +103,17 @@ public class OfferingsServiceTests
             .With(x => x.OfferingId, offeringId)
             .OmitAutoProperties()
             .Create();
-        courseOfferingsRepository.GetCourseOffering(offeringId).Returns(courseOffering);
+        courseOfferingsRepository.GetCourseOfferingAsync(offeringId).Returns(courseOffering);
 
         // Act
-        var result = sut.Get(offeringId);
+        var result = sut.GetAsync(offeringId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<OneOfOfferingInstance>());
         Assert.That(result!.CourseOffering, Is.EqualTo(courseOffering));
-        programOfferingsRepository.Received(1).GetProgramOffering(offeringId);
-        componentOfferingsRepository.Received(1).GetComponentOffering(offeringId);
-        courseOfferingsRepository.Received(1).GetCourseOffering(offeringId);
+        programOfferingsRepository.Received(1).GetProgramOfferingAsync(offeringId);
+        componentOfferingsRepository.Received(1).GetComponentOfferingAsync(offeringId);
+        courseOfferingsRepository.Received(1).GetCourseOfferingAsync(offeringId);
 
     }
 }
