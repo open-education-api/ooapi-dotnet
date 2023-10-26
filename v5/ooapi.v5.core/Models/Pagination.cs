@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ooapi.v5.core.Utility;
@@ -6,18 +7,14 @@ namespace ooapi.v5.Models;
 
 public class Pagination<T> : ModelBase
 {
-
     public Pagination()
     {
 
     }
 
-
-    /// <param name="collection"></param>
-    /// <param name="dataRequestParameters"></param>
-    public Pagination(IQueryable<T> collection, DataRequestParameters dataRequestParameters)
+    public async Task LoadData(IQueryable<T> collection, DataRequestParameters dataRequestParameters)
     {
-        TotalItems = collection.Count();
+        TotalItems = await collection.CountAsync();
         PageSize = dataRequestParameters.PageSize;
         PageNumber = dataRequestParameters.PageNumber;
 
@@ -27,7 +24,7 @@ public class Pagination<T> : ModelBase
             collection = new FilterToLinq<T>(dataRequestParameters.Filter).Parse(collection);
         }
         var skip = dataRequestParameters.Skip;
-        SetItems(collection.Skip(skip).Take(PageSize).ToList());
+        SetItems(await collection.Skip(skip).Take(PageSize).ToListAsync());
 
         SetExtendedAttributes();
     }

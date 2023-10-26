@@ -29,6 +29,9 @@ internal class RoomsService : ServiceBase, IRoomsService
     public async Task<Pagination<Room>> GetRoomsByBuildingIdAsync(DataRequestParameters dataRequestParameters, Guid buildingId, CancellationToken cancellationToken = default)
     {
         var result = await _repository.GetRoomsByBuildingIdAsync(buildingId, cancellationToken);
-        return new Pagination<Room>(result.AsQueryable(), dataRequestParameters);
+
+        var pagination = new Pagination<Room>();
+        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
+        return pagination;
     }
 }

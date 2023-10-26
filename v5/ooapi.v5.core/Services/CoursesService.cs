@@ -34,12 +34,18 @@ internal class CoursesService : ServiceBase, ICoursesService
     public async Task<Pagination<Course>> GetCoursesByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default)
     {
         var result = await _repository.GetCoursesByOrganizationIdAsync(organizationId, cancellationToken);
-        return new Pagination<Course>(result.AsQueryable(), dataRequestParameters);
+
+        var pagination = new Pagination<Course>();
+        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
+        return pagination;
     }
 
     public async Task<Pagination<Course>> GetCoursesByProgramIdAsync(DataRequestParameters dataRequestParameters, Guid programId, CancellationToken cancellationToken = default)
     {
         var result = await _repository.GetCoursesByProgramIdAsync(programId, cancellationToken);
-        return new Pagination<Course>(result.AsQueryable(), dataRequestParameters);
+
+        var pagination = new Pagination<Course>();
+        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
+        return pagination;
     }
 }

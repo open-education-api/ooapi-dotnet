@@ -29,12 +29,18 @@ internal class EducationSpecificationsService : ServiceBase, IEducationSpecifica
     public async Task<Pagination<EducationSpecification>> GetEducationSpecificationsByEducationSpecificationIdAsync(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, CancellationToken cancellationToken = default)
     {
         var result = await _repository.GetEducationSpecificationsByEducationSpecificationIdAsync(educationSpecificationId, cancellationToken);
-        return new Pagination<EducationSpecification>(result.AsQueryable(), dataRequestParameters);
+
+        var pagination = new Pagination<EducationSpecification>();
+        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
+        return pagination;
     }
 
     public async Task<Pagination<EducationSpecification>> GetEducationSpecificationsByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default)
     {
         var result = await _repository.GetEducationSpecificationsByOrganizationIdAsync(organizationId, cancellationToken);
-        return new Pagination<EducationSpecification>(result.AsQueryable(), dataRequestParameters);
+
+        var pagination = new Pagination<EducationSpecification>();
+        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
+        return pagination;
     }
 }

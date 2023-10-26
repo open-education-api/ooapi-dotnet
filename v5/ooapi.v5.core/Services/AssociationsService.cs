@@ -23,6 +23,9 @@ internal class AssociationsService : ServiceBase, IAssociationsService
     public async Task<Pagination<Association>> GetAssociationsByPersonIdAsync(DataRequestParameters dataRequestParameters, Guid personId, CancellationToken cancellationToken = default)
     {
         var result = await _repository.GetAssociationsByPersonIdAsync(personId, cancellationToken);
-        return new Pagination<Association>(result.AsQueryable(), dataRequestParameters);
+
+        var pagination = new Pagination<Association>();
+        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
+        return pagination;
     }
 }

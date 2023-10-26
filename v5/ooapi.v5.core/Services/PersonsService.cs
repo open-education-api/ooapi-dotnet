@@ -28,6 +28,9 @@ internal class PersonsService : ServiceBase, IPersonsService
     public async Task<Pagination<Person>> GetPersonsByGroupIdAsync(DataRequestParameters dataRequestParameters, Guid groupId, CancellationToken cancellationToken = default)
     {
         var result = await _repository.GetPersonsByGroupIdAsync(groupId, cancellationToken);
-        return new Pagination<Person>(result.AsQueryable(), dataRequestParameters);
+
+        var pagination = new Pagination<Person>();
+        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
+        return pagination;
     }
 }

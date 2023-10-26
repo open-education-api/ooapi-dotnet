@@ -23,12 +23,18 @@ internal class ComponentsService : ServiceBase, IComponentsService
     public async Task<Pagination<Component>> GetComponentsByCourseIdAsync(DataRequestParameters dataRequestParameters, Guid courseId, CancellationToken cancellationToken = default)
     {
         var result = await _repository.GetComponentsByCourseIdAsync(courseId, cancellationToken);
-        return new Pagination<Component>(result.AsQueryable(), dataRequestParameters);
+
+        var pagination = new Pagination<Component>();
+        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
+        return pagination;
     }
 
     public async Task<Pagination<Component>> GetComponentsByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default)
     {
         var result = await _repository.GetComponentsByOrganizationIdAsync(organizationId, cancellationToken);
-        return new Pagination<Component>(result.AsQueryable(), dataRequestParameters);
+
+        var pagination = new Pagination<Component>();
+        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
+        return pagination;
     }
 }

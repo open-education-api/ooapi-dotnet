@@ -27,8 +27,8 @@ public class BaseRepository<T> where T : class
         var searchedSet = !string.IsNullOrWhiteSpace(dataRequestParameters.SearchTerm) ? OrderedQueryable.SearchBy<T>(set, dataRequestParameters.SearchTerm) : set;
         var filteredSet = (dataRequestParameters.Filters != null && dataRequestParameters.Filters.Count > 0) ? OrderedQueryable.FilterBy<T>(searchedSet, dataRequestParameters.Filters) : searchedSet;
 
-
-        // TODO: refactor pagination to support async toList() with cancellationToken
-        return new Pagination<T>(filteredSet, dataRequestParameters);
+        var pagination = new Pagination<T>();
+        await pagination.LoadData(filteredSet, dataRequestParameters);
+        return pagination;
     }
 }

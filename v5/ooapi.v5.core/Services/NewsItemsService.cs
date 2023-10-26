@@ -24,6 +24,9 @@ internal class NewsItemsService : ServiceBase, INewsItemsService
     public async Task<Pagination<NewsItem>> GetNewsItemsByNewsFeedIdAsync(DataRequestParameters dataRequestParameters, Guid newsfeedId, CancellationToken cancellationToken = default)
     {
         var result = await _repository.GetNewsItemsByNewsFeedIdAsync(newsfeedId, cancellationToken);
-        return new Pagination<NewsItem>(result.AsQueryable(), dataRequestParameters);
+
+        var pagination = new Pagination<NewsItem>();
+        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
+        return pagination;
     }
 }

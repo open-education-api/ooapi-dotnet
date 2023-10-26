@@ -29,12 +29,18 @@ internal class GroupsService : ServiceBase, IGroupsService
     public async Task<Pagination<Group>> GetGroupsByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default)
     {
         var result = await _repository.GetGroupsByOrganizationIdAsync(organizationId, cancellationToken);
-        return new Pagination<Group>(result.AsQueryable(), dataRequestParameters);
+
+        var pagination = new Pagination<Group>();
+        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
+        return pagination;
     }
 
     public async Task<Pagination<Group>> GetGroupsByPersonIdAsync(DataRequestParameters dataRequestParameters, Guid personId, CancellationToken cancellationToken = default)
     {
         var result = await _repository.GetGroupsByPersonIdAsync(personId, cancellationToken);
-        return new Pagination<Group>(result.AsQueryable(), dataRequestParameters);
+
+        var pagination = new Pagination<Group>();
+        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
+        return pagination;
     }
 }
