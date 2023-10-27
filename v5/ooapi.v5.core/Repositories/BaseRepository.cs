@@ -28,7 +28,7 @@ public class BaseRepository<T> where T : class
         var filteredSet = (dataRequestParameters.Filters != null && dataRequestParameters.Filters.Count > 0) ? OrderedQueryable.FilterBy<T>(searchedSet, dataRequestParameters.Filters) : searchedSet;
 
         var pagination = new Pagination<T>();
-        await pagination.LoadData(filteredSet, dataRequestParameters);
+        await pagination.LoadDataAsync(filteredSet, dataRequestParameters);
         return pagination;
     }
 }

@@ -24,7 +24,7 @@ public sealed class PaginationTests
         var db = items.AsQueryable().BuildMockDbSet();
 
         // act
-        await pagination.LoadData(db, parameters);
+        await pagination.LoadDataAsync(db, parameters);
 
         // assert
         pagination.TotalItems.Should().Be(items.Count);
@@ -49,7 +49,7 @@ public sealed class PaginationTests
         var db = items.AsQueryable().BuildMockDbSet();
 
         // act
-        await pagination.LoadData(db, parameters);
+        await pagination.LoadDataAsync(db, parameters);
 
         // assert
         pagination.TotalItems.Should().Be(items.Count);

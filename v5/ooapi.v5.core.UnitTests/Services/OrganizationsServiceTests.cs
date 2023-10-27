@@ -42,7 +42,7 @@ public class OrganizationsServiceTests
         var db = organizations.AsQueryable().BuildMockDbSet();
 
         var expected = new Pagination<Organization>();
-        await expected.LoadData(db, dataRequestParameters);
+        await expected.LoadDataAsync(db, dataRequestParameters);
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act

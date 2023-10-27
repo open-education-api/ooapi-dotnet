@@ -12,7 +12,7 @@ public class Pagination<T> : ModelBase
 
     }
 
-    public async Task LoadData(IQueryable<T> collection, DataRequestParameters dataRequestParameters)
+    public async Task LoadDataAsync(IQueryable<T> collection, DataRequestParameters dataRequestParameters)
     {
         TotalItems = await collection.CountAsync();
         PageSize = dataRequestParameters.PageSize;
