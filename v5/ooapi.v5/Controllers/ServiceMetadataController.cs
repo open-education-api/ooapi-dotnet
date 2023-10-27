@@ -29,6 +29,7 @@ public class ServiceMetadataController : BaseController
     /// GET /
     /// </summary>
     /// <remarks>Get metadata for the service.</remarks>
+    /// <param name="cancellationToken"></param>
     /// <response code="200">OK</response>
     [HttpGet]
     [ValidateModelState]

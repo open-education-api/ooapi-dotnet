@@ -37,25 +37,26 @@ public class ProgramsController : BaseController
         _programOfferingService = programOfferingService;
     }
 
-    /// <summary>
-    /// GET /programs
-    /// </summary>
-    /// <remarks>Get an ordered list of all programs, ordered by name.</remarks>
-    /// <param name="primaryCodeParam"></param>
-    /// <param name="filterParams"></param>
-    /// <param name="pagingParams"></param>
-    /// <param name="teachingLanguage">Filter by teachingLanguage, which is a string describing the main teaching language, should be a three-letter language code as specified by ISO 639-2.</param>
-    /// <param name="programType">Filter by program type</param>
-    /// <param name="qualificationAwarded">Filter by qualificationAwarded</param>
-    /// <param name="levelOfQualification">Filter by levelOfQualification</param>
-    /// <param name="sector">Filter by sector</param>
-    /// <param name="fieldsOfStudy">Filter by fieldsOfStudy</param>
-    /// <param name="sort">
-    ///Default: ["name"]<br/>
-    ///Items Enum: "programId" "name" "-programId" "-name"<br/>
-    ///Example: sort=name,programId<br/>
-    /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
-    /// <response code="200">OK</response>
+    ///  <summary>
+    ///  GET /programs
+    ///  </summary>
+    ///  <remarks>Get an ordered list of all programs, ordered by name.</remarks>
+    ///  <param name="primaryCodeParam"></param>
+    ///  <param name="filterParams"></param>
+    ///  <param name="pagingParams"></param>
+    ///  <param name="teachingLanguage">Filter by teachingLanguage, which is a string describing the main teaching language, should be a three-letter language code as specified by ISO 639-2.</param>
+    ///  <param name="programType">Filter by program type</param>
+    ///  <param name="qualificationAwarded">Filter by qualificationAwarded</param>
+    ///  <param name="levelOfQualification">Filter by levelOfQualification</param>
+    ///  <param name="sector">Filter by sector</param>
+    ///  <param name="fieldsOfStudy">Filter by fieldsOfStudy</param>
+    ///  <param name="sort">
+    /// Default: ["name"]<br/>
+    /// Items Enum: "programId" "name" "-programId" "-name"<br/>
+    /// Example: sort=name,programId<br/>
+    ///  Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
+    ///  <param name="cancellationToken"></param>
+    ///  <response code="200">OK</response>
     [HttpGet]
     [Route("programs")]
     [ValidateModelState]

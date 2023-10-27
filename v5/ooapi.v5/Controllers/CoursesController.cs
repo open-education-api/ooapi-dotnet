@@ -34,21 +34,22 @@ public class CoursesController : BaseController
         _coursesService = coursesService;
     }
 
-    /// <summary>
-    /// GET /courses/{courseId}/components
-    /// </summary>
-    /// <remarks>Get an ordered list of all course components.</remarks>
-    /// <param name="courseId">Course ID</param>
-    /// <param name="filterParams"></param>
-    /// <param name="pagingParams"></param>
-    /// <param name="teachingLanguage">Filter by teachingLanguage, which is a string describing the main teaching language, should be a three-letter language code as specified by ISO 639-2.</param>
-    /// <param name="componentType">Filter by component type</param>
-    /// <param name="sort">
-    ///Default: ["componentId"]<br/>
-    ///Items Enum: "componentId" "name" "-componentId" "-name"<br/>
-    ///Example: sort=name,-componentId<br/>
-    /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
-    /// <response code="200">OK</response>
+    ///  <summary>
+    ///  GET /courses/{courseId}/components
+    ///  </summary>
+    ///  <remarks>Get an ordered list of all course components.</remarks>
+    ///  <param name="courseId">Course ID</param>
+    ///  <param name="filterParams"></param>
+    ///  <param name="pagingParams"></param>
+    ///  <param name="teachingLanguage">Filter by teachingLanguage, which is a string describing the main teaching language, should be a three-letter language code as specified by ISO 639-2.</param>
+    ///  <param name="componentType">Filter by component type</param>
+    ///  <param name="sort">
+    /// Default: ["componentId"]<br/>
+    /// Items Enum: "componentId" "name" "-componentId" "-name"<br/>
+    /// Example: sort=name,-componentId<br/>
+    ///  Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
+    ///  <param name="cancellationToken"></param>
+    ///  <response code="200">OK</response>
     [HttpGet]
     [Route("courses/{courseId}/components")]
     [ValidateModelState]
@@ -75,6 +76,7 @@ public class CoursesController : BaseController
     /// <param name="courseId">Course ID</param>
     /// <param name="expand">Items Enum: "programs" "coordinators" "organization" "educationSpecification"  <br/>Optional properties to expand, separated by a comma</param>
     /// <param name="returnTimelineOverrides">Controls whether the attribute &#x60;timelineOverrides&#x60; is returned or not. The default is &#x60;false&#x60;, so this has to explicitly set to &#x60;true&#x60; if a client needs the timeline overrides. See [GET /education-specifications/{educationSpecificationId}](#tag/education-specifications/paths/~1education-specifications~1{educationSpecificationId}/get) for an example.</param>
+    /// <param name="cancellationToken"></param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("courses/{courseId}")]
@@ -131,7 +133,7 @@ public class CoursesController : BaseController
         [FromQuery] string? sort = "startDate",
         CancellationToken cancellationToken = default)
     {
-        return BadRequest(new ErrorResponse(400, "Not implemented yet."));
+        return await Task.FromResult(BadRequest(new ErrorResponse(400, "Not implemented yet.")));
     }
 
     ///  <summary>

@@ -91,6 +91,6 @@ public class ComponentsController : BaseController
         [FromQuery] string? sort = "startDateTime",
         CancellationToken cancellationToken = default)
     {
-        return BadRequest(new ErrorResponse(400, "Not implemented yet."));
+        return await Task.FromResult(BadRequest(new ErrorResponse(400, "Not implemented yet.")));
     }
 }

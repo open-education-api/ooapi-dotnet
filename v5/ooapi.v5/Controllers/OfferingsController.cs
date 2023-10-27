@@ -65,7 +65,7 @@ public class OfferingsController : BaseController
         [FromQuery] string? sort = "associationId",
         CancellationToken cancellationToken = default)
     {
-        return BadRequest(new ErrorResponse(400, "Not implemented yet."));
+        return await Task.FromResult(BadRequest(new ErrorResponse(400, "Not implemented yet.")));
     }
 
     /// <summary>
@@ -138,6 +138,6 @@ public class OfferingsController : BaseController
         [FromQuery] string? sort = "name",
         CancellationToken cancellationToken = default)
     {
-        return BadRequest(new ErrorResponse(400, "Not implemented yet."));
+        return await Task.FromResult(BadRequest(new ErrorResponse(400, "Not implemented yet.")));
     }
 }

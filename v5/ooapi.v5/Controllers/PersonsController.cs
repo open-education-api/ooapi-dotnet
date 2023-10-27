@@ -87,7 +87,7 @@ public class PersonsController : BaseController
     public virtual async Task<IActionResult> PersonsMeGetAsync(
         CancellationToken cancellationToken = default)
     {
-        return BadRequest(new ErrorResponse(400, "Not implemented yet."));
+        return await Task.FromResult(BadRequest(new ErrorResponse(400, "Not implemented yet.")));
     }
 
     ///  <summary>
