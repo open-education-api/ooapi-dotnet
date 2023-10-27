@@ -13,13 +13,13 @@ public sealed class PostResponseTests
     public void GetMessage_WhenAttributesExist_ReturnsListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<PostResponse>()
+        var postResponse = _fixture.Build<PostResponse>()
             .With(x => x.Message, JsonConvert.SerializeObject(new List<object> { new { language = "en", value = "TestName" } }))
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.message;
+        var result = postResponse.message;
 
         // Assert
         result.Should().NotBeNull();
@@ -33,13 +33,13 @@ public sealed class PostResponseTests
     public void GetMessage_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<PostResponse>()
+        var postResponse = _fixture.Build<PostResponse>()
             .With(x => x.Message, JsonConvert.SerializeObject(new List<object>()))
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.message;
+        var result = postResponse.message;
 
         // Assert
         result.Should().NotBeNull();

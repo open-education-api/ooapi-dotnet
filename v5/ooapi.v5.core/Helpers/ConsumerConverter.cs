@@ -79,6 +79,6 @@ public static class ConsumerConverter
             default:
                 break;
         }
-        return "";
+        return string.Empty;
     }
 }

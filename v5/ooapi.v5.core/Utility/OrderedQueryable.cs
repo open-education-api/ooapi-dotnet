@@ -182,7 +182,7 @@ public static class OrderedQueryable
 
         if (searchingPropertiesList.Count == 0 && searchTerm.Length > 0)
         {
-            throw new InputFormatterException($"'There are no searchable fields defined for this endpoint. Clear the search parameter and call the API again");
+            throw new InputFormatterException("There are no searchable fields defined for this endpoint. Clear the search parameter and call the API again.");
         }
 
         var expTest = source;
@@ -207,13 +207,16 @@ public static class OrderedQueryable
                 var toLowerMethod = typeof(string).GetMethod("ToLower", Array.Empty<Type>());
                 Expression toLowerExpressionRight = Expression.Call(propertyExpression, toLowerMethod!); // for example: {p.Name.ToLower()}
                 var containsMethod = typeof(string).GetMethod("Contains", new Type[] { typeof(string) });
-                Expression containsExpressionRight = Expression.Call(toLowerExpressionRight, containsMethod!, targetExpression); // for example: {p.Name.ToLower().Contains("abc")}
+                Expression containsExpressionRight = Expression.Call(toLowerExpressionRight, containsMethod!, targetExpression);
+                var nullCheck = Expression.NotEqual(propertyExpression, Expression.Constant(null, type: typeof(object))); // for example: {p.Name.ToLower().Contains("abc")}
+                containsExpressionRight = Expression.AndAlso(nullCheck, containsExpressionRight);
                 if (isFirstSearchProperty)
                 {
                     orElseExpressionRight = containsExpressionRight;
                 }
                 else if (orElseExpressionRight is not null)
                 {
+                    orElseExpressionRight = 
                     orElseExpressionRight = Expression.OrElse(orElseExpressionRight, containsExpressionRight); // for example: {p.Name.ToLower().Contains("abc") || p.Description.ToLower().Contains("abc")} 
                 }
                 isFirstSearchProperty = false;
