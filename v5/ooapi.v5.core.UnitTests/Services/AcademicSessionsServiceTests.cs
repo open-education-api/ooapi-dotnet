@@ -14,7 +14,7 @@ public class AcademicSessionsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAll_WhenEmptyAcademicSessionTypeGiven_CallsRepository()
+    public async Task GetAll_WhenEmptyAcademicSessionTypeGiven_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -28,15 +28,15 @@ public class AcademicSessionsServiceTests
         repository.GetAllOrderedByAsync(dataRequestParameters, academicSessionType).Returns(expected);
 
         // Act
-        var result = sut.GetAllAsync(dataRequestParameters, academicSessionType);
+        var result = await sut.GetAllAsync(dataRequestParameters, academicSessionType);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters, academicSessionType);
+        await repository.Received(1).GetAllOrderedByAsync(dataRequestParameters, academicSessionType);
     }
 
     [Test]
-    public void GetAll_CallsRepository()
+    public async Task GetAll_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -50,15 +50,15 @@ public class AcademicSessionsServiceTests
         repository.GetAllOrderedByAsync(dataRequestParameters, academicSessionType).Returns(expected);
 
         // Act
-        var result = sut.GetAllAsync(dataRequestParameters, academicSessionType);
+        var result = await sut.GetAllAsync(dataRequestParameters, academicSessionType);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters, academicSessionType);
+        await repository.Received(1).GetAllOrderedByAsync(dataRequestParameters, academicSessionType);
     }
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -69,13 +69,13 @@ public class AcademicSessionsServiceTests
         var academicSessionId = _fixture.Create<Guid>();
 
         var expected = new AcademicSession();
-        repository.GetAcademicSession(academicSessionId, dataRequestParameters).Returns(expected);
+        repository.GetAcademicSessionAsync(academicSessionId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAsync(academicSessionId, dataRequestParameters);
+        var result = await sut.GetAsync(academicSessionId, dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAcademicSession(academicSessionId, dataRequestParameters);
+        await repository.Received(1).GetAcademicSessionAsync(academicSessionId, dataRequestParameters);
     }
 }

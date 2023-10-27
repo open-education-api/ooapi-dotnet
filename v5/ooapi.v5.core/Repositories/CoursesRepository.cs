@@ -29,12 +29,14 @@ public class CoursesRepository : BaseRepository<Course>, ICoursesRepository
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public Task<List<Course>> GetCoursesByOrganizationIdAsync(Guid organizationId, CancellationToken cancellationToken = default)
+    public async Task<Pagination<Course>> GetCoursesByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return dbContext.Courses.Include(x => x.Attributes).Where(o => o.OrganizationId.Equals(organizationId)).ToListAsync(cancellationToken);
+        var set = dbContext.Courses.Include(x => x.Attributes).Where(o => o.OrganizationId.Equals(organizationId));
+
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public async Task<List<Course>> GetCoursesByProgramIdAsync(Guid programId, CancellationToken cancellationToken = default)
+    public async Task<Pagination<Course>> GetCoursesByProgramIdAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

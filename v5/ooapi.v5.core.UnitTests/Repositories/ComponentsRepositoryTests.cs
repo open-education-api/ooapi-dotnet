@@ -1,9 +1,9 @@
 using AutoFixture;
-using Microsoft.EntityFrameworkCore;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
-using ooapi.v5.core.UnitTests.Repositories.Helpers;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.UnitTests.Repositories;
@@ -14,7 +14,7 @@ public class ComponentsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetComponent_WhenComponentExists_ReturnsComponent()
+    public async Task GetComponent_WhenComponentExists_ReturnsComponent()
     {
         // Arrange
         var componentId = _fixture.Create<Guid>();
@@ -27,23 +27,22 @@ public class ComponentsRepositoryTests
             .Without(x => x.Course)
             .Without(x => x.Organization)
             .Create();
-        var componentOfferings = new List<Component> { component }.AsQueryable();
+        var components = new List<Component> { component }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Component>, IQueryable<Component>>();
-        DbMockHelper.InitDb(db, componentOfferings);
+        var db = components.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Components.Returns(db);
         var componentsRepository = new ComponentsRepository(dbContext);
 
         // Act
-        var result = componentsRepository.GetComponentAsync(componentId);
+        var result = await componentsRepository.GetComponentAsync(componentId);
 
         // Assert
         Assert.That(result, Is.EqualTo(component));
     }
 
     [Test]
-    public void GetComponent_WhenComponentNotFound_ReturnsNull()
+    public async Task GetComponent_WhenComponentNotFound_ReturnsNull()
     {
         // Arrange
         var componentId = _fixture.Create<Guid>();
@@ -56,23 +55,22 @@ public class ComponentsRepositoryTests
             .Without(x => x.Course)
             .Without(x => x.Organization)
             .Create();
-        var componentOfferings = new List<Component> { component }.AsQueryable();
+        var components = new List<Component> { component }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Component>, IQueryable<Component>>();
-        DbMockHelper.InitDb(db, componentOfferings);
+        var db = components.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Components.Returns(db);
         var componentsRepository = new ComponentsRepository(dbContext);
 
         // Act
-        var result = componentsRepository.GetComponentAsync(_fixture.Create<Guid>());
+        var result = await componentsRepository.GetComponentAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void GetComponentsByCourseId_WhenComponentWithCourseIdExists_ReturnsComponent()
+    public async Task GetComponentsByCourseId_WhenComponentWithCourseIdExists_ReturnsComponent()
     {
         // Arrange
         var courseId = _fixture.Create<Guid>();
@@ -85,23 +83,24 @@ public class ComponentsRepositoryTests
             .Without(x => x.Course)
             .Without(x => x.Organization)
             .Create();
-        var componentOfferings = new List<Component> { component }.AsQueryable();
+        var components = new List<Component> { component }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Component>, IQueryable<Component>>();
-        DbMockHelper.InitDb(db, componentOfferings);
+        var db = components.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Components.Returns(db);
         var componentsRepository = new ComponentsRepository(dbContext);
 
+        var dataRequestParameters = new DataRequestParameters();
+
         // Act
-        var result = componentsRepository.GetComponentsByCourseIdAsync(courseId);
+        var result = await componentsRepository.GetComponentsByCourseIdAsync(courseId, dataRequestParameters);
 
         // Assert
-        Assert.That(result, Does.Contain(component));
+        Assert.That(result.Items, Does.Contain(component));
     }
 
     [Test]
-    public void GetComponentsByCourseId_WhenComponentWithCourseNotFound_ReturnsEmptyList()
+    public async Task GetComponentsByCourseId_WhenComponentWithCourseNotFound_ReturnsEmptyList()
     {
         // Arrange
         var courseId = _fixture.Create<Guid>();
@@ -114,23 +113,24 @@ public class ComponentsRepositoryTests
             .Without(x => x.Course)
             .Without(x => x.Organization)
             .Create();
-        var componentOfferings = new List<Component> { component }.AsQueryable();
+        var components = new List<Component> { component }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Component>, IQueryable<Component>>();
-        DbMockHelper.InitDb(db, componentOfferings);
+        var db = components.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Components.Returns(db);
         var componentsRepository = new ComponentsRepository(dbContext);
 
+        var dataRequestParameters = new DataRequestParameters();
+
         // Act
-        var result = componentsRepository.GetComponentsByCourseIdAsync(_fixture.Create<Guid>());
+        var result = await componentsRepository.GetComponentsByCourseIdAsync(_fixture.Create<Guid>(), dataRequestParameters);
 
         // Assert
-        Assert.That(result, Does.Not.Contain(component));
+        Assert.That(result.Items, Does.Not.Contain(component));
     }
 
     [Test]
-    public void GetComponentsByOrganizationId_WhenComponentWithOrganizationIdExists_ReturnsComponent()
+    public async Task GetComponentsByOrganizationId_WhenComponentWithOrganizationIdExists_ReturnsComponent()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -143,23 +143,24 @@ public class ComponentsRepositoryTests
             .Without(x => x.Course)
             .Without(x => x.Organization)
             .Create();
-        var componentOfferings = new List<Component> { component }.AsQueryable();
+        var components = new List<Component> { component }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Component>, IQueryable<Component>>();
-        DbMockHelper.InitDb(db, componentOfferings);
+        var db = components.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Components.Returns(db);
         var componentsRepository = new ComponentsRepository(dbContext);
 
+        var dataRequestParameters = new DataRequestParameters();
+
         // Act
-        var result = componentsRepository.GetComponentsByOrganizationIdAsync(organizationId);
+        var result = await componentsRepository.GetComponentsByOrganizationIdAsync(organizationId, dataRequestParameters);
 
         // Assert
-        Assert.That(result, Does.Contain(component));
+        Assert.That(result.Items, Does.Contain(component));
     }
 
     [Test]
-    public void GetComponentsByOrganizationId_WhenComponentWithOrganizationIdNotfound_ReturnsEmptyList()
+    public async Task GetComponentsByOrganizationId_WhenComponentWithOrganizationIdNotfound_ReturnsEmptyList()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -172,18 +173,19 @@ public class ComponentsRepositoryTests
             .Without(x => x.Course)
             .Without(x => x.Organization)
             .Create();
-        var componentOfferings = new List<Component> { component }.AsQueryable();
+        var components = new List<Component> { component }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Component>, IQueryable<Component>>();
-        DbMockHelper.InitDb(db, componentOfferings);
+        var db = components.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Components.Returns(db);
         var componentsRepository = new ComponentsRepository(dbContext);
 
+        var dataRequestParameters = new DataRequestParameters();
+
         // Act
-        var result = componentsRepository.GetComponentsByOrganizationIdAsync(_fixture.Create<Guid>());
+        var result = await componentsRepository.GetComponentsByOrganizationIdAsync(_fixture.Create<Guid>(), dataRequestParameters);
 
         // Assert
-        Assert.That(result, Does.Not.Contain(component));
+        Assert.That(result.Items, Does.Not.Contain(component));
     }
 }

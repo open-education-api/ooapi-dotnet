@@ -1,9 +1,8 @@
 using AutoFixture;
-using Microsoft.EntityFrameworkCore;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
-using ooapi.v5.core.UnitTests.Repositories.Helpers;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
@@ -15,7 +14,7 @@ public class CoursesRepositoryTests
     private readonly IFixture _fixture = new Fixture();
     
     [Test]
-     public void GetCourse_WhenCourseExists_ReturnsCourse()
+     public async Task GetCourse_WhenCourseExists_ReturnsCourse()
     {
         // Arrange
         var courseId = _fixture.Create<Guid>();
@@ -33,21 +32,20 @@ public class CoursesRepositoryTests
             .Create();
         var courses = new List<Course> { course }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Course>, IQueryable<Course>>();
-        DbMockHelper.InitDb(db, courses);
+        var db = courses.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Courses.Returns(db);
         var coursesRepository = new CoursesRepository(dbContext);
 
         // Act
-        var result = coursesRepository.GetCourseAsync(courseId);
+        var result = await coursesRepository.GetCourseAsync(courseId);
 
         // Assert
         Assert.That(result, Is.EqualTo(course));
     }
 
     [Test]
-    public void GetCourse_WhenCourseDoesNotFound_ReturnsNull()
+    public async Task GetCourse_WhenCourseDoesNotFound_ReturnsNull()
     {
         // Arrange
         var courseId = _fixture.Create<Guid>();
@@ -65,21 +63,20 @@ public class CoursesRepositoryTests
             .Create();
         var courses = new List<Course> { course }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Course>, IQueryable<Course>>();
-        DbMockHelper.InitDb(db, courses);
+        var db = courses.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Courses.Returns(db);
         var coursesRepository = new CoursesRepository(dbContext);
 
         // Act
-        var result = coursesRepository.GetCourseAsync(_fixture.Create<Guid>());
+        var result = await coursesRepository.GetCourseAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void GetCourseByEducationSpecificationId_WhenCoursesExist_ReturnsCourses()
+    public async Task GetCourseByEducationSpecificationId_WhenCoursesExist_ReturnsCourses()
     {
         // Arrange
         var educationSpecificationId = _fixture.Create<Guid>();
@@ -97,14 +94,13 @@ public class CoursesRepositoryTests
             .Create();
         var courses = new List<Course> { course }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Course>, IQueryable<Course>>();
-        DbMockHelper.InitDb(db, courses);
+        var db = courses.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.CoursesNoTracking.Returns(db);
         var coursesRepository = new CoursesRepository(dbContext);
 
         // Act
-        var result = coursesRepository.GetCoursesByEducationSpecificationIdAsync(educationSpecificationId, new DataRequestParameters());
+        var result = await coursesRepository.GetCoursesByEducationSpecificationIdAsync(educationSpecificationId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Course>>());
@@ -113,7 +109,7 @@ public class CoursesRepositoryTests
     }
 
     [Test]
-    public void GetCourseByEducationSpecificationId_WhenCoursesNotFound_ReturnsEmptyList()
+    public async Task GetCourseByEducationSpecificationId_WhenCoursesNotFound_ReturnsEmptyList()
     {
         // Arrange
         var educationSpecificationId = _fixture.Create<Guid>();
@@ -131,14 +127,13 @@ public class CoursesRepositoryTests
             .Create();
         var courses = new List<Course> { course }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Course>, IQueryable<Course>>();
-        DbMockHelper.InitDb(db, courses);
+        var db = courses.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.CoursesNoTracking.Returns(db);
         var coursesRepository = new CoursesRepository(dbContext);
 
         // Act
-        var result = coursesRepository.GetCoursesByEducationSpecificationIdAsync(_fixture.Create<Guid>(), new DataRequestParameters());
+        var result = await coursesRepository.GetCoursesByEducationSpecificationIdAsync(_fixture.Create<Guid>(), new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Course>>());
@@ -146,7 +141,7 @@ public class CoursesRepositoryTests
     }
 
     [Test]
-    public void GetCoursesByOrganizationId_WhenCoursesExist_ReturnsCourses()
+    public async Task GetCoursesByOrganizationId_WhenCoursesExist_ReturnsCourses()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -164,23 +159,24 @@ public class CoursesRepositoryTests
             .Create();
         var courses = new List<Course> { course }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Course>, IQueryable<Course>>();
-        DbMockHelper.InitDb(db, courses);
+        var db = courses.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Courses.Returns(db);
         var coursesRepository = new CoursesRepository(dbContext);
 
+        var dataRequestParameters = new DataRequestParameters();
+
         // Act
-        var result = coursesRepository.GetCoursesByOrganizationIdAsync(organizationId);
+        var result = await coursesRepository.GetCoursesByOrganizationIdAsync(organizationId, dataRequestParameters);
 
         // Assert
-        Assert.That(result, Is.InstanceOf<List<Course>>());
-        Assert.That(result, Has.Count.EqualTo(1));
-        Assert.That(result[0].OrganizationId, Is.EqualTo(organizationId));
+        Assert.That(result, Is.InstanceOf<Pagination<Course>>());
+        Assert.That(result.Items, Has.Count.EqualTo(1));
+        Assert.That(result.Items[0].OrganizationId, Is.EqualTo(organizationId));
     }
 
     [Test]
-    public void GetCoursesByOrganizationId_WhenCoursesNotFound_ReturnsEmptyList()
+    public async Task GetCoursesByOrganizationId_WhenCoursesNotFound_ReturnsEmptyList()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -198,17 +194,18 @@ public class CoursesRepositoryTests
             .Create();
         var courses = new List<Course> { course }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Course>, IQueryable<Course>>();
-        DbMockHelper.InitDb(db, courses);
+        var db = courses.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Courses.Returns(db);
         var coursesRepository = new CoursesRepository(dbContext);
 
+        var dataRequestParameters = new DataRequestParameters();
+
         // Act
-        var result = coursesRepository.GetCoursesByOrganizationIdAsync(_fixture.Create<Guid>());
+        var result = await coursesRepository.GetCoursesByOrganizationIdAsync(_fixture.Create<Guid>(), dataRequestParameters);
 
         // Assert
-        Assert.That(result, Is.InstanceOf<List<Course>>());
-        Assert.That(result, Is.Empty);
+        Assert.That(result, Is.InstanceOf<Pagination<Course>>());
+        Assert.That(result.Items, Is.Empty);
     }
 }

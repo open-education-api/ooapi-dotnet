@@ -14,7 +14,7 @@ public class RoomsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAll_CallsRepository()
+    public async Task GetAll_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -27,15 +27,15 @@ public class RoomsServiceTests
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAllAsync(dataRequestParameters);
+        var result = await sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
+        await repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -48,15 +48,15 @@ public class RoomsServiceTests
         repository.GetRoomAsync(roomId).Returns(expected);
 
         // Act
-        var result = sut.GetAsync(roomId);
+        var result = await sut.GetAsync(roomId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetRoomAsync(roomId);
+        await repository.Received(1).GetRoomAsync(roomId);
     }
 
     [Test]
-    public void GetRoomsByBuildingId_CallsRepository()
+    public async Task GetRoomsByBuildingId_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -66,14 +66,14 @@ public class RoomsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var buildingId = _fixture.Create<Guid>();
 
-        var rooms = new List<Room>();
-        repository.GetRoomsByBuildingIdAsync(buildingId).Returns(rooms);
+        var rooms = new Pagination<Room>();
+        repository.GetRoomsByBuildingIdAsync(buildingId, dataRequestParameters).Returns(rooms);
 
         // Act
-        var result = sut.GetRoomsByBuildingIdAsync(dataRequestParameters, buildingId);
+        var result = await sut.GetRoomsByBuildingIdAsync(dataRequestParameters, buildingId);
 
         // Assert
         Assert.That(result, Is.TypeOf<Pagination<Room>>());
-        repository.Received(1).GetRoomsByBuildingIdAsync(buildingId);
+        await repository.Received(1).GetRoomsByBuildingIdAsync(buildingId, dataRequestParameters);
     }
 }

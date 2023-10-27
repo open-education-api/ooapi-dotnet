@@ -91,13 +91,17 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public async Task<List<Program>> GetProgramsByOrganizationIdAsync(Guid organizationId, CancellationToken cancellationToken = default)
+    public async Task<Pagination<Program>> GetProgramsByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return await dbContext.Programs.Where(o => o.OrganizationId.Equals(organizationId)).ToListAsync(cancellationToken);
+        var set = dbContext.Programs.Where(o => o.OrganizationId.Equals(organizationId));
+
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public async Task<List<Program>> GetProgramsByProgramIdAsync(Guid programId, CancellationToken cancellationToken = default)
+    public async Task<Pagination<Program>> GetProgramsByProgramIdAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return await dbContext.Programs.Where(o => o.ParentId.Equals(programId)).ToListAsync(cancellationToken);
+        var set = dbContext.Programs.Where(o => o.ParentId.Equals(programId));
+
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 }

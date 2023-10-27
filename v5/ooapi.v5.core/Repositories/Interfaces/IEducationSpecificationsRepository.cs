@@ -7,6 +7,6 @@ public interface IEducationSpecificationsRepository
 {
     Task<Pagination<EducationSpecification>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
     Task<EducationSpecification> GetEducationSpecificationAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
-    Task<List<EducationSpecification>> GetEducationSpecificationsByEducationSpecificationIdAsync(Guid educationSpecificationId, CancellationToken cancellationToken = default);
-    Task<List<EducationSpecification>> GetEducationSpecificationsByOrganizationIdAsync(Guid organizationId, CancellationToken cancellationToken = default);
+    Task<Pagination<EducationSpecification>> GetEducationSpecificationsByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<EducationSpecification>> GetEducationSpecificationsByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
 }

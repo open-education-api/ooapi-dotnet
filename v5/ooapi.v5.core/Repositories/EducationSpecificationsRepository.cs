@@ -54,13 +54,17 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
         return result;
     }
 
-    public async Task<List<EducationSpecification>> GetEducationSpecificationsByEducationSpecificationIdAsync(Guid educationSpecificationId, CancellationToken cancellationToken = default)
+    public async Task<Pagination<EducationSpecification>> GetEducationSpecificationsByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return await dbContext.EducationSpecifications.Where(o => o.ParentId.Equals(educationSpecificationId)).ToListAsync(cancellationToken);
+        var set = dbContext.EducationSpecifications.Where(o => o.ParentId.Equals(educationSpecificationId));
+
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public async Task<List<EducationSpecification>> GetEducationSpecificationsByOrganizationIdAsync(Guid organizationId, CancellationToken cancellationToken = default)
+    public async Task<Pagination<EducationSpecification>> GetEducationSpecificationsByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return await dbContext.EducationSpecifications.Where(o => o.OrganizationId.Equals(organizationId)).ToListAsync(cancellationToken);
+        var set = dbContext.EducationSpecifications.Where(o => o.OrganizationId.Equals(organizationId));
+
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 }

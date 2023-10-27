@@ -14,7 +14,7 @@ public class ComponentsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -27,16 +27,16 @@ public class ComponentsServiceTests
         repository.GetComponentAsync(componentId).Returns(expected);
 
         // Act
-        var result = sut.GetAsync(componentId);
+        var result = await sut.GetAsync(componentId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetComponentAsync(componentId);
+        await repository.Received(1).GetComponentAsync(componentId);
     }
 
 
     [Test]
-    public void GetComponentsByCourseId_CallsRepositoryAndReturnsPagination()
+    public async Task GetComponentsByCourseId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -46,19 +46,19 @@ public class ComponentsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var courseId = _fixture.Create<Guid>();
 
-        var components = new List<Component>();
-        repository.GetComponentsByCourseIdAsync(courseId).Returns(components);
+        var components = new Pagination<Component>();
+        repository.GetComponentsByCourseIdAsync(courseId, dataRequestParameters).Returns(components);
 
         // Act
-        var result = sut.GetComponentsByCourseIdAsync(dataRequestParameters, courseId);
+        var result = await sut.GetComponentsByCourseIdAsync(dataRequestParameters, courseId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Component>>());
-        repository.Received(1).GetComponentsByCourseIdAsync(courseId);
+        await repository.Received(1).GetComponentsByCourseIdAsync(courseId, dataRequestParameters);
     }
 
     [Test]
-    public void GetComponentsByOrganizationId_CallsRepositoryAndReturnsPagination()
+    public async Task GetComponentsByOrganizationId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -68,14 +68,14 @@ public class ComponentsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var organizationId = _fixture.Create<Guid>();
 
-        var components = new List<Component>();
-        repository.GetComponentsByOrganizationIdAsync(organizationId).Returns(components);
+        var components = new Pagination<Component>();
+        repository.GetComponentsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(components);
 
         // Act
-        var result = sut.GetComponentsByOrganizationIdAsync(dataRequestParameters, organizationId);
+        var result = await sut.GetComponentsByOrganizationIdAsync(dataRequestParameters, organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Component>>());
-        repository.Received(1).GetComponentsByOrganizationIdAsync(organizationId);
+        await repository.Received(1).GetComponentsByOrganizationIdAsync(organizationId, dataRequestParameters);
     }
 }

@@ -14,7 +14,7 @@ public class NewsItemsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -27,15 +27,15 @@ public class NewsItemsServiceTests
         repository.GetNewsItemAsync(newsItemId).Returns(expected);
 
         // Act
-        var result = sut.GetAsync(newsItemId);
+        var result = await sut.GetAsync(newsItemId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetNewsItemAsync(newsItemId);
+        await repository.Received(1).GetNewsItemAsync(newsItemId);
     }
 
     [Test]
-    public void GetNewsItemsByNewsFeedId_CallsRepository()
+    public async Task GetNewsItemsByNewsFeedId_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -45,14 +45,14 @@ public class NewsItemsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var newsFeedId = _fixture.Create<Guid>();
 
-        var newsItems = new List<NewsItem>();
-        repository.GetNewsItemsByNewsFeedIdAsync(newsFeedId).Returns(newsItems);
+        var newsItems = new Pagination<NewsItem>();
+        repository.GetNewsItemsByNewsFeedIdAsync(newsFeedId, dataRequestParameters).Returns(newsItems);
 
         // Act
-        var result = sut.GetNewsItemsByNewsFeedIdAsync(dataRequestParameters, newsFeedId);
+        var result = await sut.GetNewsItemsByNewsFeedIdAsync(dataRequestParameters, newsFeedId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<NewsItem>>());
-        repository.Received(1).GetNewsItemsByNewsFeedIdAsync(newsFeedId);
+        await repository.Received(1).GetNewsItemsByNewsFeedIdAsync(newsFeedId, dataRequestParameters);
     }
 }

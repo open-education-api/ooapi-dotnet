@@ -14,7 +14,7 @@ public class GroupsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAll_CallsRepository()
+    public async Task GetAll_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -27,15 +27,15 @@ public class GroupsServiceTests
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAllAsync(dataRequestParameters);
+        var result = await sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
+        await repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -48,15 +48,15 @@ public class GroupsServiceTests
         repository.GetGroupAsync(groupId).Returns(expected);
 
         // Act
-        var result = sut.GetAsync(groupId);
+        var result = await sut.GetAsync(groupId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetGroupAsync(groupId);
+        await repository.Received(1).GetGroupAsync(groupId);
     }
 
     [Test]
-    public void GetGroupsByOrganizationId_CallsRepositoryAndReturnsPagination()
+    public async Task GetGroupsByOrganizationId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -66,19 +66,19 @@ public class GroupsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var organizationId = _fixture.Create<Guid>();
 
-        var groups = new List<Group>();
-        repository.GetGroupsByOrganizationIdAsync(organizationId).Returns(groups);
+        var groups = new Pagination<Group>();
+        repository.GetGroupsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(groups);
 
         // Act
-        var result = sut.GetGroupsByOrganizationIdAsync(dataRequestParameters, organizationId);
+        var result = await sut.GetGroupsByOrganizationIdAsync(dataRequestParameters, organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Group>>());
-        repository.Received(1).GetGroupsByOrganizationIdAsync(organizationId);
+        await repository.Received(1).GetGroupsByOrganizationIdAsync(organizationId, dataRequestParameters);
     }
 
     [Test]
-    public void GetGroupsByPersonId_CallsRepositoryAndReturnsPagination()
+    public async Task GetGroupsByPersonId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -88,14 +88,14 @@ public class GroupsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var groupId = _fixture.Create<Guid>();
 
-        var groups = new List<Group>();
-        repository.GetGroupsByPersonIdAsync(groupId).Returns(groups);
+        var groups = new Pagination<Group>();
+        repository.GetGroupsByPersonIdAsync(groupId, dataRequestParameters).Returns(groups);
 
         // Act
-        var result = sut.GetGroupsByPersonIdAsync(dataRequestParameters, groupId);
+        var result = await sut.GetGroupsByPersonIdAsync(dataRequestParameters, groupId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Group>>());
-        repository.Received(1).GetGroupsByPersonIdAsync(groupId);
+        await repository.Received(1).GetGroupsByPersonIdAsync(groupId, dataRequestParameters);
     }
 }

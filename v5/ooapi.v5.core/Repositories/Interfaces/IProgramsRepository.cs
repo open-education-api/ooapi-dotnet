@@ -9,6 +9,6 @@ public interface IProgramsRepository
         CancellationToken cancellationToken = default);
     Task<Program?> GetProgramAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
     Task<Pagination<Program>> GetProgramsByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
-    Task<List<Program>> GetProgramsByOrganizationIdAsync(Guid organizationId, CancellationToken cancellationToken = default);
-    Task<List<Program>> GetProgramsByProgramIdAsync(Guid programId, CancellationToken cancellationToken = default);
+    Task<Pagination<Program>> GetProgramsByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<Program>> GetProgramsByProgramIdAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
 }

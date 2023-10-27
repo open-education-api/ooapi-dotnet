@@ -33,19 +33,11 @@ internal class ProgramsService : ServiceBase, IProgramsService
 
     public async Task<Pagination<Program>> GetProgramsByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default)
     {
-        var result = await _repository.GetProgramsByOrganizationIdAsync(organizationId, cancellationToken);
-
-        var pagination = new Pagination<Program>();
-        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
-        return pagination;
+        return await _repository.GetProgramsByOrganizationIdAsync(organizationId, dataRequestParameters, cancellationToken);
     }
 
     public async Task<Pagination<Program>> GetProgramsByProgramIdAsync(DataRequestParameters dataRequestParameters, Guid programId, CancellationToken cancellationToken = default)
     {
-        var result = await _repository.GetProgramsByProgramIdAsync(programId, cancellationToken);
-
-        var pagination = new Pagination<Program>();
-        await pagination.LoadData(result.AsQueryable(), dataRequestParameters);
-        return pagination;
+        return await _repository.GetProgramsByProgramIdAsync(programId, dataRequestParameters, cancellationToken);
     }
 }

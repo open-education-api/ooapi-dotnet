@@ -14,7 +14,7 @@ public class NewsFeedsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAll_CallsRepository()
+    public async Task GetAll_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -27,15 +27,15 @@ public class NewsFeedsServiceTests
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAllAsync(dataRequestParameters);
+        var result = await sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
+        await repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -48,10 +48,10 @@ public class NewsFeedsServiceTests
         repository.GetNewsFeedAsync(newsFeedId).Returns(expected);
 
         // Act
-        var result = sut.GetAsync(newsFeedId);
+        var result = await sut.GetAsync(newsFeedId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetNewsFeedAsync(newsFeedId);
+        await repository.Received(1).GetNewsFeedAsync(newsFeedId);
     }
 }

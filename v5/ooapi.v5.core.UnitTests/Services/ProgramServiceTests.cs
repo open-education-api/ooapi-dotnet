@@ -14,7 +14,7 @@ public class ProgramsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAll_CallsRepository()
+    public async Task GetAll_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -27,15 +27,15 @@ public class ProgramsServiceTests
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAllAsync(dataRequestParameters);
+        var result = await sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
+        await repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -49,15 +49,15 @@ public class ProgramsServiceTests
         repository.GetProgramAsync(programId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAsync(programId, dataRequestParameters);
+        var result = await sut.GetAsync(programId, dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetProgramAsync(programId, dataRequestParameters);
+        await repository.Received(1).GetProgramAsync(programId, dataRequestParameters);
     }
 
     [Test]
-    public void GetProgramsByEducationSpecificationId_CallsRepository()
+    public async Task GetProgramsByEducationSpecificationId_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -71,15 +71,15 @@ public class ProgramsServiceTests
         repository.GetProgramsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters).Returns(programs);
 
         // Act
-        var result = sut.GetProgramsByEducationSpecificationIdAsync(dataRequestParameters, educationSpecificationId);
+        var result = await sut.GetProgramsByEducationSpecificationIdAsync(dataRequestParameters, educationSpecificationId);
 
         // Assert
         Assert.That(result, Is.EqualTo(programs));
-        repository.Received(1).GetProgramsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters);
+        await repository.Received(1).GetProgramsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters);
     }
 
     [Test]
-    public void GetProgramsByOrganizationId_CallsRepositoryAndReturnsPagination()
+    public async Task GetProgramsByOrganizationId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -89,19 +89,19 @@ public class ProgramsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var organizationId = _fixture.Create<Guid>();
 
-        var programs = new List<Program>();
-        repository.GetProgramsByOrganizationIdAsync(organizationId).Returns(programs);
+        var programs = new Pagination<Program>();
+        repository.GetProgramsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(programs);
 
         // Act
-        var result = sut.GetProgramsByOrganizationIdAsync(dataRequestParameters, organizationId);
+        var result = await sut.GetProgramsByOrganizationIdAsync(dataRequestParameters, organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Program>>());
-        repository.Received(1).GetProgramsByOrganizationIdAsync(organizationId);
+        await repository.Received(1).GetProgramsByOrganizationIdAsync(organizationId, dataRequestParameters);
     }
 
     [Test]
-    public void GetProgramsByProgramId_CallsRepositoryAndReturnsPagination()
+    public async Task GetProgramsByProgramId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -111,14 +111,14 @@ public class ProgramsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var programId = _fixture.Create<Guid>();
 
-        var programs = new List<Program>();
-        repository.GetProgramsByProgramIdAsync(programId).Returns(programs);
+        var programs = new Pagination<Program>();
+        repository.GetProgramsByProgramIdAsync(programId, dataRequestParameters).Returns(programs);
 
         // Act
-        var result = sut.GetProgramsByProgramIdAsync(dataRequestParameters, programId);
+        var result = await sut.GetProgramsByProgramIdAsync(dataRequestParameters, programId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Program>>());
-        repository.Received(1).GetProgramsByProgramIdAsync(programId);
+        await repository.Received(1).GetProgramsByProgramIdAsync(programId, dataRequestParameters);
     }
 }

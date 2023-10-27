@@ -1,9 +1,9 @@
 using AutoFixture;
-using Microsoft.EntityFrameworkCore;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
-using ooapi.v5.core.UnitTests.Repositories.Helpers;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.UnitTests.Repositories;
@@ -14,7 +14,7 @@ public class GroupsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-     public void GetGroup_ReturnsGroup_WhenGroupExists()
+     public async Task GetGroup_ReturnsGroup_WhenGroupExists()
     {
         // Arrange
         var groupId = _fixture.Create<Guid>();
@@ -25,21 +25,20 @@ public class GroupsRepositoryTests
             .Create();
         var groups = new List<Group> { group }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Group>, IQueryable<Group>>();
-        DbMockHelper.InitDb(db, groups);
+        var db = groups.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Groups.Returns(db);
         var groupsRepository = new GroupsRepository(dbContext);
 
         // Act
-        var result = groupsRepository.GetGroupAsync(groupId);
+        var result = await groupsRepository.GetGroupAsync(groupId);
 
         // Assert
         Assert.That(result, Is.EqualTo(group));
     }
 
     [Test]
-    public void GetGroup_ReturnsNull_WhenGroupDoesNotFound()
+    public async Task GetGroup_ReturnsNull_WhenGroupDoesNotFound()
     {
         // Arrange
         var groupId = _fixture.Create<Guid>();
@@ -50,21 +49,20 @@ public class GroupsRepositoryTests
             .Create();
         var groups = new List<Group> { group }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Group>, IQueryable<Group>>();
-        DbMockHelper.InitDb(db, groups);
+        var db = groups.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Groups.Returns(db);
         var groupsRepository = new GroupsRepository(dbContext);
 
         // Act
-        var result = groupsRepository.GetGroupAsync(_fixture.Create<Guid>());
+        var result = await groupsRepository.GetGroupAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void GetGroupByOrganizationId_WhenGroupsExist_ReturnsGroups()
+    public async Task GetGroupByOrganizationId_WhenGroupsExist_ReturnsGroups()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -75,23 +73,24 @@ public class GroupsRepositoryTests
             .Create();
         var groups = new List<Group> { group }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Group>, IQueryable<Group>>();
-        DbMockHelper.InitDb(db, groups);
+        var db = groups.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Groups.Returns(db);
         var groupsRepository = new GroupsRepository(dbContext);
 
+        var dataRequestParameters = new DataRequestParameters();
+
         // Act
-        var result = groupsRepository.GetGroupsByOrganizationIdAsync(organizationId);
+        var result = await groupsRepository.GetGroupsByOrganizationIdAsync(organizationId, dataRequestParameters);
 
         // Assert
-        Assert.That(result, Is.InstanceOf<List<Group>>());
-        Assert.That(result, Has.Count.EqualTo(1));
-        Assert.That(result[0].OrganizationId, Is.EqualTo(organizationId));
+        Assert.That(result, Is.InstanceOf<Pagination<Group>>());
+        Assert.That(result.Items, Has.Count.EqualTo(1));
+        Assert.That(result.Items[0].OrganizationId, Is.EqualTo(organizationId));
     }
 
     [Test]
-    public void GetGroupByOrganizationId_WhenGroupsNotFound_ReturnsEmptyList()
+    public async Task GetGroupByOrganizationId_WhenGroupsNotFound_ReturnsEmptyList()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -102,17 +101,18 @@ public class GroupsRepositoryTests
             .Create();
         var groups = new List<Group> { group }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Group>, IQueryable<Group>>();
-        DbMockHelper.InitDb(db, groups);
+        var db = groups.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Groups.Returns(db);
         var groupsRepository = new GroupsRepository(dbContext);
 
+        var dataRequestParameters = new DataRequestParameters();
+
         // Act
-        var result = groupsRepository.GetGroupsByOrganizationIdAsync(_fixture.Create<Guid>());
+        var result = await groupsRepository.GetGroupsByOrganizationIdAsync(_fixture.Create<Guid>(), dataRequestParameters);
 
         // Assert
-        Assert.That(result, Is.InstanceOf<List<Group>>());
-        Assert.That(result, Is.Empty);
+        Assert.That(result, Is.InstanceOf<Pagination<Group>>());
+        Assert.That(result.Items, Is.Empty);
     }
 }

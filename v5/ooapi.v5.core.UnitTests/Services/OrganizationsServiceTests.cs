@@ -1,4 +1,5 @@
 using AutoFixture;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Security;
@@ -14,7 +15,7 @@ public class OrganizationsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAll_CallsRepository()
+    public async Task GetAll_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -38,20 +39,23 @@ public class OrganizationsServiceTests
             .Without(x => x.Parent)
             .Without(x => x.Children)
             .CreateMany(5);
-        var expected = new Pagination<Organization>(organizations.AsQueryable(), dataRequestParameters);
+        var db = organizations.AsQueryable().BuildMockDbSet();
+
+        var expected = new Pagination<Organization>();
+        await expected.LoadData(db, dataRequestParameters);
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAllAsync(dataRequestParameters);
+        var result = await sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
         Assert.That(result.Items[0].Addresses, Has.Count.EqualTo(organizations.First().Address.Count));
-        repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
+        await repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -65,10 +69,10 @@ public class OrganizationsServiceTests
         repository.GetOrganizationAsync(organizationId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAsync(organizationId, dataRequestParameters);
+        var result = await sut.GetAsync(organizationId, dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetOrganizationAsync(organizationId, dataRequestParameters);
+        await repository.Received(1).GetOrganizationAsync(organizationId, dataRequestParameters);
     }
 }

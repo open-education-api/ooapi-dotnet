@@ -7,7 +7,7 @@ public interface ICoursesRepository
 {
     Task<Course?> GetCourseAsync(Guid courseId, CancellationToken cancellationToken = default);
     Task<Pagination<Course>> GetCoursesByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
-    Task<List<Course>> GetCoursesByOrganizationIdAsync(Guid organizationId, CancellationToken cancellationToken = default);
-    Task<List<Course>> GetCoursesByProgramIdAsync(Guid programId, CancellationToken cancellationToken = default);
+    Task<Pagination<Course>> GetCoursesByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<Course>> GetCoursesByProgramIdAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
     Task<Pagination<Course>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Course>? set = null, CancellationToken cancellationToken = default);
 }

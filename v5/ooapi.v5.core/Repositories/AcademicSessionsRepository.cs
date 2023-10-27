@@ -12,7 +12,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcad
     {
     }
 
-    public async Task<AcademicSession?> GetAcademicSessionAsync(Guid academicSessionId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken)
+    public async Task<AcademicSession?> GetAcademicSessionAsync(Guid academicSessionId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
         var result = await set.FirstOrDefaultAsync(x => x.AcademicSessionId.Equals(academicSessionId), cancellationToken);
@@ -24,7 +24,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcad
         return await GetAcademicSessionAsync(result, set, dataRequestParameters, cancellationToken);
     }
 
-    public async Task<AcademicSession?> GetAcademicSessionAsync(string primaryCode, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken)
+    public async Task<AcademicSession?> GetAcademicSessionAsync(string primaryCode, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
 
@@ -39,7 +39,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcad
 
     private async Task<AcademicSession> GetAcademicSessionAsync(AcademicSession result, IQueryable<AcademicSession> set, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken)
     {
-        result.ChildrenIds = await dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(result.AcademicSessionId)).Select(x => x.AcademicSessionId).ToListAsync();
+        result.ChildrenIds = await dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(result.AcademicSessionId)).Select(x => x.AcademicSessionId).ToListAsync(cancellationToken);
 
         if (dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase) && result.ParentId != null)
         {

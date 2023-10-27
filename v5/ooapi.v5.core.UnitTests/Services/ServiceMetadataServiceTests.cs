@@ -10,7 +10,7 @@ namespace ooapi.v5.core.UnitTests.Services;
 public class ServiceMetadatasServiceTests
 {
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -22,10 +22,10 @@ public class ServiceMetadatasServiceTests
         repository.GetServiceMetadataAsync().Returns(expected);
 
         // Act
-        var result = sut.GetAsync();
+        var result = await sut.GetAsync();
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetServiceMetadataAsync();
+        await repository.Received(1).GetServiceMetadataAsync();
     }
 }

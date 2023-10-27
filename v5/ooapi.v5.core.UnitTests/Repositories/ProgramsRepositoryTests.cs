@@ -1,9 +1,8 @@
 using AutoFixture;
-using Microsoft.EntityFrameworkCore;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
-using ooapi.v5.core.UnitTests.Repositories.Helpers;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
@@ -15,7 +14,7 @@ public class ProgramsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAllOrderedBy_WithDataRequestParameters_ReturnsSet()
+    public async Task GetAllOrderedBy_WithDataRequestParameters_ReturnsSet()
     {
         // Arrange
         var programs = new List<Program>()
@@ -57,14 +56,14 @@ public class ProgramsRepositoryTests
                 .Without(x => x.Organization)
                 .Create()
         }.AsQueryable();
-        var db = Substitute.For<DbSet<Program>, IQueryable<Program>>();
-        DbMockHelper.InitDb(db, programs);
+
+        var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ProgramsNoTracking.Returns(db);
         var programsRepository = new ProgramsRepository(dbContext);
 
         // Act
-        var result = programsRepository.GetAllOrderedByAsync(new DataRequestParameters());
+        var result = await programsRepository.GetAllOrderedByAsync(new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Program>>());
@@ -72,7 +71,7 @@ public class ProgramsRepositoryTests
     }
 
         [Test]
-    public void GetProgramsByEducationSpecificationId_WithEducationSpecificationId_ReturnsSetByEducationSpecificationId()
+    public async Task GetProgramsByEducationSpecificationId_WithEducationSpecificationId_ReturnsSetByEducationSpecificationId()
     {
         // Arrange
         var educationSpecificationId = _fixture.Create<Guid>();
@@ -119,14 +118,14 @@ public class ProgramsRepositoryTests
                 .Without(x => x.Organization)
                 .Create()
         }.AsQueryable();
-        var db = Substitute.For<DbSet<Program>, IQueryable<Program>>();
-        DbMockHelper.InitDb(db, programs);
+
+        var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ProgramsNoTracking.Returns(db);
         var programsRepository = new ProgramsRepository(dbContext);
 
         // Act
-        var result = programsRepository.GetProgramsByEducationSpecificationIdAsync(educationSpecificationId, new DataRequestParameters());
+        var result = await programsRepository.GetProgramsByEducationSpecificationIdAsync(educationSpecificationId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Program>>());
@@ -134,7 +133,7 @@ public class ProgramsRepositoryTests
     }
 
     [Test]
-    public void GetProgramsByOrganizationId_WithOrganizationId_ReturnsSetByOrganizationId()
+    public async Task GetProgramsByOrganizationId_WithOrganizationId_ReturnsSetByOrganizationId()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -181,22 +180,24 @@ public class ProgramsRepositoryTests
                 .Without(x => x.Organization)
                 .Create()
         }.AsQueryable();
-        var db = Substitute.For<DbSet<Program>, IQueryable<Program>>();
-        DbMockHelper.InitDb(db, programs);
+
+        var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Programs.Returns(db);
         var programsRepository = new ProgramsRepository(dbContext);
 
+        var dataRequestParameters = new DataRequestParameters();
+
         // Act
-        var result = programsRepository.GetProgramsByOrganizationIdAsync(organizationId);
+        var result = await programsRepository.GetProgramsByOrganizationIdAsync(organizationId, dataRequestParameters);
 
         // Assert
-        Assert.That(result, Is.InstanceOf<List<Program>>());
-        Assert.That(result, Has.Count.EqualTo(2));
+        Assert.That(result, Is.InstanceOf<Pagination<Program>>());
+        Assert.That(result.Items, Has.Count.EqualTo(2));
     }
 
     [Test]
-    public void GetProgramsByProgramId_WithProgramId_ReturnsSetByProgramId()
+    public async Task GetProgramsByProgramId_WithProgramId_ReturnsSetByProgramId()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
@@ -243,22 +244,24 @@ public class ProgramsRepositoryTests
                 .Without(x => x.Organization)
                 .Create()
         }.AsQueryable();
-        var db = Substitute.For<DbSet<Program>, IQueryable<Program>>();
-        DbMockHelper.InitDb(db, programs);
+
+        var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Programs.Returns(db);
         var programsRepository = new ProgramsRepository(dbContext);
 
+        var dataRequestParameters = new DataRequestParameters();
+
         // Act
-        var result = programsRepository.GetProgramsByProgramIdAsync(programId);
+        var result = await programsRepository.GetProgramsByProgramIdAsync(programId, dataRequestParameters);
 
         // Assert
-        Assert.That(result, Is.InstanceOf<List<Program>>());
-        Assert.That(result, Has.Count.EqualTo(2));
+        Assert.That(result, Is.InstanceOf<Pagination<Program>>());
+        Assert.That(result.Items, Has.Count.EqualTo(2));
     }
 
     [Test]
-    public void GetProgram_WithProgramId_ReturnsProgram()
+    public async Task GetProgram_WithProgramId_ReturnsProgram()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
@@ -279,14 +282,14 @@ public class ProgramsRepositoryTests
                 .Without(x => x.Organization)
                 .Create(),
         }.AsQueryable();
-        var db = Substitute.For<DbSet<Program>, IQueryable<Program>>();
-        DbMockHelper.InitDb(db, programs);
+
+        var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ProgramsNoTracking.Returns(db);
         var programsRepository = new ProgramsRepository(dbContext);
 
         // Act
-        var result = programsRepository.GetProgram(programId, new DataRequestParameters());
+        var result = await programsRepository.GetProgramAsync(programId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Program>());
@@ -294,7 +297,7 @@ public class ProgramsRepositoryTests
     }
 
     [Test]
-    public void GetProgram_WhenExpandParentRequestedViaRequestParameters_ReturnsProgramAndParent()
+    public async Task GetProgram_WhenExpandParentRequestedViaRequestParameters_ReturnsProgramAndParent()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
@@ -328,8 +331,7 @@ public class ProgramsRepositoryTests
             .Create();
         var programs = new List<Program> { program, parentProgram }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Program>, IQueryable<Program>>();
-        DbMockHelper.InitDb(db, programs);
+        var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ProgramsNoTracking.Returns(db);
         var programsRepository = new ProgramsRepository(dbContext);
@@ -337,13 +339,13 @@ public class ProgramsRepositoryTests
         var requestParameters = new DataRequestParameters() { Expand = { "Parent" } };
 
         // Act
-        var result = programsRepository.GetProgram(programId, requestParameters);
+        var result = await programsRepository.GetProgramAsync(programId, requestParameters);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Program>());
         Assert.Multiple(() =>
         {
-            Assert.That(result.ProgramId, Is.EqualTo(programId));
+            Assert.That(result!.ProgramId, Is.EqualTo(programId));
             Assert.That(result.Parent, Is.InstanceOf<Program>());
             Assert.That(result.Parent!.ProgramId, Is.EqualTo(parentProgramId));
             Assert.That(result.Parent.ChildrenIds, Does.Contain(programId));
@@ -351,7 +353,7 @@ public class ProgramsRepositoryTests
     }
 
     [Test]
-    public void GetProgram_WhenExpandChildrenRequestedViaRequestParameters_ReturnsProgramAndChildren()
+    public async Task GetProgram_WhenExpandChildrenRequestedViaRequestParameters_ReturnsProgramAndChildren()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
@@ -400,8 +402,7 @@ public class ProgramsRepositoryTests
             .Create();
         var programs = new List<Program> { program, firstChildProgram, secondChildProgram }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Program>, IQueryable<Program>>();
-        DbMockHelper.InitDb(db, programs);
+        var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ProgramsNoTracking.Returns(db);
         var programsRepository = new ProgramsRepository(dbContext);
@@ -409,13 +410,13 @@ public class ProgramsRepositoryTests
         var requestParameters = new DataRequestParameters() { Expand = { "Children" } };
 
         // Act
-        var result = programsRepository.GetProgram(programId, requestParameters);
+        var result = await programsRepository.GetProgramAsync(programId, requestParameters);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Program>());
         Assert.Multiple(() =>
         {
-            Assert.That(result.ProgramId, Is.EqualTo(programId));
+            Assert.That(result!.ProgramId, Is.EqualTo(programId));
             Assert.That(result.Children, Is.InstanceOf<List<Program>>());
             Assert.That(result.ChildrenIds, Does.Contain(firstChildProgramId));
             Assert.That(result.Children, Does.Contain(firstChildProgram));
@@ -425,7 +426,7 @@ public class ProgramsRepositoryTests
     }
 
     [Test]
-    public void GetProgram_WhenExpandOrganizationRequestedViaRequestParameters_ReturnsProgramAndOrganization()
+    public async Task GetProgram_WhenExpandOrganizationRequestedViaRequestParameters_ReturnsProgramAndOrganization()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
@@ -455,10 +456,8 @@ public class ProgramsRepositoryTests
             .Create();
         var organizations = new List<Organization>() { organization }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Program>, IQueryable<Program>>();
-        DbMockHelper.InitDb(db, programs);
-        var orgDb = Substitute.For<DbSet<Organization>, IQueryable<Organization>>();
-        DbMockHelper.InitDb(orgDb, organizations);
+        var db = programs.BuildMockDbSet();
+        var orgDb = organizations.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ProgramsNoTracking.Returns(db);
         dbContext.OrganizationsNoTracking.Returns(orgDb);
@@ -467,19 +466,19 @@ public class ProgramsRepositoryTests
         var requestParameters = new DataRequestParameters() { Expand = { "Organization" } };
 
         // Act
-        var result = programsRepository.GetProgram(programId, requestParameters);
+        var result = await programsRepository.GetProgramAsync(programId, requestParameters);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Program>());
         Assert.Multiple(() =>
         {
-            Assert.That(result.ProgramId, Is.EqualTo(programId));
+            Assert.That(result!.ProgramId, Is.EqualTo(programId));
             Assert.That(result.Organization!.OrganizationId, Is.EqualTo(organization.OrganizationId));
         });
     }
 
     [Test]
-    public void GetProgram_WhenExpandEducationSpecificationRequestedViaRequestParameters_ReturnsProgramAndEducationSpecification()
+    public async Task GetProgram_WhenExpandEducationSpecificationRequestedViaRequestParameters_ReturnsProgramAndEducationSpecification()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
@@ -509,25 +508,23 @@ public class ProgramsRepositoryTests
             .Create();
         var educationSpecifications = new List<EducationSpecification>() { educationSpecification }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Program>, IQueryable<Program>>();
-        DbMockHelper.InitDb(db, programs);
-        var orgDb = Substitute.For<DbSet<EducationSpecification>, IQueryable<EducationSpecification>>();
-        DbMockHelper.InitDb(orgDb, educationSpecifications);
+        var db = programs.BuildMockDbSet();
+        var eduDb = educationSpecifications.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ProgramsNoTracking.Returns(db);
-        dbContext.EducationSpecificationsNoTracking.Returns(orgDb);
+        dbContext.EducationSpecificationsNoTracking.Returns(eduDb);
         var programsRepository = new ProgramsRepository(dbContext);
 
         var requestParameters = new DataRequestParameters() { Expand = { "EducationSpecification" } };
 
         // Act
-        var result = programsRepository.GetProgram(programId, requestParameters);
+        var result = await programsRepository.GetProgramAsync(programId, requestParameters);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Program>());
         Assert.Multiple(() =>
         {
-            Assert.That(result.ProgramId, Is.EqualTo(programId));
+            Assert.That(result!.ProgramId, Is.EqualTo(programId));
             Assert.That(result.EducationSpecification!.EducationSpecificationId, Is.EqualTo(educationSpecificationId));
         });
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
@@ -15,7 +16,7 @@ public class NewsItemsRepository : BaseRepository<NewsItem>, INewsItemsRepositor
         return await dbContext.NewsItems.FirstOrDefaultAsync(x => x.NewsItemId.Equals(newsitemId),cancellationToken);
     }
 
-    public async Task<List<NewsItem>> GetNewsItemsByNewsFeedIdAsync(Guid newsfeedId, CancellationToken cancellationToken = default)
+    public async Task<Pagination<NewsItem>> GetNewsItemsByNewsFeedIdAsync(Guid newsfeedId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
