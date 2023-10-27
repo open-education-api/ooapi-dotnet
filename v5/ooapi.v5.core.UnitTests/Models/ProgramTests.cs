@@ -85,13 +85,13 @@ public sealed class ProgramTests
     public void GetName_WhenAttributesExist_ReturnsListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "name", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.name;
+        var result = program.name;
 
         // Assert
         result.Should().NotBeNull();
@@ -105,13 +105,13 @@ public sealed class ProgramTests
     public void GetName_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.Attributes, new List<Attribute>())
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.name;
+        var result = program.name;
 
         // Assert
         result.Should().NotBeNull();
@@ -123,13 +123,13 @@ public sealed class ProgramTests
     public void GetDescription_WhenAttributesExist_ReturnsListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "description", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.description;
+        var result = program.description;
 
         // Assert
         result.Should().NotBeNull();
@@ -143,13 +143,13 @@ public sealed class ProgramTests
     public void GetDescription_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.Attributes, new List<Attribute>())
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.description;
+        var result = program.description;
 
         // Assert
         result.Should().NotBeNull();
@@ -180,13 +180,13 @@ public sealed class ProgramTests
         var studyLoadDescriptor = new StudyLoadDescriptor { StudyLoadUnit = _fixture.Create<string>(), Value = _fixture.Create<int>() };
 
         // act
-        var model = new Program { StudyLoad = studyLoadDescriptor };
-        var result = model.StudyLoad;
+        var program = new Program { StudyLoad = studyLoadDescriptor };
+        var result = program.StudyLoad;
 
         // assert
         result.Should().NotBeNull();
-        result!.StudyLoadUnit.Should().Be(model.StudyLoadUnit);
-        result.Value.Should().Be(model.StudyLoadValue);
+        result!.StudyLoadUnit.Should().Be(program.StudyLoadUnit);
+        result.Value.Should().Be(program.StudyLoadValue);
     }
 
     [TestCase("distance-learning", ModeOfDelivery.distance_learning)]
@@ -198,13 +198,13 @@ public sealed class ProgramTests
     public void GetModeOfDel_ReturnsListModeOfDelivery(string modeOfDelivery, ModeOfDelivery? expectedModeOfDelivery)
     {
         // Arrange
-        var component = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.ModeOfDelivery, modeOfDelivery)
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = component.ModeOfDel;
+        var result = program.ModeOfDel;
 
         // Assert
         result.Should().NotBeNull();
@@ -224,13 +224,13 @@ public sealed class ProgramTests
     public void GetEnrollment_WhenAttributesExist_ReturnsListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "enrollment", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.enrollment;
+        var result = program.enrollment;
 
         // Assert
         result.Should().NotBeNull();
@@ -244,13 +244,13 @@ public sealed class ProgramTests
     public void GetEnrollment_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.Attributes, new List<Attribute>())
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.enrollment;
+        var result = program.enrollment;
 
         // Assert
         result.Should().NotBeNull();
@@ -262,13 +262,13 @@ public sealed class ProgramTests
     public void GetAssessment_WhenAttributesExist_ReturnsListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "assessment", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.assessment;
+        var result = program.assessment;
 
         // Assert
         result.Should().NotBeNull();
@@ -282,13 +282,13 @@ public sealed class ProgramTests
     public void GetAssessment_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.Attributes, new List<Attribute>())
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.assessment;
+        var result = program.assessment;
 
         // Assert
         result.Should().NotBeNull();
@@ -300,13 +300,13 @@ public sealed class ProgramTests
     public void GetAdmissionRequirements_WhenAttributesExist_ReturnsListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "admissionRequirements", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.admissionRequirements;
+        var result = program.admissionRequirements;
 
         // Assert
         result.Should().NotBeNull();
@@ -320,13 +320,13 @@ public sealed class ProgramTests
     public void GetAdmissionRequirements_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.Attributes, new List<Attribute>())
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.admissionRequirements;
+        var result = program.admissionRequirements;
 
         // Assert
         result.Should().NotBeNull();
@@ -338,13 +338,13 @@ public sealed class ProgramTests
     public void GetQualificationRequirements_WhenAttributesExist_ReturnsListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "qualificationRequirements", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.qualificationRequirements;
+        var result = program.qualificationRequirements;
 
         // Assert
         result.Should().NotBeNull();
@@ -358,13 +358,13 @@ public sealed class ProgramTests
     public void GetQualificationRequirements_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
     {
         // Arrange
-        var building = _fixture.Build<Program>()
+        var program = _fixture.Build<Program>()
             .With(x => x.Attributes, new List<Attribute>())
             .OmitAutoProperties()
             .Create();
 
         // Act
-        var result = building.qualificationRequirements;
+        var result = program.qualificationRequirements;
 
         // Assert
         result.Should().NotBeNull();
