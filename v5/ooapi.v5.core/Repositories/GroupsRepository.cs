@@ -23,7 +23,7 @@ public class GroupsRepository : BaseRepository<Group>, IGroupsRepository
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public async Task<Pagination<Group>> GetGroupsByPersonIdAsync(Guid personId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
+    public Task<Pagination<Group>> GetGroupsByPersonIdAsync(Guid personId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

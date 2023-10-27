@@ -16,7 +16,7 @@ public class NewsItemsRepository : BaseRepository<NewsItem>, INewsItemsRepositor
         return await dbContext.NewsItems.FirstOrDefaultAsync(x => x.NewsItemId.Equals(newsitemId),cancellationToken);
     }
 
-    public async Task<Pagination<NewsItem>> GetNewsItemsByNewsFeedIdAsync(Guid newsfeedId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
+    public Task<Pagination<NewsItem>> GetNewsItemsByNewsFeedIdAsync(Guid newsfeedId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

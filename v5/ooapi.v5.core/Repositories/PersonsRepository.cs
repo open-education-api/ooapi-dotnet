@@ -16,7 +16,7 @@ public class PersonsRepository : BaseRepository<Person>, IPersonsRepository
         return await dbContext.Persons.FirstOrDefaultAsync(x => x.PersonId.Equals(personId), cancellationToken);
     }
 
-    public async Task<Pagination<Person>> GetPersonsByGroupIdAsync(Guid groupId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
+    public Task<Pagination<Person>> GetPersonsByGroupIdAsync(Guid groupId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

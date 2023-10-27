@@ -21,7 +21,7 @@ public class FilterToLinqTests
 
         // Assert
         result.Should().NotBeNull();
-        result.ToList().Should().HaveCount(1);
+        result.AsEnumerable().Should().HaveCount(1);
     }
 
     [Test]
@@ -37,7 +37,7 @@ public class FilterToLinqTests
 
         // Assert
         result.Should().NotBeNull();
-        result.ToList().Should().HaveCount(1);
+        result.AsEnumerable().Should().HaveCount(1);
     }
 
     [Test]
@@ -52,7 +52,7 @@ public class FilterToLinqTests
 
         // Assert
         result.Should().NotBeNull();
-        result.ToList().Should().HaveCount(items.Count);
+        result.AsEnumerable().Should().HaveCount(items.Count);
     }
 
     [TestCase("eq")]
