@@ -1,3 +1,4 @@
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
@@ -10,7 +11,7 @@ namespace ooapi.v5.core.UnitTests.Repositories;
 public class BaseRepositoryTests
 {
     [Test]
-    public void GetAllOrderedBy_WithPrimaryCodeSearch_ReturnsFilteredSet()
+    public async Task GetAllOrderedBy_WithPrimaryCodeSearch_ReturnsFilteredSet()
     {
         // Arrange
         var repository = GetRepository<Foo>();
@@ -20,10 +21,10 @@ public class BaseRepositoryTests
         {
             new Foo() { PrimaryCode = "123" },
             new Foo() { PrimaryCode = "456" }
-        }.AsQueryable();
+        }.AsQueryable().BuildMockDbSet();
 
         // Act
-        var result = repository.GetAllOrderedBy(dataRequestParameters, set);
+        var result = await repository.GetAllOrderedByAsync(dataRequestParameters, set);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
@@ -31,20 +32,20 @@ public class BaseRepositoryTests
     }
 
     [Test]
-    public void GetAllOrderedBy_WithFilters_ReturnsFilteredSet()
+    public async Task GetAllOrderedBy_WithFilters_ReturnsFilteredSet()
     {
         // Arrange
         var set = new List<Foo>()
         {
             new Foo() { PrimaryCode = "123", PrimaryCodeType = "x-test"},
             new Foo() { PrimaryCode = "456", PrimaryCodeType = "not-x-test"}
-        }.AsQueryable();
+        }.AsQueryable().BuildMockDbSet();
 
         var dataRequestParameters = new DataRequestParameters { Filters = new Dictionary<string, object> { { "PrimaryCodeType", "x-test" } } };
         var repository = GetRepository<Foo>();
 
         // Act
-        var result = repository.GetAllOrderedBy(dataRequestParameters, set);
+        var result = await repository.GetAllOrderedByAsync(dataRequestParameters, set);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
@@ -52,7 +53,7 @@ public class BaseRepositoryTests
     }
 
     [Test]
-    public void GetAllOrderedBy_WithNoParameters_ReturnsAll()
+    public async Task GetAllOrderedBy_WithNoParameters_ReturnsAll()
     {
         // Arrange
         var dataRequestParameters = new DataRequestParameters();
@@ -60,11 +61,11 @@ public class BaseRepositoryTests
         {
             new Foo() { PrimaryCode = "123", PrimaryCodeType = "x-test"},
             new Foo() { PrimaryCode = "456", PrimaryCodeType = "not-x-test"}
-        }.AsQueryable();
+        }.AsQueryable().BuildMockDbSet();
         var repository = GetRepository<Foo>();
 
         // Act
-        var result = repository.GetAllOrderedBy(dataRequestParameters, set);
+        var result = await repository.GetAllOrderedByAsync(dataRequestParameters, set);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Foo>>());
@@ -72,7 +73,7 @@ public class BaseRepositoryTests
     }
 
     [Test]
-    public void GetAllOrderedBy_WithNoSetSupplied_ReturnsSetFromDbContext()
+    public async Task GetAllOrderedBy_WithNoSetSupplied_ReturnsSetFromDbContext()
     {
         // Arrange
         var dataRequestParameters = new DataRequestParameters();
@@ -80,11 +81,11 @@ public class BaseRepositoryTests
         {
             new Foo() { PrimaryCode = "123", PrimaryCodeType = "x-test"},
             new Foo() { PrimaryCode = "456", PrimaryCodeType = "not-x-test"}
-        }.AsQueryable();
+        }.AsQueryable().BuildMockDbSet();
         var repository = GetRepository<Foo>(dbContextSet);
 
         // Act
-        var result = repository.GetAllOrderedBy(dataRequestParameters);
+        var result = await repository.GetAllOrderedByAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Foo>>());

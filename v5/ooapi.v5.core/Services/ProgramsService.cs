@@ -16,30 +16,28 @@ internal class ProgramsService : ServiceBase, IProgramsService
         _repository = repository;
     }
 
-    public Pagination<Program> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Program>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters, cancellationToken);
     }
 
-    public Program? Get(Guid programId, DataRequestParameters dataRequestParameters)
+    public async Task<Program?> GetAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return _repository.GetProgram(programId, dataRequestParameters);
+        return await _repository.GetProgramAsync(programId, dataRequestParameters, cancellationToken);
     }
 
-    public Pagination<Program> GetProgramsByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId)
+    public async Task<Pagination<Program>> GetProgramsByEducationSpecificationIdAsync(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, CancellationToken cancellationToken = default)
     {
-        return _repository.GetProgramsByEducationSpecificationId(educationSpecificationId, dataRequestParameters);
+        return await _repository.GetProgramsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters, cancellationToken);
     }
 
-    public Pagination<Program> GetProgramsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId)
+    public async Task<Pagination<Program>> GetProgramsByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default)
     {
-        var result = _repository.GetProgramsByOrganizationId(organizationId);
-        return new Pagination<Program>(result.AsQueryable(), dataRequestParameters);
+        return await _repository.GetProgramsByOrganizationIdAsync(organizationId, dataRequestParameters, cancellationToken);
     }
 
-    public Pagination<Program> GetProgramsByProgramId(DataRequestParameters dataRequestParameters, Guid programId)
+    public async Task<Pagination<Program>> GetProgramsByProgramIdAsync(DataRequestParameters dataRequestParameters, Guid programId, CancellationToken cancellationToken = default)
     {
-        var result = _repository.GetProgramsByProgramId(programId);
-        return new Pagination<Program>(result.AsQueryable(), dataRequestParameters);
+        return await _repository.GetProgramsByProgramIdAsync(programId, dataRequestParameters, cancellationToken);
     }
 }

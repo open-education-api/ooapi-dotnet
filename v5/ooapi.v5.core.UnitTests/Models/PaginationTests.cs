@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using FluentAssertions;
+using MockQueryable.NSubstitute;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
@@ -10,7 +11,7 @@ public sealed class PaginationTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void Constructor_WithoutFilter_SetItems()
+    public async Task Constructor_WithoutFilter_SetItems()
     {
         // arrange
         var items = _fixture.CreateMany<TestObject>().ToList();
@@ -19,9 +20,10 @@ public sealed class PaginationTests
             .With(x => x.PageSize, 100)
             .Without(x => x.Filter)
             .Create();
+        var db = items.AsQueryable().BuildMockDbSet();
 
         // act
-        var pagination = new Pagination<TestObject>(items.AsQueryable(), parameters);
+        var pagination = await Pagination<TestObject>.CreateAsync(db, parameters);
 
         // assert
         pagination.TotalItems.Should().Be(items.Count);
@@ -33,7 +35,7 @@ public sealed class PaginationTests
     }
 
     [Test]
-    public void Constructor_WithFilter_SetItems()
+    public async Task Constructor_WithFilter_SetItems()
     {
         // arrange
         var items = _fixture.CreateMany<TestObject>(10).ToList();
@@ -42,9 +44,10 @@ public sealed class PaginationTests
             .With(x => x.PageSize, 2)
             .With(x => x.Filter, "value eq test")
             .Create();
+        var db = items.AsQueryable().BuildMockDbSet();
 
         // act
-        var pagination = new Pagination<TestObject>(items.AsQueryable(), parameters);
+        var pagination = await Pagination<TestObject>.CreateAsync(db, parameters);
 
         // assert
         pagination.TotalItems.Should().Be(items.Count);
@@ -55,7 +58,9 @@ public sealed class PaginationTests
         pagination.HasPreviousPage.Should().BeTrue();
     }
 
-    private sealed class TestObject
+    // ReSharper disable once MemberCanBePrivate.Global
+    // ReSharper disable once ClassNeverInstantiated.Global
+    public sealed class TestObject
     {
         // ReSharper disable once UnusedMember.Local
         public Guid Id { get; set; } = Guid.NewGuid();

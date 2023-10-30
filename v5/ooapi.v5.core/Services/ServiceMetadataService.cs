@@ -15,8 +15,8 @@ internal class ServiceMetadataService : ServiceBase, IServiceMetadataService
         _repository = repository;
     }
 
-    public Service Get()
+    public async Task<Service> GetAsync(CancellationToken cancellationToken = default)
     {
-        return _repository.GetServiceMetadata();
+        return await _repository.GetServiceMetadataAsync(cancellationToken);
     }
 }

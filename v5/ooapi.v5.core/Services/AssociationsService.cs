@@ -15,14 +15,13 @@ internal class AssociationsService : ServiceBase, IAssociationsService
         _repository = repository;
     }
 
-    public Association? Get(Guid associationId)
+    public async Task<Association?> GetAsync(Guid associationId, CancellationToken cancellationToken = default)
     {
-        return _repository.GetAssociation(associationId);
+        return await _repository.GetAssociationAsync(associationId, cancellationToken);
     }
 
-    public Pagination<Association> GetAssociationsByPersonId(DataRequestParameters dataRequestParameters, Guid personId)
+    public async Task<Pagination<Association>> GetAssociationsByPersonIdAsync(DataRequestParameters dataRequestParameters, Guid personId, CancellationToken cancellationToken = default)
     {
-        var result = _repository.GetAssociationsByPersonId(personId);
-        return new Pagination<Association>(result.AsQueryable(), dataRequestParameters);
+        return await _repository.GetAssociationsByPersonIdAsync(personId, dataRequestParameters, cancellationToken);
     }
 }

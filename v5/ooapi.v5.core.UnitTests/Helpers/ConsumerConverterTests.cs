@@ -23,7 +23,7 @@ public sealed class ConsumerConverterTests
         // assert
         result.Should().NotBeNullOrEmpty();
 
-        var item = result.First().ToObject<Dictionary<string, object>>();
+        var item = result[0].ToObject<Dictionary<string, object>>();
         item.Should().ContainKey("consumerKey").WhoseValue.Should().Be(consumer.ConsumerKey);
         item.Should().ContainKey(consumer.PropertyName).WhoseValue.Should().Be(consumer.PropertyValue);
     }
@@ -42,7 +42,7 @@ public sealed class ConsumerConverterTests
         // assert
         result.Should().NotBeNullOrEmpty();
 
-        var item = result.First().ToObject<Dictionary<string, object>>();
+        var item = result[0].ToObject<Dictionary<string, object>>();
         item.Should().ContainKey("consumerKey").WhoseValue.Should().Be(consumer.ConsumerKey);
         item.Should().ContainKey(consumer.PropertyName).WhoseValue.Should().Be((long)value);
     }
@@ -61,7 +61,7 @@ public sealed class ConsumerConverterTests
         // assert
         result.Should().NotBeNullOrEmpty();
 
-        var item = result.First().ToObject<Dictionary<string, object>>();
+        var item = result[0].ToObject<Dictionary<string, object>>();
         item.Should().ContainKey("consumerKey").WhoseValue.Should().Be(consumer.ConsumerKey);
         item.Should().ContainKey(consumer.PropertyName).WhoseValue.Should().Be(value);
     }
@@ -81,7 +81,7 @@ public sealed class ConsumerConverterTests
         // assert
         result.Should().NotBeNullOrEmpty();
 
-        var item = result.First().ToObject<Dictionary<string, object>>();
+        var item = result[0].ToObject<Dictionary<string, object>>();
         item.Should().ContainKey("consumerKey").WhoseValue.Should().Be(consumer.ConsumerKey);
         item.Should().ContainKey(consumer.PropertyName);
 
@@ -103,7 +103,7 @@ public sealed class ConsumerConverterTests
         // assert
         result.Should().NotBeNullOrEmpty();
 
-        var item = result.First().ToObject<Dictionary<string, object>>();
+        var item = result[0].ToObject<Dictionary<string, object>>();
         item.Should().ContainKey("consumerKey").WhoseValue.Should().Be(consumer.ConsumerKey);
         item.Should().ContainKey(consumer.PropertyName);
 

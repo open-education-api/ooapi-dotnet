@@ -1,9 +1,9 @@
 using AutoFixture;
-using Microsoft.EntityFrameworkCore;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
-using ooapi.v5.core.UnitTests.Repositories.Helpers;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.UnitTests.Repositories;
@@ -14,7 +14,7 @@ public class RoomsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetRoom_WhenRoomExists_ReturnsRoom()
+    public async Task GetRoom_WhenRoomExists_ReturnsRoom()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -25,20 +25,21 @@ public class RoomsRepositoryTests
             .Without(x => x.name)
             .Without(x => x.description)
             .Without(x => x.Building)
-            .Create();
-        var db = Substitute.For<DbSet<Room>, IQueryable<Room>>();
-        DbMockHelper.InitDb(db, new List<Room> { room }.AsQueryable());
+            .CreateMany(1)
+            .AsQueryable();
+
+        var db = room.BuildMockDbSet();
         dbContext.Rooms.Returns(db);
 
         // Act
-        var result = roomsRepository.GetRoom(roomId);
+        var result = await roomsRepository.GetRoomAsync(roomId);
 
         // Assert
-        Assert.That(room, Is.EqualTo(result));
+        Assert.That(room.First(), Is.EqualTo(result));
     }
 
     [Test]
-    public void GetRoom_WhenRoomDoesNotExist_ReturnsNull()
+    public async Task GetRoom_WhenRoomDoesNotExist_ReturnsNull()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -49,20 +50,21 @@ public class RoomsRepositoryTests
             .Without(x => x.name)
             .Without(x => x.description)
             .Without(x => x.Building)
-            .CreateMany(5);
-        var db = Substitute.For<DbSet<Room>, IQueryable<Room>>();
-        DbMockHelper.InitDb(db, rooms.AsQueryable());
+            .CreateMany(5)
+            .AsQueryable();
+
+        var db = rooms.BuildMockDbSet();
         dbContext.Rooms.Returns(db);
 
         // Act
-        var result = roomsRepository.GetRoom(_fixture.Create<Guid>());
+        var result = await roomsRepository.GetRoomAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void GetRoomsByPersonId_WhenRoomsExist_ReturnsRooms()
+    public async Task GetRoomsByPersonId_WhenRoomsExist_ReturnsRooms()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -73,20 +75,23 @@ public class RoomsRepositoryTests
             .Without(x => x.name)
             .Without(x => x.description)
             .Without(x => x.Building)
-            .CreateMany(5);
-        var db = Substitute.For<DbSet<Room>, IQueryable<Room>>();
-        DbMockHelper.InitDb(db, rooms.AsQueryable());
+            .CreateMany(5)
+            .AsQueryable();
+
+        var db = rooms.BuildMockDbSet();
         dbContext.Rooms.Returns(db);
 
+        var dataRequestParameters = new DataRequestParameters();
+
         // Act
-        var result = roomsRepository.GetRoomsByBuildingId(buildingId);
+        var result = await roomsRepository.GetRoomsByBuildingIdAsync(buildingId, dataRequestParameters);
 
         // Assert
-        CollectionAssert.AreEqual(rooms, result);
+        CollectionAssert.AreEqual(rooms, result.Items);
     }
 
     [Test]
-    public void GetRoomsByPersonId_WhenRoomsDoNotExist_ReturnsEmptyList()
+    public async Task GetRoomsByPersonId_WhenRoomsDoNotExist_ReturnsEmptyList()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -97,15 +102,18 @@ public class RoomsRepositoryTests
             .Without(x => x.name)
             .Without(x => x.description)
             .Without(x => x.Building)
-            .CreateMany(5);
-        var db = Substitute.For<DbSet<Room>, IQueryable<Room>>();
-        DbMockHelper.InitDb(db, rooms.AsQueryable());
+            .CreateMany(5)
+            .AsQueryable();
+
+        var db = rooms.BuildMockDbSet();
         dbContext.Rooms.Returns(db);
 
+        var dataRequestParameters = new DataRequestParameters();
+
         // Act
-        var result = roomsRepository.GetRoomsByBuildingId(_fixture.Create<Guid>());
+        var result = await roomsRepository.GetRoomsByBuildingIdAsync(_fixture.Create<Guid>(), dataRequestParameters);
 
         // Assert
-        Assert.That(result, Is.Empty);
+        Assert.That(result.Items, Is.Empty);
     }
 }

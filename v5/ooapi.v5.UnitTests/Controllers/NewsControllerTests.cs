@@ -12,7 +12,7 @@ public class NewsControllerTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void NewsFeedsGet_Success_ReturnsNewsFeeds()
+    public async Task NewsFeedsGet_Success_ReturnsNewsFeeds()
     {
         //arrange
         var sut = CreateSut(out var newsFeedsService, out var _);
@@ -21,14 +21,14 @@ public class NewsControllerTests
         var newsFeedType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<NewsFeed>();
+        var response = Substitute.For<Pagination<NewsFeed>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        newsFeedsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        newsFeedsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.NewsFeedsGet(filterParams, pagingParams, newsFeedType, sort) as OkObjectResult;
+        var result = await sut.NewsFeedsGetAsync(filterParams, pagingParams, newsFeedType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -45,7 +45,7 @@ public class NewsControllerTests
     }
 
     [Test]
-    public void NewsFeedsNewsFeedIdGet_Success_ReturnsNewsFeed()
+    public async Task NewsFeedsNewsFeedIdGet_Success_ReturnsNewsFeed()
     {
         //arrange
         var sut = CreateSut(out var newsFeedsService, out var _);
@@ -53,10 +53,10 @@ public class NewsControllerTests
 
         var response = new NewsFeed();
 
-        newsFeedsService.Get(newsFeedId).Returns(response);
+        newsFeedsService.GetAsync(newsFeedId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.NewsFeedsNewsFeedIdGet(newsFeedId) as OkObjectResult;
+        var result = await sut.NewsFeedsNewsFeedIdGetAsync(newsFeedId) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -68,7 +68,7 @@ public class NewsControllerTests
     }
 
     [Test]
-    public void NewsFeedsNewsFeedIdNewsItemsGet_Success_ReturnsNewsItems()
+    public async Task NewsFeedsNewsFeedIdNewsItemsGet_Success_ReturnsNewsItems()
     {
         //arrange
         var sut = CreateSut(out var _, out var newsItemsService);
@@ -78,14 +78,14 @@ public class NewsControllerTests
         var newsFeedType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<NewsItem>();
+        var response = Substitute.For<Pagination<NewsItem>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        newsItemsService.GetNewsItemsByNewsFeedId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), newsFeedId).Returns(response);
+        newsItemsService.GetNewsItemsByNewsFeedIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), newsFeedId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.NewsFeedsNewsFeedIdNewsItemsGet(newsFeedId, filterParams, pagingParams, newsFeedType, sort) as OkObjectResult;
+        var result = await sut.NewsFeedsNewsFeedIdNewsItemsGetAsync(newsFeedId, filterParams, pagingParams, newsFeedType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -102,7 +102,7 @@ public class NewsControllerTests
     }
 
     [Test]
-    public void NewsItemsNewsItemIdGet_Success_ReturnsNewsItem()
+    public async Task NewsItemsNewsItemIdGet_Success_ReturnsNewsItem()
     {
         //arrange
         var sut = CreateSut(out var _, out var newsItemsService);
@@ -111,10 +111,10 @@ public class NewsControllerTests
 
         var response = new NewsItem();
 
-        newsItemsService.Get(newsItemId).Returns(response);
+        newsItemsService.GetAsync(newsItemId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.NewsItemsNewsItemIdGet(newsItemId, expand) as OkObjectResult;
+        var result = await sut.NewsItemsNewsItemIdGetAsync(newsItemId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

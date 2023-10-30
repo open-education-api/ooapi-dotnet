@@ -14,7 +14,7 @@ public class ComponentsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -24,19 +24,19 @@ public class ComponentsServiceTests
         var componentId = _fixture.Create<Guid>();
 
         var expected = new Component();
-        repository.GetComponent(componentId).Returns(expected);
+        repository.GetComponentAsync(componentId).Returns(expected);
 
         // Act
-        var result = sut.Get(componentId);
+        var result = await sut.GetAsync(componentId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetComponent(componentId);
+        await repository.Received(1).GetComponentAsync(componentId);
     }
 
 
     [Test]
-    public void GetComponentsByCourseId_CallsRepositoryAndReturnsPagination()
+    public async Task GetComponentsByCourseId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -46,19 +46,19 @@ public class ComponentsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var courseId = _fixture.Create<Guid>();
 
-        var components = new List<Component>();
-        repository.GetComponentsByCourseId(courseId).Returns(components);
+        var expected = Substitute.For<Pagination<Component>>();
+        repository.GetComponentsByCourseIdAsync(courseId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetComponentsByCourseId(dataRequestParameters, courseId);
+        var result = await sut.GetComponentsByCourseIdAsync(dataRequestParameters, courseId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Component>>());
-        repository.Received(1).GetComponentsByCourseId(courseId);
+        await repository.Received(1).GetComponentsByCourseIdAsync(courseId, dataRequestParameters);
     }
 
     [Test]
-    public void GetComponentsByOrganizationId_CallsRepositoryAndReturnsPagination()
+    public async Task GetComponentsByOrganizationId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -68,14 +68,14 @@ public class ComponentsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var organizationId = _fixture.Create<Guid>();
 
-        var components = new List<Component>();
-        repository.GetComponentsByOrganizationId(organizationId).Returns(components);
+        var expected = Substitute.For<Pagination<Component>>();
+        repository.GetComponentsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetComponentsByOrganizationId(dataRequestParameters, organizationId);
+        var result = await sut.GetComponentsByOrganizationIdAsync(dataRequestParameters, organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Component>>());
-        repository.Received(1).GetComponentsByOrganizationId(organizationId);
+        await repository.Received(1).GetComponentsByOrganizationIdAsync(organizationId, dataRequestParameters);
     }
 }

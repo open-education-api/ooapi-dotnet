@@ -12,16 +12,16 @@ public class BuildingsRepository : BaseRepository<Building>, IBuildingsRepositor
     }
 
 
-    public Building? GetBuilding(Guid buildingId)
+    public async Task<Building?> GetBuildingAsync(Guid buildingId, CancellationToken cancellationToken = default)
     {
-        return dbContext.Buildings.Include(x => x.Address).Include(x => x.Attributes).FirstOrDefault(x => x.BuildingId.Equals(buildingId));
+        return await dbContext.Buildings.Include(x => x.Address).Include(x => x.Attributes).FirstOrDefaultAsync(x => x.BuildingId.Equals(buildingId), cancellationToken);
     }
 
 
 
-    public Pagination<Building> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Building>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         IQueryable<Building> set = dbContext.Set<Building>().Include(x => x.Address).Include(x => x.Attributes).AsQueryable();
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 }

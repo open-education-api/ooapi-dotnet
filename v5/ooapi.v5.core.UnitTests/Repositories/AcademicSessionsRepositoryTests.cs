@@ -1,12 +1,11 @@
 using AutoFixture;
-using Microsoft.EntityFrameworkCore;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Enums;
 using ooapi.v5.Models;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
-using ooapi.v5.core.UnitTests.Repositories.Helpers;
 
 namespace ooapi.v5.core.UnitTests.Repositories;
 
@@ -16,85 +15,81 @@ public class AcademicSessionsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAcademicSession_WithValidId_ReturnsAcademicSession()
+    public async Task GetAcademicSession_WithValidId_ReturnsAcademicSession()
     {
         // Arrange
         var academicSessions = CreateDefaultAcademicSessions();
 
-        var db = Substitute.For<DbSet<AcademicSession>, IQueryable<AcademicSession>>();
-        DbMockHelper.InitDb(db, academicSessions);
+        var db = academicSessions.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.AcademicSessionsNoTracking.Returns(db);
         var academicSessionsRepository = new AcademicSessionsRepository(dbContext);
 
         // Act
-        var result = academicSessionsRepository.GetAcademicSession(academicSessions.First().AcademicSessionId, new DataRequestParameters());
+        var result = await academicSessionsRepository.GetAcademicSessionAsync(academicSessions.First().AcademicSessionId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<AcademicSession>());
-        Assert.That(result.AcademicSessionId, Is.EqualTo(academicSessions.First().AcademicSessionId));
+        Assert.That(result!.AcademicSessionId, Is.EqualTo(academicSessions.First().AcademicSessionId));
     }
 
     [Test]
-    public void GetAcademicSession_WithInvalidId_ReturnsNull()
+    public async Task GetAcademicSession_WithInvalidId_ReturnsNull()
     {
         // Arrange
         var academicSessions = CreateDefaultAcademicSessions();
 
-        var db = Substitute.For<DbSet<AcademicSession>, IQueryable<AcademicSession>>();
-        DbMockHelper.InitDb(db, academicSessions);
+        var db = academicSessions.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.AcademicSessionsNoTracking.Returns(db);
         var academicSessionsRepository = new AcademicSessionsRepository(dbContext);
 
         // Act
-        var result = academicSessionsRepository.GetAcademicSession(Guid.NewGuid(), new DataRequestParameters());
+        var result = await academicSessionsRepository.GetAcademicSessionAsync(Guid.NewGuid(), new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void GetAcademicSession_WithValidPrimaryCode_ReturnsAcademicSession()
+    public async Task GetAcademicSession_WithValidPrimaryCode_ReturnsAcademicSession()
     {
         // Arrange
         var academicSessions = CreateDefaultAcademicSessions();
 
-        var db = Substitute.For<DbSet<AcademicSession>, IQueryable<AcademicSession>>();
-        DbMockHelper.InitDb(db, academicSessions);
+        var db = academicSessions.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.AcademicSessionsNoTracking.Returns(db);
         var academicSessionsRepository = new AcademicSessionsRepository(dbContext);
 
         // Act
-        var result = academicSessionsRepository.GetAcademicSession(academicSessions.First().PrimaryCode!, new DataRequestParameters());
+        var result = await academicSessionsRepository.GetAcademicSessionAsync(academicSessions.First().PrimaryCode!, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<AcademicSession>());
-        Assert.That(result.PrimaryCode, Is.EqualTo(academicSessions.First().PrimaryCode));
+        Assert.That(result!.PrimaryCode, Is.EqualTo(academicSessions.First().PrimaryCode));
     }
 
     [Test]
-    public void GetAcademicSession_WithInvalidPrimaryCode_ReturnsNull()
+    public async Task GetAcademicSession_WithInvalidPrimaryCode_ReturnsNull()
     {
         // Arrange
         var academicSessions = CreateDefaultAcademicSessions();
 
-        var db = Substitute.For<DbSet<AcademicSession>, IQueryable<AcademicSession>>();
-        DbMockHelper.InitDb(db, academicSessions);
+        var db = academicSessions.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.AcademicSessionsNoTracking.Returns(db);
         var academicSessionsRepository = new AcademicSessionsRepository(dbContext);
 
         // Act
-        var result = academicSessionsRepository.GetAcademicSession("custom_primary_code_for_test", new DataRequestParameters());
+        var result = await academicSessionsRepository.GetAcademicSessionAsync("custom_primary_code_for_test", new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void GetAllOrderedBy_WithAcademicSessionType_ReturnsFilteredSet()
+    public async Task GetAllOrderedBy_WithAcademicSessionType_ReturnsFilteredSet()
     {
         // Arrange
         var academicSessionType = AcademicSessionType.semester;
@@ -129,14 +124,13 @@ public class AcademicSessionsRepositoryTests
                 .Create()
         }.AsQueryable();
 
-        var db = Substitute.For<DbSet<AcademicSession>, IQueryable<AcademicSession>>();
-        DbMockHelper.InitDb(db, academicSessions);
+        var db = academicSessions.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.AcademicSessionsNoTracking.Returns(db);
         var academicSessionsRepository = new AcademicSessionsRepository(dbContext);
 
         // Act
-        var result = academicSessionsRepository.GetAllOrderedBy(new DataRequestParameters(), academicSessionType.ToString());
+        var result = await academicSessionsRepository.GetAllOrderedByAsync(new DataRequestParameters(), academicSessionType.ToString());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<AcademicSession>>());

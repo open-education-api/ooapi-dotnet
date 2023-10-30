@@ -10,34 +10,34 @@ public class OrganizationsRepository : BaseRepository<Organization>, IOrganizati
     {
     }
 
-    public Organization GetOrganization(Guid organizationId, DataRequestParameters dataRequestParameters)
+    public async Task<Organization> GetOrganizationAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes);
 
-        var result = set.First(x => x.OrganizationId.Equals(organizationId));
-        result.ChildrenIds = set.Where(x => x.ParentId.Equals(result.OrganizationId)).Select(x => x.OrganizationId).ToList();
+        var result = await set.FirstAsync(x => x.OrganizationId.Equals(organizationId), cancellationToken);
+        result.ChildrenIds = await set.Where(x => x.ParentId.Equals(result.OrganizationId)).Select(x => x.OrganizationId).ToListAsync(cancellationToken);
 
         var getParent = dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase);
         if (getParent && result.ParentId != null)
         {
-            result.Parent = set.First(x => x.OrganizationId.Equals(result.ParentId));
-            result.Parent.ChildrenIds = set.Where(x => x.ParentId.Equals(result.Parent.OrganizationId)).Select(x => x.OrganizationId).ToList();
+            result.Parent = await set.FirstAsync(x => x.OrganizationId.Equals(result.ParentId), cancellationToken);
+            result.Parent.ChildrenIds = await set.Where(x => x.ParentId.Equals(result.Parent.OrganizationId)).Select(x => x.OrganizationId).ToListAsync(cancellationToken);
         }
 
         var getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
         if (getChildren && result.ChildrenIds != null)
         {
-            result.Children = set.Where(x => x.ParentId.Equals(result.OrganizationId)).ToList();
+            result.Children = await set.Where(x => x.ParentId.Equals(result.OrganizationId)).ToListAsync(cancellationToken);
             foreach (var item in result.Children)
             {
-                item.ChildrenIds = set.Where(x => x.ParentId.Equals(item.OrganizationId)).Select(x => x.OrganizationId).ToList();
+                item.ChildrenIds = await set.Where(x => x.ParentId.Equals(item.OrganizationId)).Select(x => x.OrganizationId).ToListAsync(cancellationToken);
             }
         }
 
         return result;
     }
 
-    public Pagination<Organization> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Organization>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes);
 
@@ -46,6 +46,6 @@ public class OrganizationsRepository : BaseRepository<Organization>, IOrganizati
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 }

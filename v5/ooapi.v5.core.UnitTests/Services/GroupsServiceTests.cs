@@ -14,7 +14,7 @@ public class GroupsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAll_CallsRepository()
+    public async Task GetAll_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -23,19 +23,19 @@ public class GroupsServiceTests
         var sut = new GroupsService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<Group>();
-        repository.GetAllOrderedBy(dataRequestParameters).Returns(expected);
+        var expected = Substitute.For<Pagination<Group>>();
+        repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = await sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedBy(dataRequestParameters);
+        await repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -45,18 +45,18 @@ public class GroupsServiceTests
         var groupId = _fixture.Create<Guid>();
 
         var expected = new Group();
-        repository.GetGroup(groupId).Returns(expected);
+        repository.GetGroupAsync(groupId).Returns(expected);
 
         // Act
-        var result = sut.Get(groupId);
+        var result = await sut.GetAsync(groupId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetGroup(groupId);
+        await repository.Received(1).GetGroupAsync(groupId);
     }
 
     [Test]
-    public void GetGroupsByOrganizationId_CallsRepositoryAndReturnsPagination()
+    public async Task GetGroupsByOrganizationId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -66,19 +66,19 @@ public class GroupsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var organizationId = _fixture.Create<Guid>();
 
-        var groups = new List<Group>();
-        repository.GetGroupsByOrganizationId(organizationId).Returns(groups);
+        var expected = Substitute.For<Pagination<Group>>();
+        repository.GetGroupsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetGroupsByOrganizationId(dataRequestParameters, organizationId);
+        var result = await sut.GetGroupsByOrganizationIdAsync(dataRequestParameters, organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Group>>());
-        repository.Received(1).GetGroupsByOrganizationId(organizationId);
+        await repository.Received(1).GetGroupsByOrganizationIdAsync(organizationId, dataRequestParameters);
     }
 
     [Test]
-    public void GetGroupsByPersonId_CallsRepositoryAndReturnsPagination()
+    public async Task GetGroupsByPersonId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -88,14 +88,14 @@ public class GroupsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var groupId = _fixture.Create<Guid>();
 
-        var groups = new List<Group>();
-        repository.GetGroupsByPersonId(groupId).Returns(groups);
+        var expected = Substitute.For<Pagination<Group>>();
+        repository.GetGroupsByPersonIdAsync(groupId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetGroupsByPersonId(dataRequestParameters, groupId);
+        var result = await sut.GetGroupsByPersonIdAsync(dataRequestParameters, groupId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Group>>());
-        repository.Received(1).GetGroupsByPersonId(groupId);
+        await repository.Received(1).GetGroupsByPersonIdAsync(groupId, dataRequestParameters);
     }
 }

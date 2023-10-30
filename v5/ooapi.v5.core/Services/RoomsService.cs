@@ -16,19 +16,18 @@ internal class RoomsService : ServiceBase, IRoomsService
         _repository = repository;
     }
 
-    public Pagination<Room> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Room>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters, null, cancellationToken);
     }
 
-    public Room? Get(Guid roomId)
+    public async Task<Room?> GetAsync(Guid roomId, CancellationToken cancellationToken = default)
     {
-        return _repository.GetRoom(roomId);
+        return await _repository.GetRoomAsync(roomId, cancellationToken);
     }
 
-    public Pagination<Room> GetRoomsByBuildingId(DataRequestParameters dataRequestParameters, Guid buildingId)
+    public async Task<Pagination<Room>> GetRoomsByBuildingIdAsync(DataRequestParameters dataRequestParameters, Guid buildingId, CancellationToken cancellationToken = default)
     {
-        var result = _repository.GetRoomsByBuildingId(buildingId);
-        return new Pagination<Room>(result.AsQueryable(), dataRequestParameters);
+        return await _repository.GetRoomsByBuildingIdAsync(buildingId, dataRequestParameters, cancellationToken);
     }
 }

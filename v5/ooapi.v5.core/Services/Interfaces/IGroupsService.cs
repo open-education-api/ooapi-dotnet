@@ -5,8 +5,8 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IGroupsService
 {
-    Group? Get(Guid groupId);
-    Pagination<Group> GetAll(DataRequestParameters dataRequestParameters);
-    Pagination<Group> GetGroupsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId);
-    Pagination<Group> GetGroupsByPersonId(DataRequestParameters dataRequestParameters, Guid personId);
+    Task<Group?> GetAsync(Guid groupId, CancellationToken cancellationToken = default);
+    Task<Pagination<Group>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<Group>> GetGroupsByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default);
+    Task<Pagination<Group>> GetGroupsByPersonIdAsync(DataRequestParameters dataRequestParameters, Guid personId, CancellationToken cancellationToken = default);
 }

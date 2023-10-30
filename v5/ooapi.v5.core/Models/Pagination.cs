@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ooapi.v5.core.Utility;
@@ -6,20 +7,19 @@ namespace ooapi.v5.Models;
 
 public class Pagination<T> : ModelBase
 {
-
-    public Pagination()
+    protected Pagination()
     {
 
     }
 
-
-    /// <param name="collection"></param>
-    /// <param name="dataRequestParameters"></param>
-    public Pagination(IQueryable<T> collection, DataRequestParameters dataRequestParameters)
+    public static async Task<Pagination<T>> CreateAsync(IQueryable<T> collection, DataRequestParameters dataRequestParameters)
     {
-        TotalItems = collection.Count();
-        PageSize = dataRequestParameters.PageSize;
-        PageNumber = dataRequestParameters.PageNumber;
+        var pagination = new Pagination<T>
+        {
+            TotalItems = await collection.CountAsync(),
+            PageSize = dataRequestParameters.PageSize,
+            PageNumber = dataRequestParameters.PageNumber
+        };
 
         dataRequestParameters.Validate();
         if (!string.IsNullOrEmpty(dataRequestParameters.Filter))
@@ -27,9 +27,11 @@ public class Pagination<T> : ModelBase
             collection = new FilterToLinq<T>(dataRequestParameters.Filter).Parse(collection);
         }
         var skip = dataRequestParameters.Skip;
-        SetItems(collection.Skip(skip).Take(PageSize).ToList());
+        pagination.SetItems(await collection.Skip(skip).Take(pagination.PageSize).ToListAsync());
 
-        SetExtendedAttributes();
+        pagination.SetExtendedAttributes();
+
+        return pagination;
     }
 
     private void SetItems(List<T> list)

@@ -13,7 +13,7 @@ public class OrganizationsControllerTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void OrganizationsGet_Success_ReturnsOrganizations()
+    public async Task OrganizationsGet_Success_ReturnsOrganizations()
     {
         //arrange
         var sut = CreateSut(out var organizationsService, out var _, out var _, out var _, out var _, out var _);
@@ -23,14 +23,14 @@ public class OrganizationsControllerTests
         var organizationType = _fixture.Create<OrganizationType?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Organization>();
+        var response = Substitute.For<Pagination<Organization>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        organizationsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        organizationsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.OrganizationsGet(primaryCodeParam, filterParams, pagingParams, organizationType, sort) as OkObjectResult;
+        var result = await sut.OrganizationsGetAsync(primaryCodeParam, filterParams, pagingParams, organizationType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -47,7 +47,7 @@ public class OrganizationsControllerTests
     }
 
     [Test]
-    public void OrganizationsOrganizationIdComponentsGet_Success_ReturnsComponents()
+    public async Task OrganizationsOrganizationIdComponentsGet_Success_ReturnsComponents()
     {
         //arrange
         var sut = CreateSut(out var _, out var componentsService, out var _, out var _, out var _, out var _);
@@ -58,14 +58,14 @@ public class OrganizationsControllerTests
         var componentType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Component>();
+        var response = Substitute.For<Pagination<Component>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        componentsService.GetComponentsByOrganizationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
+        componentsService.GetComponentsByOrganizationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.OrganizationsOrganizationIdComponentsGet(organizationId, filterParams, pagingParams, teachingLanguage, componentType, sort) as OkObjectResult;
+        var result = await sut.OrganizationsOrganizationIdComponentsGetAsync(organizationId, filterParams, pagingParams, teachingLanguage, componentType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -82,7 +82,7 @@ public class OrganizationsControllerTests
     }
 
     [Test]
-    public void OrganizationsOrganizationIdCoursesGet_Success_ReturnsCourses()
+    public async Task OrganizationsOrganizationIdCoursesGet_Success_ReturnsCourses()
     {
         //arrange
         var sut = CreateSut(out var _, out var _, out var coursesService, out var _, out var _, out var _);
@@ -94,14 +94,14 @@ public class OrganizationsControllerTests
         var modeOfDelivery = _fixture.Create<List<string>?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Course>();
+        var response = Substitute.For<Pagination<Course>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        coursesService.GetCoursesByOrganizationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
+        coursesService.GetCoursesByOrganizationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.OrganizationsOrganizationIdCoursesGet(organizationId, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
+        var result = await sut.OrganizationsOrganizationIdCoursesGetAsync(organizationId, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -118,7 +118,7 @@ public class OrganizationsControllerTests
     }
 
     [Test]
-    public void OrganizationsOrganizationIdEducationSpecificationsGet_Success_ReturnsEducationSpecifications()
+    public async Task OrganizationsOrganizationIdEducationSpecificationsGet_Success_ReturnsEducationSpecifications()
     {
         //arrange
         var sut = CreateSut(out var _, out var _, out var _, out var educationSpecificationsService, out var _, out var _);
@@ -128,14 +128,14 @@ public class OrganizationsControllerTests
         var educationSpecificationType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<EducationSpecification>();
+        var response = Substitute.For<Pagination<EducationSpecification>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        educationSpecificationsService.GetEducationSpecificationsByOrganizationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
+        educationSpecificationsService.GetEducationSpecificationsByOrganizationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.OrganizationsOrganizationIdEducationSpecificationsGet(organizationId, filterParams, pagingParams, educationSpecificationType, sort) as OkObjectResult;
+        var result = await sut.OrganizationsOrganizationIdEducationSpecificationsGetAsync(organizationId, filterParams, pagingParams, educationSpecificationType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -152,7 +152,7 @@ public class OrganizationsControllerTests
     }
 
     [Test]
-    public void OrganizationsOrganizationIdGet_Success_ReturnsOrganization()
+    public async Task OrganizationsOrganizationIdGet_Success_ReturnsOrganization()
     {
         //arrange
         var sut = CreateSut(out var organizationsService, out var _, out var _, out var _, out var _, out var _);
@@ -163,10 +163,10 @@ public class OrganizationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        organizationsService.Get(organizationId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        organizationsService.GetAsync(organizationId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.OrganizationsOrganizationIdGet(organizationId, expand) as OkObjectResult;
+        var result = await sut.OrganizationsOrganizationIdGetAsync(organizationId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -178,7 +178,7 @@ public class OrganizationsControllerTests
     }
 
     [Test]
-    public void OrganizationsOrganizationIdGroupsGet_Success_ReturnsGroups()
+    public async Task OrganizationsOrganizationIdGroupsGet_Success_ReturnsGroups()
     {
         //arrange
         var sut = CreateSut(out var _, out var _, out var _, out var _, out var groupsService, out var _);
@@ -188,14 +188,14 @@ public class OrganizationsControllerTests
         var groupType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Group>();
+        var response = Substitute.For<Pagination<Group>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        groupsService.GetGroupsByOrganizationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
+        groupsService.GetGroupsByOrganizationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.OrganizationsOrganizationIdGroupsGet(organizationId, filterParams, pagingParams, groupType, sort) as OkObjectResult;
+        var result = await sut.OrganizationsOrganizationIdGroupsGetAsync(organizationId, filterParams, pagingParams, groupType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -213,7 +213,7 @@ public class OrganizationsControllerTests
 
 
     [Test]
-    public void OrganizationsOrganizationIdProgramsGet_Success_ReturnsPrograms()
+    public async Task OrganizationsOrganizationIdProgramsGet_Success_ReturnsPrograms()
     {
         //arrange
         var sut = CreateSut(out var _, out var _, out var _, out var _, out var _, out var programsService);
@@ -228,14 +228,14 @@ public class OrganizationsControllerTests
         var fieldsOfStudy = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Models.Program>();
+        var response = Substitute.For<Pagination<Models.Program>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.GetProgramsByOrganizationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId).Returns(response);
+        programsService.GetProgramsByOrganizationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), organizationId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.OrganizationsOrganizationIdProgramsGet(organizationId, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
+        var result = await sut.OrganizationsOrganizationIdProgramsGetAsync(organizationId, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

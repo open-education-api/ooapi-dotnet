@@ -5,7 +5,7 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IComponentsService
 {
-    Component? Get(Guid componentId);
-    Pagination<Component> GetComponentsByCourseId(DataRequestParameters dataRequestParameters, Guid courseId);
-    Pagination<Component> GetComponentsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId);
+    Task<Component?> GetAsync(Guid componentId, CancellationToken cancellationToken = default);
+    Task<Pagination<Component>> GetComponentsByCourseIdAsync(DataRequestParameters dataRequestParameters, Guid courseId, CancellationToken cancellationToken = default);
+    Task<Pagination<Component>> GetComponentsByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default);
 }

@@ -11,7 +11,7 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
     {
     }
 
-    public Pagination<Program> GetAllOrderedBy(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Program>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         IQueryable<Program> set = dbContext.ProgramsNoTracking.Include(x => x.Attributes);
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
@@ -19,67 +19,67 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public Program? GetProgram(Guid programId, DataRequestParameters dataRequestParameters)
+    public async Task<Program?> GetProgramAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         // expands: parent, organization, educationSpecification, children
         // nog te doen: , coordinators
 
         IQueryable<Program> set = dbContext.ProgramsNoTracking.Include(x => x.Attributes);
 
-        var result = set.FirstOrDefault(x => x.ProgramId.Equals(programId));
+        var result = await set.FirstOrDefaultAsync(x => x.ProgramId.Equals(programId), cancellationToken);
 
         if (result is null)
         {
             return null;
         }
 
-        result.ChildrenIds = dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).Select(x => x.ProgramId).ToList();
+        result.ChildrenIds = await dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).Select(x => x.ProgramId).ToListAsync(cancellationToken);
 
         if (dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase) && result.ParentId != null)
         {
-            result.Parent = dbContext.ProgramsNoTracking.First(x => x.ProgramId.Equals(result.ParentId));
-            result.Parent.ChildrenIds = set.Where(x => x.ParentId.Equals(result.Parent.ProgramId)).Select(x => x.ProgramId).ToList();
+            result.Parent = await dbContext.ProgramsNoTracking.FirstAsync(x => x.ProgramId.Equals(result.ParentId), cancellationToken);
+            result.Parent.ChildrenIds = await set.Where(x => x.ParentId.Equals(result.Parent.ProgramId)).Select(x => x.ProgramId).ToListAsync(cancellationToken);
         }
 
         if (dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase))
         {
-            result.Children = dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).ToList();
+            result.Children = await dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).ToListAsync(cancellationToken);
             foreach (var item in result.Children)
             {
-                item.ChildrenIds = set.Where(x => x.ParentId.Equals(item.ProgramId)).Select(x => x.ProgramId).ToList();
+                item.ChildrenIds = await set.Where(x => x.ParentId.Equals(item.ProgramId)).Select(x => x.ProgramId).ToListAsync(cancellationToken);
             }
         }
 
         if (dataRequestParameters.Expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase))
         {
-            result.Organization = dbContext.OrganizationsNoTracking.Include(x => x.Attributes).First(x => x.OrganizationId.Equals(result.OrganizationId));
-            result.Organization.Parent = dbContext.OrganizationsNoTracking.FirstOrDefault(x => x.OrganizationId.Equals(result.Organization.ParentId));
-            result.Organization.ChildrenIds = dbContext.OrganizationsNoTracking.Where(x => x.ParentId.Equals(result.Organization.OrganizationId)).Select(x => x.OrganizationId).ToList();
+            result.Organization = await dbContext.OrganizationsNoTracking.Include(x => x.Attributes).FirstAsync(x => x.OrganizationId.Equals(result.OrganizationId), cancellationToken);
+            result.Organization.Parent = await dbContext.OrganizationsNoTracking.FirstOrDefaultAsync(x => x.OrganizationId.Equals(result.Organization.ParentId), cancellationToken);
+            result.Organization.ChildrenIds = await dbContext.OrganizationsNoTracking.Where(x => x.ParentId.Equals(result.Organization.OrganizationId)).Select(x => x.OrganizationId).ToListAsync(cancellationToken);
         }
 
         if (dataRequestParameters.Expand.Contains("educationspecification", StringComparer.InvariantCultureIgnoreCase))
         {
-            result.EducationSpecification = dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes).First(x => x.EducationSpecificationId.Equals(result.EducationSpecificationId));
-            Guid? educationSpecificationParentId = dbContext.EducationSpecificationsNoTracking
+            result.EducationSpecification = await dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes).FirstAsync(x => x.EducationSpecificationId.Equals(result.EducationSpecificationId), cancellationToken);
+            Guid? educationSpecificationParentId = await dbContext.EducationSpecificationsNoTracking
                 .Where(x => x.EducationSpecificationId.Equals(result.EducationSpecification.ParentId))
                 .Select(x => x.EducationSpecificationId)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync(cancellationToken);
             if (educationSpecificationParentId != Guid.Empty)
-                result.EducationSpecification.ParentId = dbContext.EducationSpecificationsNoTracking
+                result.EducationSpecification.ParentId = await dbContext.EducationSpecificationsNoTracking
                     .Where(x => x.EducationSpecificationId.Equals(result.EducationSpecification.ParentId))
                     .Select(x => x.EducationSpecificationId)
-                    .FirstOrDefault();
+                    .FirstOrDefaultAsync(cancellationToken);
 
-            result.EducationSpecification.ChildrenIds = dbContext.EducationSpecificationsNoTracking.Where(x => x.ParentId.Equals(result.EducationSpecification.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToList();
+            result.EducationSpecification.ChildrenIds = await dbContext.EducationSpecificationsNoTracking.Where(x => x.ParentId.Equals(result.EducationSpecification.EducationSpecificationId)).Select(x => x.EducationSpecificationId).ToListAsync(cancellationToken);
         }
 
         return result;
     }
 
-    public Pagination<Program> GetProgramsByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Program>> GetProgramsByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         IQueryable<Program> set = dbContext.ProgramsNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
 
@@ -88,16 +88,20 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public List<Program> GetProgramsByOrganizationId(Guid organizationId)
+    public async Task<Pagination<Program>> GetProgramsByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return dbContext.Programs.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
+        var set = dbContext.Programs.Where(o => o.OrganizationId.Equals(organizationId));
+
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public List<Program> GetProgramsByProgramId(Guid programId)
+    public async Task<Pagination<Program>> GetProgramsByProgramIdAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return dbContext.Programs.Where(o => o.ParentId.Equals(programId)).ToList();
+        var set = dbContext.Programs.Where(o => o.ParentId.Equals(programId));
+
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 }

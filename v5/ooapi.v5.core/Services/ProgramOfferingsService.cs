@@ -16,13 +16,13 @@ internal class ProgramOfferingsService : ServiceBase, IProgramOfferingService
         _repository = repository;
     }
 
-    public Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<ProgramOffering>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters, null, cancellationToken);
     }
 
-    public ProgramOffering? Get(Guid programOfferingId)
+    public async Task<ProgramOffering?> GetAsync(Guid programOfferingId, CancellationToken cancellationToken = default)
     {
-        return _repository.GetProgramOffering(programOfferingId);
+        return await _repository.GetProgramOfferingAsync(programOfferingId, cancellationToken);
     }
 }

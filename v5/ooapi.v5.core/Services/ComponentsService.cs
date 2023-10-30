@@ -15,20 +15,18 @@ internal class ComponentsService : ServiceBase, IComponentsService
         _repository = repository;
     }
 
-    public Component? Get(Guid componentId)
+    public async Task<Component?> GetAsync(Guid componentId, CancellationToken cancellationToken = default)
     {
-        return _repository.GetComponent(componentId);
+        return await _repository.GetComponentAsync(componentId, cancellationToken);
     }
 
-    public Pagination<Component> GetComponentsByCourseId(DataRequestParameters dataRequestParameters, Guid courseId)
+    public async Task<Pagination<Component>> GetComponentsByCourseIdAsync(DataRequestParameters dataRequestParameters, Guid courseId, CancellationToken cancellationToken = default)
     {
-        var result = _repository.GetComponentsByCourseId(courseId);
-        return new Pagination<Component>(result.AsQueryable(), dataRequestParameters);
+        return await _repository.GetComponentsByCourseIdAsync(courseId, dataRequestParameters, cancellationToken);
     }
 
-    public Pagination<Component> GetComponentsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId)
+    public async Task<Pagination<Component>> GetComponentsByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default)
     {
-        var result = _repository.GetComponentsByOrganizationId(organizationId);
-        return new Pagination<Component>(result.AsQueryable(), dataRequestParameters);
+        return await _repository.GetComponentsByOrganizationIdAsync(organizationId, dataRequestParameters, cancellationToken);
     }
 }

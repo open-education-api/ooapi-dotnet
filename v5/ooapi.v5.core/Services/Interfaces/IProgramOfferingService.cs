@@ -5,6 +5,6 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IProgramOfferingService
 {
-    ProgramOffering? Get(Guid programOfferingId);
-    Pagination<ProgramOffering> GetAll(DataRequestParameters dataRequestParameters);
+    Task<ProgramOffering?> GetAsync(Guid programOfferingId, CancellationToken cancellationToken = default);
+    Task<Pagination<ProgramOffering>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
 }

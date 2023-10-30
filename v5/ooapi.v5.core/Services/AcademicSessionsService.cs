@@ -15,13 +15,13 @@ internal class AcademicSessionsService : ServiceBase, IAcademicSessionsService
         _repository = repository;
     }
 
-    public Pagination<AcademicSession> GetAll(DataRequestParameters dataRequestParameters, string? academicSessionType)
+    public async Task<Pagination<AcademicSession>> GetAllAsync(DataRequestParameters dataRequestParameters, string? academicSessionType, CancellationToken cancellationToken = default)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters, academicSessionType);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters, academicSessionType, cancellationToken);
     }
 
-    public AcademicSession? Get(Guid academicSessionId, DataRequestParameters dataRequestParameters)
+    public async Task<AcademicSession?> GetAsync(Guid academicSessionId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return _repository.GetAcademicSession(academicSessionId, dataRequestParameters);
+        return await _repository.GetAcademicSessionAsync(academicSessionId, dataRequestParameters, cancellationToken);
     }
 }

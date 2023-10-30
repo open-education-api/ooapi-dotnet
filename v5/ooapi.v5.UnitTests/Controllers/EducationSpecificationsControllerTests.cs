@@ -12,7 +12,7 @@ public class EducationSpecificationsControllerTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void EducationSpecificationsEducationSpecificationIdCoursesGet_Success_ReturnsCourses()
+    public async Task EducationSpecificationsEducationSpecificationIdCoursesGet_Success_ReturnsCourses()
     {
         //arrange
         var sut = CreateSut(out var _, out var coursesService, out var _);
@@ -24,14 +24,14 @@ public class EducationSpecificationsControllerTests
         var modeOfDelivery = _fixture.Create<List<string>?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Course>();
+        var response = Substitute.For<Pagination<Course>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        coursesService.GetCoursesByEducationSpecificationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId).Returns(response);
+        coursesService.GetCoursesByEducationSpecificationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.EducationSpecificationsEducationSpecificationIdCoursesGet(educationSpecificationId, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
+        var result = await sut.EducationSpecificationsEducationSpecificationIdCoursesGetAsync(educationSpecificationId, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -48,7 +48,7 @@ public class EducationSpecificationsControllerTests
     }
 
     [Test]
-    public void EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet_Success_ReturnsEducationSpecifications()
+    public async Task EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet_Success_ReturnsEducationSpecifications()
     {
         //arrange
         var sut = CreateSut(out var educationSpecificationsService, out var _, out var _);
@@ -57,14 +57,14 @@ public class EducationSpecificationsControllerTests
         var pagingParams = _fixture.Create<PagingParams>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<EducationSpecification>();
+        var response = Substitute.For<Pagination<EducationSpecification>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        educationSpecificationsService.GetEducationSpecificationsByEducationSpecificationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId).Returns(response);
+        educationSpecificationsService.GetEducationSpecificationsByEducationSpecificationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.EducationSpecificationsEducationSpecificationIdEducationSpecificationsGet(educationSpecificationId, filterParams, pagingParams, sort) as OkObjectResult;
+        var result = await sut.EducationSpecificationsEducationSpecificationIdEducationSpecificationsGetAsync(educationSpecificationId, filterParams, pagingParams, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -81,7 +81,7 @@ public class EducationSpecificationsControllerTests
     }
 
     [Test]
-    public void EducationSpecificationsEducationSpecificationIdGet_Success_ReturnsEducationSpecification()
+    public async Task EducationSpecificationsEducationSpecificationIdGet_Success_ReturnsEducationSpecification()
     {
         //arrange
         var sut = CreateSut(out var educationSpecificationsService, out var _, out var _);
@@ -93,10 +93,10 @@ public class EducationSpecificationsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        educationSpecificationsService.Get(educationSpecificationId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        educationSpecificationsService.GetAsync(educationSpecificationId, Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.EducationSpecificationsEducationSpecificationIdGet(educationSpecificationId, returnTimelineOverrides, expand) as OkObjectResult;
+        var result = await sut.EducationSpecificationsEducationSpecificationIdGetAsync(educationSpecificationId, returnTimelineOverrides, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -108,7 +108,7 @@ public class EducationSpecificationsControllerTests
     }
 
     [Test]
-    public void EducationSpecificationsEducationSpecificationIdProgramsGet_Success_ReturnsEducationSpecifications()
+    public async Task EducationSpecificationsEducationSpecificationIdProgramsGet_Success_ReturnsEducationSpecifications()
     {
         //arrange
         var sut = CreateSut(out var _, out var _, out var programsService);
@@ -124,14 +124,14 @@ public class EducationSpecificationsControllerTests
         var crohoCreboCode = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Models.Program>();
+        var response = Substitute.For<Pagination<Models.Program>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programsService.GetProgramsByEducationSpecificationId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId).Returns(response);
+        programsService.GetProgramsByEducationSpecificationIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), educationSpecificationId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.EducationSpecificationsEducationSpecificationIdProgramsGet(educationSpecificationId, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, crohoCreboCode, sort) as OkObjectResult;
+        var result = await sut.EducationSpecificationsEducationSpecificationIdProgramsGetAsync(educationSpecificationId, filterParams, pagingParams, teachingLanguage, programType, qualificationAwarded, levelOfQualification, sector, fieldsOfStudy, crohoCreboCode, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -148,7 +148,7 @@ public class EducationSpecificationsControllerTests
     }
 
     [Test]
-    public void EducationSpecificationsGet_Success_ReturnsEducationSpecifications()
+    public async Task EducationSpecificationsGet_Success_ReturnsEducationSpecifications()
     {
         //arrange
         var sut = CreateSut(out var educationSpecificationsService, out var _, out var _);
@@ -158,14 +158,14 @@ public class EducationSpecificationsControllerTests
         var educationSpecificationType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<EducationSpecification>();
+        var response = Substitute.For<Pagination<EducationSpecification>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        educationSpecificationsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        educationSpecificationsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.EducationSpecificationsGet(primaryCodeParam, filterParams, pagingParams, educationSpecificationType, sort) as OkObjectResult;
+        var result = await sut.EducationSpecificationsGetAsync(primaryCodeParam, filterParams, pagingParams, educationSpecificationType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
