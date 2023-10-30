@@ -23,7 +23,7 @@ public class RoomsServiceTests
         var sut = new RoomsService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<Room>();
+        var expected = Substitute.For<Pagination<Room>>();
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
@@ -66,14 +66,14 @@ public class RoomsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var buildingId = _fixture.Create<Guid>();
 
-        var rooms = new Pagination<Room>();
-        repository.GetRoomsByBuildingIdAsync(buildingId, dataRequestParameters).Returns(rooms);
+        var expected = Substitute.For<Pagination<Room>>();
+        repository.GetRoomsByBuildingIdAsync(buildingId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetRoomsByBuildingIdAsync(dataRequestParameters, buildingId);
 
         // Assert
-        Assert.That(result, Is.TypeOf<Pagination<Room>>());
+        Assert.That(result, Is.EqualTo(expected));
         await repository.Received(1).GetRoomsByBuildingIdAsync(buildingId, dataRequestParameters);
     }
 }

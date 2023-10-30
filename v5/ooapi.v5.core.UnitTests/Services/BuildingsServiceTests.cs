@@ -45,7 +45,7 @@ public class BuildingsServiceTests
         var sut = new BuildingsService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<Building>();
+        var expected = Substitute.For<Pagination<Building>>();
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act

@@ -21,7 +21,7 @@ public class NewsControllerTests
         var newsFeedType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<NewsFeed>();
+        var response = Substitute.For<Pagination<NewsFeed>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -78,7 +78,7 @@ public class NewsControllerTests
         var newsFeedType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<NewsItem>();
+        var response = Substitute.For<Pagination<NewsItem>>();
 
         DataRequestParameters? dataRequestParameters = null;
 

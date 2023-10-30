@@ -20,11 +20,10 @@ public sealed class PaginationTests
             .With(x => x.PageSize, 100)
             .Without(x => x.Filter)
             .Create();
-        var pagination = new Pagination<TestObject>();
         var db = items.AsQueryable().BuildMockDbSet();
 
         // act
-        await pagination.LoadDataAsync(db, parameters);
+        var pagination = await Pagination<TestObject>.CreateAsync(db, parameters);
 
         // assert
         pagination.TotalItems.Should().Be(items.Count);
@@ -45,11 +44,10 @@ public sealed class PaginationTests
             .With(x => x.PageSize, 2)
             .With(x => x.Filter, "value eq test")
             .Create();
-        var pagination = new Pagination<TestObject>();
         var db = items.AsQueryable().BuildMockDbSet();
 
         // act
-        await pagination.LoadDataAsync(db, parameters);
+        var pagination = await Pagination<TestObject>.CreateAsync(db, parameters);
 
         // assert
         pagination.TotalItems.Should().Be(items.Count);

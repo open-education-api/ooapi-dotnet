@@ -23,7 +23,7 @@ public class CoursesServiceTests
         var sut = new CoursesService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<Course>();
+        var expected = Substitute.For<Pagination<Course>>();
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
@@ -67,7 +67,7 @@ public class CoursesServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var educationSpecificationId = _fixture.Create<Guid>();
 
-        var expected = new Pagination<Course>();
+        var expected = Substitute.For<Pagination<Course>>();
         repository.GetCoursesByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters).Returns(expected);
 
         // Act
@@ -89,8 +89,8 @@ public class CoursesServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var organizationId = _fixture.Create<Guid>();
 
-        var courses = new Pagination<Course>();
-        repository.GetCoursesByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(courses);
+        var expected = Substitute.For<Pagination<Course>>();
+        repository.GetCoursesByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetCoursesByOrganizationIdAsync(dataRequestParameters, organizationId);
@@ -111,8 +111,8 @@ public class CoursesServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var programId = _fixture.Create<Guid>();
 
-        var courses = new Pagination<Course>();
-        repository.GetCoursesByProgramIdAsync(programId, dataRequestParameters).Returns(courses);
+        var expected = Substitute.For<Pagination<Course>>();
+        repository.GetCoursesByProgramIdAsync(programId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetCoursesByProgramIdAsync(dataRequestParameters, programId);

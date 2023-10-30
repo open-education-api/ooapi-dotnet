@@ -23,7 +23,7 @@ public class EducationSpecificationsServiceTests
         var sut = new EducationSpecificationsService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<EducationSpecification>();
+        var expected = Substitute.For<Pagination<EducationSpecification>>();
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
@@ -68,8 +68,8 @@ public class EducationSpecificationsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var educationSpecificationId = _fixture.Create<Guid>();
 
-        var educationSpecifications = new Pagination<EducationSpecification>();
-        repository.GetEducationSpecificationsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters).Returns(educationSpecifications);
+        var expected = Substitute.For<Pagination<EducationSpecification>>();
+        repository.GetEducationSpecificationsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetEducationSpecificationsByEducationSpecificationIdAsync(dataRequestParameters, educationSpecificationId);
@@ -90,8 +90,8 @@ public class EducationSpecificationsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var organizationId = _fixture.Create<Guid>();
 
-        var educationSpecifications = new Pagination<EducationSpecification>();
-        repository.GetEducationSpecificationsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(educationSpecifications);
+        var expected = Substitute.For<Pagination<EducationSpecification>>();
+        repository.GetEducationSpecificationsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetEducationSpecificationsByOrganizationIdAsync(dataRequestParameters, organizationId);

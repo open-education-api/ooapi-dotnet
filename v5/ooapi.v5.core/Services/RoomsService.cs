@@ -21,9 +21,9 @@ internal class RoomsService : ServiceBase, IRoomsService
         return await _repository.GetAllOrderedByAsync(dataRequestParameters, null, cancellationToken);
     }
 
-    public Task<Room?> GetAsync(Guid roomId, CancellationToken cancellationToken = default)
+    public async Task<Room?> GetAsync(Guid roomId, CancellationToken cancellationToken = default)
     {
-        return _repository.GetRoomAsync(roomId, cancellationToken);
+        return await _repository.GetRoomAsync(roomId, cancellationToken);
     }
 
     public async Task<Pagination<Room>> GetRoomsByBuildingIdAsync(DataRequestParameters dataRequestParameters, Guid buildingId, CancellationToken cancellationToken = default)

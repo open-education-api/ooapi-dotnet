@@ -24,7 +24,7 @@ public class AcademicSessionsControllerTests
         var year = _fixture.Create<Guid?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<AcademicSession>();
+        var response = Substitute.For<Pagination<AcademicSession>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -58,7 +58,7 @@ public class AcademicSessionsControllerTests
         var year = _fixture.Create<Guid?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<AcademicSession>();
+        var response = Substitute.For<Pagination<AcademicSession>>();
 
         DataRequestParameters? dataRequestParameters = null;
 

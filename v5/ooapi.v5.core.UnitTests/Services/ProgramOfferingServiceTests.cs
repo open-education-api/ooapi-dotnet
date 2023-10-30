@@ -23,7 +23,7 @@ public class ProgramOfferingsServiceTests
         var sut = new ProgramOfferingsService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<ProgramOffering>();
+        var expected = Substitute.For<Pagination<ProgramOffering>>();
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act

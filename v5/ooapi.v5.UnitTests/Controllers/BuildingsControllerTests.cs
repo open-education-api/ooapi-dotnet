@@ -45,7 +45,7 @@ public class BuildingsControllerTests
         var roomType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Room>();
+        var response = Substitute.For<Pagination<Room>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -78,7 +78,7 @@ public class BuildingsControllerTests
         PagingParams? pagingParams = null;
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Building>();
+        var response = Substitute.For<Pagination<Building>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -109,7 +109,7 @@ public class BuildingsControllerTests
         var pagingParams = _fixture.Create<PagingParams>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Building>();
+        var response = Substitute.For<Pagination<Building>>();
 
         DataRequestParameters? dataRequestParameters = null;
 

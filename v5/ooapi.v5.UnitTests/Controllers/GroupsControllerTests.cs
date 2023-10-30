@@ -22,7 +22,7 @@ public class GroupsControllerTests
         var groupType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Group>();
+        var response = Substitute.For<Pagination<Group>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -54,7 +54,7 @@ public class GroupsControllerTests
         var groupType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Group>();
+        var response = Substitute.For<Pagination<Group>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -112,7 +112,7 @@ public class GroupsControllerTests
         var affiliations = _fixture.Create<List<string>?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Person>();
+        var response = Substitute.For<Pagination<Person>>();
 
         DataRequestParameters? dataRequestParameters = null;
 

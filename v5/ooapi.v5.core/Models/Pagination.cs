@@ -7,16 +7,19 @@ namespace ooapi.v5.Models;
 
 public class Pagination<T> : ModelBase
 {
-    public Pagination()
+    protected Pagination()
     {
 
     }
 
-    public async Task LoadDataAsync(IQueryable<T> collection, DataRequestParameters dataRequestParameters)
+    public static async Task<Pagination<T>> CreateAsync(IQueryable<T> collection, DataRequestParameters dataRequestParameters)
     {
-        TotalItems = await collection.CountAsync();
-        PageSize = dataRequestParameters.PageSize;
-        PageNumber = dataRequestParameters.PageNumber;
+        var pagination = new Pagination<T>
+        {
+            TotalItems = await collection.CountAsync(),
+            PageSize = dataRequestParameters.PageSize,
+            PageNumber = dataRequestParameters.PageNumber
+        };
 
         dataRequestParameters.Validate();
         if (!string.IsNullOrEmpty(dataRequestParameters.Filter))
@@ -24,9 +27,11 @@ public class Pagination<T> : ModelBase
             collection = new FilterToLinq<T>(dataRequestParameters.Filter).Parse(collection);
         }
         var skip = dataRequestParameters.Skip;
-        SetItems(await collection.Skip(skip).Take(PageSize).ToListAsync());
+        pagination.SetItems(await collection.Skip(skip).Take(pagination.PageSize).ToListAsync());
 
-        SetExtendedAttributes();
+        pagination.SetExtendedAttributes();
+
+        return pagination;
     }
 
     private void SetItems(List<T> list)

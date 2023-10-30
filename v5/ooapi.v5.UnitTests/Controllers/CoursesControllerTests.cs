@@ -23,7 +23,7 @@ public class CoursesControllerTests
         var componentType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Component>();
+        var response = Substitute.For<Pagination<Component>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -84,7 +84,7 @@ public class CoursesControllerTests
         var modeOfDelivery = _fixture.Create<List<string>?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Course>();
+        var response = Substitute.For<Pagination<Course>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -118,7 +118,7 @@ public class CoursesControllerTests
         var modeOfDelivery = _fixture.Create<List<string>?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Course>();
+        var response = Substitute.For<Pagination<Course>>();
 
         DataRequestParameters? dataRequestParameters = null;
 

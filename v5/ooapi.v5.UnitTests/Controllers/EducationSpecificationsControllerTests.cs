@@ -24,7 +24,7 @@ public class EducationSpecificationsControllerTests
         var modeOfDelivery = _fixture.Create<List<string>?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Course>();
+        var response = Substitute.For<Pagination<Course>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -57,7 +57,7 @@ public class EducationSpecificationsControllerTests
         var pagingParams = _fixture.Create<PagingParams>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<EducationSpecification>();
+        var response = Substitute.For<Pagination<EducationSpecification>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -124,7 +124,7 @@ public class EducationSpecificationsControllerTests
         var crohoCreboCode = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Models.Program>();
+        var response = Substitute.For<Pagination<Models.Program>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -158,7 +158,7 @@ public class EducationSpecificationsControllerTests
         var educationSpecificationType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<EducationSpecification>();
+        var response = Substitute.For<Pagination<EducationSpecification>>();
 
         DataRequestParameters? dataRequestParameters = null;
 

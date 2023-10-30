@@ -23,7 +23,7 @@ public class ProgramsServiceTests
         var sut = new ProgramsService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<Program>();
+        var expected = Substitute.For<Pagination<Program>>();
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
@@ -67,14 +67,14 @@ public class ProgramsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var educationSpecificationId = _fixture.Create<Guid>();
 
-        var programs = new Pagination<Program>();
-        repository.GetProgramsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters).Returns(programs);
+        var expected = Substitute.For<Pagination<Program>>();
+        repository.GetProgramsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetProgramsByEducationSpecificationIdAsync(dataRequestParameters, educationSpecificationId);
 
         // Assert
-        Assert.That(result, Is.EqualTo(programs));
+        Assert.That(result, Is.EqualTo(expected));
         await repository.Received(1).GetProgramsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters);
     }
 
@@ -89,8 +89,8 @@ public class ProgramsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var organizationId = _fixture.Create<Guid>();
 
-        var programs = new Pagination<Program>();
-        repository.GetProgramsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(programs);
+        var expected = Substitute.For<Pagination<Program>>();
+        repository.GetProgramsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetProgramsByOrganizationIdAsync(dataRequestParameters, organizationId);
@@ -111,8 +111,8 @@ public class ProgramsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var programId = _fixture.Create<Guid>();
 
-        var programs = new Pagination<Program>();
-        repository.GetProgramsByProgramIdAsync(programId, dataRequestParameters).Returns(programs);
+        var expected = Substitute.For<Pagination<Program>>();
+        repository.GetProgramsByProgramIdAsync(programId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetProgramsByProgramIdAsync(dataRequestParameters, programId);

@@ -22,7 +22,7 @@ public class RoomsControllerTests
         var roomType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Room>();
+        var response = Substitute.For<Pagination<Room>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -54,7 +54,7 @@ public class RoomsControllerTests
         var roomType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Room>();
+        var response = Substitute.For<Pagination<Room>>();
 
         DataRequestParameters? dataRequestParameters = null;
 

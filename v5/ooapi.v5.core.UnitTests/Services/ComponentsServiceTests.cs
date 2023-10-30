@@ -46,8 +46,8 @@ public class ComponentsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var courseId = _fixture.Create<Guid>();
 
-        var components = new Pagination<Component>();
-        repository.GetComponentsByCourseIdAsync(courseId, dataRequestParameters).Returns(components);
+        var expected = Substitute.For<Pagination<Component>>();
+        repository.GetComponentsByCourseIdAsync(courseId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetComponentsByCourseIdAsync(dataRequestParameters, courseId);
@@ -68,8 +68,8 @@ public class ComponentsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var organizationId = _fixture.Create<Guid>();
 
-        var components = new Pagination<Component>();
-        repository.GetComponentsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(components);
+        var expected = Substitute.For<Pagination<Component>>();
+        repository.GetComponentsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetComponentsByOrganizationIdAsync(dataRequestParameters, organizationId);

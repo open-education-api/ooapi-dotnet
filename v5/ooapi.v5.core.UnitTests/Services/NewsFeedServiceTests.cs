@@ -23,7 +23,7 @@ public class NewsFeedsServiceTests
         var sut = new NewsFeedsService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<NewsFeed>();
+        var expected = Substitute.For<Pagination<NewsFeed>>();
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act

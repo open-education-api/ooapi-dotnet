@@ -23,7 +23,7 @@ public class GroupsServiceTests
         var sut = new GroupsService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<Group>();
+        var expected = Substitute.For<Pagination<Group>>();
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
@@ -66,8 +66,8 @@ public class GroupsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var organizationId = _fixture.Create<Guid>();
 
-        var groups = new Pagination<Group>();
-        repository.GetGroupsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(groups);
+        var expected = Substitute.For<Pagination<Group>>();
+        repository.GetGroupsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetGroupsByOrganizationIdAsync(dataRequestParameters, organizationId);
@@ -88,8 +88,8 @@ public class GroupsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var groupId = _fixture.Create<Guid>();
 
-        var groups = new Pagination<Group>();
-        repository.GetGroupsByPersonIdAsync(groupId, dataRequestParameters).Returns(groups);
+        var expected = Substitute.For<Pagination<Group>>();
+        repository.GetGroupsByPersonIdAsync(groupId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetGroupsByPersonIdAsync(dataRequestParameters, groupId);

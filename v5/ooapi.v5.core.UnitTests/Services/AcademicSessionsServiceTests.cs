@@ -24,7 +24,7 @@ public class AcademicSessionsServiceTests
         var dataRequestParameters = _fixture.Create<DataRequestParameters>();
         string? academicSessionType = null;
 
-        var expected = new Pagination<AcademicSession>();
+        var expected = Substitute.For<Pagination<AcademicSession>>();
         repository.GetAllOrderedByAsync(dataRequestParameters, academicSessionType).Returns(expected);
 
         // Act
@@ -46,7 +46,7 @@ public class AcademicSessionsServiceTests
         var dataRequestParameters = _fixture.Create<DataRequestParameters>();
         var academicSessionType = _fixture.Create<string>();
 
-        var expected = new Pagination<AcademicSession>();
+        var expected = Substitute.For<Pagination<AcademicSession>>();
         repository.GetAllOrderedByAsync(dataRequestParameters, academicSessionType).Returns(expected);
 
         // Act

@@ -27,7 +27,7 @@ public class ProgramsControllerTests
         var fieldsOfStudy = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Models.Program>();
+        var response = Substitute.For<Pagination<Models.Program>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -64,7 +64,7 @@ public class ProgramsControllerTests
         var fieldsOfStudy = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Models.Program>();
+        var response = Substitute.For<Pagination<Models.Program>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -100,7 +100,7 @@ public class ProgramsControllerTests
         var modeOfDelivery = _fixture.Create<List<string>?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Course>();
+        var response = Substitute.For<Pagination<Course>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -165,7 +165,7 @@ public class ProgramsControllerTests
         var until = _fixture.Create<DateTime?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<ProgramOffering>();
+        var response = Substitute.For<Pagination<ProgramOffering>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -204,7 +204,7 @@ public class ProgramsControllerTests
         var fieldsOfStudy = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Models.Program>();
+        var response = Substitute.For<Pagination<Models.Program>>();
 
         DataRequestParameters? dataRequestParameters = null;
 

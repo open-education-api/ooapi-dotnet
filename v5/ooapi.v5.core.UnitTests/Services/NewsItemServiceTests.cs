@@ -45,8 +45,8 @@ public class NewsItemsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var newsFeedId = _fixture.Create<Guid>();
 
-        var newsItems = new Pagination<NewsItem>();
-        repository.GetNewsItemsByNewsFeedIdAsync(newsFeedId, dataRequestParameters).Returns(newsItems);
+        var expected = Substitute.For<Pagination<NewsItem>>();
+        repository.GetNewsItemsByNewsFeedIdAsync(newsFeedId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetNewsItemsByNewsFeedIdAsync(dataRequestParameters, newsFeedId);

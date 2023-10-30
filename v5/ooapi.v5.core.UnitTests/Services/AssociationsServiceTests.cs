@@ -46,8 +46,8 @@ public class AssociationsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var personId = _fixture.Create<Guid>();
 
-        var associations = new Pagination<Association>();
-        repository.GetAssociationsByPersonIdAsync(personId, dataRequestParameters).Returns(associations);
+        var expected = Substitute.For<Pagination<Association>>();
+        repository.GetAssociationsByPersonIdAsync(personId, dataRequestParameters).Returns(expected);
 
         // Act
         var result = await sut.GetAssociationsByPersonIdAsync(dataRequestParameters, personId);

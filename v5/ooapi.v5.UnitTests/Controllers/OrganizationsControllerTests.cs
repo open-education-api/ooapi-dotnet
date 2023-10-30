@@ -23,7 +23,7 @@ public class OrganizationsControllerTests
         var organizationType = _fixture.Create<OrganizationType?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Organization>();
+        var response = Substitute.For<Pagination<Organization>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -58,7 +58,7 @@ public class OrganizationsControllerTests
         var componentType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Component>();
+        var response = Substitute.For<Pagination<Component>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -94,7 +94,7 @@ public class OrganizationsControllerTests
         var modeOfDelivery = _fixture.Create<List<string>?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Course>();
+        var response = Substitute.For<Pagination<Course>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -128,7 +128,7 @@ public class OrganizationsControllerTests
         var educationSpecificationType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<EducationSpecification>();
+        var response = Substitute.For<Pagination<EducationSpecification>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -188,7 +188,7 @@ public class OrganizationsControllerTests
         var groupType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Group>();
+        var response = Substitute.For<Pagination<Group>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
@@ -228,7 +228,7 @@ public class OrganizationsControllerTests
         var fieldsOfStudy = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Models.Program>();
+        var response = Substitute.For<Pagination<Models.Program>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
