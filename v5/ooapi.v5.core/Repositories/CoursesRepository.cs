@@ -11,13 +11,13 @@ public class CoursesRepository : BaseRepository<Course>, ICoursesRepository
     {
     }
 
-    public Course? GetCourse(Guid courseId)
+    public async Task<Course?> GetCourseAsync(Guid courseId, CancellationToken cancellationToken = default)
     {
-        return dbContext.Courses.Include(x => x.Attributes).FirstOrDefault(x => x.CourseId.Equals(courseId));
+        return await dbContext.Courses.Include(x => x.Attributes).FirstOrDefaultAsync(x => x.CourseId.Equals(courseId), cancellationToken);
     }
 
 
-    public Pagination<Course> GetCoursesByEducationSpecificationId(Guid educationSpecificationId, DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Course>> GetCoursesByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         IQueryable<Course> set = dbContext.CoursesNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
@@ -26,15 +26,17 @@ public class CoursesRepository : BaseRepository<Course>, ICoursesRepository
             
         }
 
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public List<Course> GetCoursesByOrganizationId(Guid organizationId)
+    public async Task<Pagination<Course>> GetCoursesByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return dbContext.Courses.Include(x => x.Attributes).Where(o => o.OrganizationId.Equals(organizationId)).ToList();
+        var set = dbContext.Courses.Include(x => x.Attributes).Where(o => o.OrganizationId.Equals(organizationId));
+
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public List<Course> GetCoursesByProgramId(Guid programId)
+    public Task<Pagination<Course>> GetCoursesByProgramIdAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

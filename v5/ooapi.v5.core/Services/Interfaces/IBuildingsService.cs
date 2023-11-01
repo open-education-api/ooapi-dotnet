@@ -5,6 +5,6 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IBuildingsService
 {
-    Building? Get(Guid buildingId);
-    Pagination<Building> GetAll(DataRequestParameters dataRequestParameters);
+    Task<Building?> GetAsync(Guid buildingId, CancellationToken cancellationToken = default);
+    Task<Pagination<Building>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
 }

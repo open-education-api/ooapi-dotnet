@@ -1,9 +1,8 @@
 using AutoFixture;
-using Microsoft.EntityFrameworkCore;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
-using ooapi.v5.core.UnitTests.Repositories.Helpers;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.UnitTests.Repositories;
@@ -14,7 +13,7 @@ public class NewsItemsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-     public void GetNewsItem_WhenNewsItemExists_ReturnsNewsItem()
+     public async Task GetNewsItem_WhenNewsItemExists_ReturnsNewsItem()
     {
         // Arrange
         var newsItemId = _fixture.Create<Guid>();
@@ -25,21 +24,20 @@ public class NewsItemsRepositoryTests
             .Create();
         var newsItems = new List<NewsItem> { newsItem }.AsQueryable();
 
-        var db = Substitute.For<DbSet<NewsItem>, IQueryable<NewsItem>>();
-        DbMockHelper.InitDb(db, newsItems);
+        var db = newsItems.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.NewsItems.Returns(db);
         var newsItemsRepository = new NewsItemsRepository(dbContext);
 
         // Act
-        var result = newsItemsRepository.GetNewsItem(newsItemId);
+        var result = await newsItemsRepository.GetNewsItemAsync(newsItemId);
 
         // Assert
         Assert.That(result, Is.EqualTo(newsItem));
     }
 
     [Test]
-    public void GetNewsItem_WhenNewsItemDoesNotFound_ReturnsNull()
+    public async Task GetNewsItem_WhenNewsItemDoesNotFound_ReturnsNull()
     {
         // Arrange
         var newsItemId = _fixture.Create<Guid>();
@@ -50,14 +48,13 @@ public class NewsItemsRepositoryTests
             .Create();
         var newsItems = new List<NewsItem> { newsItem }.AsQueryable();
 
-        var db = Substitute.For<DbSet<NewsItem>, IQueryable<NewsItem>>();
-        DbMockHelper.InitDb(db, newsItems);
+        var db = newsItems.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.NewsItems.Returns(db);
         var newsItemsRepository = new NewsItemsRepository(dbContext);
 
         // Act
-        var result = newsItemsRepository.GetNewsItem(_fixture.Create<Guid>());
+        var result = await newsItemsRepository.GetNewsItemAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);

@@ -1,9 +1,8 @@
 using AutoFixture;
-using Microsoft.EntityFrameworkCore;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
-using ooapi.v5.core.UnitTests.Repositories.Helpers;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
@@ -15,7 +14,7 @@ public class ProgramOfferingsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-     public void GetProgramOffering_WhenProgramOfferingExists_ReturnsProgramOffering()
+     public async Task GetProgramOffering_WhenProgramOfferingExists_ReturnsProgramOffering()
     {
         // Arrange
         var programOfferingId = _fixture.Create<Guid>();
@@ -30,41 +29,39 @@ public class ProgramOfferingsRepositoryTests
             .Create();
         var programOfferings = new List<ProgramOffering> { programOffering }.AsQueryable();
 
-        var db = Substitute.For<DbSet<ProgramOffering>, IQueryable<ProgramOffering>>();
-        DbMockHelper.InitDb(db, programOfferings);
+        var db = programOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ProgramOfferings.Returns(db);
         var programOfferingsRepository = new ProgramOfferingsRepository(dbContext);
 
         // Act
-        var result = programOfferingsRepository.GetProgramOffering(programOfferingId);
+        var result = await programOfferingsRepository.GetProgramOfferingAsync(programOfferingId);
 
         // Assert
         Assert.That(result, Is.EqualTo(programOffering));
     }
 
     [Test]
-    public void GetProgramOffering_WhenProgramOfferingDoesNotExist_ReturnsNull()
+    public async Task GetProgramOffering_WhenProgramOfferingDoesNotExist_ReturnsNull()
     {
         // Arrange
         var programOfferingId = _fixture.Create<Guid>();
         var programOfferings = new List<ProgramOffering> { }.AsQueryable();
 
-        var db = Substitute.For<DbSet<ProgramOffering>, IQueryable<ProgramOffering>>();
-        DbMockHelper.InitDb(db, programOfferings);
+        var db = programOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ProgramOfferings.Returns(db);
         var programOfferingsRepository = new ProgramOfferingsRepository(dbContext);
 
         // Act
-        var result = programOfferingsRepository.GetProgramOffering(programOfferingId);
+        var result = await programOfferingsRepository.GetProgramOfferingAsync(programOfferingId);
 
         // Assert
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void GetProgramOfferingByProgramId_WhenProgramOfferingsExist_ReturnsProgramOfferings()
+    public async Task GetProgramOfferingByProgramId_WhenProgramOfferingsExist_ReturnsProgramOfferings()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
@@ -79,14 +76,13 @@ public class ProgramOfferingsRepositoryTests
             .Create();
         var programOfferings = new List<ProgramOffering> { programOffering }.AsQueryable();
 
-        var db = Substitute.For<DbSet<ProgramOffering>, IQueryable<ProgramOffering>>();
-        DbMockHelper.InitDb(db, programOfferings);
+        var db = programOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ProgramOfferingsNoTracking.Returns(db);
         var programOfferingsRepository = new ProgramOfferingsRepository(dbContext);
 
         // Act
-        var result = programOfferingsRepository.GetProgramOfferingByProgramId(programId, new DataRequestParameters());
+        var result = await programOfferingsRepository.GetProgramOfferingByProgramIdAsync(programId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ProgramOffering>>());
@@ -95,20 +91,19 @@ public class ProgramOfferingsRepositoryTests
     }
 
     [Test]
-    public void GetProgramOfferingByProgramId_WhenProgramOfferingsDoNotExist_ReturnsEmptyList()
+    public async Task GetProgramOfferingByProgramId_WhenProgramOfferingsDoNotExist_ReturnsEmptyList()
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
         var programOfferings = new List<ProgramOffering> { }.AsQueryable();
 
-        var db = Substitute.For<DbSet<ProgramOffering>, IQueryable<ProgramOffering>>();
-        DbMockHelper.InitDb(db, programOfferings);
+        var db = programOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ProgramOfferingsNoTracking.Returns(db);
         var programOfferingsRepository = new ProgramOfferingsRepository(dbContext);
 
         // Act
-        var result = programOfferingsRepository.GetProgramOfferingByProgramId(programId, new DataRequestParameters());
+        var result = await programOfferingsRepository.GetProgramOfferingByProgramIdAsync(programId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ProgramOffering>>());

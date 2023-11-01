@@ -5,6 +5,6 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IOrganizationsService
 {
-    Organization? Get(Guid organizationId, DataRequestParameters dataRequestParameters);
-    Pagination<Organization> GetAll(DataRequestParameters dataRequestParameters);
+    Task<Organization?> GetAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<Organization>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
 }

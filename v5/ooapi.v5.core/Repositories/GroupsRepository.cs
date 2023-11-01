@@ -1,4 +1,6 @@
-﻿using ooapi.v5.core.Repositories.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
@@ -9,17 +11,19 @@ public class GroupsRepository : BaseRepository<Group>, IGroupsRepository
     {
     }
 
-    public Group? GetGroup(Guid groupId)
+    public async Task<Group?> GetGroupAsync(Guid groupId, CancellationToken cancellationToken = default)
     {
-        return dbContext.Groups.FirstOrDefault(x => x.GroupId.Equals(groupId));
+        return await dbContext.Groups.FirstOrDefaultAsync(x => x.GroupId.Equals(groupId), cancellationToken);
     }
 
-    public List<Group> GetGroupsByOrganizationId(Guid organizationId)
+    public async Task<Pagination<Group>> GetGroupsByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return dbContext.Groups.Where(o => o.OrganizationId.Equals(organizationId)).ToList();
+        var set = dbContext.Groups.Where(o => o.OrganizationId.Equals(organizationId));
+
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public List<Group> GetGroupsByPersonId(Guid personId)
+    public Task<Pagination<Group>> GetGroupsByPersonIdAsync(Guid personId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

@@ -5,7 +5,7 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 
 public interface IComponentOfferingsRepository
 {
-    ComponentOffering? GetComponentOffering(Guid courseOfferingId);
-    Pagination<ComponentOffering> GetComponentOfferingByComponentId(Guid componentId, DataRequestParameters dataRequestParameters);
-    Pagination<ComponentOffering> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<ComponentOffering>? set = null);
+    Task<ComponentOffering?> GetComponentOfferingAsync(Guid courseOfferingId, CancellationToken cancellationToken = default);
+    Task<Pagination<ComponentOffering>> GetComponentOfferingByComponentIdAsync(Guid componentId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<ComponentOffering>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<ComponentOffering>? set = null, CancellationToken cancellationToken = default);
 }

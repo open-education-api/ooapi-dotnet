@@ -9,6 +9,8 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ooapi.v5.Controllers;
 
@@ -29,29 +31,36 @@ public class RoomsController : BaseController
         _roomsService = roomsService;
     }
 
-    /// <summary>
-    /// GET /rooms
-    /// </summary>
-    /// <remarks>Get a list of all rooms, ordered by name (ascending).</remarks>
-    /// <param name="primaryCodeParam"></param>
-    /// <param name="filterParams"></param>
-    /// <param name="pagingParams"></param>
-    /// <param name="roomType">Filter by room type</param>
-    /// <param name="sort">
-    ///Default: ["name"]<br/>
-    ///Items Enum: "roomId" "name" "totalSeats" "availableSeats" "-roomId" "-name" "-totalSeats" "-availableSeats"<br/>
-    ///Example: sort=name,-availableSeats<br/>
-    /// Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
-    /// <response code="200">OK</response>
+    ///  <summary>
+    ///  GET /rooms
+    ///  </summary>
+    ///  <remarks>Get a list of all rooms, ordered by name (ascending).</remarks>
+    ///  <param name="primaryCodeParam"></param>
+    ///  <param name="filterParams"></param>
+    ///  <param name="pagingParams"></param>
+    ///  <param name="roomType">Filter by room type</param>
+    ///  <param name="sort">
+    /// Default: ["name"]<br/>
+    /// Items Enum: "roomId" "name" "totalSeats" "availableSeats" "-roomId" "-name" "-totalSeats" "-availableSeats"<br/>
+    /// Example: sort=name,-availableSeats<br/>
+    ///  Sort by one or more attributes, the default is ascending. Prefixing the attribute with a minus sign &#x60;-&#x60; allows for descending sort. Examples: [ATTR | -ATTR | ATTR1,-ATTR2]</param>
+    ///  <param name="cancellationToken"></param>
+    ///  <response code="200">OK</response>
     [HttpGet]
     [Route("rooms")]
     [ValidateModelState]
     [SwaggerOperation("RoomsGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Rooms), description: "OK")]
-    public virtual IActionResult RoomsGet([FromQuery] PrimaryCodeParam? primaryCodeParam, [FromQuery] FilterParams? filterParams, [FromQuery] PagingParams? pagingParams, [FromQuery] string? roomType, [FromQuery] string? sort = "name")
+    public virtual async Task<IActionResult> RoomsGetAsync(
+        [FromQuery] PrimaryCodeParam? primaryCodeParam,
+        [FromQuery] FilterParams? filterParams,
+        [FromQuery] PagingParams? pagingParams,
+        [FromQuery] string? roomType,
+        [FromQuery] string? sort = "name",
+        CancellationToken cancellationToken = default)
     {
         var parameters = new DataRequestParameters(primaryCodeParam, filterParams, pagingParams, sort);
-        var result = _roomsService.GetAll(parameters);
+        var result = await _roomsService.GetAllAsync(parameters, cancellationToken);
         return Ok(result);
     }
 
@@ -61,15 +70,19 @@ public class RoomsController : BaseController
     /// <remarks>Get a single room.</remarks>
     /// <param name="roomId">Room ID</param>
     /// <param name="expand">Items Value: "building"  <br/>Optional properties to expand, separated by a comma</param>
+    /// <param name="cancellationToken"></param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("rooms/{roomId}")]
     [ValidateModelState]
     [SwaggerOperation("RoomsRoomIdGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Room), description: "OK")]
-    public virtual IActionResult RoomsRoomIdGet([FromRoute][Required] Guid roomId, [FromQuery] List<string> expand)
+    public virtual async Task<IActionResult> RoomsRoomIdGetAsync(
+        [FromRoute][Required] Guid roomId,
+        [FromQuery] List<string> expand,
+        CancellationToken cancellationToken = default)
     {
-        var result = _roomsService.Get(roomId);
+        var result = await _roomsService.GetAsync(roomId, cancellationToken);
         if (result == null)
         {
             return NotFound();

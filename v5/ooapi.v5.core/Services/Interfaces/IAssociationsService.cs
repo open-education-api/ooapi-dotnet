@@ -5,6 +5,6 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IAssociationsService
 {
-    Association? Get(Guid associationId);
-    Pagination<Association> GetAssociationsByPersonId(DataRequestParameters dataRequestParameters, Guid personId);
+    Task<Association?> GetAsync(Guid associationId, CancellationToken cancellationToken = default);
+    Task<Pagination<Association>> GetAssociationsByPersonIdAsync(DataRequestParameters dataRequestParameters, Guid personId, CancellationToken cancellationToken = default);
 }

@@ -14,7 +14,7 @@ public class EducationSpecificationsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAll_CallsRepository()
+    public async Task GetAll_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -23,19 +23,19 @@ public class EducationSpecificationsServiceTests
         var sut = new EducationSpecificationsService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<EducationSpecification>();
-        repository.GetAllOrderedBy(dataRequestParameters).Returns(expected);
+        var expected = Substitute.For<Pagination<EducationSpecification>>();
+        repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = await sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedBy(dataRequestParameters);
+        await repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -46,19 +46,19 @@ public class EducationSpecificationsServiceTests
         var educationSpecificationId = _fixture.Create<Guid>();
 
         var expected = new EducationSpecification();
-        repository.GetEducationSpecification(educationSpecificationId, dataRequestParameters).Returns(expected);
+        repository.GetEducationSpecificationAsync(educationSpecificationId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.Get(educationSpecificationId, dataRequestParameters);
+        var result = await sut.GetAsync(educationSpecificationId, dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetEducationSpecification(educationSpecificationId, dataRequestParameters);
+        await repository.Received(1).GetEducationSpecificationAsync(educationSpecificationId, dataRequestParameters);
     }
 
 
     [Test]
-    public void GetEducationSpecificationsByEducationSpecificationId_CallsRepositoryAndReturnsPagination()
+    public async Task GetEducationSpecificationsByEducationSpecificationId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -68,19 +68,19 @@ public class EducationSpecificationsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var educationSpecificationId = _fixture.Create<Guid>();
 
-        var educationSpecifications = new List<EducationSpecification>();
-        repository.GetEducationSpecificationsByEducationSpecificationId(educationSpecificationId).Returns(educationSpecifications);
+        var expected = Substitute.For<Pagination<EducationSpecification>>();
+        repository.GetEducationSpecificationsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetEducationSpecificationsByEducationSpecificationId(dataRequestParameters, educationSpecificationId);
+        var result = await sut.GetEducationSpecificationsByEducationSpecificationIdAsync(dataRequestParameters, educationSpecificationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<EducationSpecification>>());
-        repository.Received(1).GetEducationSpecificationsByEducationSpecificationId(educationSpecificationId);
+        await repository.Received(1).GetEducationSpecificationsByEducationSpecificationIdAsync(educationSpecificationId, dataRequestParameters);
     }
 
     [Test]
-    public void GetEducationSpecificationsByOrganizationId_CallsRepositoryAndReturnsPagination()
+    public async Task GetEducationSpecificationsByOrganizationId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -90,14 +90,14 @@ public class EducationSpecificationsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var organizationId = _fixture.Create<Guid>();
 
-        var educationSpecifications = new List<EducationSpecification>();
-        repository.GetEducationSpecificationsByOrganizationId(organizationId).Returns(educationSpecifications);
+        var expected = Substitute.For<Pagination<EducationSpecification>>();
+        repository.GetEducationSpecificationsByOrganizationIdAsync(organizationId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetEducationSpecificationsByOrganizationId(dataRequestParameters, organizationId);
+        var result = await sut.GetEducationSpecificationsByOrganizationIdAsync(dataRequestParameters, organizationId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<EducationSpecification>>());
-        repository.Received(1).GetEducationSpecificationsByOrganizationId(organizationId);
+        await repository.Received(1).GetEducationSpecificationsByOrganizationIdAsync(organizationId, dataRequestParameters);
     }
 }

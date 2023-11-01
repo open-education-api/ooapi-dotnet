@@ -1,4 +1,6 @@
-﻿using ooapi.v5.core.Repositories.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
@@ -9,13 +11,15 @@ public class RoomsRepository : BaseRepository<Room>, IRoomsRepository
     {
     }
 
-    public Room? GetRoom(Guid roomId)
+    public async Task<Room?> GetRoomAsync(Guid roomId, CancellationToken cancellationToken = default)
     {
-        return dbContext.Rooms.FirstOrDefault(x => x.RoomId.Equals(roomId));
+        return await dbContext.Rooms.FirstOrDefaultAsync(x => x.RoomId.Equals(roomId), cancellationToken);
     }
 
-    public List<Room> GetRoomsByBuildingId(Guid buildingId)
+    public async Task<Pagination<Room>> GetRoomsByBuildingIdAsync(Guid buildingId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return dbContext.Rooms.Where(o => o.BuildingId.Equals(buildingId)).ToList();
+        var set = dbContext.Rooms.Where(o => o.BuildingId.Equals(buildingId));
+
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 }

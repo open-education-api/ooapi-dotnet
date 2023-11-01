@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ooapi.v5.Attributes;
 using ooapi.v5.core.Services.Interfaces;
@@ -27,14 +29,16 @@ public class ServiceMetadataController : BaseController
     /// GET /
     /// </summary>
     /// <remarks>Get metadata for the service.</remarks>
+    /// <param name="cancellationToken"></param>
     /// <response code="200">OK</response>
     [HttpGet]
     [ValidateModelState]
     [SwaggerOperation("RootGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Service), description: "OK")]
-    public virtual IActionResult RootGet()
+    public virtual async Task<IActionResult> RootGetAsync(
+        CancellationToken cancellationToken = default)
     {
-        var result = _serviceMetadataService.Get();
+        var result = await _serviceMetadataService.GetAsync(cancellationToken);
         if (result == null)
         {
             return NotFound();

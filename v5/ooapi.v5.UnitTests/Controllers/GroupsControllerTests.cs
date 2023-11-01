@@ -12,7 +12,7 @@ public class GroupsControllerTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GroupsGet_ByPrimaryCode_ReturnsGroups()
+    public async Task GroupsGet_ByPrimaryCode_ReturnsGroups()
     {
         //arrange
         var sut = CreateSut(out var groupsService, out var _);
@@ -22,14 +22,14 @@ public class GroupsControllerTests
         var groupType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Group>();
+        var response = Substitute.For<Pagination<Group>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        groupsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        groupsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.GroupsGet(primaryCodeParam, filterParams, pagingParams, groupType, sort) as OkObjectResult;
+        var result = await sut.GroupsGetAsync(primaryCodeParam, filterParams, pagingParams, groupType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -44,7 +44,7 @@ public class GroupsControllerTests
     }
 
     [Test]
-    public void GroupsGet_ByFilterParams_ReturnsGroups()
+    public async Task GroupsGet_ByFilterParams_ReturnsGroups()
     {
         //arrange
         var sut = CreateSut(out var groupsService, out var _);
@@ -54,14 +54,14 @@ public class GroupsControllerTests
         var groupType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Group>();
+        var response = Substitute.For<Pagination<Group>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        groupsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        groupsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.GroupsGet(primaryCodeParam, filterParams, pagingParams, groupType, sort) as OkObjectResult;
+        var result = await sut.GroupsGetAsync(primaryCodeParam, filterParams, pagingParams, groupType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -78,7 +78,7 @@ public class GroupsControllerTests
     }
 
     [Test]
-    public void GroupsGroupIdGet_Success_ReturnsGroup()
+    public async Task GroupsGroupIdGet_Success_ReturnsGroup()
     {
         //arrange
         var sut = CreateSut(out var groupsService, out var _);
@@ -87,10 +87,10 @@ public class GroupsControllerTests
 
         var response = new Group();
 
-        groupsService.Get(groupId).Returns(response);
+        groupsService.GetAsync(groupId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.GroupsGroupIdGet(groupId, expand) as OkObjectResult;
+        var result = await sut.GroupsGroupIdGetAsync(groupId, expand) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -102,7 +102,7 @@ public class GroupsControllerTests
     }
 
     [Test]
-    public void GroupsGroupIdPersonsGet_Success_ReturnsPersons()
+    public async Task GroupsGroupIdPersonsGet_Success_ReturnsPersons()
     {
         //arrange
         var sut = CreateSut(out var _, out var personsService);
@@ -112,14 +112,14 @@ public class GroupsControllerTests
         var affiliations = _fixture.Create<List<string>?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Person>();
+        var response = Substitute.For<Pagination<Person>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        personsService.GetPersonsByGroupId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), groupId).Returns(response);
+        personsService.GetPersonsByGroupIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), groupId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.GroupsGroupIdPersonsGet(groupId, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
+        var result = await sut.GroupsGroupIdPersonsGetAsync(groupId, filterParams, pagingParams, affiliations, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

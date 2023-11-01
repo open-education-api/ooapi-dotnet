@@ -1,9 +1,8 @@
 using AutoFixture;
-using Microsoft.EntityFrameworkCore;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
-using ooapi.v5.core.UnitTests.Repositories.Helpers;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
@@ -15,7 +14,7 @@ public class OrganizationsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAllOrderedBy_WithDataRequestParameters_ReturnsSet()
+    public async Task GetAllOrderedBy_WithDataRequestParameters_ReturnsSet()
     {
         // Arrange
         var organizations = new List<Organization>()
@@ -39,14 +38,14 @@ public class OrganizationsRepositoryTests
                 .Without(x => x.Children)
                 .Create()
         }.AsQueryable();
-        var db = Substitute.For<DbSet<Organization>, IQueryable<Organization>>();
-        DbMockHelper.InitDb(db, organizations);
+
+        var db = organizations.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.OrganizationsNoTracking.Returns(db);
         var organizationsRepository = new OrganizationsRepository(dbContext);
 
         // Act
-        var result = organizationsRepository.GetAllOrderedBy(new DataRequestParameters());
+        var result = await organizationsRepository.GetAllOrderedByAsync(new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Organization>>());
@@ -54,7 +53,7 @@ public class OrganizationsRepositoryTests
     }
 
     [Test]
-    public void GetOrganization_WhenOrganizationExist_ReturnsOrganization()
+    public async Task GetOrganization_WhenOrganizationExist_ReturnsOrganization()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -67,14 +66,13 @@ public class OrganizationsRepositoryTests
             .Create();
         var organizations = new List<Organization> { organization }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Organization>, IQueryable<Organization>>();
-        DbMockHelper.InitDb(db, organizations);
+        var db = organizations.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.OrganizationsNoTracking.Returns(db);
         var organizationsRepository = new OrganizationsRepository(dbContext);
 
         // Act
-        var result = organizationsRepository.GetOrganization(organizationId, new DataRequestParameters());
+        var result = await organizationsRepository.GetOrganizationAsync(organizationId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Organization>());
@@ -82,7 +80,7 @@ public class OrganizationsRepositoryTests
     }
 
     [Test]
-    public void GetOrganization_WhenParentRequestedViaRequestParams_ReturnsOrganizationWithParent()
+    public async Task GetOrganization_WhenParentRequestedViaRequestParams_ReturnsOrganizationWithParent()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -104,8 +102,7 @@ public class OrganizationsRepositoryTests
             .Create();
         var organizations = new List<Organization> { organization, parentOrganization }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Organization>, IQueryable<Organization>>();
-        DbMockHelper.InitDb(db, organizations);
+        var db = organizations.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.OrganizationsNoTracking.Returns(db);
         var organizationsRepository = new OrganizationsRepository(dbContext);
@@ -113,7 +110,7 @@ public class OrganizationsRepositoryTests
         var requestParams = new DataRequestParameters() { Expand = { "Parent" } };
 
         // Act
-        var result = organizationsRepository.GetOrganization(organizationId, requestParams);
+        var result = await organizationsRepository.GetOrganizationAsync(organizationId, requestParams);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Organization>());
@@ -126,7 +123,7 @@ public class OrganizationsRepositoryTests
     }
 
     [Test]
-    public void GetOrganization_WhenChildrenRequestedViaRequestParams_ReturnsOrganizationWithChildren()
+    public async Task GetOrganization_WhenChildrenRequestedViaRequestParams_ReturnsOrganizationWithChildren()
     {
         // Arrange
         var organizationId = _fixture.Create<Guid>();
@@ -157,8 +154,7 @@ public class OrganizationsRepositoryTests
             .Create();
         var organizations = new List<Organization> { organization, firstChildOrganization, secondChildOrganization }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Organization>, IQueryable<Organization>>();
-        DbMockHelper.InitDb(db, organizations);
+        var db = organizations.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.OrganizationsNoTracking.Returns(db);
         var organizationsRepository = new OrganizationsRepository(dbContext);
@@ -166,7 +162,7 @@ public class OrganizationsRepositoryTests
         var requestParams = new DataRequestParameters() { Expand = { "Children" } };
 
         // Act
-        var result = organizationsRepository.GetOrganization(organizationId, requestParams);
+        var result = await organizationsRepository.GetOrganizationAsync(organizationId, requestParams);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Organization>());

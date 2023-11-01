@@ -16,13 +16,13 @@ internal class NewsFeedsService : ServiceBase, INewsFeedsService
         _repository = repository;
     }
 
-    public Pagination<NewsFeed> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<NewsFeed>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters, null, cancellationToken);
     }
 
-    public NewsFeed? Get(Guid newsfeedId)
+    public async Task<NewsFeed?> GetAsync(Guid newsfeedId, CancellationToken cancellationToken = default)
     {
-        return _repository.GetNewsFeed(newsfeedId);
+        return await _repository.GetNewsFeedAsync(newsfeedId, cancellationToken);
     }
 }

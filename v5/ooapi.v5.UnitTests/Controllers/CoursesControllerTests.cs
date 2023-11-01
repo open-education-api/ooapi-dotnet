@@ -12,7 +12,7 @@ public class CoursesControllerTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void CoursesCourseIdComponentsGet_Success_ReturnsComponents()
+    public async Task CoursesCourseIdComponentsGet_Success_ReturnsComponents()
     {
         //arrange
         var sut = CreateSut(out var componentsService, out var _);
@@ -23,14 +23,14 @@ public class CoursesControllerTests
         var componentType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Component>();
+        var response = Substitute.For<Pagination<Component>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        componentsService.GetComponentsByCourseId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), courseId).Returns(response);
+        componentsService.GetComponentsByCourseIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), courseId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.CoursesCourseIdComponentsGet(courseId, filterParams, pagingParams, teachingLanguage, componentType, sort) as OkObjectResult;
+        var result = await sut.CoursesCourseIdComponentsGetAsync(courseId, filterParams, pagingParams, teachingLanguage, componentType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -47,7 +47,7 @@ public class CoursesControllerTests
     }
 
     [Test]
-    public void CoursesCourseIdGet_Success_ReturnsCourse()
+    public async Task CoursesCourseIdGet_Success_ReturnsCourse()
     {
         //arrange
         var sut = CreateSut(out var _, out var coursesService);
@@ -57,10 +57,10 @@ public class CoursesControllerTests
 
         var response = new Course();
 
-        coursesService.Get(courseId).Returns(response);
+        coursesService.GetAsync(courseId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.CoursesCourseIdGet(courseId, expand, returnTimelineOverrides) as OkObjectResult;
+        var result = await sut.CoursesCourseIdGetAsync(courseId, expand, returnTimelineOverrides) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -72,7 +72,7 @@ public class CoursesControllerTests
     }
 
     [Test]
-    public void CoursesGet_ByPrimaryCode_ReturnsCourses()
+    public async Task CoursesGet_ByPrimaryCode_ReturnsCourses()
     {
         //arrange
         var sut = CreateSut(out var _, out var coursesService);
@@ -84,14 +84,14 @@ public class CoursesControllerTests
         var modeOfDelivery = _fixture.Create<List<string>?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Course>();
+        var response = Substitute.For<Pagination<Course>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        coursesService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        coursesService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.CoursesGet(primaryCodeParam, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
+        var result = await sut.CoursesGetAsync(primaryCodeParam, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -106,7 +106,7 @@ public class CoursesControllerTests
     }
 
     [Test]
-    public void CoursesGet_ByFilterParams_ReturnsCourses()
+    public async Task CoursesGet_ByFilterParams_ReturnsCourses()
     {
         //arrange
         var sut = CreateSut(out var componentsService, out var coursesService);
@@ -118,14 +118,14 @@ public class CoursesControllerTests
         var modeOfDelivery = _fixture.Create<List<string>?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Course>();
+        var response = Substitute.For<Pagination<Course>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        coursesService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        coursesService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.CoursesGet(primaryCodeParam, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
+        var result = await sut.CoursesGetAsync(primaryCodeParam, filterParams, pagingParams, teachingLanguage, level, modeOfDelivery, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

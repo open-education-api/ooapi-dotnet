@@ -5,9 +5,9 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface ICoursesService
 {
-    Course? Get(Guid courseId);
-    Pagination<Course> GetAll(DataRequestParameters dataRequestParameters);
-    Pagination<Course> GetCoursesByEducationSpecificationId(DataRequestParameters dataRequestParameters, Guid educationSpecificationId);
-    Pagination<Course> GetCoursesByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId);
-    Pagination<Course> GetCoursesByProgramId(DataRequestParameters dataRequestParameters, Guid programId);
+    Task<Course?> GetAsync(Guid courseId, CancellationToken cancellationToken = default);
+    Task<Pagination<Course>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<Course>> GetCoursesByEducationSpecificationIdAsync(DataRequestParameters dataRequestParameters, Guid educationSpecificationId, CancellationToken cancellationToken = default);
+    Task<Pagination<Course>> GetCoursesByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default);
+    Task<Pagination<Course>> GetCoursesByProgramIdAsync(DataRequestParameters dataRequestParameters, Guid programId, CancellationToken cancellationToken = default);
 }

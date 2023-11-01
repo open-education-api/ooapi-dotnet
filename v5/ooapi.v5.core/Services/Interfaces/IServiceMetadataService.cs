@@ -4,5 +4,5 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface IServiceMetadataService
 {
-    Service Get();
+    Task<Service> GetAsync(CancellationToken cancellationToken = default);
 }
