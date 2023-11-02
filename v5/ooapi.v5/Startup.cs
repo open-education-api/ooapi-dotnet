@@ -59,6 +59,8 @@ public class Startup
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
         );
 
+        services.AddApplicationInsightsTelemetry();
+
         // Add framework services.
         services
             .AddMvc(options =>
