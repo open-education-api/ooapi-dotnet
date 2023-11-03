@@ -16,25 +16,23 @@ internal class GroupsService : ServiceBase, IGroupsService
         _repository = repository;
     }
 
-    public Pagination<Group> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Group>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return _repository.GetAllOrderedBy(dataRequestParameters);
+        return await _repository.GetAllOrderedByAsync(dataRequestParameters, null, cancellationToken);
     }
 
-    public Group? Get(Guid groupId)
+    public async Task<Group?> GetAsync(Guid groupId, CancellationToken cancellationToken = default)
     {
-        return _repository.GetGroup(groupId);
+        return await _repository.GetGroupAsync(groupId, cancellationToken);
     }
 
-    public Pagination<Group> GetGroupsByOrganizationId(DataRequestParameters dataRequestParameters, Guid organizationId)
+    public async Task<Pagination<Group>> GetGroupsByOrganizationIdAsync(DataRequestParameters dataRequestParameters, Guid organizationId, CancellationToken cancellationToken = default)
     {
-        var result = _repository.GetGroupsByOrganizationId(organizationId);
-        return new Pagination<Group>(result.AsQueryable(), dataRequestParameters);
+        return await _repository.GetGroupsByOrganizationIdAsync(organizationId, dataRequestParameters, cancellationToken);
     }
 
-    public Pagination<Group> GetGroupsByPersonId(DataRequestParameters dataRequestParameters, Guid personId)
+    public async Task<Pagination<Group>> GetGroupsByPersonIdAsync(DataRequestParameters dataRequestParameters, Guid personId, CancellationToken cancellationToken = default)
     {
-        var result = _repository.GetGroupsByPersonId(personId);
-        return new Pagination<Group>(result.AsQueryable(), dataRequestParameters);
+        return await _repository.GetGroupsByPersonIdAsync(personId, dataRequestParameters, cancellationToken);
     }
 }

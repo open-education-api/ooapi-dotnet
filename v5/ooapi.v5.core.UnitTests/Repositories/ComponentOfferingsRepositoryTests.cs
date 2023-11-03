@@ -1,9 +1,8 @@
 using AutoFixture;
-using Microsoft.EntityFrameworkCore;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
-using ooapi.v5.core.UnitTests.Repositories.Helpers;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
@@ -15,7 +14,7 @@ public class ComponentOfferingsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-     public void GetComponentOffering_WhenComponentOfferingExists_ReturnsComponentOffering()
+     public async Task GetComponentOffering_WhenComponentOfferingExists_ReturnsComponentOffering()
     {
         // Arrange
         var courseOfferingId = _fixture.Create<Guid>();
@@ -31,41 +30,39 @@ public class ComponentOfferingsRepositoryTests
             .Create();
         var componentOfferings = new List<ComponentOffering> { componentOffering }.AsQueryable();
 
-        var db = Substitute.For<DbSet<ComponentOffering>, IQueryable<ComponentOffering>>();
-        DbMockHelper.InitDb(db, componentOfferings);
+        var db = componentOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ComponentOfferings.Returns(db);
         var componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
 
         // Act
-        var result = componentOfferingsRepository.GetComponentOffering(courseOfferingId);
+        var result = await componentOfferingsRepository.GetComponentOfferingAsync(courseOfferingId);
 
         // Assert
         Assert.That(result, Is.EqualTo(componentOffering));
     }
 
     [Test]
-    public void GetComponentOffering_WhenComponentOfferingDoesNotExist_ReturnsNull()
+    public async Task GetComponentOffering_WhenComponentOfferingDoesNotExist_ReturnsNull()
     {
         // Arrange
         var courseOfferingId = _fixture.Create<Guid>();
         var componentOfferings = new List<ComponentOffering> { }.AsQueryable();
 
-        var db = Substitute.For<DbSet<ComponentOffering>, IQueryable<ComponentOffering>>();
-        DbMockHelper.InitDb(db, componentOfferings);
+        var db = componentOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ComponentOfferings.Returns(db);
         var componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
 
         // Act
-        var result = componentOfferingsRepository.GetComponentOffering(courseOfferingId);
+        var result = await componentOfferingsRepository.GetComponentOfferingAsync(courseOfferingId);
 
         // Assert
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void GetComponentOfferingByComponentId_WhenComponentOfferingsExist_ReturnsComponentOfferings()
+    public async Task GetComponentOfferingByComponentId_WhenComponentOfferingsExist_ReturnsComponentOfferings()
     {
         // Arrange
         var componentId = _fixture.Create<Guid>();
@@ -81,14 +78,13 @@ public class ComponentOfferingsRepositoryTests
             .Create();
         var componentOfferings = new List<ComponentOffering> { componentOffering }.AsQueryable();
 
-        var db = Substitute.For<DbSet<ComponentOffering>, IQueryable<ComponentOffering>>();
-        DbMockHelper.InitDb(db, componentOfferings);
+        var db = componentOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ComponentOfferingsNoTracking.Returns(db);
         var componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
 
         // Act
-        var result = componentOfferingsRepository.GetComponentOfferingByComponentId(componentId, new DataRequestParameters());
+        var result = await componentOfferingsRepository.GetComponentOfferingByComponentIdAsync(componentId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ComponentOffering>>());
@@ -97,20 +93,19 @@ public class ComponentOfferingsRepositoryTests
     }
 
     [Test]
-    public void GetComponentOfferingByComponentId_WhenComponentOfferingsDoNotExist_ReturnsEmptyList()
+    public async Task GetComponentOfferingByComponentId_WhenComponentOfferingsDoNotExist_ReturnsEmptyList()
     {
         // Arrange
         var componentId = _fixture.Create<Guid>();
         var componentOfferings = new List<ComponentOffering> { }.AsQueryable();
 
-        var db = Substitute.For<DbSet<ComponentOffering>, IQueryable<ComponentOffering>>();
-        DbMockHelper.InitDb(db, componentOfferings);
+        var db = componentOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.ComponentOfferingsNoTracking.Returns(db);
         var componentOfferingsRepository = new ComponentOfferingsRepository(dbContext);
 
         // Act
-        var result = componentOfferingsRepository.GetComponentOfferingByComponentId(componentId, new DataRequestParameters());
+        var result = await componentOfferingsRepository.GetComponentOfferingByComponentIdAsync(componentId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ComponentOffering>>());

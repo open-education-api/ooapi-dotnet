@@ -12,59 +12,59 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcad
     {
     }
 
-    public AcademicSession? GetAcademicSession(Guid academicSessionId, DataRequestParameters dataRequestParameters)
+    public async Task<AcademicSession?> GetAcademicSessionAsync(Guid academicSessionId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
-        var result = set.FirstOrDefault(x => x.AcademicSessionId.Equals(academicSessionId));
+        var result = await set.FirstOrDefaultAsync(x => x.AcademicSessionId.Equals(academicSessionId), cancellationToken);
         if (result == null)
         {
             return null;
         }
 
-        return GetAcademicSession(result, set, dataRequestParameters);
+        return await GetAcademicSessionAsync(result, set, dataRequestParameters, cancellationToken);
     }
 
-    public AcademicSession? GetAcademicSession(string primaryCode, DataRequestParameters dataRequestParameters)
+    public async Task<AcademicSession?> GetAcademicSessionAsync(string primaryCode, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
 
-        var result = set.FirstOrDefault(x => primaryCode.Equals(x.PrimaryCode));
+        var result = await set.FirstOrDefaultAsync(x => primaryCode.Equals(x.PrimaryCode), cancellationToken);
         if (result == null)
         {
             return null;
         }
 
-        return GetAcademicSession(result, set, dataRequestParameters);
+        return await GetAcademicSessionAsync(result, set, dataRequestParameters, cancellationToken);
     }
 
-    private AcademicSession GetAcademicSession(AcademicSession result, IQueryable<AcademicSession> set, DataRequestParameters dataRequestParameters)
+    private async Task<AcademicSession> GetAcademicSessionAsync(AcademicSession result, IQueryable<AcademicSession> set, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken)
     {
-        result.ChildrenIds = dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(result.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
+        result.ChildrenIds = await dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(result.AcademicSessionId)).Select(x => x.AcademicSessionId).ToListAsync(cancellationToken);
 
         if (dataRequestParameters.Expand.Contains("parent", StringComparer.InvariantCultureIgnoreCase) && result.ParentId != null)
         {
-            result.Parent = set.First(x => x.AcademicSessionId.Equals(result.ParentId));
-            result.Parent.ChildrenIds = set.Where(x => x.ParentId.Equals(result.Parent.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
+            result.Parent = await set.FirstAsync(x => x.AcademicSessionId.Equals(result.ParentId), cancellationToken);
+            result.Parent.ChildrenIds = await set.Where(x => x.ParentId.Equals(result.Parent.AcademicSessionId)).Select(x => x.AcademicSessionId).ToListAsync(cancellationToken);
         }
 
         if (dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase))
         {
-            result.Children = set.Where(x => x.ParentId.Equals(result.AcademicSessionId)).ToList();
+            result.Children = await set.Where(x => x.ParentId.Equals(result.AcademicSessionId)).ToListAsync(cancellationToken);
             foreach (var item in result.Children)
             {
-                item.ChildrenIds = dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(item.AcademicSessionId)).Select(x => x.AcademicSessionId).ToList();
+                item.ChildrenIds = await dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(item.AcademicSessionId)).Select(x => x.AcademicSessionId).ToListAsync(cancellationToken);
             }
         }
 
         if (dataRequestParameters.Expand.Contains("year", StringComparer.InvariantCultureIgnoreCase) && result.YearId != null)
         {
-            result.Year = set.FirstOrDefault(x => x.AcademicSessionId.Equals(result.YearId));
+            result.Year = await set.FirstOrDefaultAsync(x => x.AcademicSessionId.Equals(result.YearId), cancellationToken);
         }
 
         return result;
     }
 
-    public Pagination<AcademicSession> GetAllOrderedBy(DataRequestParameters dataRequestParameters, string? academicSessionType = null)
+    public async Task<Pagination<AcademicSession>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, string? academicSessionType = null, CancellationToken cancellationToken = default)
     {
         IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
         bool includeConsumer = !string.IsNullOrEmpty(dataRequestParameters.Consumer);
@@ -83,6 +83,6 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcad
                 set = set.Where(x => x.AcademicSessionType.Equals(result));
             }
         }
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 }

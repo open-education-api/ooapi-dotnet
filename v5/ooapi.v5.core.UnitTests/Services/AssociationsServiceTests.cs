@@ -14,7 +14,7 @@ public class AssociationsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -24,19 +24,19 @@ public class AssociationsServiceTests
         var associationId = _fixture.Create<Guid>();
 
         var expected = new Association();
-        repository.GetAssociation(associationId).Returns(expected);
+        repository.GetAssociationAsync(associationId).Returns(expected);
 
         // Act
-        var result = sut.Get(associationId);
+        var result = await sut.GetAsync(associationId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAssociation(associationId);
+        await repository.Received(1).GetAssociationAsync(associationId);
     }
 
 
     [Test]
-    public void GetAssociationsByPersonId_CallsRepositoryAndReturnsPagination()
+    public async Task GetAssociationsByPersonId_CallsRepositoryAndReturnsPagination()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -46,14 +46,14 @@ public class AssociationsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var personId = _fixture.Create<Guid>();
 
-        var associations = new List<Association>();
-        repository.GetAssociationsByPersonId(personId).Returns(associations);
+        var expected = Substitute.For<Pagination<Association>>();
+        repository.GetAssociationsByPersonIdAsync(personId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAssociationsByPersonId(dataRequestParameters, personId);
+        var result = await sut.GetAssociationsByPersonIdAsync(dataRequestParameters, personId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Association>>());
-        repository.Received(1).GetAssociationsByPersonId(personId);
+        await repository.Received(1).GetAssociationsByPersonIdAsync(personId, dataRequestParameters);
     }
 }

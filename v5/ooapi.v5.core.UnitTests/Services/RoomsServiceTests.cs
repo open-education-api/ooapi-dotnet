@@ -14,7 +14,7 @@ public class RoomsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAll_CallsRepository()
+    public async Task GetAll_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -23,19 +23,19 @@ public class RoomsServiceTests
         var sut = new RoomsService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<Room>();
-        repository.GetAllOrderedBy(dataRequestParameters).Returns(expected);
+        var expected = Substitute.For<Pagination<Room>>();
+        repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = await sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedBy(dataRequestParameters);
+        await repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -45,18 +45,18 @@ public class RoomsServiceTests
         var roomId = _fixture.Create<Guid>();
 
         var expected = new Room();
-        repository.GetRoom(roomId).Returns(expected);
+        repository.GetRoomAsync(roomId).Returns(expected);
 
         // Act
-        var result = sut.Get(roomId);
+        var result = await sut.GetAsync(roomId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetRoom(roomId);
+        await repository.Received(1).GetRoomAsync(roomId);
     }
 
     [Test]
-    public void GetRoomsByBuildingId_CallsRepository()
+    public async Task GetRoomsByBuildingId_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -66,14 +66,14 @@ public class RoomsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var buildingId = _fixture.Create<Guid>();
 
-        var rooms = new List<Room>();
-        repository.GetRoomsByBuildingId(buildingId).Returns(rooms);
+        var expected = Substitute.For<Pagination<Room>>();
+        repository.GetRoomsByBuildingIdAsync(buildingId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetRoomsByBuildingId(dataRequestParameters, buildingId);
+        var result = await sut.GetRoomsByBuildingIdAsync(dataRequestParameters, buildingId);
 
         // Assert
-        Assert.That(result, Is.TypeOf<Pagination<Room>>());
-        repository.Received(1).GetRoomsByBuildingId(buildingId);
+        Assert.That(result, Is.EqualTo(expected));
+        await repository.Received(1).GetRoomsByBuildingIdAsync(buildingId, dataRequestParameters);
     }
 }

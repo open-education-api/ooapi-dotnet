@@ -14,7 +14,7 @@ public class NewsItemsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -24,18 +24,18 @@ public class NewsItemsServiceTests
         var newsItemId = _fixture.Create<Guid>();
 
         var expected = new NewsItem();
-        repository.GetNewsItem(newsItemId).Returns(expected);
+        repository.GetNewsItemAsync(newsItemId).Returns(expected);
 
         // Act
-        var result = sut.Get(newsItemId);
+        var result = await sut.GetAsync(newsItemId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetNewsItem(newsItemId);
+        await repository.Received(1).GetNewsItemAsync(newsItemId);
     }
 
     [Test]
-    public void GetNewsItemsByNewsFeedId_CallsRepository()
+    public async Task GetNewsItemsByNewsFeedId_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -45,14 +45,14 @@ public class NewsItemsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var newsFeedId = _fixture.Create<Guid>();
 
-        var newsItems = new List<NewsItem>();
-        repository.GetNewsItemsByNewsFeedId(newsFeedId).Returns(newsItems);
+        var expected = Substitute.For<Pagination<NewsItem>>();
+        repository.GetNewsItemsByNewsFeedIdAsync(newsFeedId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetNewsItemsByNewsFeedId(dataRequestParameters, newsFeedId);
+        var result = await sut.GetNewsItemsByNewsFeedIdAsync(dataRequestParameters, newsFeedId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<NewsItem>>());
-        repository.Received(1).GetNewsItemsByNewsFeedId(newsFeedId);
+        await repository.Received(1).GetNewsItemsByNewsFeedIdAsync(newsFeedId, dataRequestParameters);
     }
 }

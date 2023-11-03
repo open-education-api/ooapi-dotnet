@@ -14,7 +14,7 @@ public class PersonsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void GetAll_CallsRepository()
+    public async Task GetAll_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -23,19 +23,19 @@ public class PersonsServiceTests
         var sut = new PersonsService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<Person>();
-        repository.GetAllOrderedBy(dataRequestParameters).Returns(expected);
+        var expected = Substitute.For<Pagination<Person>>();
+        repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = await sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedBy(dataRequestParameters);
+        await repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
     
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -45,18 +45,18 @@ public class PersonsServiceTests
         var personId = _fixture.Create<Guid>();
 
         var expected = new Person();
-        repository.GetPerson(personId).Returns(expected);
+        repository.GetPersonAsync(personId).Returns(expected);
 
         // Act
-        var result = sut.Get(personId);
+        var result = await sut.GetAsync(personId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetPerson(personId);
+        await repository.Received(1).GetPersonAsync(personId);
     }
 
     [Test]
-    public void GetPersonsByGroupId_CallsRepository()
+    public async Task GetPersonsByGroupId_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -66,14 +66,14 @@ public class PersonsServiceTests
         var dataRequestParameters = new DataRequestParameters();
         var GroupId = _fixture.Create<Guid>();
 
-        var persons = new List<Person>();
-        repository.GetPersonsByGroupId(GroupId).Returns(persons);
+        var expected = Substitute.For<Pagination<Person>>();
+        repository.GetPersonsByGroupIdAsync(GroupId, dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetPersonsByGroupId(dataRequestParameters, GroupId);
+        var result = await sut.GetPersonsByGroupIdAsync(dataRequestParameters, GroupId);
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<Person>>());
-        repository.Received(1).GetPersonsByGroupId(GroupId);
+        await repository.Received(1).GetPersonsByGroupIdAsync(GroupId, dataRequestParameters);
     }
 }

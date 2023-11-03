@@ -13,7 +13,7 @@ public class BaseRepository<T> where T : class
         this.dbContext = dbContext;
     }
 
-    public virtual Pagination<T> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<T>? set = null)
+    public virtual async Task<Pagination<T>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<T>? set = null, CancellationToken cancellationToken = default)
     {
         // TODO: add logic for OrderBy related attributes. --> for example 'name' (a 'LanguageTypedString') from the related table 'Attributes'
 
@@ -27,6 +27,6 @@ public class BaseRepository<T> where T : class
         var searchedSet = !string.IsNullOrWhiteSpace(dataRequestParameters.SearchTerm) ? OrderedQueryable.SearchBy<T>(set, dataRequestParameters.SearchTerm) : set;
         var filteredSet = (dataRequestParameters.Filters != null && dataRequestParameters.Filters.Count > 0) ? OrderedQueryable.FilterBy<T>(searchedSet, dataRequestParameters.Filters) : searchedSet;
 
-        return new Pagination<T>(filteredSet, dataRequestParameters);
+        return await Pagination<T>.CreateAsync(filteredSet, dataRequestParameters);
     }
 }

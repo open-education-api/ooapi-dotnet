@@ -5,6 +5,6 @@ namespace ooapi.v5.core.Services.Interfaces;
 
 public interface INewsItemsService
 {
-    NewsItem? Get(Guid newsitemId);
-    Pagination<NewsItem> GetNewsItemsByNewsFeedId(DataRequestParameters dataRequestParameters, Guid newsfeedId);
+    Task<NewsItem?> GetAsync(Guid newsitemId, CancellationToken cancellationToken = default);
+    Task<Pagination<NewsItem>> GetNewsItemsByNewsFeedIdAsync(DataRequestParameters dataRequestParameters, Guid newsfeedId, CancellationToken cancellationToken = default);
 }

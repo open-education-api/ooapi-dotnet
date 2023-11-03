@@ -16,9 +16,9 @@ internal class OrganizationsService : ServiceBase, IOrganizationsService
         _repository = repository;
     }
 
-    public Pagination<Organization> GetAll(DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<Organization>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        Pagination<Organization> result = _repository.GetAllOrderedBy(dataRequestParameters);
+        var result = await _repository.GetAllOrderedByAsync(dataRequestParameters, cancellationToken);
         foreach (var item in result.Items)
         {
             SetAddresses(item);
@@ -35,9 +35,9 @@ internal class OrganizationsService : ServiceBase, IOrganizationsService
         }
     }
 
-    public Organization? Get(Guid organizationId, DataRequestParameters dataRequestParameters)
+    public async Task<Organization?> GetAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return _repository.GetOrganization(organizationId, dataRequestParameters);
+        return await _repository.GetOrganizationAsync(organizationId, dataRequestParameters, cancellationToken);
     }
 
 }

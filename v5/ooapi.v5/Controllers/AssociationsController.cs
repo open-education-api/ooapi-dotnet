@@ -7,6 +7,8 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ooapi.v5.Controllers;
 
@@ -33,15 +35,19 @@ public class AssociationsController : BaseController
     /// <remarks>Get a single association.</remarks>
     /// <param name="associationId">Association ID</param>
     /// <param name="expand">Items Enum: "person" "offering" <br/> Optional properties to expand, separated by a comma</param>
+    /// <param name="cancellationToken"></param>
     /// <response code="200">OK</response>
     [HttpGet]
     [Route("associations/{associationId}")]
     [ValidateModelState]
     [SwaggerOperation("AssociationsAssociationIdGet")]
     [SwaggerResponse(statusCode: 200, type: typeof(Association), description: "OK")]
-    public virtual IActionResult AssociationsAssociationIdGet([FromRoute][Required] Guid associationId, [FromQuery] List<string> expand)
+    public virtual async Task<IActionResult> AssociationsAssociationIdGetAsync(
+        [FromRoute][Required] Guid associationId,
+        [FromQuery] List<string> expand,
+        CancellationToken cancellationToken = default)
     {
-        var result = _associationsService.Get(associationId);
+        var result = await _associationsService.GetAsync(associationId, cancellationToken);
         if (result == null)
         {
             return NotFound();

@@ -14,7 +14,7 @@ public class BuildingsServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void Get_CallsRepository()
+    public async Task Get_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -24,19 +24,19 @@ public class BuildingsServiceTests
         var buildingId = _fixture.Create<Guid>();
 
         var expected = new Building();
-        repository.GetBuilding(buildingId).Returns(expected);
+        repository.GetBuildingAsync(buildingId).Returns(expected);
 
         // Act
-        var result = sut.Get(buildingId);
+        var result = await sut.GetAsync(buildingId);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetBuilding(buildingId);
+        await repository.Received(1).GetBuildingAsync(buildingId);
     }
 
 
     [Test]
-    public void GetAll_CallsRepository()
+    public async Task GetAll_CallsRepository()
     {
         // Arrange
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -45,14 +45,14 @@ public class BuildingsServiceTests
         var sut = new BuildingsService(dbContext, repository, userRequestContext);
         var dataRequestParameters = new DataRequestParameters();
 
-        var expected = new Pagination<Building>();
-        repository.GetAllOrderedBy(dataRequestParameters).Returns(expected);
+        var expected = Substitute.For<Pagination<Building>>();
+        repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);
 
         // Act
-        var result = sut.GetAll(dataRequestParameters);
+        var result = await sut.GetAllAsync(dataRequestParameters);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
-        repository.Received(1).GetAllOrderedBy(dataRequestParameters);
+        await repository.Received(1).GetAllOrderedByAsync(dataRequestParameters);
     }
 }

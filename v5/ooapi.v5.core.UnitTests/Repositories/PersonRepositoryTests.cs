@@ -1,9 +1,8 @@
 using AutoFixture;
-using Microsoft.EntityFrameworkCore;
+using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
-using ooapi.v5.core.UnitTests.Repositories.Helpers;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.UnitTests.Repositories;
@@ -14,7 +13,7 @@ public class PersonsRepositoryTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-     public void GetPerson_WhenPersonExists_ReturnsPerson()
+     public async Task GetPerson_WhenPersonExists_ReturnsPerson()
     {
         // Arrange
         var personId = _fixture.Create<Guid>();
@@ -25,21 +24,20 @@ public class PersonsRepositoryTests
             .Create();
         var persons = new List<Person> { person }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Person>, IQueryable<Person>>();
-        DbMockHelper.InitDb(db, persons);
+        var db = persons.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Persons.Returns(db);
         var personsRepository = new PersonsRepository(dbContext);
 
         // Act
-        var result = personsRepository.GetPerson(personId);
+        var result = await personsRepository.GetPersonAsync(personId);
 
         // Assert
         Assert.That(result, Is.EqualTo(person));
     }
 
     [Test]
-    public void GetPerson_WhenPersonNotFound_ReturnsNull()
+    public async Task GetPerson_WhenPersonNotFound_ReturnsNull()
     {
         // Arrange
         var personId = _fixture.Create<Guid>();
@@ -50,14 +48,13 @@ public class PersonsRepositoryTests
             .Create();
         var persons = new List<Person> { person }.AsQueryable();
 
-        var db = Substitute.For<DbSet<Person>, IQueryable<Person>>();
-        DbMockHelper.InitDb(db, persons);
+        var db = persons.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Persons.Returns(db);
         var personsRepository = new PersonsRepository(dbContext);
 
         // Act
-        var result = personsRepository.GetPerson(_fixture.Create<Guid>());
+        var result = await personsRepository.GetPersonAsync(_fixture.Create<Guid>());
 
         // Assert
         Assert.That(result, Is.Null);

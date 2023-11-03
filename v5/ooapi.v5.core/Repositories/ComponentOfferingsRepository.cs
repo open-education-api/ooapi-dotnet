@@ -11,16 +11,12 @@ public class ComponentOfferingsRepository : BaseRepository<ComponentOffering>, I
     {
     }
 
-
-
-    public ComponentOffering? GetComponentOffering(Guid courseOfferingId)
+    public async Task<ComponentOffering?> GetComponentOfferingAsync(Guid courseOfferingId, CancellationToken cancellationToken = default)
     {
-        return dbContext.ComponentOfferings.Include(x => x.Attributes).FirstOrDefault(x => x.OfferingId.Equals(courseOfferingId));
+        return await dbContext.ComponentOfferings.Include(x => x.Attributes).FirstOrDefaultAsync(x => x.OfferingId.Equals(courseOfferingId), cancellationToken);
     }
 
-
-
-    public Pagination<ComponentOffering> GetComponentOfferingByComponentId(Guid componentId, DataRequestParameters dataRequestParameters)
+    public async Task<Pagination<ComponentOffering>> GetComponentOfferingByComponentIdAsync(Guid componentId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
         IQueryable<ComponentOffering> set = dbContext.ComponentOfferingsNoTracking.Where(o => o.ComponentId.Equals(componentId)).Include(x => x.Attributes);
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
@@ -28,6 +24,6 @@ public class ComponentOfferingsRepository : BaseRepository<ComponentOffering>, I
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
-        return GetAllOrderedBy(dataRequestParameters, set);
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 }

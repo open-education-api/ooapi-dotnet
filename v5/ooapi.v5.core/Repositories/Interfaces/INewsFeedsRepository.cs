@@ -5,6 +5,6 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 
 public interface INewsFeedsRepository
 {
-    NewsFeed? GetNewsFeed(Guid newsfeedId);
-    Pagination<NewsFeed> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<NewsFeed>? set = null);
+    Task<NewsFeed?> GetNewsFeedAsync(Guid newsfeedId, CancellationToken cancellationToken = default);
+    Task<Pagination<NewsFeed>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<NewsFeed>? set = null, CancellationToken cancellationToken = default);
 }

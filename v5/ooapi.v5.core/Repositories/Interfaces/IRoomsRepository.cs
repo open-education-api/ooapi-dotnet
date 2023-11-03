@@ -5,7 +5,7 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 
 public interface IRoomsRepository
 {
-    Room? GetRoom(Guid roomId);
-    List<Room> GetRoomsByBuildingId(Guid buildingId);
-    Pagination<Room> GetAllOrderedBy(DataRequestParameters dataRequestParameters, IQueryable<Room>? set = null);
+    Task<Room?> GetRoomAsync(Guid roomId, CancellationToken cancellationToken = default);
+    Task<Pagination<Room>> GetRoomsByBuildingIdAsync(Guid buildingId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<Room>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Room>? set = null, CancellationToken cancellationToken = default);
 }

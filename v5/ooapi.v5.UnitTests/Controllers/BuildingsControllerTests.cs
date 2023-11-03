@@ -12,7 +12,7 @@ public class BuildingsControllerTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void BuildingsBuildingIdGet_Success_ReturnsBuilding()
+    public async Task BuildingsBuildingIdGet_Success_ReturnsBuilding()
     {
         //arrange
         var sut = CreateSut(out var buildingsService, out var _);
@@ -20,10 +20,10 @@ public class BuildingsControllerTests
 
         var response = new Building();
 
-        buildingsService.Get(buildingId).Returns(response);
+        buildingsService.GetAsync(buildingId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.BuildingsBuildingIdGet(buildingId) as OkObjectResult;
+        var result = await sut.BuildingsBuildingIdGetAsync(buildingId) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -35,7 +35,7 @@ public class BuildingsControllerTests
     }
 
     [Test]
-    public void BuildingsBuildingIdRoomsGet_Success_ReturnsRooms()
+    public async Task BuildingsBuildingIdRoomsGet_Success_ReturnsRooms()
     {
         //arrange
         var sut = CreateSut(out var _, out var roomsService);
@@ -45,14 +45,14 @@ public class BuildingsControllerTests
         var roomType = _fixture.Create<string?>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Room>();
+        var response = Substitute.For<Pagination<Room>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        roomsService.GetRoomsByBuildingId(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), buildingId).Returns(response);
+        roomsService.GetRoomsByBuildingIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), buildingId, Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.BuildingsBuildingIdRoomsGet(buildingId, filterParams, pagingParams, roomType, sort) as OkObjectResult;
+        var result = await sut.BuildingsBuildingIdRoomsGetAsync(buildingId, filterParams, pagingParams, roomType, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -69,7 +69,7 @@ public class BuildingsControllerTests
     }
 
     [Test]
-    public void BuildingsGet_ByPrimaryCode_ReturnsBuildings()
+    public async Task BuildingsGet_ByPrimaryCode_ReturnsBuildings()
     {
         //arrange
         var sut = CreateSut(out var buildingsService, out var _);
@@ -78,14 +78,14 @@ public class BuildingsControllerTests
         PagingParams? pagingParams = null;
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Building>();
+        var response = Substitute.For<Pagination<Building>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        buildingsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        buildingsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.BuildingsGet(primaryCodeParam, filterParams, pagingParams, sort) as OkObjectResult;
+        var result = await sut.BuildingsGetAsync(primaryCodeParam, filterParams, pagingParams, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();
@@ -100,7 +100,7 @@ public class BuildingsControllerTests
     }
 
     [Test]
-    public void BuildingsGet_ByFilterParams_ReturnsAcademicBuildings()
+    public async Task BuildingsGet_ByFilterParams_ReturnsAcademicBuildings()
     {
         //arrange
         var sut = CreateSut(out var buildingsService, out var _);
@@ -109,14 +109,14 @@ public class BuildingsControllerTests
         var pagingParams = _fixture.Create<PagingParams>();
         var sort = _fixture.Create<string?>();
 
-        var response = new Pagination<Building>();
+        var response = Substitute.For<Pagination<Building>>();
 
         DataRequestParameters? dataRequestParameters = null;
 
-        buildingsService.GetAll(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        buildingsService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x), Arg.Any<CancellationToken>()).Returns(response);
 
         //act
-        var result = sut.BuildingsGet(primaryCodeParam, filterParams, pagingParams, sort) as OkObjectResult;
+        var result = await sut.BuildingsGetAsync(primaryCodeParam, filterParams, pagingParams, sort) as OkObjectResult;
 
         //assert
         result.Should().NotBeNull();

@@ -1,4 +1,6 @@
-﻿using ooapi.v5.core.Repositories.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
@@ -9,13 +11,15 @@ public class AssociationsRepository : BaseRepository<Association>, IAssociations
     {
     }
 
-    public Association? GetAssociation(Guid associationId)
+    public async Task<Association?> GetAssociationAsync(Guid associationId, CancellationToken cancellationToken = default)
     {
-        return dbContext.Associations.FirstOrDefault(x => x.AssociationId.Equals(associationId));
+        return await dbContext.Associations.FirstOrDefaultAsync(x => x.AssociationId.Equals(associationId), cancellationToken);
     }
 
-    public List<Association> GetAssociationsByPersonId(Guid personId)
+    public async Task<Pagination<Association>> GetAssociationsByPersonIdAsync(Guid personId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return dbContext.Associations.Where(o => o.PersonId.Equals(personId)).ToList();
+        var set = dbContext.Associations.Where(o => o.PersonId.Equals(personId));
+
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 }
