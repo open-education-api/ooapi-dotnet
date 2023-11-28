@@ -47,5 +47,5 @@ public partial class CourseResult : Result
     public string? StudyLoadUnit { get; set; }
 
     [JsonIgnore]
-    public int StudyLoadValue { get; set; }
+    public int? StudyLoadValue { get; set; }
 }

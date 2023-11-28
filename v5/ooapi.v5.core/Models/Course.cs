@@ -131,7 +131,7 @@ public class Course : ModelBase
     public string? StudyLoadUnit { get; set; }
 
     [JsonIgnore]
-    public int StudyLoadValue { get; set; }
+    public int? StudyLoadValue { get; set; }
 
     [JsonIgnore]
     public string ModeOfDelivery { get; set; } = default!;

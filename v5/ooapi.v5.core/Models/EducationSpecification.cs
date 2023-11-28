@@ -201,7 +201,7 @@ public partial class EducationSpecification : ModelBase
     public string? StudyLoadUnit { get; set; }
 
     [JsonIgnore]
-    public int StudyLoadValue { get; set; }
+    public int? StudyLoadValue { get; set; }
 
     /// <summary>
     /// Statements that describe the knowledge or skills students should acquire by the end of a particular course or program (ECTS-learningoutcome).
