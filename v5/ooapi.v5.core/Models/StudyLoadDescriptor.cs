@@ -25,5 +25,5 @@ public partial class StudyLoadDescriptor
     /// <value>The amount of load depicted in numbers</value>
 
     [JsonProperty(PropertyName = "value")]
-    public int Value { get; set; }
+    public int? Value { get; set; }
 }

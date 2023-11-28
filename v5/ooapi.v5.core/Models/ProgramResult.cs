@@ -50,5 +50,5 @@ public class ProgramResult : Result
 
 
     [JsonIgnore]
-    public int StudyLoadValue { get; set; }
+    public int? StudyLoadValue { get; set; }
 }
