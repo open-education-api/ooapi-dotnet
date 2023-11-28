@@ -13,6 +13,10 @@ public class CoreDBContext : DbContext, ICoreDbContext
     {
     }
 
+    public CoreDBContext() : base()
+    {
+    }
+
     public DbSet<Service> Services { get; set; } = default!;
 
     public DbSet<AcademicSession> AcademicSessions { get; set; } = default!;
@@ -108,7 +112,11 @@ public class CoreDBContext : DbContext, ICoreDbContext
         modelBuilder.Entity<Course>().HasKey(c => c.CourseId);
         modelBuilder.Entity<CourseOffering>().HasKey(c => c.OfferingId);
         modelBuilder.Entity<CourseResult>().HasKey(c => c.ResultId);
-        modelBuilder.Entity<EducationSpecification>().HasKey(c => c.EducationSpecificationId);
+        modelBuilder.Entity<EducationSpecification>().OwnsMany(es => es.Attributes, navigationBuilder => 
+                                                     {
+                                                         navigationBuilder.ToJson();
+                                                     })
+                                                     .HasKey(c => c.EducationSpecificationId);
         modelBuilder.Entity<Group>().HasKey(c => c.GroupId);
         modelBuilder.Entity<NewsFeed>().HasKey(c => c.NewsFeedId);
         modelBuilder.Entity<NewsItem>().HasKey(c => c.NewsItemId);

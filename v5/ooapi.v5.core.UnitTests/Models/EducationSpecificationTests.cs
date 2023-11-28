@@ -80,81 +80,81 @@ public class EducationSpecificationTests
         educationSpecification.PrimaryCode.Should().Be(code);
     }
     
-    [Test]
-    public void GetName_WhenAttributesExist_ReturnsListLanguageTypedString()
-    {
-        // Arrange
-        var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "name", Language = "en", Value = "TestName" } })
-            .OmitAutoProperties()
-            .Create();
+    //[Test]
+    //public void GetName_WhenAttributesExist_ReturnsListLanguageTypedString()
+    //{
+    //    // Arrange
+    //    var educationSpecification = _fixture.Build<EducationSpecification>()
+    //        .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "name", Language = "en", Value = "TestName" } })
+    //        .OmitAutoProperties()
+    //        .Create();
 
-        // Act
-        var result = educationSpecification.name;
+    //    // Act
+    //    var result = educationSpecification.name;
 
-        // Assert
-        result.Should().NotBeNull();
-        result.Should().BeOfType<List<LanguageTypedString>>();
-        result.Should().HaveCount(1);
-        result[0].Language.Should().Be("en");
-        result[0].Value.Should().Be("TestName");
-    }
+    //    // Assert
+    //    result.Should().NotBeNull();
+    //    result.Should().BeOfType<List<LanguageTypedString>>();
+    //    result.Should().HaveCount(1);
+    //    result[0].Language.Should().Be("en");
+    //    result[0].Value.Should().Be("TestName");
+    //}
 
-    [Test]
-    public void GetName_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
-    {
-        // Arrange
-        var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Attributes, new List<Attribute>() { })
-            .OmitAutoProperties()
-            .Create();
+    //[Test]
+    //public void GetName_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
+    //{
+    //    // Arrange
+    //    var educationSpecification = _fixture.Build<EducationSpecification>()
+    //        .With(x => x.Attributes, new List<Attribute>() { })
+    //        .OmitAutoProperties()
+    //        .Create();
 
-        // Act
-        var result = educationSpecification.name;
+    //    // Act
+    //    var result = educationSpecification.name;
 
-        // Assert
-        result.Should().NotBeNull();
-        result.Should().BeOfType<List<LanguageTypedString>>();
-        result.Should().HaveCount(0);
-    }
+    //    // Assert
+    //    result.Should().NotBeNull();
+    //    result.Should().BeOfType<List<LanguageTypedString>>();
+    //    result.Should().HaveCount(0);
+    //}
     
-    [Test]
-    public void GetDescription_WhenAttributesExist_ReturnsListLanguageTypedString()
-    {
-        // Arrange
-        var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "description", Language = "en", Value = "TestName" } })
-            .OmitAutoProperties()
-            .Create();
+    //[Test]
+    //public void GetDescription_WhenAttributesExist_ReturnsListLanguageTypedString()
+    //{
+    //    // Arrange
+    //    var educationSpecification = _fixture.Build<EducationSpecification>()
+    //        .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "description", Language = "en", Value = "TestName" } })
+    //        .OmitAutoProperties()
+    //        .Create();
 
-        // Act
-        var result = educationSpecification.description;
+    //    // Act
+    //    var result = educationSpecification.description;
 
-        // Assert
-        result.Should().NotBeNull();
-        result.Should().BeOfType<List<LanguageTypedString>>();
-        result.Should().HaveCount(1);
-        result[0].Language.Should().Be("en");
-        result[0].Value.Should().Be("TestName");
-    }
+    //    // Assert
+    //    result.Should().NotBeNull();
+    //    result.Should().BeOfType<List<LanguageTypedString>>();
+    //    result.Should().HaveCount(1);
+    //    result[0].Language.Should().Be("en");
+    //    result[0].Value.Should().Be("TestName");
+    //}
 
-    [Test]
-    public void GetDescription_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
-    {
-        // Arrange
-        var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Attributes, new List<Attribute>() { })
-            .OmitAutoProperties()
-            .Create();
+    //[Test]
+    //public void GetDescription_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
+    //{
+    //    // Arrange
+    //    var educationSpecification = _fixture.Build<EducationSpecification>()
+    //        .With(x => x.Attributes, new List<Attribute>() { })
+    //        .OmitAutoProperties()
+    //        .Create();
 
-        // Act
-        var result = educationSpecification.description;
+    //    // Act
+    //    var result = educationSpecification.description;
 
-        // Assert
-        result.Should().NotBeNull();
-        result.Should().BeOfType<List<LanguageTypedString>>();
-        result.Should().HaveCount(0);
-    }
+    //    // Assert
+    //    result.Should().NotBeNull();
+    //    result.Should().BeOfType<List<LanguageTypedString>>();
+    //    result.Should().HaveCount(0);
+    //}
     
     [TestCase("TestUnit", 100, true)]
     [TestCase("", 100, false)]

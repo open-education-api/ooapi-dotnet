@@ -85,7 +85,7 @@ public partial class EducationSpecification : ModelBase
             var result = new List<LanguageTypedString>();
             if (Attributes != null && Attributes.Any())
             {
-                result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                result = Attributes.Where(x => x.PropertyName.ToLower().Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
             }
             return result;
         }
@@ -93,7 +93,7 @@ public partial class EducationSpecification : ModelBase
 
     [JsonIgnore]
     [SortAllowed]
-    public List<Attribute> Attributes { get; set; } = default!;
+    public List<LanguageTypedProperty> Attributes { get; set; }
 
     /// <summary>
     /// The abbreviation of this program
@@ -117,7 +117,7 @@ public partial class EducationSpecification : ModelBase
             var result = new List<LanguageTypedString>();
             if (Attributes != null && Attributes.Any())
             {
-                result = Attributes.Where(x => x.PropertyName.Equals("description")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
+                result = Attributes.Where(x => x.PropertyName.ToLower().Equals("description")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
             }
             return result;
         }

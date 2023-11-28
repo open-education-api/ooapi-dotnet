@@ -13,13 +13,13 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
 
     public async Task<Pagination<EducationSpecification>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<EducationSpecification> set = dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes);
+        IQueryable<EducationSpecification> set = dbContext.EducationSpecificationsNoTracking;
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
-        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
+        return await GetAllOrderedByAsync(dataRequestParameters, null, cancellationToken);
     }
 
     public async Task<EducationSpecification> GetEducationSpecificationAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
