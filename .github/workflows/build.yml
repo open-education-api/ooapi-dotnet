@@ -74,8 +74,8 @@ jobs:
             -o:"open-education-api" \
             -d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
             -d:sonar.host.url="https://sonarcloud.io/" \
-            -d:sonar.exclusions="./v5/ooapi.v5.core/Migrations/**" \
-            -d:sonar.cpd.exclusions="./v5/ooapi.v5.core/Migrations/**" \
+            -d:sonar.exclusions="v5/ooapi.v5.core/Migrations/*, v5/ooapi.v5.core/Models/*" \
+            -d:sonar.cpd.exclusions="v5/ooapi.v5.core/Migrations/*, v5/ooapi.v5.core/Models/*" \
             -d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
             dotnet build ./v5/ooapi.v5.sln --no-restore
             dotnet-coverage collect -s "dotnetcoverage.runsettings.xml" -f xml -o "coverage.xml" "dotnet test ./v5 --no-build"
