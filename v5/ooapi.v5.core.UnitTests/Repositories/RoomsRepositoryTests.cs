@@ -1,6 +1,7 @@
 using AutoFixture;
 using MockQueryable.NSubstitute;
 using NSubstitute;
+using NUnit.Framework.Legacy;
 using ooapi.v5.core.Repositories;
 using ooapi.v5.core.Repositories.Interfaces;
 using ooapi.v5.core.Utility;
