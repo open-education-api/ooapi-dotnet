@@ -218,7 +218,7 @@ public partial class EducationSpecification : ModelBase
 
     [MaxLength(2048)]
     [JsonProperty(PropertyName = "link")]
-    public string? Link { get; set; }
+    public Uri? Link { get; set; }
 
     /// <summary>
     /// The educationSpecification that is the parent of this educationSpecification if it exists. [&#x60;expandable&#x60;](#tag/education_specification_model)
