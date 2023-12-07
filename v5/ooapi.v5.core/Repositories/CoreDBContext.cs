@@ -108,13 +108,23 @@ public class CoreDBContext : DbContext, ICoreDbContext
         modelBuilder.Entity<Course>().HasKey(c => c.CourseId);
         modelBuilder.Entity<CourseOffering>().HasKey(c => c.OfferingId);
         modelBuilder.Entity<CourseResult>().HasKey(c => c.ResultId);
-        modelBuilder.Entity<EducationSpecification>().HasKey(c => c.EducationSpecificationId);
+
+        modelBuilder.Entity<EducationSpecification>().OwnsMany(es => es.Attributes, navigationBuilder =>
+                    {
+                        navigationBuilder.ToJson();
+                    })
+                    .HasKey(c => c.EducationSpecificationId);
+
         modelBuilder.Entity<Group>().HasKey(c => c.GroupId);
         modelBuilder.Entity<NewsFeed>().HasKey(c => c.NewsFeedId);
         modelBuilder.Entity<NewsItem>().HasKey(c => c.NewsItemId);
         modelBuilder.Entity<Organization>().HasKey(c => c.OrganizationId);
         modelBuilder.Entity<Person>().HasKey(c => c.PersonId);
-        modelBuilder.Entity<Program>().HasKey(c => c.ProgramId);
+        modelBuilder.Entity<Program>().OwnsMany(p => p.Attributes, navigationBuilder =>
+                    {
+                        navigationBuilder.ToJson();
+                    })
+                    .HasKey(c => c.ProgramId);
         modelBuilder.Entity<ProgramOffering>().HasKey(c => c.OfferingId);
         modelBuilder.Entity<ProgramResult>().HasKey(c => c.ResultId);
         modelBuilder.Entity<Room>().HasKey(c => c.RoomId);

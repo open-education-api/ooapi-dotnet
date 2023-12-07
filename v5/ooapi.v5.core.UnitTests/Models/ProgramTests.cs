@@ -86,7 +86,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var program = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "name", Language = "en", Value = "TestName" } })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { new() { PropertyName = "name", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
@@ -106,7 +106,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var program = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>())
+            .With(x => x.Attributes, new List<LanguageTypedProperty>())
             .OmitAutoProperties()
             .Create();
 
@@ -124,7 +124,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var program = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "description", Language = "en", Value = "TestName" } })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { new() { PropertyName = "description", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
@@ -144,7 +144,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var program = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>())
+            .With(x => x.Attributes, new List<LanguageTypedProperty>())
             .OmitAutoProperties()
             .Create();
 
@@ -225,7 +225,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var program = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "enrollment", Language = "en", Value = "TestName" } })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { new() { PropertyName = "enrollment", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
@@ -245,7 +245,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var program = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>())
+            .With(x => x.Attributes, new List<LanguageTypedProperty>())
             .OmitAutoProperties()
             .Create();
 
@@ -263,7 +263,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var program = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "assessment", Language = "en", Value = "TestName" } })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { new() { PropertyName = "assessment", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
@@ -283,7 +283,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var program = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>())
+            .With(x => x.Attributes, new List<LanguageTypedProperty>())
             .OmitAutoProperties()
             .Create();
 
@@ -301,7 +301,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var program = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "admissionRequirements", Language = "en", Value = "TestName" } })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { new() { PropertyName = "admissionRequirements", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
@@ -321,7 +321,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var program = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>())
+            .With(x => x.Attributes, new List<LanguageTypedProperty>())
             .OmitAutoProperties()
             .Create();
 
@@ -339,7 +339,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var program = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "qualificationRequirements", Language = "en", Value = "TestName" } })
+            .With(x => x.Attributes, new List<LanguageTypedProperty >() { new() { PropertyName = "qualificationRequirements", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
@@ -359,7 +359,7 @@ public sealed class ProgramTests
     {
         // Arrange
         var program = _fixture.Build<Program>()
-            .With(x => x.Attributes, new List<Attribute>())
+            .With(x => x.Attributes, new List<LanguageTypedProperty>())
             .OmitAutoProperties()
             .Create();
 

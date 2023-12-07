@@ -85,7 +85,7 @@ public class EducationSpecificationTests
     {
         // Arrange
         var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "name", Language = "en", Value = "TestName" } })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { new() { PropertyName = "name", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
@@ -105,7 +105,7 @@ public class EducationSpecificationTests
     {
         // Arrange
         var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Attributes, new List<Attribute>() { })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { })
             .OmitAutoProperties()
             .Create();
 
@@ -123,7 +123,7 @@ public class EducationSpecificationTests
     {
         // Arrange
         var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "description", Language = "en", Value = "TestName" } })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { new() { PropertyName = "description", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
@@ -143,7 +143,7 @@ public class EducationSpecificationTests
     {
         // Arrange
         var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Attributes, new List<Attribute>() { })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { })
             .OmitAutoProperties()
             .Create();
 
