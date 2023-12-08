@@ -7,7 +7,7 @@ namespace ooapi.v5.core.UnitTests.Models;
 
 public sealed class ProgramOfferingTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public void GetOneOfProgram_ReturnsOneOfProgram()

@@ -10,7 +10,7 @@ namespace ooapi.v5.core.UnitTests.Models;
 
 public sealed class ProgramTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [TestCase("TestType", "TestCode", true)]
     [TestCase("TestType", null, false)]

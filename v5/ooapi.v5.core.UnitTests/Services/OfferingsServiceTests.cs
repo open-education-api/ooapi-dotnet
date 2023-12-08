@@ -12,7 +12,7 @@ namespace ooapi.v5.core.UnitTests.Services;
 [TestFixture]
 public class OfferingsServiceTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public async Task Get_WhenExistingProgramOffering_CallsOnlyProgramOfferingRepository()

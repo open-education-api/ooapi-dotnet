@@ -7,7 +7,7 @@ namespace ooapi.v5.core.UnitTests.Models;
 
 public sealed class PostResponseTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public void GetMessage_WhenAttributesExist_ReturnsListLanguageTypedString()

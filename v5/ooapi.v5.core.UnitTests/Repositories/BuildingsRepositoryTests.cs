@@ -12,7 +12,7 @@ namespace ooapi.v5.core.UnitTests.Repositories;
 [TestFixture]
 public class BuildingsRepositoryTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public async Task GetBuilding_WhenBuildingExists_ReturnsBuilding()

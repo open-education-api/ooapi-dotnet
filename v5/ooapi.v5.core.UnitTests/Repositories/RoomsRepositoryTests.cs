@@ -12,7 +12,7 @@ namespace ooapi.v5.core.UnitTests.Repositories;
 [TestFixture]
 public class RoomsRepositoryTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public async Task GetRoom_WhenRoomExists_ReturnsRoom()
@@ -88,7 +88,7 @@ public class RoomsRepositoryTests
         var result = await roomsRepository.GetRoomsByBuildingIdAsync(buildingId, dataRequestParameters);
 
         // Assert
-        CollectionAssert.AreEqual(rooms, result.Items);
+        Assert.That(result.Items, Is.EqualTo(rooms).AsCollection);
     }
 
     [Test]

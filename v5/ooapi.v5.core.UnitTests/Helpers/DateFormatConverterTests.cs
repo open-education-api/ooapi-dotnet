@@ -6,7 +6,7 @@ namespace ooapi.v5.core.UnitTests.Helpers;
 
 public sealed class DateFormatConverterTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public void DateFormatConverter_Constructor_ShouldHaveFormat()

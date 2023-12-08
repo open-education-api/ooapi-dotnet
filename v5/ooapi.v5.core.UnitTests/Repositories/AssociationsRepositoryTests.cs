@@ -12,7 +12,7 @@ namespace ooapi.v5.core.UnitTests.Repositories;
 [TestFixture]
 public class AssociationsRepositoryTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public async Task GetAssociation_WhenAssociationExists_ReturnsAssociation()
@@ -83,7 +83,7 @@ public class AssociationsRepositoryTests
         var result = await associationsRepository.GetAssociationsByPersonIdAsync(personId, new DataRequestParameters());
 
         // Assert
-        CollectionAssert.AreEqual(associations, result.Items);
+        Assert.That(result.Items, Is.EqualTo(associations).AsCollection);
     }
 
     [Test]

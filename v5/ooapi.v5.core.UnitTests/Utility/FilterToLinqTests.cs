@@ -6,7 +6,7 @@ namespace ooapi.v5.core.UnitTests.Utility;
 
 public class FilterToLinqTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public void Parse_WithAndFilter_ReturnsIQueryable()

@@ -9,7 +9,7 @@ namespace ooapi.v5.UnitTests.Controllers;
 
 public class RoomsControllerTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public async Task RoomsGet_ByPrimaryCode_ReturnsRooms()
