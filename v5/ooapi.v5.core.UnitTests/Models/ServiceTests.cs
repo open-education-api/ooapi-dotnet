@@ -11,10 +11,11 @@ public sealed class ServiceTests
     private readonly IFixture _fixture = new Fixture();
 
     [Test]
-    public void ConsumersList_ReturnsListOfJObjects()
+    public void ConsumersList_ReturnsListOfString()
     {
         // arrange
-        var consumers = _fixture.Build<Consumer>().With(x => x.PropertyType, ConsumerPropertyType.String).CreateMany().ToList();
+        var consumers = _fixture.Build<ConsumerRegistration>()
+            .CreateMany().ToList();
         var service = _fixture.Build<Service>().With(x => x.Consumers, consumers).Create();
         service.Consumers.Should().NotBeEmpty();
 
@@ -30,7 +31,7 @@ public sealed class ServiceTests
     public void ConsumersList_NoConsumers_ReturnsEmptyList()
     {
         // arrange
-        var service = _fixture.Build<Service>().With(x => x.Consumers, new List<Consumer>()).Create();
+        var service = _fixture.Build<Service>().With(x => x.Consumers, new List<ConsumerRegistration>()).Create();
         service.Consumers.Should().BeEmpty();
 
         // act

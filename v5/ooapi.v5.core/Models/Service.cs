@@ -57,18 +57,18 @@ public partial class Service : ModelBase
 
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<JObject> ConsumersList
+    public List<string> ConsumersList
     {
         get
         {
             if (Consumers != null && Consumers.Any())
             {
-                return ConsumerConverter.GetDynamicConsumers(Consumers);
+                return Consumers.Select(x => x.ConsumerKey).ToList();
             }
-            return new List<JObject>();
+            return new List<string>();
         }
     }
 
     [JsonIgnore]
-    public List<Consumer> Consumers { get; set; } = default!;
+    public List<ConsumerRegistration> Consumers { get; set; } = default!;
 }

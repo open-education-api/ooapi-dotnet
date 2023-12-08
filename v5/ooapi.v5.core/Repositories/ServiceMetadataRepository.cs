@@ -12,6 +12,6 @@ public class ServiceMetadataRepository : BaseRepository<Service>, IServiceMetada
 
     public async Task<Service> GetServiceMetadataAsync(CancellationToken cancellationToken = default)
     {
-        return await dbContext.Services.FirstAsync(cancellationToken);
+        return await dbContext.Services.Include(x => x.Consumers).FirstOrDefaultAsync(cancellationToken);
     }
 }
