@@ -181,7 +181,7 @@ public partial class Program : ModelBase
     /// The value of the study load
     /// </summary>
     [JsonIgnore]
-    public int StudyLoadValue { get; set; }
+    public int? StudyLoadValue { get; set; }
 
     /// <summary>
     /// Type of qualificaton that can be obtained on finishing the program

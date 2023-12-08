@@ -59,19 +59,25 @@ public class Startup
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
         );
 
+        // Only add Application Insights when configured during deployment
+        if (!string.IsNullOrWhiteSpace(Configuration.GetValue<string>("APPLICATIONINSIGHTS_CONNECTION_STRING")))
+        {
+            services.AddApplicationInsightsTelemetry();
+        }
+
         // Add framework services.
         services
             .AddMvc(options =>
-            {
-                options.InputFormatters.RemoveType<Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter>();
-                options.OutputFormatters.RemoveType<Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter>();
-            })
-            .AddNewtonsoftJson(opts =>
-            {
-                opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                opts.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
-                opts.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-            });
+        {
+            options.InputFormatters.RemoveType<Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter>();
+            options.OutputFormatters.RemoveType<Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter>();
+        })
+        .AddNewtonsoftJson(opts =>
+        {
+            opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            opts.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
+            opts.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+        });
 
 
 

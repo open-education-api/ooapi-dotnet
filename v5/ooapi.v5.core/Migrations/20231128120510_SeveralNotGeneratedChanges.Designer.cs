@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ooapi.v5.core.Repositories;
 
@@ -11,9 +12,10 @@ using ooapi.v5.core.Repositories;
 namespace ooapi.v5.core.Migrations
 {
     [DbContext(typeof(CoreDBContext))]
-    partial class CoreDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231128120510_SeveralNotGeneratedChanges")]
+    partial class SeveralNotGeneratedChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -878,7 +880,7 @@ namespace ooapi.v5.core.Migrations
                     b.Property<string>("StudyLoadUnit")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudyLoadValue")
+                    b.Property<int>("StudyLoadValue")
                         .HasColumnType("int");
 
                     b.Property<string>("TeachingLanguage")
@@ -1026,7 +1028,7 @@ namespace ooapi.v5.core.Migrations
                     b.Property<string>("StudyLoadUnit")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudyLoadValue")
+                    b.Property<int>("StudyLoadValue")
                         .HasColumnType("int");
 
                     b.HasKey("ResultId");
@@ -1085,7 +1087,7 @@ namespace ooapi.v5.core.Migrations
                     b.Property<string>("StudyLoadUnit")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudyLoadValue")
+                    b.Property<int>("StudyLoadValue")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ValidFrom")
@@ -1543,7 +1545,7 @@ namespace ooapi.v5.core.Migrations
                     b.Property<string>("StudyLoadUnit")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudyLoadValue")
+                    b.Property<int>("StudyLoadValue")
                         .HasColumnType("int");
 
                     b.Property<string>("TeachingLanguage")
@@ -1688,7 +1690,7 @@ namespace ooapi.v5.core.Migrations
                     b.Property<string>("StudyLoadUnit")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudyLoadValue")
+                    b.Property<int>("StudyLoadValue")
                         .HasColumnType("int");
 
                     b.HasKey("ResultId");
