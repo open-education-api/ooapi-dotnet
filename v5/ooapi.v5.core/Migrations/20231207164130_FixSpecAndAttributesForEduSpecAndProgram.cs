@@ -79,14 +79,16 @@ namespace ooapi.v5.core.Migrations
                 schema: "ooapiv5",
                 table: "Programs",
                 type: "nvarchar(max)",
-                nullable: true);
+                nullable: false,
+                defaultValue:"[]");
 
             migrationBuilder.AddColumn<string>(
                 name: "Attributes",
                 schema: "ooapiv5",
                 table: "EducationSpecifications",
                 type: "nvarchar(max)",
-                nullable: true);
+                nullable: false, 
+                defaultValue: "[]");
         }
 
         /// <inheritdoc />

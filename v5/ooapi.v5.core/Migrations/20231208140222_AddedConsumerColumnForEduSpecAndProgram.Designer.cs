@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ooapi.v5.core.Repositories;
 
@@ -11,9 +12,11 @@ using ooapi.v5.core.Repositories;
 namespace ooapi.v5.core.Migrations
 {
     [DbContext(typeof(CoreDBContext))]
-    partial class CoreDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231208140222_AddedConsumerColumnForEduSpecAndProgram")]
+    partial class AddedConsumerColumnForEduSpecAndProgram
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -652,6 +655,9 @@ namespace ooapi.v5.core.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ModelTypeName")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("ConsumerKey")
                         .HasColumnType("nvarchar(450)");
 
@@ -710,7 +716,7 @@ namespace ooapi.v5.core.Migrations
                     b.Property<Guid?>("ServiceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id", "ConsumerKey", "PropertyName");
+                    b.HasKey("Id", "ModelTypeName", "ConsumerKey", "PropertyName");
 
                     b.HasIndex("AcademicSessionId");
 
@@ -2259,6 +2265,10 @@ namespace ooapi.v5.core.Migrations
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
+                            b1.Property<string>("ModelTypeName")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
                             b1.Property<string>("PropertyName")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
@@ -2432,6 +2442,10 @@ namespace ooapi.v5.core.Migrations
                                 .HasColumnType("int");
 
                             b1.Property<string>("ConsumerKey")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("ModelTypeName")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 

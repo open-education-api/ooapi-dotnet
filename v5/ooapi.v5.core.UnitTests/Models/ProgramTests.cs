@@ -560,7 +560,7 @@ public sealed class ProgramTests
     public void ConsumersList_ReturnsListOfJObjects()
     {
         // arrange
-        var consumers = _fixture.Build<Consumer>().With(x => x.PropertyType, ConsumerPropertyType.String).CreateMany().ToList();
+        var consumers = _fixture.Build<ConsumerBase>().With(x => x.PropertyType, ConsumerPropertyType.String).CreateMany().ToList();
         var program = _fixture.Build<Program>().With(x => x.Consumers, consumers).OmitAutoProperties().Create();
         program.Consumers.Should().NotBeEmpty();
 
@@ -576,7 +576,7 @@ public sealed class ProgramTests
     public void ConsumersList_NoConsumers_ReturnsEmptyList()
     {
         // arrange
-        var program = _fixture.Build<Program>().With(x => x.Consumers, new List<Consumer>()).OmitAutoProperties().Create();
+        var program = _fixture.Build<Program>().With(x => x.Consumers, new List<ConsumerBase>()).OmitAutoProperties().Create();
         program.Consumers.Should().BeEmpty();
 
         // act

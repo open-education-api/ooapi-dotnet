@@ -525,7 +525,7 @@ public partial class Program : ModelBase
     /// List of consumers
     /// </summary>
     [JsonIgnore]
-    public List<Consumer> Consumers { get; set; } = default!;
+    public List<ConsumerBase> Consumers { get; set; } = default!;
 
     /// <summary>
     /// The first day this program is valid (inclusive).

@@ -8,7 +8,7 @@ namespace ooapi.v5.Helpers;
 
 public static class ConsumerConverter
 {
-    public static List<JObject> GetDynamicConsumers(IEnumerable<Consumer> consumers)
+    public static List<JObject> GetDynamicConsumers(IEnumerable<ConsumerBase> consumers)
     {
         var result = new List<JObject>();
         var groupedConsumers = consumers.GroupBy(x => x.ConsumerKey);

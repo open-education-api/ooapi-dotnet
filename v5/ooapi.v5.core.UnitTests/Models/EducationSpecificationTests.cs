@@ -338,7 +338,7 @@ public class EducationSpecificationTests
     public void GetConsumersList_ReturnsListJObject()
     {
         // Arrange
-        var consumers = _fixture.Build<Consumer>()
+        var consumers = _fixture.Build<ConsumerBase>()
             .CreateMany(1)
             .ToList();
         var educationSpecification = _fixture.Build<EducationSpecification>()
@@ -359,7 +359,7 @@ public class EducationSpecificationTests
     {
         // Arrange
         var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Consumers, new List<Consumer>())
+            .With(x => x.Consumers, new List<ConsumerBase>())
             .OmitAutoProperties()
             .Create();
 

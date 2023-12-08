@@ -306,7 +306,7 @@ public partial class EducationSpecification : ModelBase
     }
 
     [JsonIgnore]
-    public List<Consumer> Consumers { get; set; } = default!;
+    public List<ConsumerBase> Consumers { get; set; } = default!;
 
     /// <summary>
     /// The first day this EducationSpecification is valid (inclusive).
