@@ -79,7 +79,7 @@ public partial class EducationSpecification : ModelBase
     [JsonRequired]
     [JsonProperty("name")]
     [NotMapped]
-    public List<LanguageTypedString> name => Attributes.ExtractStringsByPropertyName("name");
+    public List<LanguageTypedString> name => Attributes.ExtractStringsByPropertyName(nameof(name));
 
     [JsonIgnore]
     [SortAllowed]
@@ -100,7 +100,7 @@ public partial class EducationSpecification : ModelBase
     /// <value>The description of this program. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.</value>
     [JsonProperty(PropertyName = "description")]
     [NotMapped]
-    public List<LanguageTypedString> description => Attributes.ExtractStringsByPropertyName("description");
+    public List<LanguageTypedString> description => Attributes.ExtractStringsByPropertyName(nameof(description));
 
     /// <summary>
     /// The type of formal document obtained after completion of this education   - diploma: DIPLOMA   - certificate: CERTIFICAAT   - no official document: GEEN OFFICIEEL DOCUMENT   - testimonial: GETUIGSCHRIFT   - school advice: SCHOOLADVIES 

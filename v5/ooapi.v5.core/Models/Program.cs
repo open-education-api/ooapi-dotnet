@@ -78,7 +78,7 @@ public partial class Program : ModelBase
     [JsonRequired]
     [JsonProperty(PropertyName = "name")]
     [NotMapped]
-    public List<LanguageTypedString> name => Attributes.ExtractStringsByPropertyName("name");
+    public List<LanguageTypedString> name => Attributes.ExtractStringsByPropertyName(nameof(name));
 
     [JsonIgnore]
     [SortAllowed]
@@ -101,7 +101,7 @@ public partial class Program : ModelBase
     [JsonRequired]
     [JsonProperty(PropertyName = "description")]
     [NotMapped]
-    public List<LanguageTypedString> description => Attributes.ExtractStringsByPropertyName("description");
+    public List<LanguageTypedString> description => Attributes.ExtractStringsByPropertyName(nameof(description));
 
     /// <summary>
     /// The (primary) teaching language in which this program is given, should be a three-letter language code as specified by ISO 639-2.
@@ -297,7 +297,7 @@ public partial class Program : ModelBase
 
     [JsonProperty(PropertyName = "enrollment")]
     [NotMapped]
-    public List<LanguageTypedString> enrollment => Attributes.ExtractStringsByPropertyName("enrollment");
+    public List<LanguageTypedString> enrollment => Attributes.ExtractStringsByPropertyName(nameof(enrollment));
 
     /// <summary>
     /// List of learning outcomes at program level. It is advisable to limit the number of learning outcomes to approximately 20. It is also advisable to make sure that the program learning outcomes in the course catalogue correspond with those on the Diploma Supplement.
@@ -314,7 +314,7 @@ public partial class Program : ModelBase
     /// <value>A description of the way exams for this course are taken (ECTS-assessment method and criteria).</value>
     [JsonProperty(PropertyName = "assessment")]
     [NotMapped]
-    public List<LanguageTypedString> assessment => Attributes.ExtractStringsByPropertyName("assessment");
+    public List<LanguageTypedString> assessment => Attributes.ExtractStringsByPropertyName(nameof(assessment));
 
     /// <summary>
     /// This information may be given at an institutional level and/or at the level of individual programmes. Make sure that it is clear whether the information applies to fee-paying students (national and/or international) or to exchange students.
@@ -323,7 +323,7 @@ public partial class Program : ModelBase
 
     [JsonProperty(PropertyName = "admissionRequirements")]
     [NotMapped]
-    public List<LanguageTypedString> admissionRequirements => Attributes.ExtractStringsByPropertyName("admissionRequirements");
+    public List<LanguageTypedString> admissionRequirements => Attributes.ExtractStringsByPropertyName(nameof(admissionRequirements));
 
     /// <summary>
     /// Normally, students will receive a diploma when they have completed the (official) study program and have obtained the required number of credits. If there are any other specific requirements that students need to have fulfilled, mention them here.
@@ -332,7 +332,7 @@ public partial class Program : ModelBase
 
     [JsonProperty(PropertyName = "qualificationRequirements")]
     [NotMapped]
-    public List<LanguageTypedString> qualificationRequirements => Attributes.ExtractStringsByPropertyName("qualificationRequirements");
+    public List<LanguageTypedString> qualificationRequirements => Attributes.ExtractStringsByPropertyName(nameof(qualificationRequirements));
 
     /// <summary>
     /// URL of the program&#x27;s website
