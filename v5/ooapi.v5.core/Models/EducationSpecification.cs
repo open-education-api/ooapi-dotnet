@@ -237,7 +237,7 @@ public partial class EducationSpecification : ModelBase
     {
         get
         {
-            if (ChildrenIds == null || !ChildrenIds.Any())
+            if (ChildrenIds == null || ChildrenIds.Count == 0)
             {
                 return new List<OneOfEducationSpecification>();
             }
@@ -296,7 +296,7 @@ public partial class EducationSpecification : ModelBase
     {
         get
         {
-            if (Consumers != null && Consumers.Any())
+            if (Consumers != null && Consumers.Count != 0)
             {
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
