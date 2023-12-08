@@ -24,7 +24,7 @@ public sealed class ServiceTests
 
         // assert
         result.Should().NotBeNullOrEmpty().And.HaveCount(service.Consumers.Count);
-        result.Should().ContainItemsAssignableTo<JObject>();
+        result.Should().ContainItemsAssignableTo<string>();
     }
 
     [Test]
