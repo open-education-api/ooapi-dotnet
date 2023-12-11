@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ooapi.v5.core.Repositories.Interfaces;
+using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
 
 namespace ooapi.v5.core.Repositories;
@@ -10,7 +11,7 @@ public class ServiceMetadataRepository : BaseRepository<Service>, IServiceMetada
     {
     }
 
-    public async Task<Service> GetServiceMetadataAsync(CancellationToken cancellationToken = default)
+    public async Task<Service?> GetServiceMetadataAsync(CancellationToken cancellationToken = default)
     {
         return await dbContext.Services.Include(x => x.Consumers).FirstOrDefaultAsync(cancellationToken);
     }

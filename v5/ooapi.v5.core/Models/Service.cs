@@ -57,13 +57,13 @@ public partial class Service : ModelBase
 
     [JsonProperty(PropertyName = "consumers")]
     [NotMapped]
-    public List<string> ConsumersList
+    public IEnumerable<string> ConsumersList
     {
         get
         {
             if (Consumers != null && Consumers.Any())
             {
-                return Consumers.Select(x => x.ConsumerKey).ToList();
+                return Consumers.Select(x => x.ConsumerKey);
             }
             return new List<string>();
         }
