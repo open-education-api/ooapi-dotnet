@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Extensions;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
@@ -26,6 +27,7 @@ public partial class Program : ModelBase
     /// Gets or Sets PrimaryCode
     /// </summary>
     [JsonProperty(PropertyName = "primaryCode")]
+    [JsonRequired]
     [NotMapped]
     public IdentifierEntry? PrimaryCodeIdentifier
     {
@@ -52,14 +54,14 @@ public partial class Program : ModelBase
     /// The type of the primary code
     /// </summary>
     [JsonIgnore]
-    public string? PrimaryCodeType { get; set; }
+    public string PrimaryCodeType { get; set; } = default!;
 
     /// <summary>
     /// The primary code
     /// </summary>
     [JsonIgnore]
     [SortAllowed]
-    public string? PrimaryCode { get; set; }
+    public string PrimaryCode { get; set; } = default!;
 
     /// <summary>
     /// The type of this program - program: opleiding - minor: minor - honours: honours - specialization: specialisatie - track: track 
@@ -67,7 +69,7 @@ public partial class Program : ModelBase
     /// <value>The type of this program - program: opleiding - minor: minor - honours: honours - specialization: specialisatie - track: track </value>
     [JsonRequired]
     [JsonProperty(PropertyName = "programType")]
-    public ProgramType? ProgramType { get; set; }
+    public ProgramType ProgramType { get; set; }
 
     /// <summary>
     /// The name of this program
@@ -76,23 +78,12 @@ public partial class Program : ModelBase
     [JsonRequired]
     [JsonProperty(PropertyName = "name")]
     [NotMapped]
-    public List<LanguageTypedString> name
-    {
-        get
-        {
-            var result = new List<LanguageTypedString>();
-            if (Attributes != null && Attributes.Any())
-            {
-                result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
-            }
-            return result;
-        }
-    }
+    public List<LanguageTypedString> name => Attributes.ExtractStringsByPropertyName(nameof(name));
 
     [JsonIgnore]
     [SortAllowed]
     [SortDefault]
-    public List<Attribute> Attributes { get; set; } = default!;
+    public List<LanguageTypedProperty> Attributes { get; set; } = default!;
 
     /// <summary>
     /// The abbreviation of this program
@@ -110,18 +101,7 @@ public partial class Program : ModelBase
     [JsonRequired]
     [JsonProperty(PropertyName = "description")]
     [NotMapped]
-    public List<LanguageTypedString> description
-    {
-        get
-        {
-            var result = new List<LanguageTypedString>();
-            if (Attributes != null && Attributes.Any())
-            {
-                result = Attributes.Where(x => x.PropertyName.Equals("description")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
-            }
-            return result;
-        }
-    }
+    public List<LanguageTypedString> description => Attributes.ExtractStringsByPropertyName(nameof(description));
 
     /// <summary>
     /// The (primary) teaching language in which this program is given, should be a three-letter language code as specified by ISO 639-2.
@@ -317,18 +297,7 @@ public partial class Program : ModelBase
 
     [JsonProperty(PropertyName = "enrollment")]
     [NotMapped]
-    public List<LanguageTypedString> enrollment
-    {
-        get
-        {
-            var result = new List<LanguageTypedString>();
-            if (Attributes != null && Attributes.Any())
-            {
-                result = Attributes.Where(x => x.PropertyName.Equals("enrollment")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
-            }
-            return result;
-        }
-    }
+    public List<LanguageTypedString> enrollment => Attributes.ExtractStringsByPropertyName(nameof(enrollment));
 
     /// <summary>
     /// List of learning outcomes at program level. It is advisable to limit the number of learning outcomes to approximately 20. It is also advisable to make sure that the program learning outcomes in the course catalogue correspond with those on the Diploma Supplement.
@@ -345,18 +314,7 @@ public partial class Program : ModelBase
     /// <value>A description of the way exams for this course are taken (ECTS-assessment method and criteria).</value>
     [JsonProperty(PropertyName = "assessment")]
     [NotMapped]
-    public List<LanguageTypedString> assessment
-    {
-        get
-        {
-            var result = new List<LanguageTypedString>();
-            if (Attributes != null && Attributes.Any())
-            {
-                result = Attributes.Where(x => x.PropertyName.Equals("assessment")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
-            }
-            return result;
-        }
-    }
+    public List<LanguageTypedString> assessment => Attributes.ExtractStringsByPropertyName(nameof(assessment));
 
     /// <summary>
     /// This information may be given at an institutional level and/or at the level of individual programmes. Make sure that it is clear whether the information applies to fee-paying students (national and/or international) or to exchange students.
@@ -365,18 +323,7 @@ public partial class Program : ModelBase
 
     [JsonProperty(PropertyName = "admissionRequirements")]
     [NotMapped]
-    public List<LanguageTypedString> admissionRequirements
-    {
-        get
-        {
-            var result = new List<LanguageTypedString>();
-            if (Attributes != null && Attributes.Any())
-            {
-                result = Attributes.Where(x => x.PropertyName.Equals("admissionRequirements")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
-            }
-            return result;
-        }
-    }
+    public List<LanguageTypedString> admissionRequirements => Attributes.ExtractStringsByPropertyName(nameof(admissionRequirements));
 
     /// <summary>
     /// Normally, students will receive a diploma when they have completed the (official) study program and have obtained the required number of credits. If there are any other specific requirements that students need to have fulfilled, mention them here.
@@ -385,18 +332,7 @@ public partial class Program : ModelBase
 
     [JsonProperty(PropertyName = "qualificationRequirements")]
     [NotMapped]
-    public List<LanguageTypedString> qualificationRequirements
-    {
-        get
-        {
-            var result = new List<LanguageTypedString>();
-            if (Attributes != null && Attributes.Any())
-            {
-                result = Attributes.Where(x => x.PropertyName.Equals("qualificationRequirements")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
-            }
-            return result;
-        }
-    }
+    public List<LanguageTypedString> qualificationRequirements => Attributes.ExtractStringsByPropertyName(nameof(qualificationRequirements));
 
     /// <summary>
     /// URL of the program&#x27;s website
@@ -501,7 +437,7 @@ public partial class Program : ModelBase
     {
         get
         {
-            if (ChildrenIds == null || !ChildrenIds.Any())
+            if (ChildrenIds == null || ChildrenIds.Count == 0)
             {
                 return new List<OneOfProgram>();
             }
@@ -576,7 +512,7 @@ public partial class Program : ModelBase
     {
         get
         {
-            if (Consumers != null && Consumers.Any())
+            if (Consumers != null && Consumers.Count != 0)
             {
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
@@ -589,7 +525,7 @@ public partial class Program : ModelBase
     /// List of consumers
     /// </summary>
     [JsonIgnore]
-    public List<Consumer> Consumers { get; set; } = default!;
+    public List<ConsumerBase> Consumers { get; set; } = default!;
 
     /// <summary>
     /// The first day this program is valid (inclusive).

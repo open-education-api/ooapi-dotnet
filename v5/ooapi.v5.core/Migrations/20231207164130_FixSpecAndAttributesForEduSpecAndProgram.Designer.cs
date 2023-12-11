@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ooapi.v5.core.Repositories;
 
@@ -11,9 +12,11 @@ using ooapi.v5.core.Repositories;
 namespace ooapi.v5.core.Migrations
 {
     [DbContext(typeof(CoreDBContext))]
-    partial class CoreDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231207164130_FixSpecAndAttributesForEduSpecAndProgram")]
+    partial class FixSpecAndAttributesForEduSpecAndProgram
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -652,6 +655,9 @@ namespace ooapi.v5.core.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ModelTypeName")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("ConsumerKey")
                         .HasColumnType("nvarchar(450)");
 
@@ -679,6 +685,9 @@ namespace ooapi.v5.core.Migrations
                     b.Property<Guid?>("CourseOfferingOfferingId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("EducationSpecificationId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("GroupId")
                         .HasColumnType("uniqueidentifier");
 
@@ -692,6 +701,9 @@ namespace ooapi.v5.core.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("PersonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProgramId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("ProgramOfferingOfferingId")
@@ -710,7 +722,7 @@ namespace ooapi.v5.core.Migrations
                     b.Property<Guid?>("ServiceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id", "ConsumerKey", "PropertyName");
+                    b.HasKey("Id", "ModelTypeName", "ConsumerKey", "PropertyName");
 
                     b.HasIndex("AcademicSessionId");
 
@@ -726,6 +738,8 @@ namespace ooapi.v5.core.Migrations
 
                     b.HasIndex("CourseOfferingOfferingId");
 
+                    b.HasIndex("EducationSpecificationId");
+
                     b.HasIndex("GroupId");
 
                     b.HasIndex("NewsFeedId");
@@ -736,6 +750,8 @@ namespace ooapi.v5.core.Migrations
 
                     b.HasIndex("PersonId");
 
+                    b.HasIndex("ProgramId");
+
                     b.HasIndex("ProgramOfferingOfferingId");
 
                     b.HasIndex("RoomId");
@@ -743,8 +759,6 @@ namespace ooapi.v5.core.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("Consumers", "ooapiv5");
-
-                    b.HasDiscriminator().HasValue("Consumer");
                 });
 
             modelBuilder.Entity("ooapi.v5.Models.ConsumerRegistration", b =>
@@ -2134,6 +2148,10 @@ namespace ooapi.v5.core.Migrations
                         .WithMany("Consumers")
                         .HasForeignKey("CourseOfferingOfferingId");
 
+                    b.HasOne("ooapi.v5.Models.EducationSpecification", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("EducationSpecificationId");
+
                     b.HasOne("ooapi.v5.Models.Group", null)
                         .WithMany("Consumers")
                         .HasForeignKey("GroupId");
@@ -2153,6 +2171,10 @@ namespace ooapi.v5.core.Migrations
                     b.HasOne("ooapi.v5.Models.Person", null)
                         .WithMany("Consumers")
                         .HasForeignKey("PersonId");
+
+                    b.HasOne("ooapi.v5.Models.Program", null)
+                        .WithMany("Consumers")
+                        .HasForeignKey("ProgramId");
 
                     b.HasOne("ooapi.v5.Models.ProgramOffering", null)
                         .WithMany("Consumers")
@@ -2246,43 +2268,7 @@ namespace ooapi.v5.core.Migrations
                                 .HasForeignKey("EducationSpecificationId");
                         });
 
-                    b.OwnsMany("ooapi.v5.Models.ConsumerBase", "Consumers", b1 =>
-                        {
-                            b1.Property<Guid>("EducationSpecificationId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
-
-                            b1.Property<string>("ConsumerKey")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("PropertyName")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<int>("PropertyType")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("PropertyValue")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("EducationSpecificationId", "Id");
-
-                            b1.ToTable("EducationSpecifications", "ooapiv5");
-
-                            b1.ToJson("Consumers");
-
-                            b1.WithOwner()
-                                .HasForeignKey("EducationSpecificationId");
-                        });
-
                     b.Navigation("Attributes");
-
-                    b.Navigation("Consumers");
 
                     b.Navigation("Organization");
                 });
@@ -2422,43 +2408,7 @@ namespace ooapi.v5.core.Migrations
                                 .HasForeignKey("ProgramId");
                         });
 
-                    b.OwnsMany("ooapi.v5.Models.ConsumerBase", "Consumers", b1 =>
-                        {
-                            b1.Property<Guid>("ProgramId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
-
-                            b1.Property<string>("ConsumerKey")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("PropertyName")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<int>("PropertyType")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("PropertyValue")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("ProgramId", "Id");
-
-                            b1.ToTable("Programs", "ooapiv5");
-
-                            b1.ToJson("Consumers");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProgramId");
-                        });
-
                     b.Navigation("Attributes");
-
-                    b.Navigation("Consumers");
 
                     b.Navigation("EducationSpecification");
 
@@ -2571,6 +2521,8 @@ namespace ooapi.v5.core.Migrations
 
             modelBuilder.Entity("ooapi.v5.Models.EducationSpecification", b =>
                 {
+                    b.Navigation("Consumers");
+
                     b.Navigation("OtherCodes");
                 });
 
@@ -2617,6 +2569,8 @@ namespace ooapi.v5.core.Migrations
 
             modelBuilder.Entity("ooapi.v5.Models.Program", b =>
                 {
+                    b.Navigation("Consumers");
+
                     b.Navigation("CoordinatorsRef");
 
                     b.Navigation("OtherCodes");

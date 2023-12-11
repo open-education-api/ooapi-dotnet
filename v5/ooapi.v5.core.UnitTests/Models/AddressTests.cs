@@ -8,7 +8,7 @@ namespace ooapi.v5.core.UnitTests.Models;
 [TestFixture]
 public class AddressTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public void GetAddition_ReturnsListLanguageTypedString()

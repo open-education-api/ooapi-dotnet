@@ -5,24 +5,8 @@ using ooapi.v5.Enums;
 namespace ooapi.v5.Models;
 
 [ExcludeFromCodeCoverage(Justification = "Get/Set")]
-public class Consumer
+public class Consumer : ConsumerBase
 {
     [JsonIgnore]
     public Guid Id { get; set; }
-
-    [JsonIgnore]
-    public string ModelTypeName { get; set; } = default!;
-
-    [JsonRequired]
-    [JsonProperty(PropertyName = "consumerKey")]
-    public string ConsumerKey { get; set; } = default!;
-
-    [JsonIgnore]
-    public ConsumerPropertyType PropertyType { get; set; } = 0;
-
-    [JsonProperty(PropertyName = "propertyName")]
-    public string PropertyName { get; set; } = default!;
-
-    [JsonProperty(PropertyName = "propertyValue")]
-    public string PropertyValue { get; set; } = default!;
 }

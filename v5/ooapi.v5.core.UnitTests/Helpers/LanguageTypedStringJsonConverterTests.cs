@@ -8,7 +8,7 @@ namespace ooapi.v5.core.UnitTests.Helpers;
 
 public sealed class LanguageTypedStringJsonConverterTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [TestCase("")]
     [TestCase(null)]

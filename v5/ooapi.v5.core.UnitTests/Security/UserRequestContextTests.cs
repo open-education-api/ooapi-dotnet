@@ -9,7 +9,7 @@ namespace ooapi.v5.core.UnitTests.Security;
 [TestFixture]
 public class UserRequestContextTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public void UserId_WithUserIdHeader_ReturnsUserIdFromHeader()

@@ -3,6 +3,7 @@ using ooapi.v5.Models;
 using System.Diagnostics.CodeAnalysis;
 using ooapi.v5.core.Repositories.Interfaces;
 using Attribute = ooapi.v5.Models.Attribute;
+using Consumer = ooapi.v5.Models.Consumer;
 
 namespace ooapi.v5.core.Repositories;
 
@@ -100,6 +101,14 @@ public class CoreDBContext : DbContext, ICoreDbContext
 
         modelBuilder.Entity<AcademicSession>().HasKey(c => c.AcademicSessionId);
 
+        modelBuilder.Entity<Program>().OwnsMany(q => q.Consumers, nb => { nb.ToJson();})
+                                      .OwnsMany(q => q.Attributes, nb => { nb.ToJson(); })
+                                      .HasKey(q => q.ProgramId);
+
+        modelBuilder.Entity<EducationSpecification>().OwnsMany(q => q.Consumers, nb => { nb.ToJson(); })
+                                                     .OwnsMany(q => q.Attributes, nb => { nb.ToJson(); })
+                                                     .HasKey(q => q.EducationSpecificationId);
+
         modelBuilder.Entity<Association>().HasKey(c => c.AssociationId);
         modelBuilder.Entity<Building>().HasKey(c => c.BuildingId);
         modelBuilder.Entity<Component>().HasKey(c => c.ComponentId);
@@ -108,13 +117,11 @@ public class CoreDBContext : DbContext, ICoreDbContext
         modelBuilder.Entity<Course>().HasKey(c => c.CourseId);
         modelBuilder.Entity<CourseOffering>().HasKey(c => c.OfferingId);
         modelBuilder.Entity<CourseResult>().HasKey(c => c.ResultId);
-        modelBuilder.Entity<EducationSpecification>().HasKey(c => c.EducationSpecificationId);
         modelBuilder.Entity<Group>().HasKey(c => c.GroupId);
         modelBuilder.Entity<NewsFeed>().HasKey(c => c.NewsFeedId);
         modelBuilder.Entity<NewsItem>().HasKey(c => c.NewsItemId);
         modelBuilder.Entity<Organization>().HasKey(c => c.OrganizationId);
         modelBuilder.Entity<Person>().HasKey(c => c.PersonId);
-        modelBuilder.Entity<Program>().HasKey(c => c.ProgramId);
         modelBuilder.Entity<ProgramOffering>().HasKey(c => c.OfferingId);
         modelBuilder.Entity<ProgramResult>().HasKey(c => c.ResultId);
         modelBuilder.Entity<Room>().HasKey(c => c.RoomId);
@@ -125,7 +132,7 @@ public class CoreDBContext : DbContext, ICoreDbContext
         modelBuilder.Entity<OtherCodes>().HasKey(c => c.OtherCodesId);
 
         // Consumers
-        modelBuilder.Entity<Consumer>().HasKey(c => new { c.Id, c.ModelTypeName, c.ConsumerKey, c.PropertyName });
+        modelBuilder.Entity<Consumer>().HasKey(c => new { c.Id, c.ConsumerKey, c.PropertyName });
         // Attributes (LanguageTypedProperties)
         modelBuilder.Entity<Attribute>().HasKey(c => new { c.Id, c.ModelTypeName, c.PropertyName, c.Language });
     }
