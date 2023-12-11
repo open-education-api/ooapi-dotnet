@@ -135,7 +135,5 @@ public class CoreDBContext : DbContext, ICoreDbContext
         modelBuilder.Entity<Consumer>().HasKey(c => new { c.Id, c.ConsumerKey, c.PropertyName });
         // Attributes (LanguageTypedProperties)
         modelBuilder.Entity<Attribute>().HasKey(c => new { c.Id, c.ModelTypeName, c.PropertyName, c.Language });
-
-
     }
 }
