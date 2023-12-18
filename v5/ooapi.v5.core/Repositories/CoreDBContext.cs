@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using ooapi.v5.core.Repositories.Interfaces;
 using Attribute = ooapi.v5.Models.Attribute;
 using Consumer = ooapi.v5.Models.Consumer;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ooapi.v5.core.Repositories;
 
@@ -104,6 +105,8 @@ public class CoreDBContext : DbContext, ICoreDbContext
         modelBuilder.Entity<Program>().OwnsMany(q => q.Consumers, nb => { nb.ToJson();})
                                       .OwnsMany(q => q.Attributes, nb => { nb.ToJson(); })
                                       .HasKey(q => q.ProgramId);
+        modelBuilder.Entity<Program>().HasMany(q => q.Address)
+                                      .WithMany(q => q.Programs);
 
         modelBuilder.Entity<EducationSpecification>().OwnsMany(q => q.Consumers, nb => { nb.ToJson(); })
                                                      .OwnsMany(q => q.Attributes, nb => { nb.ToJson(); })
@@ -125,7 +128,12 @@ public class CoreDBContext : DbContext, ICoreDbContext
         modelBuilder.Entity<ProgramOffering>().HasKey(c => c.OfferingId);
         modelBuilder.Entity<ProgramResult>().HasKey(c => c.ResultId);
         modelBuilder.Entity<Room>().HasKey(c => c.RoomId);
-        modelBuilder.Entity<Address>().HasKey(c => c.AddressId);
+        modelBuilder.Entity<Address>()
+                    .OwnsMany(q => q.Attributes, nb => { nb.ToJson(); })
+                    .HasKey(c => c.AddressId);
+        modelBuilder.Entity<Address>()
+                    .Property(p => p.AddressId)
+                    .ValueGeneratedOnAdd();
         modelBuilder.Entity<ConsumerRegistration>().HasKey(c => c.ConsumerKey);
         modelBuilder.Entity<Cost>().HasKey(c => c.CostId);
         modelBuilder.Entity<LanguageOfChoice>().HasKey(c => c.LanguageOfChoiceId);
