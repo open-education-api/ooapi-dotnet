@@ -27,21 +27,21 @@ public partial class Address : ModelBase
     /// <value>Address type - postal: post - visit: bezoek - deliveries: bezorg - billing: factuur - teaching: the address where education takes place </value>
     [JsonRequired]
     [JsonProperty(PropertyName = "addressType")]
-    public AddressType? AddressType { get; set; }
+    public AddressType AddressType { get; set; }
 
     /// <summary>
     /// The street name
     /// </summary>
     /// <value>The street name</value>
     [JsonProperty(PropertyName = "street")]
-    public string Street { get; set; } = default!;
+    public string? Street { get; set; } = default!;
 
     /// <summary>
     /// The street number
     /// </summary>
     /// <value>The street number</value>
     [JsonProperty(PropertyName = "streetNumber")]
-    public string StreetNumber { get; set; } = default!;
+    public string? StreetNumber { get; set; } = default!;
 
     /// <summary>
     /// Further details like building name, suite, apartment number, etc.
@@ -51,7 +51,7 @@ public partial class Address : ModelBase
     [JsonProperty("addition")]
     [NotMapped]
     [SortAllowed]
-    public List<LanguageTypedString> addition
+    public List<LanguageTypedString>? addition
     {
         get
         {
@@ -66,28 +66,28 @@ public partial class Address : ModelBase
 
     [JsonIgnore]
     [SortDefault]
-    public List<Attribute> Attributes { get; set; } = default!;
+    public List<LanguageTypedProperty>? Attributes { get; set; } = default!;
 
     /// <summary>
     /// Postal code
     /// </summary>
     /// <value>Postal code</value>
     [JsonProperty(PropertyName = "postalCode")]
-    public string PostalCode { get; set; } = default!;
+    public string? PostalCode { get; set; } = default!;
 
     /// <summary>
     /// name of the city / locality
     /// </summary>
     /// <value>name of the city / locality</value>
     [JsonProperty(PropertyName = "city")]
-    public string City { get; set; } = default!;
+    public string? City { get; set; } = default!;
 
     /// <summary>
     /// the country code according to [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
     /// </summary>
     /// <value>the country code according to [iso-3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)</value>
     [JsonProperty(PropertyName = "countryCode")]
-    public string CountryCode { get; set; } = default!;
+    public string? CountryCode { get; set; } = default!;
 
     /// <summary>
     /// Geolocation of the entrance of this address (WGS84 coordinate reference system)

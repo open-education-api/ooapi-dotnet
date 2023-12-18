@@ -14,7 +14,7 @@ public class AddressTests
     public void GetAddition_ReturnsListLanguageTypedString()
     {
         // Arrange
-        var attributes = _fixture.Build<Attribute>()
+        var attributes = _fixture.Build<LanguageTypedProperty>()
             .With(x => x.PropertyName, "additional")
             .CreateMany(3)
             .ToList();
@@ -38,7 +38,7 @@ public class AddressTests
     {
         // Arrange
         var academicSession = _fixture.Build<Address>()
-            .With(x => x.Attributes, new List<Attribute>())
+            .With(x => x.Attributes, new List<LanguageTypedProperty>())
             .OmitAutoProperties()
             .Create();
 
