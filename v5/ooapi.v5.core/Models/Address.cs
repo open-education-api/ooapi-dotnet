@@ -56,7 +56,7 @@ public partial class Address : ModelBase
         get
         {
             var result = new List<LanguageTypedString>();
-            if (Attributes != null && Attributes.Any())
+            if (Attributes != null && Attributes.Count != 0)
             {
                 result = Attributes.Where(x => x.PropertyName.Equals("additional")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
             }
