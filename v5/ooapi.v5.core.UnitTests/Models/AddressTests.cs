@@ -29,8 +29,8 @@ public class AddressTests
         // Assert
         result.Should().BeOfType<List<LanguageTypedString>>();
         result.Should().HaveCount(3);
-        result[0].Language.Should().Be(attributes[0].Language);
-        result[0].Value.Should().Be(attributes[0].Value);
+        result?[0].Language.Should().Be(attributes[0].Language);
+        result?[0].Value.Should().Be(attributes[0].Value);
     }
 
     [Test]
