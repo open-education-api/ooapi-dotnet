@@ -13,7 +13,7 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
 
     public async Task<Pagination<Program>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<Program> set = dbContext.ProgramsNoTracking.Include(x => x.Attributes);
+        IQueryable<Program> set = dbContext.ProgramsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes);
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
         {
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
@@ -27,7 +27,7 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
         // expands: parent, organization, educationSpecification, children
         // nog te doen: , coordinators
 
-        IQueryable<Program> set = dbContext.ProgramsNoTracking.Include(x => x.Attributes);
+        IQueryable<Program> set = dbContext.ProgramsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes);
 
         var result = await set.FirstOrDefaultAsync(x => x.ProgramId.Equals(programId), cancellationToken);
 
@@ -46,7 +46,7 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
 
         if (dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase))
         {
-            result.Children = await dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).ToListAsync(cancellationToken);
+            result.Children = await dbContext.ProgramsNoTracking.Where(x => x.ParentId.Equals(result.ProgramId)).Include(x => x.Attributes).Include(x => x.OtherCodes).ToListAsync(cancellationToken);
             foreach (var item in result.Children)
             {
                 item.ChildrenIds = await set.Where(x => x.ParentId.Equals(item.ProgramId)).Select(x => x.ProgramId).ToListAsync(cancellationToken);
@@ -55,14 +55,14 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
 
         if (dataRequestParameters.Expand.Contains("organization", StringComparer.InvariantCultureIgnoreCase))
         {
-            result.Organization = await dbContext.OrganizationsNoTracking.Include(x => x.Attributes).FirstAsync(x => x.OrganizationId.Equals(result.OrganizationId), cancellationToken);
+            result.Organization = await dbContext.OrganizationsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes).FirstAsync(x => x.OrganizationId.Equals(result.OrganizationId), cancellationToken);
             result.Organization.Parent = await dbContext.OrganizationsNoTracking.FirstOrDefaultAsync(x => x.OrganizationId.Equals(result.Organization.ParentId), cancellationToken);
             result.Organization.ChildrenIds = await dbContext.OrganizationsNoTracking.Where(x => x.ParentId.Equals(result.Organization.OrganizationId)).Select(x => x.OrganizationId).ToListAsync(cancellationToken);
         }
 
         if (dataRequestParameters.Expand.Contains("educationspecification", StringComparer.InvariantCultureIgnoreCase))
         {
-            result.EducationSpecification = await dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes).FirstAsync(x => x.EducationSpecificationId.Equals(result.EducationSpecificationId), cancellationToken);
+            result.EducationSpecification = await dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes).FirstAsync(x => x.EducationSpecificationId.Equals(result.EducationSpecificationId), cancellationToken);
             Guid? educationSpecificationParentId = await dbContext.EducationSpecificationsNoTracking
                 .Where(x => x.EducationSpecificationId.Equals(result.EducationSpecification.ParentId))
                 .Select(x => x.EducationSpecificationId)
@@ -81,7 +81,7 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
 
     public async Task<Pagination<Program>> GetProgramsByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<Program> set = dbContext.ProgramsNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
+        IQueryable<Program> set = dbContext.ProgramsNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
 
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
         {
@@ -93,14 +93,22 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
 
     public async Task<Pagination<Program>> GetProgramsByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        var set = dbContext.Programs.Where(o => o.OrganizationId.Equals(organizationId));
+        IQueryable<Program> set = dbContext.Programs.Where(o => o.OrganizationId.Equals(organizationId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
+        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
+        {
+            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+        }
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
     public async Task<Pagination<Program>> GetProgramsByProgramIdAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        var set = dbContext.Programs.Where(o => o.ParentId.Equals(programId));
+        IQueryable<Program> set = dbContext.Programs.Where(o => o.ParentId.Equals(programId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
+        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
+        {
+            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+        }
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }

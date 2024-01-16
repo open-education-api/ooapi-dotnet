@@ -12,7 +12,7 @@ public class OrganizationsRepository : BaseRepository<Organization>, IOrganizati
 
     public async Task<Organization> GetOrganizationAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes);
+        IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes);
 
         var result = await set.FirstAsync(x => x.OrganizationId.Equals(organizationId), cancellationToken);
         result.ChildrenIds = await set.Where(x => x.ParentId.Equals(result.OrganizationId)).Select(x => x.OrganizationId).ToListAsync(cancellationToken);
@@ -27,7 +27,7 @@ public class OrganizationsRepository : BaseRepository<Organization>, IOrganizati
         var getChildren = dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase);
         if (getChildren && result.ChildrenIds != null)
         {
-            result.Children = await set.Where(x => x.ParentId.Equals(result.OrganizationId)).ToListAsync(cancellationToken);
+            result.Children = await set.Where(x => x.ParentId.Equals(result.OrganizationId)).Include(x => x.Attributes).Include(x => x.OtherCodes).ToListAsync(cancellationToken);
             foreach (var item in result.Children)
             {
                 item.ChildrenIds = await set.Where(x => x.ParentId.Equals(item.OrganizationId)).Select(x => x.OrganizationId).ToListAsync(cancellationToken);
@@ -39,7 +39,7 @@ public class OrganizationsRepository : BaseRepository<Organization>, IOrganizati
 
     public async Task<Pagination<Organization>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes);
+        IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes);
 
         if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
         {

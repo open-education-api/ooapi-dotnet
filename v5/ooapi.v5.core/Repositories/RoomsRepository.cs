@@ -18,7 +18,7 @@ public class RoomsRepository : BaseRepository<Room>, IRoomsRepository
 
     public async Task<Pagination<Room>> GetRoomsByBuildingIdAsync(Guid buildingId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        var set = dbContext.Rooms.Where(o => o.BuildingId.Equals(buildingId));
+        var set = dbContext.Rooms.Where(o => o.BuildingId.Equals(buildingId)).Include(x => x.OtherCodes);
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
