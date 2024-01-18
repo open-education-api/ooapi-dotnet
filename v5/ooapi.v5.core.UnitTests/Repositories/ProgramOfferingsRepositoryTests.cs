@@ -82,7 +82,7 @@ public class ProgramOfferingsRepositoryTests
         var programOfferingsRepository = new ProgramOfferingsRepository(dbContext);
 
         // Act
-        var result = await programOfferingsRepository.GetProgramOfferingByProgramIdAsync(programId, new DataRequestParameters());
+        var result = await programOfferingsRepository.GetProgramOfferingsByProgramIdAsync(programId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ProgramOffering>>());
@@ -103,7 +103,7 @@ public class ProgramOfferingsRepositoryTests
         var programOfferingsRepository = new ProgramOfferingsRepository(dbContext);
 
         // Act
-        var result = await programOfferingsRepository.GetProgramOfferingByProgramIdAsync(programId, new DataRequestParameters());
+        var result = await programOfferingsRepository.GetProgramOfferingsByProgramIdAsync(programId, new DataRequestParameters());
 
         // Assert
         Assert.That(result, Is.InstanceOf<Pagination<ProgramOffering>>());

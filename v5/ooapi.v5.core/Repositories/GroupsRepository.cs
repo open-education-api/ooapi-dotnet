@@ -18,7 +18,7 @@ public class GroupsRepository : BaseRepository<Group>, IGroupsRepository
 
     public async Task<Pagination<Group>> GetGroupsByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        var set = dbContext.Groups.Where(o => o.OrganizationId.Equals(organizationId));
+        var set = dbContext.Groups.Where(o => o.OrganizationId.Equals(organizationId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }

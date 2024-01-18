@@ -11,18 +11,22 @@ public class ProgramOfferingsRepository : BaseRepository<ProgramOffering>, IProg
     {
     }
 
-    public async Task<ProgramOffering?> GetProgramOfferingAsync(Guid programOfferingId, CancellationToken cancellationToken = default)
+
+    public async Task<Pagination<ProgramOffering>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        return await dbContext.ProgramOfferings.Include(x => x.Attributes).FirstOrDefaultAsync(x => x.OfferingId.Equals(programOfferingId), cancellationToken);
+        IQueryable<ProgramOffering> set = dbContext.ProgramOfferingsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
+        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
-    public async Task<Pagination<ProgramOffering>> GetProgramOfferingByProgramIdAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
+
+    public async Task<ProgramOffering?> GetProgramOfferingAsync(Guid programOfferingId, CancellationToken cancellationToken = default)
     {
-        IQueryable<ProgramOffering> set = dbContext.ProgramOfferingsNoTracking.Where(o => o.ProgramId.Equals(programId)).Include(x => x.Attributes);
-        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+        return await dbContext.ProgramOfferings.Include(x => x.Attributes).Include(x => x.OtherCodes).FirstOrDefaultAsync(x => x.OfferingId.Equals(programOfferingId), cancellationToken);
+    }
+
+    public async Task<Pagination<ProgramOffering>> GetProgramOfferingsByProgramIdAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
+    {
+        IQueryable<ProgramOffering> set = dbContext.ProgramOfferingsNoTracking.Where(o => o.ProgramId.Equals(programId)).Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }

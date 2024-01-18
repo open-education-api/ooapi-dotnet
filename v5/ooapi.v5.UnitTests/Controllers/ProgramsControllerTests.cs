@@ -169,7 +169,7 @@ public class ProgramsControllerTests
 
         DataRequestParameters? dataRequestParameters = null;
 
-        programOfferingService.GetAllAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x)).Returns(response);
+        programOfferingService.GetProgramOfferingsByProgramIdAsync(Arg.Do<DataRequestParameters>(x => dataRequestParameters = x),programId).Returns(response);
 
         //act
         var result = await sut.ProgramsProgramIdOfferingsGetAsync(programId, filterParams, pagingParams, teachingLanguage, modeOfStudy, resultExpected, since, until, sort) as OkObjectResult;

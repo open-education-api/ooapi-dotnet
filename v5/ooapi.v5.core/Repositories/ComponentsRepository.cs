@@ -19,14 +19,14 @@ public class ComponentsRepository : BaseRepository<Component>, IComponentsReposi
 
     public async Task<Pagination<Component>> GetComponentsByCourseIdAsync(Guid courseId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        var set  = dbContext.Components.Where(o => o.CourseId.Equals(courseId));
+        var set  = dbContext.Components.Where(o => o.CourseId.Equals(courseId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
     public async Task<Pagination<Component>> GetComponentsByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-       var set = dbContext.Components.Where(o => o.OrganizationId.Equals(organizationId));
+       var set = dbContext.Components.Where(o => o.OrganizationId.Equals(organizationId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
 
        return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
