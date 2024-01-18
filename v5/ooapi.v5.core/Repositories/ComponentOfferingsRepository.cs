@@ -18,11 +18,7 @@ public class ComponentOfferingsRepository : BaseRepository<ComponentOffering>, I
 
     public async Task<Pagination<ComponentOffering>> GetComponentOfferingByComponentIdAsync(Guid componentId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<ComponentOffering> set = dbContext.ComponentOfferingsNoTracking.Where(o => o.ComponentId.Equals(componentId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
-        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+        IQueryable<ComponentOffering> set = dbContext.ComponentOfferingsNoTracking.Where(o => o.ComponentId.Equals(componentId)).Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }

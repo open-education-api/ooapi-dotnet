@@ -66,12 +66,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcad
 
     public async Task<Pagination<AcademicSession>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, string? academicSessionType = null, CancellationToken cancellationToken = default)
     {
-        IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes);
-        bool includeConsumer = !string.IsNullOrEmpty(dataRequestParameters.Consumer);
-        if (includeConsumer)
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+        IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         set = set.AsQueryable();
 

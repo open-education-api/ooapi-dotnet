@@ -39,12 +39,8 @@ public class OrganizationsRepository : BaseRepository<Organization>, IOrganizati
 
     public async Task<Pagination<Organization>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes);
+        IQueryable<Organization> set = dbContext.OrganizationsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
-        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }

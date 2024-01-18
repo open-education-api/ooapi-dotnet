@@ -13,11 +13,7 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
 
     public async Task<Pagination<EducationSpecification>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<EducationSpecification> set = dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes);
-        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+        IQueryable<EducationSpecification> set = dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
@@ -56,22 +52,14 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
 
     public async Task<Pagination<EducationSpecification>> GetEducationSpecificationsByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<EducationSpecification> set = dbContext.EducationSpecifications.Where(o => o.ParentId.Equals(educationSpecificationId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
-        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+        IQueryable<EducationSpecification> set = dbContext.EducationSpecifications.Where(o => o.ParentId.Equals(educationSpecificationId)).Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
     public async Task<Pagination<EducationSpecification>> GetEducationSpecificationsByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<EducationSpecification> set = dbContext.EducationSpecifications.Where(o => o.OrganizationId.Equals(organizationId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
-        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+        IQueryable<EducationSpecification> set = dbContext.EducationSpecifications.Where(o => o.OrganizationId.Equals(organizationId)).Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }

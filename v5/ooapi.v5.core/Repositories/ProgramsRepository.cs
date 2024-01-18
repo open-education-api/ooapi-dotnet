@@ -13,11 +13,7 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
 
     public async Task<Pagination<Program>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<Program> set = dbContext.ProgramsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes);
-        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+        IQueryable<Program> set = dbContext.ProgramsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
@@ -81,34 +77,22 @@ public class ProgramsRepository : BaseRepository<Program>, IProgramsRepository
 
     public async Task<Pagination<Program>> GetProgramsByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<Program> set = dbContext.ProgramsNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
+        IQueryable<Program> set = dbContext.ProgramsNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
-        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
     public async Task<Pagination<Program>> GetProgramsByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<Program> set = dbContext.Programs.Where(o => o.OrganizationId.Equals(organizationId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
-        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+        IQueryable<Program> set = dbContext.Programs.Where(o => o.OrganizationId.Equals(organizationId)).Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
     public async Task<Pagination<Program>> GetProgramsByProgramIdAsync(Guid programId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<Program> set = dbContext.Programs.Where(o => o.ParentId.Equals(programId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
-        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+        IQueryable<Program> set = dbContext.Programs.Where(o => o.ParentId.Equals(programId)).Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }

@@ -18,11 +18,7 @@ public class CourseOfferingsRepository : BaseRepository<CourseOffering>, ICourse
 
     public async Task<Pagination<CourseOffering>> GetCourseOfferingByCourseIdAsync(Guid courseId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<CourseOffering> set = dbContext.CourseOfferingsNoTracking.Where(o => o.CourseId.Equals(courseId)).Include(x => x.Attributes).Include(x => x.OtherCodes);
-        if(!string.IsNullOrWhiteSpace(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+        IQueryable<CourseOffering> set = dbContext.CourseOfferingsNoTracking.Where(o => o.CourseId.Equals(courseId)).Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 }
