@@ -8,13 +8,13 @@ namespace ooapi.v5.core.UnitTests.Models;
 [TestFixture]
 public class AddressTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public void GetAddition_ReturnsListLanguageTypedString()
     {
         // Arrange
-        var attributes = _fixture.Build<Attribute>()
+        var attributes = _fixture.Build<LanguageTypedProperty>()
             .With(x => x.PropertyName, "additional")
             .CreateMany(3)
             .ToList();
@@ -29,8 +29,8 @@ public class AddressTests
         // Assert
         result.Should().BeOfType<List<LanguageTypedString>>();
         result.Should().HaveCount(3);
-        result[0].Language.Should().Be(attributes[0].Language);
-        result[0].Value.Should().Be(attributes[0].Value);
+        result?[0].Language.Should().Be(attributes[0].Language);
+        result?[0].Value.Should().Be(attributes[0].Value);
     }
 
     [Test]
@@ -38,7 +38,7 @@ public class AddressTests
     {
         // Arrange
         var academicSession = _fixture.Build<Address>()
-            .With(x => x.Attributes, new List<Attribute>())
+            .With(x => x.Attributes, new List<LanguageTypedProperty>())
             .OmitAutoProperties()
             .Create();
 

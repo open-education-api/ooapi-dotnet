@@ -10,7 +10,7 @@ namespace ooapi.v5.core.UnitTests.Repositories;
 [TestFixture]
 public class ServiceMetadataRepositoryTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public async Task GetServiceMetadata_WhenServiceExists_ReturnsService()

@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Extensions;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
@@ -78,22 +79,11 @@ public partial class EducationSpecification : ModelBase
     [JsonRequired]
     [JsonProperty("name")]
     [NotMapped]
-    public List<LanguageTypedString> name
-    {
-        get
-        {
-            var result = new List<LanguageTypedString>();
-            if (Attributes != null && Attributes.Any())
-            {
-                result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
-            }
-            return result;
-        }
-    }
+    public List<LanguageTypedString> name => Attributes.ExtractStringsByPropertyName(nameof(name));
 
     [JsonIgnore]
     [SortAllowed]
-    public List<Attribute> Attributes { get; set; } = default!;
+    public List<LanguageTypedProperty> Attributes { get; set; } = default!;
 
     /// <summary>
     /// The abbreviation of this program
@@ -110,18 +100,7 @@ public partial class EducationSpecification : ModelBase
     /// <value>The description of this program. [The limited implementation of Git Hub Markdown syntax](#tag/formatting-and-displaying-results-from-API) MAY be used for rich text representation.</value>
     [JsonProperty(PropertyName = "description")]
     [NotMapped]
-    public List<LanguageTypedString> description
-    {
-        get
-        {
-            var result = new List<LanguageTypedString>();
-            if (Attributes != null && Attributes.Any())
-            {
-                result = Attributes.Where(x => x.PropertyName.Equals("description")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
-            }
-            return result;
-        }
-    }
+    public List<LanguageTypedString> description => Attributes.ExtractStringsByPropertyName(nameof(description));
 
     /// <summary>
     /// The type of formal document obtained after completion of this education   - diploma: DIPLOMA   - certificate: CERTIFICAAT   - no official document: GEEN OFFICIEEL DOCUMENT   - testimonial: GETUIGSCHRIFT   - school advice: SCHOOLADVIES 
@@ -218,7 +197,7 @@ public partial class EducationSpecification : ModelBase
 
     [MaxLength(2048)]
     [JsonProperty(PropertyName = "link")]
-    public string? Link { get; set; }
+    public Uri? Link { get; set; }
 
     /// <summary>
     /// The educationSpecification that is the parent of this educationSpecification if it exists. [&#x60;expandable&#x60;](#tag/education_specification_model)
@@ -258,7 +237,7 @@ public partial class EducationSpecification : ModelBase
     {
         get
         {
-            if (ChildrenIds == null || !ChildrenIds.Any())
+            if (ChildrenIds == null || ChildrenIds.Count == 0)
             {
                 return new List<OneOfEducationSpecification>();
             }
@@ -317,7 +296,7 @@ public partial class EducationSpecification : ModelBase
     {
         get
         {
-            if (Consumers != null && Consumers.Any())
+            if (Consumers != null && Consumers.Count != 0)
             {
                 return ConsumerConverter.GetDynamicConsumers(Consumers);
             }
@@ -327,7 +306,7 @@ public partial class EducationSpecification : ModelBase
     }
 
     [JsonIgnore]
-    public List<Consumer> Consumers { get; set; } = default!;
+    public List<ConsumerBase> Consumers { get; set; } = default!;
 
     /// <summary>
     /// The first day this EducationSpecification is valid (inclusive).

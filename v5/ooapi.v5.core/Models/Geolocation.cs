@@ -21,7 +21,7 @@ public class Geolocation
     [JsonProperty(PropertyName = "latitude")]
     [Column(TypeName = "decimal(8, 6)")]
     [Precision(8, 6)]
-    public decimal Latitude { get; set; }
+    public decimal? Latitude { get; set; }
 
     /// <summary>
     /// Gets or Sets Longitude
@@ -30,5 +30,5 @@ public class Geolocation
     [JsonProperty(PropertyName = "longitude")]
     [Column(TypeName = "decimal(8, 6)")]
     [Precision(8, 6)]
-    public decimal Longitude { get; set; }
+    public decimal? Longitude { get; set; }
 }

@@ -9,7 +9,7 @@ namespace ooapi.v5.core.UnitTests.Models;
 [TestFixture]
 public class NewsItemTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
     
     [Test]
     public void GetName_WhenAttributesExist_ReturnsListLanguageTypedString()

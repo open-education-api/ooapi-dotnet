@@ -11,7 +11,7 @@ namespace ooapi.v5.core.UnitTests.Repositories;
 [TestFixture]
 public class ComponentsRepositoryTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public async Task GetComponent_WhenComponentExists_ReturnsComponent()

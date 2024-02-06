@@ -10,7 +10,7 @@ namespace ooapi.v5.UnitTests.Controllers;
 
 public class OrganizationsControllerTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [Test]
     public async Task OrganizationsGet_Success_ReturnsOrganizations()

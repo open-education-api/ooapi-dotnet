@@ -7,7 +7,7 @@ namespace ooapi.v5.core.UnitTests.Models;
 [TestFixture]
 public class CourseResultTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [TestCase("TestUnit", 100, true)]
     [TestCase("", 100, false)]
