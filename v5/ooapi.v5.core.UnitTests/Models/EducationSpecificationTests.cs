@@ -9,7 +9,7 @@ namespace ooapi.v5.core.UnitTests.Models;
 [TestFixture]
 public class EducationSpecificationTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
     
     [TestCase("TestType", "TestCode", true)]
     [TestCase("TestType", null, false)]
@@ -85,7 +85,7 @@ public class EducationSpecificationTests
     {
         // Arrange
         var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "name", Language = "en", Value = "TestName" } })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { new() { PropertyName = "name", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
@@ -105,7 +105,7 @@ public class EducationSpecificationTests
     {
         // Arrange
         var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Attributes, new List<Attribute>() { })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { })
             .OmitAutoProperties()
             .Create();
 
@@ -123,7 +123,7 @@ public class EducationSpecificationTests
     {
         // Arrange
         var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "description", Language = "en", Value = "TestName" } })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { new() { PropertyName = "description", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
@@ -143,7 +143,7 @@ public class EducationSpecificationTests
     {
         // Arrange
         var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Attributes, new List<Attribute>() { })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { })
             .OmitAutoProperties()
             .Create();
 
@@ -338,7 +338,7 @@ public class EducationSpecificationTests
     public void GetConsumersList_ReturnsListJObject()
     {
         // Arrange
-        var consumers = _fixture.Build<Consumer>()
+        var consumers = _fixture.Build<ConsumerBase>()
             .CreateMany(1)
             .ToList();
         var educationSpecification = _fixture.Build<EducationSpecification>()
@@ -359,7 +359,7 @@ public class EducationSpecificationTests
     {
         // Arrange
         var educationSpecification = _fixture.Build<EducationSpecification>()
-            .With(x => x.Consumers, new List<Consumer>())
+            .With(x => x.Consumers, new List<ConsumerBase>())
             .OmitAutoProperties()
             .Create();
 

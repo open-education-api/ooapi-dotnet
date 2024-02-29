@@ -6,7 +6,7 @@ namespace ooapi.v5.core.UnitTests.Models;
 
 public sealed class ProgramResultTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
 
     [TestCase(null, 0)]
     [TestCase(null, 1)]

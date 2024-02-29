@@ -11,7 +11,7 @@ namespace ooapi.v5.core.UnitTests.Repositories;
 [TestFixture]
 public class CoursesRepositoryTests
 {
-    private readonly IFixture _fixture = new Fixture();
+    private readonly Fixture _fixture = new Fixture();
     
     [Test]
      public async Task GetCourse_WhenCourseExists_ReturnsCourse()
