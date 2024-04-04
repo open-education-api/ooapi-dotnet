@@ -19,12 +19,14 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
             set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         }
 
+        set = set.Include(x => x.OtherCodes);
+
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
     public async Task<EducationSpecification> GetEducationSpecificationAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<EducationSpecification> set = dbContext.EducationSpecificationsNoTracking;
+        IQueryable<EducationSpecification> set = dbContext.EducationSpecificationsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes);
         var setIncluded = set;
 
         var result = await setIncluded.FirstAsync(x => x.EducationSpecificationId.Equals(educationSpecificationId), cancellationToken);
@@ -56,14 +58,14 @@ public class EducationSpecificationsRepository : BaseRepository<EducationSpecifi
 
     public async Task<Pagination<EducationSpecification>> GetEducationSpecificationsByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        var set = dbContext.EducationSpecifications.Where(o => o.ParentId.Equals(educationSpecificationId));
+        IQueryable<EducationSpecification> set = dbContext.EducationSpecifications.Where(o => o.ParentId.Equals(educationSpecificationId)).Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
     public async Task<Pagination<EducationSpecification>> GetEducationSpecificationsByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        var set = dbContext.EducationSpecifications.Where(o => o.OrganizationId.Equals(organizationId));
+        IQueryable<EducationSpecification> set = dbContext.EducationSpecifications.Where(o => o.OrganizationId.Equals(organizationId)).Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }

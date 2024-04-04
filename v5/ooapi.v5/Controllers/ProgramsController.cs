@@ -187,7 +187,7 @@ public class ProgramsController : BaseController
     {
         var parameters = new DataRequestParameters(filterParams, pagingParams, sort);
         parameters.Filters.Add("programId", programId);
-        var result = await _programOfferingService.GetAllAsync(parameters, cancellationToken);
+        var result = await _programOfferingService.GetProgramOfferingsByProgramIdAsync( parameters, programId, cancellationToken);
         return Ok(result);
     }
 

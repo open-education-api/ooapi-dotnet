@@ -13,16 +13,12 @@ public class CourseOfferingsRepository : BaseRepository<CourseOffering>, ICourse
 
     public async Task<CourseOffering?> GetCourseOfferingAsync(Guid courseOfferingId, CancellationToken cancellationToken = default)
     {
-        return await dbContext.CourseOfferings.Include(x => x.Attributes).FirstOrDefaultAsync(x => x.OfferingId.Equals(courseOfferingId), cancellationToken);
+        return await dbContext.CourseOfferings.Include(x => x.Attributes).Include(x => x.OtherCodes).FirstOrDefaultAsync(x => x.OfferingId.Equals(courseOfferingId), cancellationToken);
     }
 
     public async Task<Pagination<CourseOffering>> GetCourseOfferingByCourseIdAsync(Guid courseId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<CourseOffering> set = dbContext.CourseOfferingsNoTracking.Where(o => o.CourseId.Equals(courseId)).Include(x => x.Attributes);
-        if(!string.IsNullOrWhiteSpace(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+        IQueryable<CourseOffering> set = dbContext.CourseOfferingsNoTracking.Where(o => o.CourseId.Equals(courseId)).Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 }

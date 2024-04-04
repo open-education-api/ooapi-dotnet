@@ -7,4 +7,5 @@ public interface IProgramOfferingService
 {
     Task<ProgramOffering?> GetAsync(Guid programOfferingId, CancellationToken cancellationToken = default);
     Task<Pagination<ProgramOffering>> GetAllAsync(DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default);
+    Task<Pagination<ProgramOffering>> GetProgramOfferingsByProgramIdAsync(DataRequestParameters dataRequestParameters, Guid programId, CancellationToken cancellationToken = default);
 }

@@ -14,7 +14,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcad
 
     public async Task<AcademicSession?> GetAcademicSessionAsync(Guid academicSessionId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
+        IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes);
         var result = await set.FirstOrDefaultAsync(x => x.AcademicSessionId.Equals(academicSessionId), cancellationToken);
         if (result == null)
         {
@@ -26,7 +26,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcad
 
     public async Task<AcademicSession?> GetAcademicSessionAsync(string primaryCode, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
+        IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes);
 
         var result = await set.FirstOrDefaultAsync(x => primaryCode.Equals(x.PrimaryCode), cancellationToken);
         if (result == null)
@@ -49,7 +49,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcad
 
         if (dataRequestParameters.Expand.Contains("children", StringComparer.InvariantCultureIgnoreCase))
         {
-            result.Children = await set.Where(x => x.ParentId.Equals(result.AcademicSessionId)).ToListAsync(cancellationToken);
+            result.Children = await set.Where(x => x.ParentId.Equals(result.AcademicSessionId)).Include(x => x.Attributes).Include(x => x.OtherCodes).ToListAsync(cancellationToken);
             foreach (var item in result.Children)
             {
                 item.ChildrenIds = await dbContext.AcademicSessionsNoTracking.Where(x => x.ParentId.Equals(item.AcademicSessionId)).Select(x => x.AcademicSessionId).ToListAsync(cancellationToken);
@@ -66,12 +66,7 @@ public class AcademicSessionsRepository : BaseRepository<AcademicSession>, IAcad
 
     public async Task<Pagination<AcademicSession>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, string? academicSessionType = null, CancellationToken cancellationToken = default)
     {
-        IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes);
-        bool includeConsumer = !string.IsNullOrEmpty(dataRequestParameters.Consumer);
-        if (includeConsumer)
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-        }
+        IQueryable<AcademicSession> set = dbContext.AcademicSessionsNoTracking.Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         set = set.AsQueryable();
 

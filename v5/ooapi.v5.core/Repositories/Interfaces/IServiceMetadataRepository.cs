@@ -5,6 +5,6 @@ namespace ooapi.v5.core.Repositories.Interfaces;
 
 public interface IServiceMetadataRepository
 {
-    Task<Service> GetServiceMetadataAsync(CancellationToken cancellationToken = default);
+    Task<Service?> GetServiceMetadataAsync(CancellationToken cancellationToken = default);
     Task<Pagination<Service>> GetAllOrderedByAsync(DataRequestParameters dataRequestParameters, IQueryable<Service>? set = null, CancellationToken cancellationToken = default);
 }

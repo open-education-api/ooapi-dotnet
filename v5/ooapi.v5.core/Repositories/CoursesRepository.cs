@@ -13,25 +13,20 @@ public class CoursesRepository : BaseRepository<Course>, ICoursesRepository
 
     public async Task<Course?> GetCourseAsync(Guid courseId, CancellationToken cancellationToken = default)
     {
-        return await dbContext.Courses.Include(x => x.Attributes).FirstOrDefaultAsync(x => x.CourseId.Equals(courseId), cancellationToken);
+        return await dbContext.Courses.Include(x => x.Attributes).Include(x => x.OtherCodes).FirstOrDefaultAsync(x => x.CourseId.Equals(courseId), cancellationToken);
     }
 
 
     public async Task<Pagination<Course>> GetCoursesByEducationSpecificationIdAsync(Guid educationSpecificationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        IQueryable<Course> set = dbContext.CoursesNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes);
-        if (!string.IsNullOrEmpty(dataRequestParameters.Consumer))
-        {
-            set = set.Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
-            
-        }
+        IQueryable<Course> set = dbContext.CoursesNoTracking.Where(o => o.EducationSpecificationId.Equals(educationSpecificationId)).Include(x => x.Attributes).Include(x => x.OtherCodes).Include(x => x.Consumers.Where(y => y.ConsumerKey.Equals(dataRequestParameters.Consumer)));
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
 
     public async Task<Pagination<Course>> GetCoursesByOrganizationIdAsync(Guid organizationId, DataRequestParameters dataRequestParameters, CancellationToken cancellationToken = default)
     {
-        var set = dbContext.Courses.Include(x => x.Attributes).Where(o => o.OrganizationId.Equals(organizationId));
+        var set = dbContext.Courses.Include(x => x.Attributes).Include(x => x.OtherCodes).Where(o => o.OrganizationId.Equals(organizationId));
 
         return await GetAllOrderedByAsync(dataRequestParameters, set, cancellationToken);
     }
