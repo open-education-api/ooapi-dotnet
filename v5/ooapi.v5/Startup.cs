@@ -150,7 +150,7 @@ public class Startup
         {
             options.PreSerializeFilters.Add((swagger, httpReq) =>
             {
-                swagger.Servers = new List<OpenApiServer>() { new OpenApiServer() { Url = $"https://{httpReq.Host}" } };
+                swagger.Servers = new List<OpenApiServer>() { new OpenApiServer() { Url = "https://ooapi-inf.inholland.nl" } };
             });
         });
         app.UseSwaggerUI(c =>
