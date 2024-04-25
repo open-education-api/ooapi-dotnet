@@ -700,7 +700,7 @@ namespace ooapi.v5.core.Migrations
                     b.Property<Guid?>("ServiceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id", "ModelTypeName", "ConsumerKey", "PropertyName");
+                    b.HasKey("Id", "ConsumerKey", "PropertyName");
 
                     b.HasIndex("AcademicSessionId");
 

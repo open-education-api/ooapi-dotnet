@@ -382,18 +382,6 @@ public partial class Program : ModelBase
     public List<OtherCodes> OtherCodes { get; set; } = default!;
 
     /// <summary>
-    /// Addresses for this program
-    /// </summary>
-    /// <value>Addresses for this program</value>
-    /// <summary>
-    /// Addresses for this offering
-    /// </summary>
-    /// <value>Addresses for this offering</value>
-    [JsonProperty(PropertyName = "addresses")]
-    [NotMapped]
-    public List<Address> Addresses { get; set; } = default!;
-
-    /// <summary>
     /// Parent program of which the current program is a child. This object is [&#x60;expandable&#x60;](#tag/program_model)
     /// </summary>
     /// <value>Parent program of which the current program is a child. This object is [&#x60;expandable&#x60;](#tag/program_model)</value>
@@ -552,8 +540,13 @@ public partial class Program : ModelBase
     public virtual ICollection<Person> CoordinatorsRef { get; set; } = default!;
 
     /// <summary>
-    /// Collection of addresses
+    /// Addresses for this program
     /// </summary>
-    [JsonIgnore]
+    /// <value>Addresses for this program</value>
+    /// <summary>
+    /// Addresses for this offering
+    /// </summary>
+    /// <value>Addresses for this offering</value>
+    [JsonProperty(PropertyName = "addresses")]
     public virtual ICollection<Address> Address { get; set; } = default!;
 }
