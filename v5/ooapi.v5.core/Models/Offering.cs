@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ooapi.v5.Attributes;
+using ooapi.v5.core.Extensions;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;
@@ -93,18 +94,7 @@ public class Offering : ModelBase
     [JsonRequired]
     [JsonProperty(PropertyName = "name")]
     [NotMapped]
-    public List<LanguageTypedString> name
-    {
-        get
-        {
-            var result = new List<LanguageTypedString>();
-            if (Attributes != null && Attributes.Any())
-            {
-                result = Attributes.Where(x => x.PropertyName.Equals("name")).Select(x => new LanguageTypedString() { Language = x.Language, Value = x.Value }).ToList();
-            }
-            return result;
-        }
-    }
+    public List<LanguageTypedString> name => Attributes.ExtractStringsByPropertyName(nameof(name));
 
     /// <summary>
     /// List of attribtes
@@ -112,7 +102,7 @@ public class Offering : ModelBase
     [JsonIgnore]
     [SortAllowed]
     [SortDefault]
-    public List<Attribute> Attributes { get; set; } = default!;
+    public List<LanguageTypedProperty> Attributes { get; set; } = default!;
 
     /// <summary>
     /// The abbreviation or internal code used to identify this offering
@@ -292,7 +282,7 @@ public class Offering : ModelBase
     /// List of consumers
     /// </summary>
     [JsonIgnore]
-    public List<Consumer> Consumers { get; set; } = default!;
+    public List<ConsumerBase> Consumers { get; set; } = default!;
 
     /// <summary>
     /// The first day on which a student can enroll for this course.

@@ -126,7 +126,7 @@ public class OfferingTests
     {
         // Arrange
         var offering = _fixture.Build<Offering>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "name", Language = "en", Value = "TestName" } })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { new() { PropertyName = "name", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
@@ -140,13 +140,14 @@ public class OfferingTests
         result[0].Language.Should().Be("en");
         result[0].Value.Should().Be("TestName");
     }
+
 
     [Test]
     public void GetName_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
     {
         // Arrange
         var offering = _fixture.Build<Offering>()
-            .With(x => x.Attributes, new List<Attribute>() { })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { })
             .OmitAutoProperties()
             .Create();
 
@@ -158,13 +159,14 @@ public class OfferingTests
         result.Should().BeOfType<List<LanguageTypedString>>();
         result.Should().HaveCount(0);
     }
-    
+
+
     [Test]
     public void GetDescription_WhenAttributesExist_ReturnsListLanguageTypedString()
     {
         // Arrange
         var offering = _fixture.Build<Offering>()
-            .With(x => x.Attributes, new List<Attribute>() { new() { PropertyName = "description", Language = "en", Value = "TestName" } })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { new() { PropertyName = "description", Language = "en", Value = "TestName" } })
             .OmitAutoProperties()
             .Create();
 
@@ -179,12 +181,13 @@ public class OfferingTests
         result[0].Value.Should().Be("TestName");
     }
 
+
     [Test]
     public void GetDescription_WhenAttributesAreEmpty_ReturnsEmptyListLanguageTypedString()
     {
         // Arrange
         var offering = _fixture.Build<Offering>()
-            .With(x => x.Attributes, new List<Attribute>() { })
+            .With(x => x.Attributes, new List<LanguageTypedProperty>() { })
             .OmitAutoProperties()
             .Create();
 
@@ -196,7 +199,8 @@ public class OfferingTests
         result.Should().BeOfType<List<LanguageTypedString>>();
         result.Should().HaveCount(0);
     }
-    
+
+
     [TestCase("distance-learning", Enums.ModeOfDelivery.distance_learning)]
     [TestCase("on campus", Enums.ModeOfDelivery.on_campus)]
     [TestCase("online", Enums.ModeOfDelivery.online)]
