@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/SolutionItems/">
+    <File Path="../.gitignore" />
+    <File Path="../LICENSE" />
+    <File Path="../README.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="dotnetcoverage.runsettings.xml" />
+  </Folder>
+  <Project Path="ooapi.v5.core.UnitTests/ooapi.v5.core.UnitTests.csproj" />
+  <Project Path="ooapi.v5.core/ooapi.v5.core.csproj" />
+  <Project Path="ooapi.v5.UnitTests/ooapi.v5.UnitTests.csproj" />
+  <Project Path="ooapi.v5/ooapi.v5.csproj" />
+</Solution>
