@@ -28,7 +28,7 @@ public class CourseOfferingsRepositoryTests
             .Without(x => x.ProgramOffering)
             .Without(x => x.PriceInformation)
             .Create();
-        var courseOfferings = new List<CourseOffering> { courseOffering }.AsQueryable();
+        var courseOfferings = new List<CourseOffering> { courseOffering };
 
         var db = courseOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -57,7 +57,7 @@ public class CourseOfferingsRepositoryTests
             .Without(x => x.ProgramOffering)
             .Without(x => x.PriceInformation)
             .Create();
-        var courseOfferings = new List<CourseOffering> { courseOffering }.AsQueryable();
+        var courseOfferings = new List<CourseOffering> { courseOffering };
 
         var db = courseOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -87,7 +87,7 @@ public class CourseOfferingsRepositoryTests
             .Without(x => x.ProgramOffering)
             .Without(x => x.PriceInformation)
             .Create();
-        var courseOfferings = new List<CourseOffering> { courseOffering }.AsQueryable();
+        var courseOfferings = new List<CourseOffering> { courseOffering };
 
         var db = courseOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -119,7 +119,7 @@ public class CourseOfferingsRepositoryTests
             .Without(x => x.ProgramOffering)
             .Without(x => x.PriceInformation)
             .Create();
-        var courseOfferings = new List<CourseOffering> { courseOffering }.AsQueryable();
+        var courseOfferings = new List<CourseOffering> { courseOffering };
 
         var db = courseOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();

@@ -27,7 +27,7 @@ public class ComponentsRepositoryTests
             .Without(x => x.Course)
             .Without(x => x.Organization)
             .Create();
-        var components = new List<Component> { component }.AsQueryable();
+        var components = new List<Component> { component };
 
         var db = components.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -55,7 +55,7 @@ public class ComponentsRepositoryTests
             .Without(x => x.Course)
             .Without(x => x.Organization)
             .Create();
-        var components = new List<Component> { component }.AsQueryable();
+        var components = new List<Component> { component };
 
         var db = components.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -83,7 +83,7 @@ public class ComponentsRepositoryTests
             .Without(x => x.Course)
             .Without(x => x.Organization)
             .Create();
-        var components = new List<Component> { component }.AsQueryable();
+        var components = new List<Component> { component };
 
         var db = components.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -113,7 +113,7 @@ public class ComponentsRepositoryTests
             .Without(x => x.Course)
             .Without(x => x.Organization)
             .Create();
-        var components = new List<Component> { component }.AsQueryable();
+        var components = new List<Component> { component };
 
         var db = components.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -143,7 +143,7 @@ public class ComponentsRepositoryTests
             .Without(x => x.Course)
             .Without(x => x.Organization)
             .Create();
-        var components = new List<Component> { component }.AsQueryable();
+        var components = new List<Component> { component };
 
         var db = components.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -173,7 +173,7 @@ public class ComponentsRepositoryTests
             .Without(x => x.Course)
             .Without(x => x.Organization)
             .Create();
-        var components = new List<Component> { component }.AsQueryable();
+        var components = new List<Component> { component };
 
         var db = components.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();

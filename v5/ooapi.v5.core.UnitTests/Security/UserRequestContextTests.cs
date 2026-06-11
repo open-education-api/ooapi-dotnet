@@ -1,5 +1,5 @@
 using AutoFixture;
-using FluentAssertions;
+using AwesomeAssertions;
 using Microsoft.AspNetCore.Http;
 using NSubstitute;
 using ooapi.v5.core.Security;

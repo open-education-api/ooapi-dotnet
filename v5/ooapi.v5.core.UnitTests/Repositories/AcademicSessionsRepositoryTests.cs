@@ -19,7 +19,7 @@ public class AcademicSessionsRepositoryTests
     {
         // Arrange
         var academicSessions = CreateDefaultAcademicSessions();
-
+        
         var db = academicSessions.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.AcademicSessionsNoTracking.Returns(db);
@@ -122,7 +122,7 @@ public class AcademicSessionsRepositoryTests
                 .Without(a => a.CourseOfferings)
                 .Without(a => a.ComponentOfferings)
                 .Create()
-        }.AsQueryable();
+        };
 
         var db = academicSessions.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -141,7 +141,7 @@ public class AcademicSessionsRepositoryTests
         });
     }
 
-    private IQueryable<AcademicSession> CreateDefaultAcademicSessions()
+    private IList<AcademicSession> CreateDefaultAcademicSessions()
     {
         return _fixture.Build<AcademicSession>()
             .Without(a => a.Children)
@@ -151,6 +151,6 @@ public class AcademicSessionsRepositoryTests
             .Without(a => a.CourseOfferings)
             .Without(a => a.ComponentOfferings)
             .CreateMany(2)
-            .AsQueryable();
+            .ToList();
     }
 }

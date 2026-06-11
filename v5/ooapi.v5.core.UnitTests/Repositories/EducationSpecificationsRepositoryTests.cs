@@ -37,7 +37,7 @@ public class EducationSpecificationsRepositoryTests
                 .Without(x => x.Children)
                 .Without(x => x.Organization)
                 .Create()
-        }.AsQueryable();
+        };
 
         var db = educationSpecifications.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -64,7 +64,7 @@ public class EducationSpecificationsRepositoryTests
             .Without(x => x.Children)
             .Without(x => x.Organization)
             .Create();
-        var educationSpecifications = new List<EducationSpecification> { educationSpecification }.AsQueryable();
+        var educationSpecifications = new List<EducationSpecification> { educationSpecification };
 
         var db = educationSpecifications.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -94,7 +94,7 @@ public class EducationSpecificationsRepositoryTests
             .Without(x => x.Children)
             .Without(x => x.Organization)
             .Create();
-        var educationSpecifications = new List<EducationSpecification> { educationSpecification }.AsQueryable();
+        var educationSpecifications = new List<EducationSpecification> { educationSpecification };
 
         var db = educationSpecifications.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -123,7 +123,7 @@ public class EducationSpecificationsRepositoryTests
             .Without(x => x.Children)
             .Without(x => x.Organization)
             .Create();
-        var educationSpecifications = new List<EducationSpecification> { educationSpecification }.AsQueryable();
+        var educationSpecifications = new List<EducationSpecification> { educationSpecification };
 
         var db = educationSpecifications.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -153,7 +153,7 @@ public class EducationSpecificationsRepositoryTests
             .Without(x => x.Children)
             .Without(x => x.Organization)
             .Create();
-        var educationSpecifications = new List<EducationSpecification> { educationSpecification }.AsQueryable();
+        var educationSpecifications = new List<EducationSpecification> { educationSpecification };
 
         var db = educationSpecifications.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -182,7 +182,7 @@ public class EducationSpecificationsRepositoryTests
             .Without(x => x.Children)
             .Without(x => x.Organization)
             .Create();
-        var educationSpecifications = new List<EducationSpecification> { educationSpecification }.AsQueryable();
+        var educationSpecifications = new List<EducationSpecification> { educationSpecification };
 
         var db = educationSpecifications.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -218,7 +218,7 @@ public class EducationSpecificationsRepositoryTests
             .Without(x => x.Children)
             .Without(x => x.Organization)
             .Create();
-        var educationSpecifications = new List<EducationSpecification> { educationSpecification, parentEducationSpecification }.AsQueryable();
+        var educationSpecifications = new List<EducationSpecification> { educationSpecification, parentEducationSpecification };
 
         var db = educationSpecifications.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -271,7 +271,7 @@ public class EducationSpecificationsRepositoryTests
             .Without(x => x.Children)
             .Without(x => x.Organization)
             .Create();
-        var educationSpecifications = new List<EducationSpecification> { educationSpecification, firstChildEducationSpecification, secondChildEducationSpecification }.AsQueryable();
+        var educationSpecifications = new List<EducationSpecification> { educationSpecification, firstChildEducationSpecification, secondChildEducationSpecification };
 
         var db = educationSpecifications.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -310,7 +310,7 @@ public class EducationSpecificationsRepositoryTests
             .Without(x => x.Children)
             .Without(x => x.Organization)
             .Create();
-        var educationSpecifications = new List<EducationSpecification> { educationSpecification }.AsQueryable();
+        var educationSpecifications = new List<EducationSpecification> { educationSpecification };
 
         var organization = _fixture.Build<Organization>()
             .With(x => x.OrganizationId, organizationId)
@@ -319,7 +319,7 @@ public class EducationSpecificationsRepositoryTests
             .Without(x => x.Parent)
             .Without(x => x.Children)
             .Create();
-        var organizations = new List<Organization>() { organization }.AsQueryable();
+        var organizations = new List<Organization>() { organization };
 
         var db = educationSpecifications.BuildMockDbSet();
         var orgDb = organizations.BuildMockDbSet();

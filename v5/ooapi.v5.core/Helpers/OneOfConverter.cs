@@ -1,6 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ooapi.v5.core.Extensions;
 
 namespace ooapi.v5.Helpers;
 
@@ -31,7 +32,6 @@ public class OneOfConverter : JsonConverter
             var resultId = "";
             foreach (var prop in properties)
             {
-
                 if (prop.Name != "Id" && !prop.Value.IsNullOrEmpty())
                 {
                     jToken = prop.Value;

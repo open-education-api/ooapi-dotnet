@@ -26,7 +26,7 @@ public class AssociationsRepositoryTests
             .Without(x => x.CourseOffering)
             .Without(x => x.ComponentOffering)
             .CreateMany(1)
-            .AsQueryable();
+            .ToList();
 
         var db = association.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -46,7 +46,7 @@ public class AssociationsRepositoryTests
         // Arrange
         var associationId = _fixture.Create<Guid>();
 
-        var association = new List<Association>().AsQueryable();
+        var association = new List<Association>();
         var db = association.BuildMockDbSet();
 
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -72,7 +72,7 @@ public class AssociationsRepositoryTests
             .Without(x => x.CourseOffering)
             .Without(x => x.ComponentOffering)
             .CreateMany(5)
-            .AsQueryable();
+            .ToList();
 
         var db = associations.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -92,7 +92,7 @@ public class AssociationsRepositoryTests
         // Arrange
         var personId = _fixture.Create<Guid>();
 
-        var association = new List<Association>().AsQueryable();
+        var association = new List<Association>();
         var db = association.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
         dbContext.Associations.Returns(db);

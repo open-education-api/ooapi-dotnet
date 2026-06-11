@@ -30,7 +30,7 @@ public class CoursesRepositoryTests
             .Without(x => x.CoordinatorsRef)
             .Without(x => x.ProgramsRef)
             .Create();
-        var courses = new List<Course> { course }.AsQueryable();
+        var courses = new List<Course> { course };
 
         var db = courses.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -61,7 +61,7 @@ public class CoursesRepositoryTests
             .Without(x => x.CoordinatorsRef)
             .Without(x => x.ProgramsRef)
             .Create();
-        var courses = new List<Course> { course }.AsQueryable();
+        var courses = new List<Course> { course };
 
         var db = courses.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -92,7 +92,7 @@ public class CoursesRepositoryTests
             .Without(x => x.CoordinatorsRef)
             .Without(x => x.ProgramsRef)
             .Create();
-        var courses = new List<Course> { course }.AsQueryable();
+        var courses = new List<Course> { course };
 
         var db = courses.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -125,7 +125,7 @@ public class CoursesRepositoryTests
             .Without(x => x.CoordinatorsRef)
             .Without(x => x.ProgramsRef)
             .Create();
-        var courses = new List<Course> { course }.AsQueryable();
+        var courses = new List<Course> { course };
 
         var db = courses.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -157,7 +157,7 @@ public class CoursesRepositoryTests
             .Without(x => x.CoordinatorsRef)
             .Without(x => x.ProgramsRef)
             .Create();
-        var courses = new List<Course> { course }.AsQueryable();
+        var courses = new List<Course> { course };
 
         var db = courses.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -192,7 +192,7 @@ public class CoursesRepositoryTests
             .Without(x => x.CoordinatorsRef)
             .Without(x => x.ProgramsRef)
             .Create();
-        var courses = new List<Course> { course }.AsQueryable();
+        var courses = new List<Course> { course };
 
         var db = courses.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();

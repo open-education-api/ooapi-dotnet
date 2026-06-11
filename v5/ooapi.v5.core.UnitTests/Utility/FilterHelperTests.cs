@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using ooapi.v5.core.Utility;
 
 namespace ooapi.v5.core.UnitTests.Utility;

@@ -1,4 +1,5 @@
 using AutoFixture;
+using MockQueryable;
 using MockQueryable.NSubstitute;
 using NSubstitute;
 using ooapi.v5.core.Repositories;
@@ -20,7 +21,7 @@ public class ServiceMetadataRepositoryTests
         var serviceMetadataRepository = new ServiceMetadataRepository(dbContext);
         var services = _fixture.Build<Service>()
             .CreateMany(4)
-            .AsQueryable();
+            .ToList();
 
         var db = services.BuildMockDbSet();
         dbContext.Services.Returns(db);

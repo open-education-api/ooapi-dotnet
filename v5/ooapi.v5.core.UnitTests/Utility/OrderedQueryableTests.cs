@@ -1,4 +1,4 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using ooapi.v5.Attributes;
 using ooapi.v5.core.Utility;

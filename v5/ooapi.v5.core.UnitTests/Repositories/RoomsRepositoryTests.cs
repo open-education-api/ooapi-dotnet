@@ -1,4 +1,5 @@
 using AutoFixture;
+using MockQueryable;
 using MockQueryable.NSubstitute;
 using NSubstitute;
 using NUnit.Framework.Legacy;
@@ -27,7 +28,7 @@ public class RoomsRepositoryTests
             .Without(x => x.description)
             .Without(x => x.Building)
             .CreateMany(1)
-            .AsQueryable();
+            .ToList();
 
         var db = room.BuildMockDbSet();
         dbContext.Rooms.Returns(db);
@@ -52,7 +53,7 @@ public class RoomsRepositoryTests
             .Without(x => x.description)
             .Without(x => x.Building)
             .CreateMany(5)
-            .AsQueryable();
+            .ToList();
 
         var db = rooms.BuildMockDbSet();
         dbContext.Rooms.Returns(db);
@@ -77,7 +78,7 @@ public class RoomsRepositoryTests
             .Without(x => x.description)
             .Without(x => x.Building)
             .CreateMany(5)
-            .AsQueryable();
+            .ToList();
 
         var db = rooms.BuildMockDbSet();
         dbContext.Rooms.Returns(db);
@@ -104,7 +105,7 @@ public class RoomsRepositoryTests
             .Without(x => x.description)
             .Without(x => x.Building)
             .CreateMany(5)
-            .AsQueryable();
+            .ToList();
 
         var db = rooms.BuildMockDbSet();
         dbContext.Rooms.Returns(db);

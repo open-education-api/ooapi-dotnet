@@ -21,7 +21,7 @@ public class BaseRepositoryTests
         {
             new Foo() { PrimaryCode = "123" },
             new Foo() { PrimaryCode = "456" }
-        }.AsQueryable().BuildMockDbSet();
+        }.BuildMockDbSet();
 
         // Act
         var result = await repository.GetAllOrderedByAsync(dataRequestParameters, set);
@@ -39,7 +39,7 @@ public class BaseRepositoryTests
         {
             new Foo() { PrimaryCode = "123", PrimaryCodeType = "x-test"},
             new Foo() { PrimaryCode = "456", PrimaryCodeType = "not-x-test"}
-        }.AsQueryable().BuildMockDbSet();
+        }.BuildMockDbSet();
 
         var dataRequestParameters = new DataRequestParameters { Filters = new Dictionary<string, object> { { "PrimaryCodeType", "x-test" } } };
         var repository = GetRepository<Foo>();
@@ -61,7 +61,7 @@ public class BaseRepositoryTests
         {
             new Foo() { PrimaryCode = "123", PrimaryCodeType = "x-test"},
             new Foo() { PrimaryCode = "456", PrimaryCodeType = "not-x-test"}
-        }.AsQueryable().BuildMockDbSet();
+        }.BuildMockDbSet();
         var repository = GetRepository<Foo>();
 
         // Act
@@ -81,7 +81,7 @@ public class BaseRepositoryTests
         {
             new Foo() { PrimaryCode = "123", PrimaryCodeType = "x-test"},
             new Foo() { PrimaryCode = "456", PrimaryCodeType = "not-x-test"}
-        }.AsQueryable().BuildMockDbSet();
+        }.BuildMockDbSet();
         var repository = GetRepository<Foo>(dbContextSet);
 
         // Act

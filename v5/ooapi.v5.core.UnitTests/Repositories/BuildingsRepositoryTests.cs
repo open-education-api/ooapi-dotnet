@@ -23,7 +23,7 @@ public class BuildingsRepositoryTests
             .With(x => x.BuildingId, buildingId)
             .Without(x => x.Address)
             .CreateMany(1)
-            .AsQueryable();
+            .ToList();
 
         var db = building.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -42,7 +42,7 @@ public class BuildingsRepositoryTests
     {
         // Arrange
         var buildingId = _fixture.Create<Guid>();
-        var buildings = new List<Building> { }.AsQueryable();
+        var buildings = new List<Building>();
 
         var db = buildings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -74,7 +74,7 @@ public class BuildingsRepositoryTests
                 .With(x => x.Address, new Address())
                 .With(x => x.Attributes, _fixture.Build<Attribute>().CreateMany(3).ToList())
                 .Create()
-        }.AsQueryable();
+        };
 
         var db = buildings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();

@@ -14,7 +14,7 @@ public class ProgramOfferingsRepositoryTests
     private readonly Fixture _fixture = new Fixture();
 
     [Test]
-     public async Task GetProgramOffering_WhenProgramOfferingExists_ReturnsProgramOffering()
+    public async Task GetProgramOffering_WhenProgramOfferingExists_ReturnsProgramOffering()
     {
         // Arrange
         var programOfferingId = _fixture.Create<Guid>();
@@ -27,7 +27,7 @@ public class ProgramOfferingsRepositoryTests
             .Without(x => x.Program)
             .Without(x => x.PriceInformation)
             .Create();
-        var programOfferings = new List<ProgramOffering> { programOffering }.AsQueryable();
+        var programOfferings = new List<ProgramOffering> { programOffering };
 
         var db = programOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -46,7 +46,7 @@ public class ProgramOfferingsRepositoryTests
     {
         // Arrange
         var programOfferingId = _fixture.Create<Guid>();
-        var programOfferings = new List<ProgramOffering> { }.AsQueryable();
+        var programOfferings = new List<ProgramOffering>();
 
         var db = programOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -74,7 +74,7 @@ public class ProgramOfferingsRepositoryTests
             .Without(x => x.Program)
             .Without(x => x.PriceInformation)
             .Create();
-        var programOfferings = new List<ProgramOffering> { programOffering }.AsQueryable();
+        var programOfferings = new List<ProgramOffering> { programOffering };
 
         var db = programOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -95,7 +95,7 @@ public class ProgramOfferingsRepositoryTests
     {
         // Arrange
         var programId = _fixture.Create<Guid>();
-        var programOfferings = new List<ProgramOffering> { }.AsQueryable();
+        var programOfferings = new List<ProgramOffering>();
 
         var db = programOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();

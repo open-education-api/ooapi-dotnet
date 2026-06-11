@@ -52,7 +52,7 @@ public class ProgramsRepositoryTests
                 .Without(x => x.CoordinatorsRef)
                 .Without(x => x.Organization)
                 .Create()
-        }.AsQueryable();
+        };
 
         var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -111,7 +111,7 @@ public class ProgramsRepositoryTests
                 .Without(x => x.CoordinatorsRef)
                 .Without(x => x.Organization)
                 .Create()
-        }.AsQueryable();
+        };
 
         var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -170,7 +170,7 @@ public class ProgramsRepositoryTests
                 .Without(x => x.CoordinatorsRef)
                 .Without(x => x.Organization)
                 .Create()
-        }.AsQueryable();
+        };
 
         var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -231,7 +231,7 @@ public class ProgramsRepositoryTests
                 .Without(x => x.CoordinatorsRef)
                 .Without(x => x.Organization)
                 .Create()
-        }.AsQueryable();
+        };
 
         var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -268,7 +268,7 @@ public class ProgramsRepositoryTests
                 .Without(x => x.CoordinatorsRef)
                 .Without(x => x.Organization)
                 .Create(),
-        }.AsQueryable();
+        };
 
         var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -314,7 +314,7 @@ public class ProgramsRepositoryTests
             .Without(x => x.CoordinatorsRef)
             .Without(x => x.Organization)
             .Create();
-        var programs = new List<Program> { program, parentProgram }.AsQueryable();
+        var programs = new List<Program> { program, parentProgram };
 
         var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -382,7 +382,7 @@ public class ProgramsRepositoryTests
             .Without(x => x.CoordinatorsRef)
             .Without(x => x.Organization)
             .Create();
-        var programs = new List<Program> { program, firstChildProgram, secondChildProgram }.AsQueryable();
+        var programs = new List<Program> { program, firstChildProgram, secondChildProgram };
 
         var db = programs.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -426,7 +426,7 @@ public class ProgramsRepositoryTests
             .Without(x => x.CoordinatorsRef)
             .Without(x => x.Organization)
             .Create();
-        var programs = new List<Program> { program }.AsQueryable();
+        var programs = new List<Program> { program };
 
         var organization = _fixture.Build<Organization>()
             .With(x => x.OrganizationId, organizationId)
@@ -435,7 +435,7 @@ public class ProgramsRepositoryTests
             .Without(x => x.Parent)
             .Without(x => x.Children)
             .Create();
-        var organizations = new List<Organization>() { organization }.AsQueryable();
+        var organizations = new List<Organization>() { organization };
 
         var db = programs.BuildMockDbSet();
         var orgDb = organizations.BuildMockDbSet();
@@ -477,7 +477,7 @@ public class ProgramsRepositoryTests
             .Without(x => x.CoordinatorsRef)
             .Without(x => x.Organization)
             .Create();
-        var programs = new List<Program> { program }.AsQueryable();
+        var programs = new List<Program> { program };
 
         var educationSpecification = _fixture.Build<EducationSpecification>()
             .With(x => x.EducationSpecificationId, educationSpecificationId)
@@ -486,7 +486,7 @@ public class ProgramsRepositoryTests
             .Without(x => x.Children)
             .Without(x => x.Organization)
             .Create();
-        var educationSpecifications = new List<EducationSpecification>() { educationSpecification }.AsQueryable();
+        var educationSpecifications = new List<EducationSpecification>() { educationSpecification };
 
         var db = programs.BuildMockDbSet();
         var eduDb = educationSpecifications.BuildMockDbSet();

@@ -38,8 +38,9 @@ public class OrganizationsServiceTests
             .Without(x => x.Addresses)
             .Without(x => x.Parent)
             .Without(x => x.Children)
-            .CreateMany(5);
-        var db = organizations.AsQueryable().BuildMockDbSet();
+            .CreateMany(5)
+            .ToList();
+        var db = organizations.BuildMockDbSet();
 
         var expected = await Pagination<Organization>.CreateAsync(db, dataRequestParameters);
         repository.GetAllOrderedByAsync(dataRequestParameters).Returns(expected);

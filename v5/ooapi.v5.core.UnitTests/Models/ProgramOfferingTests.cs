@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using FluentAssertions;
+using AwesomeAssertions;
 using ooapi.v5.core.Models.OneOfModels;
 using ooapi.v5.Models;
 
