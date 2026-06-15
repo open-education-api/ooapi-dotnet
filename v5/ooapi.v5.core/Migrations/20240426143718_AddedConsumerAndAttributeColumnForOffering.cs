@@ -87,11 +87,6 @@ namespace ooapi.v5.core.Migrations
                 table: "Consumers");
 
             migrationBuilder.DropColumn(
-                name: "ServiceId",
-                schema: "ooapiv5",
-                table: "Consumers");
-
-            migrationBuilder.DropColumn(
                 name: "ComponentOfferingOfferingId",
                 schema: "ooapiv5",
                 table: "Attributes");
@@ -203,13 +198,6 @@ namespace ooapi.v5.core.Migrations
 
             migrationBuilder.AddColumn<Guid>(
                 name: "ProgramOfferingOfferingId",
-                schema: "ooapiv5",
-                table: "Consumers",
-                type: "uniqueidentifier",
-                nullable: true);
-
-            migrationBuilder.AddColumn<Guid>(
-                name: "ServiceId",
                 schema: "ooapiv5",
                 table: "Consumers",
                 type: "uniqueidentifier",
