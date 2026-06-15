@@ -14,16 +14,6 @@ namespace ooapi.v5.core.Migrations
                 schema: "ooapiv5",
                 table: "Consumers");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Consumers_ServiceId",
-                schema: "ooapiv5",
-                table: "Consumers");
-
-            migrationBuilder.DropColumn(
-                name: "ServiceId",
-                schema: "ooapiv5",
-                table: "Consumers");
-
             migrationBuilder.AddColumn<Guid>(
                 name: "ServiceId",
                 schema: "ooapiv5",
@@ -63,20 +53,7 @@ namespace ooapi.v5.core.Migrations
                 name: "ServiceId",
                 schema: "ooapiv5",
                 table: "ConsumerRegistrations");
-
-            migrationBuilder.AddColumn<Guid>(
-                name: "ServiceId",
-                schema: "ooapiv5",
-                table: "Consumers",
-                type: "uniqueidentifier",
-                nullable: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Consumers_ServiceId",
-                schema: "ooapiv5",
-                table: "Consumers",
-                column: "ServiceId");
-
+            
             migrationBuilder.AddForeignKey(
                 name: "FK_Consumers_Services_ServiceId",
                 schema: "ooapiv5",
