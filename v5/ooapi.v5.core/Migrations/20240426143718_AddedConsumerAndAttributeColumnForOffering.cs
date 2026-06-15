@@ -97,11 +97,6 @@ namespace ooapi.v5.core.Migrations
                 table: "Attributes");
 
             migrationBuilder.DropColumn(
-                name: "Discriminator",
-                schema: "ooapiv5",
-                table: "Attributes");
-
-            migrationBuilder.DropColumn(
                 name: "ProgramOfferingOfferingId",
                 schema: "ooapiv5",
                 table: "Attributes");
@@ -216,14 +211,6 @@ namespace ooapi.v5.core.Migrations
                 table: "Attributes",
                 type: "uniqueidentifier",
                 nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Discriminator",
-                schema: "ooapiv5",
-                table: "Attributes",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
 
             migrationBuilder.AddColumn<Guid>(
                 name: "ProgramOfferingOfferingId",
