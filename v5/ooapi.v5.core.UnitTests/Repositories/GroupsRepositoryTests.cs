@@ -23,7 +23,7 @@ public class GroupsRepositoryTests
             .Without(x => x.Organization)
             .Without(x => x.Persons)
             .Create();
-        var groups = new List<Group> { group }.AsQueryable();
+        var groups = new List<Group> { group };
 
         var db = groups.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -47,7 +47,7 @@ public class GroupsRepositoryTests
             .Without(x => x.Organization)
             .Without(x => x.Persons)
             .Create();
-        var groups = new List<Group> { group }.AsQueryable();
+        var groups = new List<Group> { group };
 
         var db = groups.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -71,7 +71,7 @@ public class GroupsRepositoryTests
             .Without(x => x.Organization)
             .Without(x => x.Persons)
             .Create();
-        var groups = new List<Group> { group }.AsQueryable();
+        var groups = new List<Group> { group };
 
         var db = groups.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -99,7 +99,7 @@ public class GroupsRepositoryTests
             .Without(x => x.Organization)
             .Without(x => x.Persons)
             .Create();
-        var groups = new List<Group> { group }.AsQueryable();
+        var groups = new List<Group> { group };
 
         var db = groups.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();

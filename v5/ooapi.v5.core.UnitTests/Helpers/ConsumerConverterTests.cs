@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using FluentAssertions;
+using AwesomeAssertions;
 using Newtonsoft.Json;
 using ooapi.v5.Enums;
 using ooapi.v5.Helpers;

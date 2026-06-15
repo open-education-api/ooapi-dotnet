@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using FluentAssertions;
+using AwesomeAssertions;
 using MockQueryable.NSubstitute;
 using ooapi.v5.core.Utility;
 using ooapi.v5.Models;
@@ -20,7 +20,7 @@ public sealed class PaginationTests
             .With(x => x.PageSize, 100)
             .Without(x => x.Filter)
             .Create();
-        var db = items.AsQueryable().BuildMockDbSet();
+        var db = items.BuildMockDbSet();
 
         // act
         var pagination = await Pagination<TestObject>.CreateAsync(db, parameters);
@@ -44,7 +44,7 @@ public sealed class PaginationTests
             .With(x => x.PageSize, 2)
             .With(x => x.Filter, "value eq test")
             .Create();
-        var db = items.AsQueryable().BuildMockDbSet();
+        var db = items.BuildMockDbSet();
 
         // act
         var pagination = await Pagination<TestObject>.CreateAsync(db, parameters);

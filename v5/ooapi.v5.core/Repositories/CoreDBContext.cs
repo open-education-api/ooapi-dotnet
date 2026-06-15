@@ -115,17 +115,26 @@ public class CoreDBContext : DbContext, ICoreDbContext
         modelBuilder.Entity<Association>().HasKey(c => c.AssociationId);
         modelBuilder.Entity<Building>().HasKey(c => c.BuildingId);
         modelBuilder.Entity<Component>().HasKey(c => c.ComponentId);
-        modelBuilder.Entity<ComponentOffering>().HasKey(c => c.OfferingId);
+        modelBuilder.Entity<ComponentOffering>().OwnsMany(q => q.Consumers, nb => { nb.ToJson(); })
+                                                .OwnsMany(q => q.Attributes, nb => { nb.ToJson(); })
+                                                .HasKey(c => c.OfferingId);
+
         modelBuilder.Entity<ComponentResult>().HasKey(c => c.ResultId);
         modelBuilder.Entity<Course>().HasKey(c => c.CourseId);
-        modelBuilder.Entity<CourseOffering>().HasKey(c => c.OfferingId);
+        modelBuilder.Entity<CourseOffering>().OwnsMany(q => q.Consumers, nb => { nb.ToJson(); })
+                                     .OwnsMany(q => q.Attributes, nb => { nb.ToJson(); })
+                                     .HasKey(c => c.OfferingId);
+
         modelBuilder.Entity<CourseResult>().HasKey(c => c.ResultId);
         modelBuilder.Entity<Group>().HasKey(c => c.GroupId);
         modelBuilder.Entity<NewsFeed>().HasKey(c => c.NewsFeedId);
         modelBuilder.Entity<NewsItem>().HasKey(c => c.NewsItemId);
         modelBuilder.Entity<Organization>().HasKey(c => c.OrganizationId);
         modelBuilder.Entity<Person>().HasKey(c => c.PersonId);
-        modelBuilder.Entity<ProgramOffering>().HasKey(c => c.OfferingId);
+        modelBuilder.Entity<ProgramOffering>().OwnsMany(q => q.Consumers, nb => { nb.ToJson(); })
+                                      .OwnsMany(q => q.Attributes, nb => { nb.ToJson(); })
+                                      .HasKey(c => c.OfferingId);
+
         modelBuilder.Entity<ProgramResult>().HasKey(c => c.ResultId);
         modelBuilder.Entity<Room>().HasKey(c => c.RoomId);
         modelBuilder.Entity<Address>()

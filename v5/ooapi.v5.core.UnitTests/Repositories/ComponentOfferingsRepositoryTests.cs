@@ -28,7 +28,7 @@ public class ComponentOfferingsRepositoryTests
             .Without(x => x.Address)
             .Without(x => x.Costs)
             .Create();
-        var componentOfferings = new List<ComponentOffering> { componentOffering }.AsQueryable();
+        var componentOfferings = new List<ComponentOffering> { componentOffering };
 
         var db = componentOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -47,7 +47,7 @@ public class ComponentOfferingsRepositoryTests
     {
         // Arrange
         var courseOfferingId = _fixture.Create<Guid>();
-        var componentOfferings = new List<ComponentOffering> { }.AsQueryable();
+        var componentOfferings = new List<ComponentOffering>();
 
         var db = componentOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -76,7 +76,7 @@ public class ComponentOfferingsRepositoryTests
             .Without(x => x.Address)
             .Without(x => x.Costs)
             .Create();
-        var componentOfferings = new List<ComponentOffering> { componentOffering }.AsQueryable();
+        var componentOfferings = new List<ComponentOffering> { componentOffering };
 
         var db = componentOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -97,7 +97,7 @@ public class ComponentOfferingsRepositoryTests
     {
         // Arrange
         var componentId = _fixture.Create<Guid>();
-        var componentOfferings = new List<ComponentOffering> { }.AsQueryable();
+        var componentOfferings = new List<ComponentOffering> ();
 
         var db = componentOfferings.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();

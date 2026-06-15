@@ -1,4 +1,4 @@
 global using NUnit.Framework;
 global using AutoFixture;
-global using FluentAssertions;
+global using AwesomeAssertions;
 global using NSubstitute;

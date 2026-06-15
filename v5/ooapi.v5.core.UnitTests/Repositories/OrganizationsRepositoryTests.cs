@@ -37,7 +37,7 @@ public class OrganizationsRepositoryTests
                 .Without(x => x.Parent)
                 .Without(x => x.Children)
                 .Create()
-        }.AsQueryable();
+        };
 
         var db = organizations.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -64,7 +64,7 @@ public class OrganizationsRepositoryTests
             .Without(x => x.Parent)
             .Without(x => x.Children)
             .Create();
-        var organizations = new List<Organization> { organization }.AsQueryable();
+        var organizations = new List<Organization> { organization };
 
         var db = organizations.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -100,7 +100,7 @@ public class OrganizationsRepositoryTests
             .Without(x => x.Parent)
             .Without(x => x.Children)
             .Create();
-        var organizations = new List<Organization> { organization, parentOrganization }.AsQueryable();
+        var organizations = new List<Organization> { organization, parentOrganization };
 
         var db = organizations.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -152,7 +152,7 @@ public class OrganizationsRepositoryTests
             .Without(x => x.Parent)
             .Without(x => x.Children)
             .Create();
-        var organizations = new List<Organization> { organization, firstChildOrganization, secondChildOrganization }.AsQueryable();
+        var organizations = new List<Organization> { organization, firstChildOrganization, secondChildOrganization };
 
         var db = organizations.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();

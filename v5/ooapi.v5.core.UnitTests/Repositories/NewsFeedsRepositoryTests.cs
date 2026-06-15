@@ -22,7 +22,7 @@ public class NewsItemsRepositoryTests
             .Without(x => x.NewsFeeds)
             .Without(x => x.OneOfNewsFeeds)
             .Create();
-        var newsItems = new List<NewsItem> { newsItem }.AsQueryable();
+        var newsItems = new List<NewsItem> { newsItem };
 
         var db = newsItems.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -46,7 +46,7 @@ public class NewsItemsRepositoryTests
             .Without(x => x.NewsFeeds)
             .Without(x => x.OneOfNewsFeeds)
             .Create();
-        var newsItems = new List<NewsItem> { newsItem }.AsQueryable();
+        var newsItems = new List<NewsItem> { newsItem };
 
         var db = newsItems.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();

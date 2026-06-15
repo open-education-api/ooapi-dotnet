@@ -22,7 +22,7 @@ public class PersonsRepositoryTests
             .Without(x => x.Address)
             .Without(x => x.Groups)
             .Create();
-        var persons = new List<Person> { person }.AsQueryable();
+        var persons = new List<Person> { person };
 
         var db = persons.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
@@ -46,7 +46,7 @@ public class PersonsRepositoryTests
             .Without(x => x.Address)
             .Without(x => x.Groups)
             .Create();
-        var persons = new List<Person> { person }.AsQueryable();
+        var persons = new List<Person> { person };
 
         var db = persons.BuildMockDbSet();
         var dbContext = Substitute.For<ICoreDbContext>();
