@@ -5,7 +5,8 @@
   <ItemGroup>
     <PackageVersion Include="AwesomeAssertions" Version="9.4.0" />
     <PackageVersion Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
-    <PackageVersion Include="Microsoft.Data.SqlClient" Version="7.0.1" />
+    <PackageVersion Include="Microsoft.Data.SqlClient" Version="7.0.2" />
+    <PackageVersion Include="Microsoft.Data.SqlClient.Extensions.Azure" Version="7.0.2" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />

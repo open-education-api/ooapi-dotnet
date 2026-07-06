@@ -11,6 +11,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" />
+    <PackageReference Include="Microsoft.Data.SqlClient.Extensions.Azure" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" />
     <InternalsVisibleTo Include="$(AssemblyName).UnitTests" />
