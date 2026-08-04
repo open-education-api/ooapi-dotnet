@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <!-- Required for Microsoft.AspNetCore.OpenApi to read XML doc comments (<summary>/<param>)
+             into the generated OpenAPI document - without this, every action's parameter
+             descriptions are silently omitted regardless of how well they're documented. -->
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);CS1591</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="$(MicrosoftAspNetCoreOpenApiVersion)"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(MicrosoftEntityFrameworkCoreVersion)"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(MicrosoftEntityFrameworkCoreVersion)">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Scalar.AspNetCore" Version="$(ScalarAspNetCoreVersion)"/>
+        <!-- Pinned to override the vulnerable 2.0.0 transitively pulled in by Microsoft.AspNetCore.OpenApi (GHSA-v5pm-xwqc-g5wc) -->
+        <PackageReference Include="Microsoft.OpenApi" Version="$(MicrosoftOpenApiVersion)"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\OEAPI.Core\OEAPI.Core.csproj"/>
+        <ProjectReference Include="..\OEAPI.Infrastructure\OEAPI.Infrastructure.csproj"/>
+    </ItemGroup>
+
+</Project>

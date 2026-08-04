@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <PropertyGroup>
+        <!-- Target .NET 10.0 (LTS) -->
+        <TargetFramework>net10.0</TargetFramework>
+
+        <!-- Enable modern C# features -->
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <!-- Treat warnings as errors for production code -->
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+        <!-- Output configuration -->
+        <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+        <!-- Code analysis -->
+        <AnalysisLevel>latest</AnalysisLevel>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+        <!-- Publishing -->
+        <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+
+        <!-- Versioning -->
+        <Version>0.1.0</Version>
+        <FileVersion>0.1.0.0</FileVersion>
+        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+
+        <!-- Package versions -->
+        <MicrosoftEntityFrameworkCoreVersion>10.0.0</MicrosoftEntityFrameworkCoreVersion>
+        <MicrosoftAspNetCoreOpenApiVersion>10.0.9</MicrosoftAspNetCoreOpenApiVersion>
+        <ScalarAspNetCoreVersion>2.16.11</ScalarAspNetCoreVersion>
+        <MicrosoftEntityFrameworkCoreSqlServerVersion>10.0.0</MicrosoftEntityFrameworkCoreSqlServerVersion>
+        <NpgsqlEntityFrameworkCorePostgreSQLVersion>10.0.0</NpgsqlEntityFrameworkCorePostgreSQLVersion>
+        <MicrosoftExtensionsConfigurationVersion>10.0.0</MicrosoftExtensionsConfigurationVersion>
+        <MicrosoftExtensionsConfigurationJsonVersion>10.0.0</MicrosoftExtensionsConfigurationJsonVersion>
+        <SystemSecurityCryptographyXmlVersion>10.0.10</SystemSecurityCryptographyXmlVersion>
+        <MicrosoftOpenApiVersion>2.7.5</MicrosoftOpenApiVersion>
+
+        <!-- Test package versions -->
+        <MicrosoftNETTestSdkVersion>18.7.0</MicrosoftNETTestSdkVersion>
+        <XunitVersion>2.9.3</XunitVersion>
+        <XunitRunnerVisualStudioVersion>3.1.5</XunitRunnerVisualStudioVersion>
+        <CoverletCollectorVersion>10.0.1</CoverletCollectorVersion>
+        <MicrosoftAspNetCoreMvcTestingVersion>10.0.9</MicrosoftAspNetCoreMvcTestingVersion>
+        <TestcontainersMsSqlVersion>4.13.0</TestcontainersMsSqlVersion>
+        <TestcontainersPostgreSqlVersion>4.13.0</TestcontainersPostgreSqlVersion>
+        <JsonSchemaNetVersion>9.2.2</JsonSchemaNetVersion>
+    </PropertyGroup>
+</Project>

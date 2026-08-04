@@ -1,0 +1,49 @@
+# Build results
+bin/
+obj/
+out/
+
+# Python (scripts/extract-spec-manifest.py)
+__pycache__/
+*.pyc
+
+# Rider / IntelliJ
+.idea/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# VS Code - launch.json/tasks.json are checked in (fix "Run doesn't work" out of the box for every
+# contributor); other per-user VS Code files (settings.json, extensions.json, etc.) stay ignored.
+# The repo root's own .gitignore blanket-excludes "*.vscode" (any depth) - re-included here.
+!.vscode/
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# The repo root's own .gitignore blanket-excludes "*appsettings.json"/"*appsettings.*.json" (any
+# depth), intended for locally-modified secrets elsewhere in this repo - not applicable here, since
+# these are the base application config (no secrets, placeholder values only) the app needs to run.
+!src/OEAPI.API/appsettings.json
+!src/OEAPI.API/appsettings.Development.json
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# Test results
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+
+# Publish output
+publish/
+*.pubxml.user
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,295 @@
+@startuml api-model
+!theme plain
+title OOAPI Reference Implementation - Public API Resource Model
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+hide empty members
+
+note as N1
+  Generated from src/OEAPI.Core/Models/ApiModels/*.cs. Shows identifying fields (id, primaryCode,
+  name, the resource's own "type"/"state" discriminator where one exists) and the fields that
+  define a relationship arrow - not a full property dump. Every relationship pictured is a spec
+  "*Id" + expandable-object field pair (e.g. organisationId / organisation), unless noted
+  otherwise. Regenerate via docs/diagrams/render.ps1 or render.sh after changing the source .cs
+  files. See docs/archive/DECISIONS-AND-ACTIONS.md for the extensible-enum fields shown here as
+  plain strings (organisationType, roomType, state, role, etc.) - all validated via
+  [ExtensibleEnum], not C# enums. A symmetric parent/child self-reference (e.g. Organisation's
+  parent/parentId + children/childIds) is drawn once, as a single arrow from the "parent"
+  perspective - the inverse childIds/children field pair exists in code but isn't given its own
+  arrow.
+end note
+
+package "Core / Organisational" {
+  class Organisation <<resource>> {
+    organisationId
+    primaryCode : IdentifierEntry
+    organisationType
+    name
+  }
+  class Person <<resource>> {
+    personId
+    primaryCode : IdentifierEntry
+    givenName / surname
+    gender
+  }
+  class Group <<resource>> {
+    groupId
+    primaryCode : IdentifierEntry
+    groupType
+    name
+  }
+  class Membership <<resource>> {
+    membershipId
+    primaryCode : IdentifierEntry
+    role
+    state
+  }
+  class AcademicSession <<resource>> {
+    academicSessionId
+    primaryCode : IdentifierEntry
+    academicSessionType
+    name
+  }
+  class Building <<resource>> {
+    buildingId
+    primaryCode : IdentifierEntry
+    name
+  }
+  class Room <<resource>> {
+    roomId
+    primaryCode : IdentifierEntry
+    roomType
+    name
+  }
+  class Address <<resource>> {
+    primaryCode : IdentifierEntry
+    addressType
+    street / city / country
+  }
+}
+
+package "Curriculum" {
+  class Course <<resource>> {
+    courseId
+    primaryCode : IdentifierEntry
+    name
+    level
+  }
+  class Programme <<resource>> {
+    programmeId
+    primaryCode : IdentifierEntry
+    programmeType
+    name
+  }
+  class LearningComponent <<resource>> {
+    componentId
+    primaryCode : IdentifierEntry
+    componentType
+    name
+  }
+  class TestComponent <<resource>> {
+    componentId
+    primaryCode : IdentifierEntry
+    componentType
+    name
+  }
+  class LearningOutcome <<resource>> {
+    learningOutcomeId
+    primaryCode : IdentifierEntry
+    name
+    complexityLevel : LearningOutcomeLevel
+  }
+  class Document <<resource>> {
+    documentId
+    primaryCode : IdentifierEntry
+    documentType
+    documentName
+  }
+}
+
+package "Offerings" {
+  class CourseOffering <<resource>> {
+    courseOfferingId
+    primaryCode : IdentifierEntry
+    name
+    state / rosteringState
+  }
+  class ProgrammeOffering <<resource>> {
+    programmeOfferingId
+    primaryCode : IdentifierEntry
+    name
+    state / rosteringState
+  }
+  class LearningComponentOffering <<resource>> {
+    learningComponentOfferingId
+    primaryCode : IdentifierEntry
+    name
+    state / rosteringState
+  }
+  class TestComponentOffering <<resource>> {
+    testComponentOfferingId
+    primaryCode : IdentifierEntry
+    name
+    state / rosteringState
+  }
+}
+
+package "Associations" {
+  class CourseOfferingAssociation <<resource>> {
+    courseOfferingAssociationId
+    primaryCode : IdentifierEntry
+    role
+    state / remoteState
+  }
+  class ProgrammeOfferingAssociation <<resource>> {
+    programmeOfferingAssociationId
+    primaryCode : IdentifierEntry
+    role
+    state / remoteState
+  }
+  class LearningComponentOfferingAssociation <<resource>> {
+    learningComponentOfferingAssociationId
+    primaryCode : IdentifierEntry
+    role
+    state / remoteState / attendance
+  }
+  class TestComponentOfferingAssociation <<resource>> {
+    testComponentOfferingAssociationId
+    primaryCode : IdentifierEntry
+    role
+    state / remoteState / attendance
+  }
+  class TestComponentOfferingAssociationAttempt <<resource>> {
+    attemptId
+    opportunity / attempt
+    state / attendance
+  }
+}
+
+package "Supporting value objects" {
+  class Result {
+    state / pass
+    score / rawScore
+  }
+  class Cost {
+    costType
+    amount / currency
+  }
+  class StudyLoadDescriptor {
+    studyLoadUnit
+    value
+  }
+}
+
+package "Timeline Overrides" {
+  class TimelineOverrideCourse {
+    validFrom / validTo
+    course : CourseProperties
+  }
+  class TimelineOverrideProgramme {
+    validFrom / validTo
+    programme : ProgrammeProperties
+  }
+}
+
+note bottom of TimelineOverrideProgramme
+  CourseProperties/ProgrammeProperties mirror every field Course/Programme
+  themselves expose (minus the id and validFrom/validTo fields) - a full,
+  independent alternate snapshot, not a diff against the parent resource.
+end note
+
+' ---- Core / Organisational ----
+Organisation "0..1" --> "0..1" Organisation : parent
+Organisation "0..1" --> "0..1" Organisation : root
+Organisation "1" *-- "0..*" Address : addresses
+Person "1" *-- "0..1" Address : address
+Group --> Organisation : organisation
+Group --> AcademicSession : academicSession
+Membership --> Group : group
+Membership --> Person : person
+AcademicSession "0..1" --> "0..1" AcademicSession : parent
+AcademicSession "0..1" --> "0..1" AcademicSession : year
+Room --> Building : building
+Building "1" *-- "0..1" Address : address
+
+' ---- Curriculum ----
+Course --> LearningOutcome : learningOutcomes
+Course --> Programme : programmes
+Course --> Person : coordinators / instructors
+Course --> Organisation : organisation
+LearningComponent --> Course : course
+LearningComponent --> Organisation : organisation
+LearningComponent --> LearningOutcome : learningOutcomes
+LearningComponent "0..1" --> "0..1" LearningComponent : parent
+TestComponent --> Course : course
+TestComponent --> Organisation : organisation
+TestComponent --> LearningOutcome : learningOutcomes
+TestComponent "0..1" --> "0..1" TestComponent : parent
+Programme "0..1" --> "0..1" Programme : parent
+Programme --> Person : coordinators / instructors
+Programme --> Organisation : organisation
+Programme "1" *-- "0..*" StudyLoadDescriptor : studyLoad
+LearningOutcome "0..*" --> "0..*" LearningOutcome : parents
+
+' ---- Offerings ----
+CourseOffering --> Course : course
+CourseOffering --> ProgrammeOffering : programmeOfferings
+CourseOffering --> AcademicSession : academicSession
+CourseOffering --> Organisation : organisation
+CourseOffering ..> Group : groupIds
+CourseOffering "1" *-- "0..*" Cost : priceInformation
+ProgrammeOffering --> Programme : programme
+ProgrammeOffering --> Organisation : organisation
+ProgrammeOffering ..> Group : groupIds
+ProgrammeOffering "1" *-- "0..*" Cost : priceInformation
+LearningComponentOffering --> LearningComponent : learningComponent
+LearningComponentOffering --> Organisation : organisation
+LearningComponentOffering --> AcademicSession : academicSession
+LearningComponentOffering --> CourseOffering : courseOfferings
+LearningComponentOffering --> Room : rooms
+LearningComponentOffering ..> Group : groupIds
+LearningComponentOffering "1" *-- "0..*" Cost : priceInformation
+TestComponentOffering --> TestComponent : component
+TestComponentOffering --> AcademicSession : academicSession
+TestComponentOffering --> CourseOffering : courseOfferings
+TestComponentOffering --> Organisation : organisation
+TestComponentOffering --> Room : rooms
+TestComponentOffering ..> Group : groupIds
+TestComponentOffering "1" *-- "0..*" Cost : priceInformation
+
+' ---- Associations ----
+CourseOfferingAssociation --> CourseOffering : courseOffering
+CourseOfferingAssociation --> Person : person
+CourseOfferingAssociation "1" *-- "0..1" Result : result
+LearningComponentOfferingAssociation --> LearningComponentOffering : learningComponentOffering
+LearningComponentOfferingAssociation --> Person : person
+LearningComponentOfferingAssociation "1" *-- "0..1" Result : result
+ProgrammeOfferingAssociation --> ProgrammeOffering : programmeOffering
+ProgrammeOfferingAssociation --> Person : person
+ProgrammeOfferingAssociation "1" *-- "0..1" Result : result
+TestComponentOfferingAssociation --> TestComponentOffering : testComponentOffering
+TestComponentOfferingAssociation --> Person : person
+TestComponentOfferingAssociation "1" *-- "0..1" Result : result
+TestComponentOfferingAssociationAttempt ..> TestComponentOfferingAssociation : testComponentOfferingAssociationId
+TestComponentOfferingAssociationAttempt ..> CourseOfferingAssociation : courseOfferingAssociationId
+TestComponentOfferingAssociationAttempt --> Room : rooms
+TestComponentOfferingAssociationAttempt --> Person : coordinator
+TestComponentOfferingAssociationAttempt --> Document : documents
+TestComponentOfferingAssociationAttempt "1" *-- "0..1" Result : result
+
+' ---- Supporting ----
+Result --> Person : assessor
+Result --> Document : documents
+
+' ---- Timeline Overrides ----
+Course "1" *-- "0..*" TimelineOverrideCourse : timelineOverrides
+Programme "1" *-- "0..*" TimelineOverrideProgramme : timelineOverrides
+TimelineOverrideCourse --> Organisation : organisation
+TimelineOverrideCourse --> Person : coordinators / instructors
+TimelineOverrideCourse --> Programme : programmes
+TimelineOverrideCourse --> LearningOutcome : learningOutcomes
+TimelineOverrideProgramme --> Organisation : organisation
+TimelineOverrideProgramme --> Person : coordinators / instructors
+TimelineOverrideProgramme --> Programme : children
+
+@enduml

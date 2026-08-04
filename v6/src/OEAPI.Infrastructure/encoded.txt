@@ -1,0 +1,46 @@
+0000	3c 50 72 6f 6a 65 63 74  20 53 64 6b 3d 22 4d 69   <Project Sdk="Mi
+0010	63 72 6f 73 6f 66 74 2e  4e 45 54 2e 53 64 6b 22   crosoft.NET.Sdk"
+0020	3e 0d 0a 0d 0a 20 20 3c  50 72 6f 70 65 72 74 79   >....  <Property
+0030	47 72 6f 75 70 3e 0d 0a  20 20 20 20 3c 54 61 72   Group>..    <Tar
+0040	67 65 74 46 72 61 6d 65  77 6f 72 6b 3e 6e 65 74   getFramework>net
+0050	31 30 2e 30 3c 2f 54 61  72 67 65 74 46 72 61 6d   10.0</TargetFram
+0060	65 77 6f 72 6b 3e 0d 0a  20 20 20 20 3c 49 6d 70   ework>..    <Imp
+0070	6c 69 63 69 74 55 73 69  6e 67 73 3e 65 6e 61 62   licitUsings>enab
+0080	6c 65 3c 2f 49 6d 70 6c  69 63 69 74 55 73 69 6e   le</ImplicitUsin
+0090	67 73 3e 0d 0a 20 20 20  20 3c 4e 75 6c 6c 61 62   gs>..    <Nullab
+00a0	6c 65 3e 65 6e 61 62 6c  65 3c 2f 4e 75 6c 6c 61   le>enable</Nulla
+00b0	62 6c 65 3e 0d 0a 20 20  3c 2f 50 72 6f 70 65 72   ble>..  </Proper
+00c0	74 79 47 72 6f 75 70 3e  0d 0a 0d 0a 20 20 3c 49   tyGroup>....  <I
+00d0	74 65 6d 47 72 6f 75 70  3e 0d 0a 20 20 20 20 3c   temGroup>..    <
+00e0	50 61 63 6b 61 67 65 52  65 66 65 72 65 6e 63 65   PackageReference
+00f0	20 49 6e 63 6c 75 64 65  3d 22 4d 69 63 72 6f 73    Include="Micros
+0100	6f 66 74 2e 45 6e 74 69  74 79 46 72 61 6d 65 77   oft.EntityFramew
+0110	6f 72 6b 43 6f 72 65 22  20 56 65 72 73 69 6f 6e   orkCore" Version
+0120	3d 22 24 28 4d 69 63 72  6f 73 6f 66 74 45 6e 74   ="$(MicrosoftEnt
+0130	69 74 79 46 72 61 6d 65  77 6f 72 6b 43 6f 72 65   ityFrameworkCore
+0140	56 65 72 73 69 6f 6e 29  22 20 2f 3e 0d 0a 20 20   Version)" />..  
+0150	20 20 3c 50 61 63 6b 61  67 65 52 65 66 65 72 65     <PackageRefere
+0160	6e 63 65 20 49 6e 63 6c  75 64 65 3d 22 4d 69 63   nce Include="Mic
+0170	72 6f 73 6f 66 74 2e 45  6e 74 69 74 79 46 72 61   rosoft.EntityFra
+0180	6d 65 77 6f 72 6b 43 6f  72 65 2e 53 71 6c 53 65   meworkCore.SqlSe
+0190	72 76 65 72 22 20 56 65  72 73 69 6f 6e 3d 22 24   rver" Version="$
+01a0	28 4d 69 63 72 6f 73 6f  66 74 45 6e 74 69 74 79   (MicrosoftEntity
+01b0	46 72 61 6d 65 77 6f 72  6b 43 6f 72 65 53 71 6c   FrameworkCoreSql
+01c0	53 65 72 76 65 72 56 65  72 73 69 6f 6e 29 22 20   ServerVersion)" 
+01d0	2f 3e 0d 0a 20 20 20 20  3c 50 61 63 6b 61 67 65   />..    <Package
+01e0	52 65 66 65 72 65 6e 63  65 20 49 6e 63 6c 75 64   Reference Includ
+01f0	65 3d 22 4e 70 67 73 71  6c 2e 45 6e 74 69 74 79   e="Npgsql.Entity
+0200	46 72 61 6d 65 77 6f 72  6b 43 6f 72 65 2e 50 6f   FrameworkCore.Po
+0210	73 74 67 72 65 53 51 4c  22 20 56 65 72 73 69 6f   stgreSQL" Versio
+0220	6e 3d 22 24 28 4e 70 67  73 71 6c 45 6e 74 69 74   n="$(NpgsqlEntit
+0230	79 46 72 61 6d 65 77 6f  72 6b 43 6f 72 65 50 6f   yFrameworkCorePo
+0240	73 74 67 72 65 53 51 4c  56 65 72 73 69 6f 6e 29   stgreSQLVersion)
+0250	22 20 2f 3e 0d 0a 20 20  3c 2f 49 74 65 6d 47 72   " />..  </ItemGr
+0260	6f 75 70 3e 0d 0a 0d 0a  20 20 3c 49 74 65 6d 47   oup>....  <ItemG
+0270	72 6f 75 70 3e 0d 0a 20  20 20 20 3c 50 72 6f 6a   roup>..    <Proj
+0280	65 63 74 52 65 66 65 72  65 6e 63 65 20 49 6e 63   ectReference Inc
+0290	6c 75 64 65 3d 22 2e 2e  5c 4f 45 41 50 49 2e 43   lude="..\OEAPI.C
+02a0	6f 72 65 5c 4f 45 41 50  49 2e 43 6f 72 65 2e 63   ore\OEAPI.Core.c
+02b0	73 70 72 6f 6a 22 20 2f  3e 0d 0a 20 20 3c 2f 49   sproj" />..  </I
+02c0	74 65 6d 47 72 6f 75 70  3e 0d 0a 0d 0a 3c 2f 50   temGroup>....</P
+02d0	72 6f 6a 65 63 74 3e 0d  0a                        roject>..
