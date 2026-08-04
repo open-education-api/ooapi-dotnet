@@ -1,0 +1,12 @@
+<Solution>
+    <Folder Name="/src/">
+        <Project Path="src/OEAPI.API/OEAPI.API.csproj"/>
+        <Project Path="src/OEAPI.Core/OEAPI.Core.csproj"/>
+        <Project Path="src/OEAPI.Infrastructure/OEAPI.Infrastructure.csproj"/>
+    </Folder>
+    <Folder Name="/tests/">
+        <Project Path="tests/OEAPI.API.Tests/OEAPI.API.Tests.csproj"/>
+        <Project Path="tests/OEAPI.Core.Tests/OEAPI.Core.Tests.csproj"/>
+        <Project Path="tests/OEAPI.Infrastructure.Tests/OEAPI.Infrastructure.Tests.csproj"/>
+    </Folder>
+</Solution>

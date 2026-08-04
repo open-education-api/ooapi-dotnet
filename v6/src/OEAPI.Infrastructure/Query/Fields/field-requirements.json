@@ -1,0 +1,1214 @@
+{
+  "sourceSpec": "https://raw.githubusercontent.com/open-education-api/specification/release/6.0/oeapi.json",
+  "schemas": {
+    "Service": {
+      "required": [
+        "contactEmail",
+        "specification"
+      ],
+      "properties": {
+        "ext": "Ext"
+      }
+    },
+    "AcademicSession": {
+      "required": [
+        "academicSessionId",
+        "academicSessionType",
+        "endDateTime",
+        "name",
+        "primaryCode",
+        "startDateTime"
+      ],
+      "properties": {
+        "academicSessionType": "academicSessionType",
+        "primaryCode": "IdentifierEntry",
+        "name": "LanguageTypedString",
+        "parentId": "Identifier",
+        "parent": "AcademicSession",
+        "childIds": "Identifier",
+        "children": "AcademicSession",
+        "yearId": "Identifier",
+        "year": "AcademicSession",
+        "otherCodes": "IdentifierEntry",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "Building": {
+      "required": [
+        "buildingId",
+        "name",
+        "primaryCode"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "name": "LanguageTypedString",
+        "description": "LanguageTypedString",
+        "address": "Address",
+        "otherCodes": "IdentifierEntry",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "LearningComponent": {
+      "required": [
+        "componentId",
+        "componentType",
+        "name",
+        "primaryCode"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "componentType": "learningComponentType",
+        "name": "LanguageTypedString",
+        "modesOfDelivery": "modeOfDelivery",
+        "description": "LanguageTypedString",
+        "teachingLanguages": "Language",
+        "learningOutcomeIds": "Identifier",
+        "learningOutcomes": "LearningOutcome",
+        "enrolment": "LanguageTypedString",
+        "assessment": "LanguageTypedString",
+        "addresses": "Address",
+        "otherCodes": "IdentifierEntry",
+        "parentId": "Identifier",
+        "parent": "LearningComponent",
+        "childIds": "Identifier",
+        "children": "LearningComponent",
+        "courseId": "Identifier",
+        "course": "Course",
+        "organisationId": "Identifier",
+        "organisation": "Organisation",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "TestComponent": {
+      "required": [
+        "componentId",
+        "componentType",
+        "name",
+        "primaryCode"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "componentType": "testComponentType",
+        "name": "LanguageTypedString",
+        "modesOfDelivery": "modeOfDelivery",
+        "resultValueType": "resultValueType",
+        "state": "componentState",
+        "description": "LanguageTypedString",
+        "teachingLanguages": "Language",
+        "learningOutcomeIds": "Identifier",
+        "learningOutcomes": "LearningOutcome",
+        "enrolment": "LanguageTypedString",
+        "assessment": "LanguageTypedString",
+        "addresses": "Address",
+        "otherCodes": "IdentifierEntry",
+        "parentId": "Identifier",
+        "parent": "TestComponent",
+        "childIds": "Identifier",
+        "children": "TestComponent",
+        "courseId": "Identifier",
+        "course": "Course",
+        "organisationId": "Identifier",
+        "organisation": "Organisation",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "LearningComponentOffering": {
+      "required": [
+        "learningComponentOfferingId",
+        "name",
+        "primaryCode"
+      ],
+      "properties": {
+        "addresses": "Address",
+        "priceInformation": "Cost",
+        "roomIds": "Identifier",
+        "rooms": "Room",
+        "learningComponentId": "Identifier",
+        "learningComponent": "LearningComponent",
+        "courseOfferingIds": "Identifier",
+        "courseOfferings": "CourseOffering",
+        "organisationId": "Identifier",
+        "organisation": "Organisation",
+        "primaryCode": "IdentifierEntry",
+        "academicSessionId": "Identifier",
+        "academicSession": "AcademicSession",
+        "name": "LanguageTypedString",
+        "state": "offeringState",
+        "rosteringState": "rosteringState",
+        "description": "LanguageTypedString",
+        "teachingLanguages": "Language",
+        "modesOfDelivery": "modeOfDelivery",
+        "resultValueType": "resultValueType",
+        "otherCodes": "IdentifierEntry",
+        "enrolmentPeriods": "EnrolmentPeriods",
+        "supplementaryInformation": "SupplementaryInformation",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "LearningComponentOfferingAssociation": {
+      "required": [
+        "associationId",
+        "role",
+        "state"
+      ],
+      "properties": {
+        "result": "LearningComponentOfferingAssociationResult",
+        "attendance": "associationAttendance",
+        "personId": "Identifier",
+        "person": "Person",
+        "learningComponentOfferingId": "Identifier",
+        "learningComponentOffering": "LearningComponentOffering",
+        "role": "associationRole",
+        "state": "associationState",
+        "remoteState": "remoteAssociationState",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "TestComponentOffering": {
+      "required": [
+        "name",
+        "primaryCode",
+        "testComponentOfferingId"
+      ],
+      "properties": {
+        "addresses": "Address",
+        "priceInformation": "Cost",
+        "roomIds": "Identifier",
+        "rooms": "Room",
+        "componentId": "Identifier",
+        "component": "TestComponent",
+        "courseOfferingIds": "Identifier",
+        "courseOfferings": "CourseOffering",
+        "organisationId": "Identifier",
+        "organisation": "Organisation",
+        "primaryCode": "IdentifierEntry",
+        "academicSessionId": "Identifier",
+        "academicSession": "AcademicSession",
+        "name": "LanguageTypedString",
+        "state": "offeringState",
+        "rosteringState": "rosteringState",
+        "description": "LanguageTypedString",
+        "teachingLanguages": "Language",
+        "modesOfDelivery": "modeOfDelivery",
+        "resultValueType": "resultValueType",
+        "otherCodes": "IdentifierEntry",
+        "enrolmentPeriods": "EnrolmentPeriods",
+        "supplementaryInformation": "SupplementaryInformation",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "TestComponentOfferingAssociation": {
+      "required": [
+        "associationId",
+        "role",
+        "state"
+      ],
+      "properties": {
+        "requiredPersonalNeeds": "personalNeed",
+        "attendance": "associationAttendance",
+        "documents": "Document",
+        "result": "TestComponentOfferingAssociationResult",
+        "personId": "Identifier",
+        "person": "Person",
+        "testComponentOfferingId": "Identifier",
+        "testComponentOffering": "TestComponentOffering",
+        "attemptIds": "Identifier",
+        "attempts": "TestComponentOfferingAssociationAttempt",
+        "role": "associationRole",
+        "state": "associationState",
+        "remoteState": "remoteAssociationState",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "Course": {
+      "required": [
+        "courseId",
+        "name",
+        "primaryCode"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "name": "LanguageTypedString",
+        "studyLoad": "StudyLoadDescriptor",
+        "modesOfDelivery": "modeOfDelivery",
+        "description": "LanguageTypedString",
+        "teachingLanguages": "Language",
+        "learningOutcomeIds": "Identifier",
+        "learningOutcomes": "LearningOutcome",
+        "admissionRequirements": "LanguageTypedString",
+        "qualificationRequirements": "LanguageTypedString",
+        "level": "level",
+        "enrolment": "LanguageTypedString",
+        "assessment": "LanguageTypedString",
+        "addresses": "Address",
+        "otherCodes": "IdentifierEntry",
+        "programmeIds": "Identifier",
+        "supplementaryInformation": "SupplementaryInformation",
+        "programmes": "Programme",
+        "coordinatorIds": "Identifier",
+        "coordinators": "Person",
+        "instructorIds": "Identifier",
+        "instructors": "Person",
+        "organisationId": "Identifier",
+        "organisation": "Organisation",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "CourseOffering": {
+      "required": [
+        "courseOfferingId",
+        "name",
+        "primaryCode"
+      ],
+      "properties": {
+        "addresses": "Address",
+        "priceInformation": "Cost",
+        "courseId": "Identifier",
+        "course": "Course",
+        "programmeOfferingIds": "Identifier",
+        "programmeOfferings": "ProgrammeOffering",
+        "organisationId": "Identifier",
+        "organisation": "Organisation",
+        "primaryCode": "IdentifierEntry",
+        "academicSessionId": "Identifier",
+        "academicSession": "AcademicSession",
+        "name": "LanguageTypedString",
+        "state": "offeringState",
+        "rosteringState": "rosteringState",
+        "description": "LanguageTypedString",
+        "teachingLanguages": "Language",
+        "modesOfDelivery": "modeOfDelivery",
+        "resultValueType": "resultValueType",
+        "otherCodes": "IdentifierEntry",
+        "enrolmentPeriods": "EnrolmentPeriods",
+        "supplementaryInformation": "SupplementaryInformation",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "CourseOfferingAssociation": {
+      "required": [
+        "associationId",
+        "role",
+        "state"
+      ],
+      "properties": {
+        "studyLoad": "StudyLoadDescriptor",
+        "result": "CourseOfferingAssociationResult",
+        "courseOfferingId": "Identifier",
+        "courseOffering": "CourseOffering",
+        "personId": "Identifier",
+        "person": "Person",
+        "role": "associationRole",
+        "state": "associationState",
+        "remoteState": "remoteAssociationState",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "Group": {
+      "required": [
+        "groupId",
+        "groupType",
+        "name",
+        "primaryCode"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "groupType": "groupType",
+        "name": "LanguageTypedString",
+        "description": "LanguageTypedString",
+        "otherCodes": "IdentifierEntry",
+        "consumer": "Consumer",
+        "organisationId": "Identifier",
+        "organisation": "Organisation",
+        "academicSessionId": "Identifier",
+        "academicSession": "AcademicSession",
+        "ext": "Ext"
+      }
+    },
+    "Membership": {
+      "required": [
+        "groupId",
+        "personId",
+        "role",
+        "state"
+      ],
+      "properties": {
+        "state": "membershipState",
+        "role": "membershipRole",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "LearningOutcome": {
+      "required": [
+        "learningOutcomeId",
+        "name",
+        "primaryCode"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "name": "LanguageTypedString",
+        "description": "LanguageTypedString",
+        "parentIds": "Identifier",
+        "parents": "LearningOutcome",
+        "childIds": "Identifier",
+        "children": "LearningOutcome",
+        "otherCodes": "IdentifierEntry",
+        "complexityLevel": "learningOutcomeLevel",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "Organisation": {
+      "required": [
+        "name",
+        "organisationId",
+        "organisationType",
+        "primaryCode"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "organisationType": "organisationType",
+        "name": "LanguageTypedString",
+        "description": "LanguageTypedString",
+        "addresses": "Address",
+        "otherCodes": "IdentifierEntry",
+        "rootId": "Identifier",
+        "root": "Organisation",
+        "parentId": "Identifier",
+        "parent": "Organisation",
+        "childIds": "Identifier",
+        "children": "Organisation",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "Person": {
+      "required": [
+        "personId"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "countryOfBirth": "Country",
+        "nationality": "Nationality",
+        "affiliations": "personAffiliation",
+        "gender": "gender",
+        "address": "Address",
+        "ICERelation": "ICERelationType",
+        "languageOfChoice": "Language",
+        "otherCodes": "IdentifierEntry",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "Programme": {
+      "required": [
+        "name",
+        "primaryCode",
+        "programmeId",
+        "programmeType"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "programmeType": "programmeType",
+        "name": "LanguageTypedString",
+        "description": "LanguageTypedString",
+        "teachingLanguages": "Language",
+        "studyLoad": "StudyLoadDescriptor",
+        "qualificationAwarded": "qualificationAwarded",
+        "modeOfStudy": "modeOfStudy",
+        "modesOfDelivery": "modeOfDelivery",
+        "levelOfQualification": "levelOfQualification",
+        "level": "level",
+        "enrolment": "LanguageTypedString",
+        "learningOutcomeIds": "Identifier",
+        "learningOutcomes": "LearningOutcome",
+        "assessment": "LanguageTypedString",
+        "admissionRequirements": "LanguageTypedString",
+        "qualificationRequirements": "LanguageTypedString",
+        "formalDocument": "formalDocument",
+        "otherCodes": "IdentifierEntry",
+        "addresses": "Address",
+        "parentId": "Identifier",
+        "parent": "Programme",
+        "childIds": "Identifier",
+        "children": "Programme",
+        "coordinatorIds": "Identifier",
+        "coordinators": "Person",
+        "instructorIds": "Identifier",
+        "instructors": "Person",
+        "organisationId": "Identifier",
+        "organisation": "Organisation",
+        "supplementaryInformation": "SupplementaryInformation",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "ProgrammeOffering": {
+      "required": [
+        "name",
+        "primaryCode",
+        "programmeOfferingId"
+      ],
+      "properties": {
+        "addresses": "Address",
+        "priceInformation": "Cost",
+        "programmeId": "Identifier",
+        "programme": "Programme",
+        "organisationId": "Identifier",
+        "organisation": "Organisation",
+        "primaryCode": "IdentifierEntry",
+        "academicSessionId": "Identifier",
+        "academicSession": "AcademicSession",
+        "name": "LanguageTypedString",
+        "state": "offeringState",
+        "rosteringState": "rosteringState",
+        "description": "LanguageTypedString",
+        "teachingLanguages": "Language",
+        "modesOfDelivery": "modeOfDelivery",
+        "resultValueType": "resultValueType",
+        "otherCodes": "IdentifierEntry",
+        "enrolmentPeriods": "EnrolmentPeriods",
+        "supplementaryInformation": "SupplementaryInformation",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "Room": {
+      "required": [
+        "name",
+        "primaryCode",
+        "roomId",
+        "roomType"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "roomType": "roomType",
+        "name": "LanguageTypedString",
+        "description": "LanguageTypedString",
+        "otherCodes": "IdentifierEntry",
+        "buildingId": "Identifier",
+        "building": "Building",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "ProgrammeOfferingAssociation": {
+      "required": [
+        "associationId",
+        "role",
+        "state"
+      ],
+      "properties": {
+        "personId": "Identifier",
+        "person": "Person",
+        "programmeOfferingId": "Identifier",
+        "programmeOffering": "ProgrammeOffering"
+      }
+    },
+    "TestComponentOfferingAssociationAttempt": {
+      "required": [
+        "attemptId"
+      ],
+      "properties": {
+        "state": "attemptState",
+        "roomIds": "Identifier",
+        "rooms": "Room",
+        "attendance": "attendance",
+        "coordinatorId": "Identifier",
+        "coordinator": "Person",
+        "documents": "Document",
+        "result": "Result",
+        "consumer": "Consumer"
+      }
+    },
+    "expandableObjects": {
+      "required": [],
+      "properties": {}
+    },
+    "Ext": {
+      "required": [],
+      "properties": {}
+    },
+    "Problem": {
+      "required": [
+        "status",
+        "title",
+        "type"
+      ],
+      "properties": {}
+    },
+    "type": {
+      "required": [],
+      "properties": {}
+    },
+    "title": {
+      "required": [],
+      "properties": {}
+    },
+    "Consumer": {
+      "required": [
+        "consumerKey"
+      ],
+      "properties": {}
+    },
+    "ProblemVersionNotAcceptable": {
+      "required": [
+        "requestedVersion",
+        "status",
+        "supportedVersions",
+        "title",
+        "type"
+      ],
+      "properties": {
+        "consumer": "Consumer"
+      }
+    },
+    "filterPresence": {
+      "required": [],
+      "properties": {}
+    },
+    "academicSessionType": {
+      "required": [],
+      "properties": {}
+    },
+    "Pagination": {
+      "required": [
+        "hasNextPage",
+        "hasPreviousPage",
+        "pageNumber",
+        "pageSize"
+      ],
+      "properties": {}
+    },
+    "codeType": {
+      "required": [],
+      "properties": {}
+    },
+    "IdentifierEntry": {
+      "required": [
+        "code",
+        "codeType"
+      ],
+      "properties": {
+        "codeType": "codeType"
+      }
+    },
+    "Language": {
+      "required": [],
+      "properties": {}
+    },
+    "LanguageTypedString": {
+      "required": [
+        "language",
+        "value"
+      ],
+      "properties": {
+        "language": "Language"
+      }
+    },
+    "Identifier": {
+      "required": [],
+      "properties": {}
+    },
+    "offeringState": {
+      "required": [],
+      "properties": {}
+    },
+    "CourseOfferingId": {
+      "required": [
+        "courseOfferingId"
+      ],
+      "properties": {}
+    },
+    "rosteringState": {
+      "required": [],
+      "properties": {}
+    },
+    "modeOfDelivery": {
+      "required": [],
+      "properties": {}
+    },
+    "resultValueType": {
+      "required": [],
+      "properties": {}
+    },
+    "EnrolmentPeriods": {
+      "required": [
+        "startDateTime"
+      ],
+      "properties": {
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "supplementaryRole": {
+      "required": [],
+      "properties": {}
+    },
+    "supplementaryType": {
+      "required": [],
+      "properties": {}
+    },
+    "SupplementaryInformation": {
+      "required": [],
+      "properties": {}
+    },
+    "OfferingProperties": {
+      "required": [
+        "name",
+        "primaryCode"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "academicSessionId": "Identifier",
+        "academicSession": "AcademicSession",
+        "name": "LanguageTypedString",
+        "state": "offeringState",
+        "rosteringState": "rosteringState",
+        "description": "LanguageTypedString",
+        "teachingLanguages": "Language",
+        "modesOfDelivery": "modeOfDelivery",
+        "resultValueType": "resultValueType",
+        "otherCodes": "IdentifierEntry",
+        "enrolmentPeriods": "EnrolmentPeriods",
+        "supplementaryInformation": "SupplementaryInformation",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "addressType": {
+      "required": [],
+      "properties": {}
+    },
+    "Country": {
+      "required": [],
+      "properties": {}
+    },
+    "Address": {
+      "required": [
+        "addressType"
+      ],
+      "properties": {
+        "addressType": "addressType",
+        "additional": "LanguageTypedString",
+        "countryCode": "Country",
+        "ext": "Ext"
+      }
+    },
+    "costType": {
+      "required": [],
+      "properties": {}
+    },
+    "Cost": {
+      "required": [
+        "costType"
+      ],
+      "properties": {
+        "costType": "costType",
+        "displayAmount": "LanguageTypedString",
+        "ext": "Ext"
+      }
+    },
+    "CourseId": {
+      "required": [
+        "courseId"
+      ],
+      "properties": {}
+    },
+    "studyloadUnit": {
+      "required": [],
+      "properties": {}
+    },
+    "StudyLoadDescriptor": {
+      "required": [
+        "studyLoadUnit",
+        "value"
+      ],
+      "properties": {
+        "studyLoadUnit": "studyloadUnit"
+      }
+    },
+    "learningOutcomeLevel": {
+      "required": [],
+      "properties": {}
+    },
+    "level": {
+      "required": [],
+      "properties": {}
+    },
+    "ProgrammeId": {
+      "required": [
+        "programmeId"
+      ],
+      "properties": {}
+    },
+    "programmeType": {
+      "required": [],
+      "properties": {}
+    },
+    "qualificationAwarded": {
+      "required": [],
+      "properties": {}
+    },
+    "modeOfStudy": {
+      "required": [],
+      "properties": {}
+    },
+    "levelOfQualification": {
+      "required": [],
+      "properties": {}
+    },
+    "formalDocument": {
+      "required": [],
+      "properties": {}
+    },
+    "PersonId": {
+      "required": [
+        "personId"
+      ],
+      "properties": {}
+    },
+    "Nationality": {
+      "required": [],
+      "properties": {}
+    },
+    "personAffiliation": {
+      "required": [],
+      "properties": {}
+    },
+    "gender": {
+      "required": [],
+      "properties": {}
+    },
+    "ICERelationType": {
+      "required": [],
+      "properties": {}
+    },
+    "PersonProperties": {
+      "required": [],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "countryOfBirth": "Country",
+        "nationality": "Nationality",
+        "affiliations": "personAffiliation",
+        "gender": "gender",
+        "address": "Address",
+        "ICERelation": "ICERelationType",
+        "languageOfChoice": "Language",
+        "otherCodes": "IdentifierEntry",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "organisationType": {
+      "required": [],
+      "properties": {}
+    },
+    "ProgrammeProperties": {
+      "required": [
+        "name",
+        "primaryCode",
+        "programmeType"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "programmeType": "programmeType",
+        "name": "LanguageTypedString",
+        "description": "LanguageTypedString",
+        "teachingLanguages": "Language",
+        "studyLoad": "StudyLoadDescriptor",
+        "qualificationAwarded": "qualificationAwarded",
+        "modeOfStudy": "modeOfStudy",
+        "modesOfDelivery": "modeOfDelivery",
+        "levelOfQualification": "levelOfQualification",
+        "level": "level",
+        "enrolment": "LanguageTypedString",
+        "learningOutcomeIds": "Identifier",
+        "learningOutcomes": "LearningOutcome",
+        "assessment": "LanguageTypedString",
+        "admissionRequirements": "LanguageTypedString",
+        "qualificationRequirements": "LanguageTypedString",
+        "formalDocument": "formalDocument",
+        "otherCodes": "IdentifierEntry",
+        "addresses": "Address",
+        "parentId": "Identifier",
+        "parent": "Programme",
+        "childIds": "Identifier",
+        "children": "Programme",
+        "coordinatorIds": "Identifier",
+        "coordinators": "Person",
+        "instructorIds": "Identifier",
+        "instructors": "Person",
+        "organisationId": "Identifier",
+        "organisation": "Organisation",
+        "supplementaryInformation": "SupplementaryInformation",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "CourseProperties": {
+      "required": [
+        "name",
+        "primaryCode"
+      ],
+      "properties": {
+        "primaryCode": "IdentifierEntry",
+        "name": "LanguageTypedString",
+        "studyLoad": "StudyLoadDescriptor",
+        "modesOfDelivery": "modeOfDelivery",
+        "description": "LanguageTypedString",
+        "teachingLanguages": "Language",
+        "learningOutcomeIds": "Identifier",
+        "learningOutcomes": "LearningOutcome",
+        "admissionRequirements": "LanguageTypedString",
+        "qualificationRequirements": "LanguageTypedString",
+        "level": "level",
+        "enrolment": "LanguageTypedString",
+        "assessment": "LanguageTypedString",
+        "addresses": "Address",
+        "otherCodes": "IdentifierEntry",
+        "programmeIds": "Identifier",
+        "supplementaryInformation": "SupplementaryInformation",
+        "programmes": "Programme",
+        "coordinatorIds": "Identifier",
+        "coordinators": "Person",
+        "instructorIds": "Identifier",
+        "instructors": "Person",
+        "organisationId": "Identifier",
+        "organisation": "Organisation",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "ProgrammeOfferingId": {
+      "required": [
+        "programmeOfferingId"
+      ],
+      "properties": {}
+    },
+    "LearningComponentOfferingId": {
+      "required": [
+        "learningComponentOfferingId"
+      ],
+      "properties": {}
+    },
+    "roomType": {
+      "required": [],
+      "properties": {}
+    },
+    "learningComponentType": {
+      "required": [],
+      "properties": {}
+    },
+    "TestComponentOfferingId": {
+      "required": [
+        "testComponentOfferingId"
+      ],
+      "properties": {}
+    },
+    "testComponentType": {
+      "required": [],
+      "properties": {}
+    },
+    "componentState": {
+      "required": [],
+      "properties": {}
+    },
+    "documentType": {
+      "required": [],
+      "properties": {}
+    },
+    "AssociationId": {
+      "required": [
+        "associationId"
+      ],
+      "properties": {}
+    },
+    "associationRole": {
+      "required": [],
+      "properties": {}
+    },
+    "associationState": {
+      "required": [],
+      "properties": {}
+    },
+    "remoteAssociationState": {
+      "required": [],
+      "properties": {}
+    },
+    "AssociationProperties": {
+      "required": [
+        "role",
+        "state"
+      ],
+      "properties": {
+        "role": "associationRole",
+        "state": "associationState",
+        "remoteState": "remoteAssociationState",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "resultState": {
+      "required": [],
+      "properties": {}
+    },
+    "passState": {
+      "required": [],
+      "properties": {}
+    },
+    "Document": {
+      "required": [
+        "documentId",
+        "documentName",
+        "documentType"
+      ],
+      "properties": {
+        "documentType": "documentType"
+      }
+    },
+    "Result": {
+      "required": [
+        "resultDateTime",
+        "state"
+      ],
+      "properties": {
+        "state": "resultState",
+        "pass": "passState",
+        "assessorId": "Identifier",
+        "assessor": "Person",
+        "documents": "Document",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "CourseOfferingAssociationResult": {
+      "required": [
+        "resultDateTime",
+        "state",
+        "studyLoad"
+      ],
+      "properties": {
+        "studyLoad": "StudyLoadDescriptor",
+        "state": "resultState",
+        "pass": "passState",
+        "assessorId": "Identifier",
+        "assessor": "Person",
+        "documents": "Document",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "CourseOfferingAssociationExternalMe": {
+      "required": [
+        "associationId",
+        "role",
+        "state"
+      ],
+      "properties": {
+        "studyLoad": "StudyLoadDescriptor",
+        "result": "CourseOfferingAssociationResult",
+        "courseOfferingId": "Identifier",
+        "courseOffering": "CourseOffering",
+        "role": "associationRole",
+        "state": "associationState",
+        "remoteState": "remoteAssociationState",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "PostResponse": {
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": "LanguageTypedString"
+      }
+    },
+    "groupType": {
+      "required": [],
+      "properties": {}
+    },
+    "GroupId": {
+      "required": [
+        "groupId"
+      ],
+      "properties": {}
+    },
+    "courseOfferingId": {
+      "required": [],
+      "properties": {}
+    },
+    "programmeOfferingId": {
+      "required": [],
+      "properties": {}
+    },
+    "learningComponentOfferingId": {
+      "required": [],
+      "properties": {}
+    },
+    "testComponentOfferingId": {
+      "required": [],
+      "properties": {}
+    },
+    "TimelineOverrideCourse": {
+      "required": [
+        "course",
+        "validFrom"
+      ],
+      "properties": {
+        "course": "CourseProperties"
+      }
+    },
+    "CourseExpanded": {
+      "required": [
+        "courseId",
+        "name",
+        "primaryCode"
+      ],
+      "properties": {
+        "timelineOverrides": "TimelineOverrideCourse"
+      }
+    },
+    "membershipState": {
+      "required": [],
+      "properties": {}
+    },
+    "membershipRole": {
+      "required": [],
+      "properties": {}
+    },
+    "LearningComponentOfferingAssociationResult": {
+      "required": [
+        "resultDateTime",
+        "state"
+      ],
+      "properties": {
+        "state": "resultState",
+        "pass": "passState",
+        "assessorId": "Identifier",
+        "assessor": "Person",
+        "documents": "Document",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "associationAttendance": {
+      "required": [],
+      "properties": {}
+    },
+    "ProgrammeOfferingAssociationResult": {
+      "required": [
+        "resultDateTime",
+        "state",
+        "studyLoad"
+      ],
+      "properties": {
+        "studyLoad": "StudyLoadDescriptor",
+        "state": "resultState",
+        "pass": "passState",
+        "assessorId": "Identifier",
+        "assessor": "Person",
+        "documents": "Document",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "ProgrammeOfferingAssociationExternalMe": {
+      "required": [
+        "associationId",
+        "role",
+        "state"
+      ],
+      "properties": {
+        "result": "ProgrammeOfferingAssociationResult",
+        "programmeOfferingId": "Identifier",
+        "programmeOffering": "ProgrammeOffering",
+        "role": "associationRole",
+        "state": "associationState",
+        "remoteState": "remoteAssociationState",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "personalNeed": {
+      "required": [],
+      "properties": {}
+    },
+    "TestComponentOfferingAssociationResult": {
+      "required": [
+        "resultDateTime",
+        "state"
+      ],
+      "properties": {
+        "state": "resultState",
+        "pass": "passState",
+        "assessorId": "Identifier",
+        "assessor": "Person",
+        "documents": "Document",
+        "consumer": "Consumer",
+        "ext": "Ext"
+      }
+    },
+    "attemptState": {
+      "required": [],
+      "properties": {}
+    },
+    "attendance": {
+      "required": [],
+      "properties": {}
+    },
+    "TimelineOverrideProgramme": {
+      "required": [
+        "programme",
+        "validFrom"
+      ],
+      "properties": {
+        "programme": "ProgrammeProperties"
+      }
+    },
+    "ProgrammeExpanded": {
+      "required": [
+        "name",
+        "primaryCode",
+        "programmeId",
+        "programmeType"
+      ],
+      "properties": {
+        "timelineOverrides": "TimelineOverrideProgramme"
+      }
+    },
+    "Url": {
+      "required": [],
+      "properties": {}
+    },
+    "TestComponentOfferingAssociationAttemptFull": {
+      "required": [
+        "attemptId"
+      ],
+      "properties": {
+        "state": "attemptState",
+        "roomIds": "Identifier",
+        "rooms": "Room",
+        "attendance": "attendance",
+        "coordinatorId": "Identifier",
+        "coordinator": "Person",
+        "documents": "Document",
+        "result": "Result",
+        "consumer": "Consumer"
+      }
+    }
+  }
+}

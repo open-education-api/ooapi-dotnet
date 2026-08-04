@@ -1,0 +1,308 @@
+@startuml database-schema
+!theme plain
+title OOAPI Reference Implementation - Persisted Database Schema (EF Core entities)
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+hide empty members
+
+note as N1
+  Generated from src/OEAPI.Infrastructure/Data/Entities/*.cs. An ER-diagram view of the actual
+  database, not the API contract (see api-model.puml for that). Solid arrows are foreign-key-
+  backed 1:N relationships; dashed arrows are many-to-many navigation collections (EF-managed
+  join tables, no explicit join entity in this codebase). Every entity except OtherCodeEntity
+  inherits Id/CreatedAt/ModifiedAt/IsActive from BaseEntity (an unmapped C# base class, not a
+  table - see the "Extensible enums"-adjacent note in docs/archive/DECISIONS-AND-ACTIONS.md for
+  why BaseEntity was extracted) and owns a 1:N OtherCodeEntity collection via IHasOtherCodes -
+  both omitted below as arrows to avoid ~40 near-duplicate lines; shown once, from BaseEntity/
+  OtherCodeEntity themselves. Regenerate via docs/diagrams/render.ps1 or render.sh after changing
+  the source .cs files.
+end note
+
+abstract class BaseEntity {
+  Id : Guid
+  CreatedAt : DateTime
+  ModifiedAt : DateTime?
+  IsActive : bool
+}
+
+class OtherCodeEntity {
+  CodeType : string
+  Code : string
+}
+
+note right of OtherCodeEntity
+  Owned 1:N collection on every entity below
+  that implements IHasOtherCodes (all except
+  BaseEntity itself and
+  TestComponentOfferingAssociationAttemptEntity).
+end note
+
+package "Core / Organisational" {
+  class OrganisationEntity {
+    OrganisationId : string
+    PrimaryCodeType / PrimaryCode
+    OrganisationType : string
+    NameJson
+  }
+  class PersonEntity {
+    PersonId : string
+    PrimaryCodeType / PrimaryCode
+    GivenName / Surname
+    Gender : string?
+  }
+  class GroupEntity {
+    GroupId : string
+    PrimaryCodeType / PrimaryCode
+    GroupType : string
+    NameJson
+  }
+  class MembershipEntity {
+    MembershipIdValue : string
+    PrimaryCodeType / PrimaryCode
+    Role / State : string?
+  }
+  class AcademicSessionEntity {
+    AcademicSessionId : string
+    PrimaryCodeType / PrimaryCode
+    AcademicSessionType : string
+    NameJson
+  }
+  class BuildingEntity {
+    BuildingId : string
+    PrimaryCodeType / PrimaryCode
+    NameJson
+  }
+  class RoomEntity {
+    RoomId : string
+    PrimaryCodeType / PrimaryCode
+    RoomType : string
+    NameJson
+  }
+  class AddressEntity {
+    PrimaryCodeType / PrimaryCode
+    AddressType : string
+    Street / City / Country
+  }
+}
+
+package "Curriculum" {
+  class CourseEntity {
+    CourseId : string
+    PrimaryCodeType / PrimaryCode
+    NameJson
+    Level : string?
+  }
+  class ProgrammeEntity {
+    ProgrammeId : string
+    PrimaryCodeType / PrimaryCode
+    ProgrammeType : string?
+    NameJson
+  }
+  class LearningComponentEntity {
+    ComponentId : string
+    PrimaryCodeType / PrimaryCode
+    ComponentType : string
+    NameJson
+  }
+  class TestComponentEntity {
+    ComponentId : string
+    PrimaryCodeType / PrimaryCode
+    ComponentType : string
+    NameJson
+  }
+  class LearningOutcomeEntity {
+    LearningOutcomeId : string
+    PrimaryCodeType / PrimaryCode
+    NameJson
+  }
+  class DocumentEntity {
+    DocumentId : string
+    PrimaryCodeType / PrimaryCode
+    DocumentType : string
+    Name : string?
+  }
+}
+
+package "Offerings" {
+  class CourseOfferingEntity {
+    CourseOfferingId : string
+    PrimaryCodeType / PrimaryCode
+    NameJson
+    State / RosteringState
+  }
+  class ProgrammeOfferingEntity {
+    ProgrammeOfferingIdValue : string
+    PrimaryCodeType / PrimaryCode
+    NameJson
+    State / RosteringState
+  }
+  class LearningComponentOfferingEntity {
+    LearningComponentOfferingIdValue : string
+    PrimaryCodeType / PrimaryCode
+    NameJson
+    State / RosteringState
+  }
+  class TestComponentOfferingEntity {
+    TestComponentOfferingIdValue : string
+    PrimaryCodeType / PrimaryCode
+    NameJson
+    State / RosteringState
+  }
+}
+
+package "Associations" {
+  class CourseOfferingAssociationEntity {
+    CourseOfferingAssociationIdValue : string
+    PrimaryCodeType / PrimaryCode
+    Role / State / RemoteState
+  }
+  class ProgrammeOfferingAssociationEntity {
+    ProgrammeOfferingAssociationIdValue : string
+    PrimaryCodeType / PrimaryCode
+    Role / State / RemoteState
+  }
+  class LearningComponentOfferingAssociationEntity {
+    LearningComponentOfferingAssociationIdValue : string
+    PrimaryCodeType / PrimaryCode
+    Role / State / RemoteState / Attendance
+  }
+  class TestComponentOfferingAssociationEntity {
+    TestComponentOfferingAssociationIdValue : string
+    PrimaryCodeType / PrimaryCode
+    Role / State / RemoteState / Attendance
+  }
+  class TestComponentOfferingAssociationAttemptEntity {
+    AttemptIdValue : string
+    Opportunity / Attempt
+    State / Attendance
+  }
+}
+
+package "Timeline Overrides" {
+  class TimelineOverrideCourseEntity {
+    ValidFrom / ValidTo : DateTime
+    PrimaryCodeType / PrimaryCode
+    NameJson
+  }
+  class TimelineOverrideProgrammeEntity {
+    ValidFrom / ValidTo : DateTime
+    PrimaryCodeType / PrimaryCode
+    ProgrammeType : string
+    NameJson
+  }
+}
+
+note bottom of TimelineOverrideProgrammeEntity
+  Each override entity owns its own independent
+  Organisation/Coordinators/Instructors/etc.
+  relationships - never shared with the parent
+  Course/Programme or with any other override entry.
+end note
+
+BaseEntity <|-- OrganisationEntity
+BaseEntity <|-- PersonEntity
+BaseEntity <|-- GroupEntity
+BaseEntity <|-- MembershipEntity
+BaseEntity <|-- AcademicSessionEntity
+BaseEntity <|-- BuildingEntity
+BaseEntity <|-- RoomEntity
+BaseEntity <|-- AddressEntity
+BaseEntity <|-- CourseEntity
+BaseEntity <|-- ProgrammeEntity
+BaseEntity <|-- LearningComponentEntity
+BaseEntity <|-- TestComponentEntity
+BaseEntity <|-- LearningOutcomeEntity
+BaseEntity <|-- DocumentEntity
+BaseEntity <|-- CourseOfferingEntity
+BaseEntity <|-- ProgrammeOfferingEntity
+BaseEntity <|-- LearningComponentOfferingEntity
+BaseEntity <|-- TestComponentOfferingEntity
+BaseEntity <|-- CourseOfferingAssociationEntity
+BaseEntity <|-- ProgrammeOfferingAssociationEntity
+BaseEntity <|-- LearningComponentOfferingAssociationEntity
+BaseEntity <|-- TestComponentOfferingAssociationEntity
+BaseEntity <|-- TestComponentOfferingAssociationAttemptEntity
+BaseEntity <|-- TimelineOverrideCourseEntity
+BaseEntity <|-- TimelineOverrideProgrammeEntity
+
+' ---- Foreign-key-backed 1:N relationships ----
+OrganisationEntity "0..*" --> "0..1" OrganisationEntity : Parent
+OrganisationEntity "0..*" --> "0..1" OrganisationEntity : Root
+GroupEntity --> OrganisationEntity : Organisation
+GroupEntity --> AcademicSessionEntity : AcademicSession
+MembershipEntity --> GroupEntity : Group
+MembershipEntity --> PersonEntity : Person
+AcademicSessionEntity "0..*" --> "0..1" AcademicSessionEntity : Parent
+AcademicSessionEntity "0..*" --> "0..1" AcademicSessionEntity : Year
+RoomEntity --> BuildingEntity : Building
+BuildingEntity --> AddressEntity : Address
+CourseEntity --> OrganisationEntity : Organisation
+ProgrammeEntity --> OrganisationEntity : Organisation
+ProgrammeEntity "0..*" --> "0..1" ProgrammeEntity : Parent
+LearningComponentEntity --> CourseEntity : Course
+LearningComponentEntity --> OrganisationEntity : Organisation
+LearningComponentEntity "0..*" --> "0..1" LearningComponentEntity : Parent
+TestComponentEntity --> CourseEntity : Course
+TestComponentEntity --> OrganisationEntity : Organisation
+TestComponentEntity "0..*" --> "0..1" TestComponentEntity : Parent
+LearningOutcomeEntity --> OrganisationEntity : Organisation
+DocumentEntity --> OrganisationEntity : Organisation
+CourseOfferingEntity --> CourseEntity : Course
+CourseOfferingEntity --> OrganisationEntity : Organisation
+CourseOfferingEntity --> AcademicSessionEntity : AcademicSession
+CourseOfferingEntity "1" --> "0..*" ProgrammeOfferingEntity : ProgrammeOfferings
+ProgrammeOfferingEntity --> ProgrammeEntity : Programme
+ProgrammeOfferingEntity --> OrganisationEntity : Organisation
+ProgrammeOfferingEntity --> AcademicSessionEntity : AcademicSession
+LearningComponentOfferingEntity --> LearningComponentEntity : LearningComponent
+LearningComponentOfferingEntity --> OrganisationEntity : Organisation
+LearningComponentOfferingEntity --> AcademicSessionEntity : AcademicSession
+TestComponentOfferingEntity --> CourseEntity : Course
+TestComponentOfferingEntity --> TestComponentEntity : TestComponent
+TestComponentOfferingEntity --> OrganisationEntity : Organisation
+TestComponentOfferingEntity --> AcademicSessionEntity : AcademicSession
+CourseOfferingAssociationEntity --> CourseOfferingEntity : CourseOffering
+CourseOfferingAssociationEntity --> PersonEntity : Person
+CourseOfferingAssociationEntity --> OrganisationEntity : Organisation
+LearningComponentOfferingAssociationEntity --> LearningComponentOfferingEntity : LearningComponentOffering
+LearningComponentOfferingAssociationEntity --> PersonEntity : Person
+LearningComponentOfferingAssociationEntity --> OrganisationEntity : Organisation
+ProgrammeOfferingAssociationEntity --> ProgrammeOfferingEntity : ProgrammeOffering
+ProgrammeOfferingAssociationEntity --> PersonEntity : Person
+ProgrammeOfferingAssociationEntity --> OrganisationEntity : Organisation
+TestComponentOfferingAssociationEntity --> TestComponentOfferingEntity : TestComponentOffering
+TestComponentOfferingAssociationEntity --> PersonEntity : Person
+TestComponentOfferingAssociationEntity --> OrganisationEntity : Organisation
+TestComponentOfferingAssociationAttemptEntity --> TestComponentOfferingAssociationEntity : TestComponentOfferingAssociation
+TestComponentOfferingAssociationAttemptEntity --> CourseOfferingAssociationEntity : CourseOfferingAssociation
+TestComponentOfferingAssociationAttemptEntity --> PersonEntity : Coordinator
+TimelineOverrideCourseEntity --> CourseEntity : Course
+TimelineOverrideCourseEntity --> OrganisationEntity : Organisation
+TimelineOverrideProgrammeEntity --> ProgrammeEntity : Programme
+TimelineOverrideProgrammeEntity --> OrganisationEntity : Organisation
+TimelineOverrideProgrammeEntity --> ProgrammeEntity : Parent
+
+' ---- Many-to-many navigation collections (no explicit join entity) ----
+CourseEntity "0..*" ..> "0..*" ProgrammeEntity : ProgrammeEntities / Courses
+CourseEntity "0..*" ..> "0..*" PersonEntity : CourseCoordinatorEntities / CourseInstructorEntities
+ProgrammeEntity "0..*" ..> "0..*" PersonEntity : Coordinators / Instructors
+CourseEntity "0..*" ..> "0..*" LearningOutcomeEntity : LearningOutcomes
+LearningComponentEntity "0..*" ..> "0..*" LearningOutcomeEntity : LearningOutcomes
+TestComponentEntity "0..*" ..> "0..*" LearningOutcomeEntity : LearningOutcomes
+LearningOutcomeEntity "0..*" ..> "0..*" LearningOutcomeEntity : Parents / Children
+CourseOfferingEntity "0..*" ..> "0..*" GroupEntity : Groups
+ProgrammeOfferingEntity "0..*" ..> "0..*" GroupEntity : Groups
+LearningComponentOfferingEntity "0..*" ..> "0..*" GroupEntity : Groups
+TestComponentOfferingEntity "0..*" ..> "0..*" GroupEntity : Groups
+LearningComponentOfferingEntity "0..*" ..> "0..*" RoomEntity : Rooms
+TestComponentOfferingEntity "0..*" ..> "0..*" RoomEntity : Rooms
+TestComponentOfferingAssociationAttemptEntity "0..*" ..> "0..*" RoomEntity : Rooms
+LearningComponentOfferingEntity "0..*" ..> "0..*" CourseOfferingEntity : CourseOfferings
+TestComponentOfferingEntity "0..*" ..> "0..*" CourseOfferingEntity : CourseOfferings
+TimelineOverrideCourseEntity "0..*" ..> "0..*" PersonEntity : Coordinators / Instructors
+TimelineOverrideCourseEntity "0..*" ..> "0..*" ProgrammeEntity : Programmes
+TimelineOverrideCourseEntity "0..*" ..> "0..*" LearningOutcomeEntity : LearningOutcomes
+TimelineOverrideProgrammeEntity "0..*" ..> "0..*" PersonEntity : Coordinators / Instructors
+TimelineOverrideProgrammeEntity "0..*" ..> "0..*" ProgrammeEntity : Children
+
+@enduml
